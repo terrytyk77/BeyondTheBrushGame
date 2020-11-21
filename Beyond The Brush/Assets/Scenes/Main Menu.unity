@@ -959,7 +959,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1423370414}
-  - component: {fileID: 1423370415}
   m_Layer: 0
   m_Name: '[ Code - Networking ]'
   m_TagString: Untagged
@@ -981,19 +980,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1423370415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1423370413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9dd7846f1f1c47408ad5e8c8224ac0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  url: localhost:3000
 --- !u!1 &1735561043
 GameObject:
   m_ObjectHideFlags: 0
