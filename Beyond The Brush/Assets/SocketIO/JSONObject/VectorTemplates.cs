@@ -186,7 +186,8 @@ public static partial class JSONTemplates {
 		}
 		return r;
 	}
-	
+
+	[System.Obsolete]
 	public static AnimationCurve ToAnimationCurve(JSONObject obj){
 		AnimationCurve a = new AnimationCurve();
 		if(obj.HasField("keys")){
@@ -201,7 +202,8 @@ public static partial class JSONTemplates {
 			a.postWrapMode = (WrapMode)((int)obj.GetField("postWrapMode").n);
 		return a;
 	}
-	
+
+	[System.Obsolete]
 	public static JSONObject FromAnimationCurve(AnimationCurve a){
 		JSONObject result = JSONObject.obj;
 		result.AddField("preWrapMode", a.preWrapMode.ToString()); 
@@ -215,7 +217,8 @@ public static partial class JSONTemplates {
 		}
 		return result;
 	}
-	
+
+	[System.Obsolete]
 	public static Keyframe ToKeyframe(JSONObject obj){
 		Keyframe k = new Keyframe(obj.HasField("time")? obj.GetField("time").n : 0, obj.HasField("value")? obj.GetField("value").n : 0);
 		if(obj.HasField("inTangent")) k.inTangent = obj.GetField("inTangent").n;
@@ -224,6 +227,8 @@ public static partial class JSONTemplates {
 		
 		return k;
 	}
+
+	[System.Obsolete]
 	public static JSONObject FromKeyframe(Keyframe k){
 		JSONObject result = JSONObject.obj;
 		if(k.inTangent != 0)	result.AddField("inTangent", k.inTangent);
