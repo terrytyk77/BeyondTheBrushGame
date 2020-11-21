@@ -1,42 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
+using SocketIO;
 
-public class NetworkClient : MonoBehaviour
+public class NetworkClient : SocketIOComponent
 {
-    public string url;
-
-    void Start()
+    // Start is called before the first frame update
+    public override void Start()
     {
-        StartCoroutine(Get(url));
+        // Call initial Start() function of socket io
+        base.Start();
+        // Override -- code executed after base start is loaded
+        setupEvents();
     }
 
-    public IEnumerator Get(string url)
+    // Update is called once per frame
+    public override void Update()
     {
-        using (UnityWebRequest www = UnityWebRequest.Get(url))
+        // Call initial Update() function of socket io
+        base.Update();
+        // Override -- code executed after base update is loaded
+    
+    }
+
+    private void setupEvents()
+    {
+        On("open", (Event) =>
         {
-            yield return www.SendWebRequest();
-
-            if (www.isNetworkError)
-            {
-                Debug.Log(www.error);
-            }
-            else
-            {
-                if (www.isDone)
-                {
-                    // handle the result
-                    var result = System.Text.Encoding.UTF8.GetString(www.downloadHandler.data);
-                    Debug.Log(result);
-                }
-                else
-                {
-                    //handle the problem
-                    Debug.Log("Error! data couldn't get.");
-                }
-            }
-        }
-
+            Debug.Log("Connection made to the server!");
+        });
     }
 }
