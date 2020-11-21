@@ -993,7 +993,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9dd7846f1f1c47408ad5e8c8224ac0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: localhost:3000
+  url: ws://127.0.0.1:52300/socket.io/?EIO=4&transport=websocket
+  autoConnect: 1
+  reconnectDelay: 5
+  ackExpirationTime: 1800
+  pingInterval: 25
+  pingTimeout: 60
 --- !u!1 &1735561043
 GameObject:
   m_ObjectHideFlags: 0
