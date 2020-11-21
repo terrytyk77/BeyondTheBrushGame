@@ -119,12 +119,12 @@ namespace SocketIO
 			#endif
 		}
 
-		public void Start()
+		public virtual void Start()
 		{
 			if (autoConnect) { Connect(); }
 		}
 
-		public void Update()
+		public virtual void Update()
 		{
 			lock(eventQueueLock){ 
 				while(eventQueue.Count > 0){
