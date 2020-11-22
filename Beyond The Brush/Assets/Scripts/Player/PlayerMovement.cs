@@ -30,29 +30,31 @@ public class PlayerMovement : MonoBehaviour
         //New force
         Vector2 newForce = new Vector2(0, 0);
 
-        if (Input.GetKey("w") && !Input.GetKey("s"))
+        if (Input.GetKey("w"))
         {
             newForce.y = movementMagnitude;
-        }else if (Input.GetKey("s") && !Input.GetKey("w"))
+        }
+
+        if (Input.GetKey("s"))
         {
             newForce.y = -movementMagnitude;
         }
 
-
-        if (Input.GetKey("a") && !Input.GetKey("d"))
+        if (Input.GetKey("a"))
         {
             newForce.x = -movementMagnitude;
 
             //Change the image side
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
-        }else if (Input.GetKey("d") && !Input.GetKey("a"))
+        }
+
+        if (Input.GetKey("d"))
         {
             newForce.x = movementMagnitude;
 
             //Change the image side
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
-
 
         //Apply the force on the player's body
         playerBody.velocity = newForce;
