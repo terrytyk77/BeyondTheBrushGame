@@ -18,16 +18,46 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    // Fixed update is called 50 times per frame
     void FixedUpdate()
     {
+        //Get the player rigid body component
+        Rigidbody2D playerBody = gameObject.GetComponent<Rigidbody2D>();
 
-        float xMove = Input.GetAxis("Horizontal");
+        //Player movement magnitude
+        float movementMagnitude = playerSpeed;
 
-        if(xMove != 0)
+        //New force
+        Vector2 newForce = new Vector2(0, 0);
+
+        if (Input.GetKey("w"))
         {
-            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(xMove, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+            newForce.y = movementMagnitude;
         }
+
+        if (Input.GetKey("s"))
+        {
+            newForce.y = -movementMagnitude;
+        }
+
+        if (Input.GetKey("a"))
+        {
+            newForce.x = -movementMagnitude;
+
+            //Change the image side
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+
+        if (Input.GetKey("d"))
+        {
+            newForce.x = movementMagnitude;
+
+            //Change the image side
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        //Apply the force on the player's body
+        playerBody.velocity = newForce;
 
     }
 }
