@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 1125168270}
   - component: {fileID: 1125168273}
   - component: {fileID: 1125168274}
+  - component: {fileID: 1125168275}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -411,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
+  m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
@@ -437,13 +438,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1125168269}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fe6c8a8cc67caa4480ca72e4a110671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AdjustResolution: 1
   startingCameraSize: 6
+--- !u!114 &1125168275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125168269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eddb1b224ad3b4428239c2906ab580b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4537815901459844618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -457,11 +470,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4537815902374766609, guid: 59293c6003d88854886bc4ef04864036, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.755
+      value: -1.83
       objectReference: {fileID: 0}
     - target: {fileID: 4537815902374766609, guid: 59293c6003d88854886bc4ef04864036, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.080545485
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4537815902374766609, guid: 59293c6003d88854886bc4ef04864036, type: 3}
       propertyPath: m_LocalPosition.z

@@ -36,10 +36,7 @@ public class PlayerMovement : MonoBehaviour
         }else if (Input.GetKey("s") && !Input.GetKey("w"))
         {
             newForce.y = -movementMagnitude;
-        }
-
-
-        if (Input.GetKey("a") && !Input.GetKey("d"))
+        }else if (Input.GetKey("a") && !Input.GetKey("d"))
         {
             newForce.x = -movementMagnitude;
 
@@ -52,6 +49,9 @@ public class PlayerMovement : MonoBehaviour
             //Change the image side
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
+
+
+
 
 
         //Apply the force on the player's body
