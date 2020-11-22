@@ -7,8 +7,11 @@ public class CameraBehavior : MonoBehaviour
     //Variables||
 
         //player
-        GameObject player;
         public float cameraPercentageLimit = 0.7f;
+        public float cameraSpeed = 4f;
+
+        GameObject player;
+        private Vector3 cameraGoal;
     //_________||
 
 
@@ -23,6 +26,17 @@ public class CameraBehavior : MonoBehaviour
 
         //Set the camera starting position to the player pos
         gameObject.GetComponent<Transform>().position = new Vector3(playerPos.x, playerPos.y, gameObject.transform.position.z);
+
+        //Set the camera goal as the current camera position
+        cameraGoal = gameObject.GetComponent<Transform>().position;
+    }
+
+
+    private void UpdatedCameraGoal()
+    {
+        //Update the camera goal
+        Vector3 playerPos = player.GetComponent<Rigidbody2D>().position;
+        cameraGoal = new Vector3(playerPos.x, playerPos.y, cameraGoal.z);
     }
 
     // Update is called once per frame
@@ -33,37 +47,41 @@ public class CameraBehavior : MonoBehaviour
         Vector3 cameraPosition = mainC.GetComponent<Transform>().position;
 
         //Get player position
-        Vector2 playerPosition = player.GetComponent<Transform>().position;
+        Vector2 playerPosition = player.GetComponent<Rigidbody2D>().position;
 
         //Get the camera absolute sizes
         float height = 2f * mainC.orthographicSize;
         float width = height * mainC.aspect;
 
         //Camera offset
-        float heightOffset = height * cameraPercentageLimit + mainC.GetComponent<Transform>().position.y;
-        float widthOffset = width * cameraPercentageLimit + mainC.GetComponent<Transform>().position.x;
+        float heightOffset = height * cameraPercentageLimit;
+        float widthOffset = width * cameraPercentageLimit;
 
+        //Check the borders offsets
         if (playerPosition.y > cameraPosition.y + heightOffset / 2)
         {
-            //Got out on the topside
-
-        } else if (playerPosition.y < cameraPosition.y - heightOffset / 2)
-        //Got out on the botside
-
+            UpdatedCameraGoal();
+        } 
+        else if (playerPosition.y < cameraPosition.y - heightOffset / 2)
         {
-
-        } else if (playerPosition.x > cameraPosition.x + widthOffset / 2){
-            //Got out on the right side
-
-        
-
-        }else if (playerPosition.x < cameraPosition.x - widthOffset/2)
+            UpdatedCameraGoal();
+        } 
+        else if (playerPosition.x > cameraPosition.x + widthOffset / 2)
         {
-            //Got out on the left side
-
+            UpdatedCameraGoal();
+        }
+        else if (playerPosition.x < cameraPosition.x - widthOffset/2)
+        {
+            UpdatedCameraGoal();
         }
 
+        if (cameraGoal != cameraPosition)
+        {
 
+            //Set the camera goal
+            Camera.main.GetComponent<Transform>().position = Vector3.Lerp(cameraPosition, cameraGoal, cameraSpeed * Time.fixedDeltaTime);
+
+        }
 
 
 

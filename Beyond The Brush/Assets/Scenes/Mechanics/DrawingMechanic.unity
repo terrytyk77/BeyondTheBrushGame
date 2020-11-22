@@ -334,6 +334,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2496172875764112580, guid: 70a88731372887e46bcea087aba02455, type: 3}
+      propertyPath: patterns.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2496172875764112580, guid: 70a88731372887e46bcea087aba02455, type: 3}
+      propertyPath: patterns.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8077c17fbb167a1478a6b49e717faef1, type: 2}
     - target: {fileID: 2496172875764112581, guid: 70a88731372887e46bcea087aba02455, type: 3}
       propertyPath: m_Name
       value: Recognizer
