@@ -435,6 +435,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5151581451941425857, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
+      propertyPath: LineJoins
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151581451941425857, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
+      propertyPath: m_Color.a
+      value: 0.7607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151581451941425857, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
+      propertyPath: m_Color.b
+      value: 0.1254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151581451941425857, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
+      propertyPath: m_Color.g
+      value: 0.1254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151581451941425857, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
+      propertyPath: m_Color.r
+      value: 0.1254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151581451941425857, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151581451941425857, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: aace10a574875e04e8789c3d13974f62, type: 2}
     - target: {fileID: 5151581451991004038, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
       propertyPath: recognizer
       value: 
