@@ -1,0 +1,526 @@
+fileFormatVersion: 2
+guid: b21f714db23b36d459bdc65de819e724
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    isReadable: 0
+    streamingMipmaps: 1
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    ignorePngGamma: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  spriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 0, y: 0}
+  mosaicSpriteImportData: []
+  rigSpriteImportData:
+  - name: Hat
+    originalName: 
+    pivot: {x: 0.5, y: 1}
+    alignment: 2
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 1917
+      height: 2060
+    spriteID: 55fd872dcd60a8547ab04dc8991f772f
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -14, y: -1562}
+  - name: Hair/Mustache/Beard
+    originalName: 
+    pivot: {x: 0.5, y: 1}
+    alignment: 2
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2072
+      width: 1680
+      height: 1241
+    spriteID: 9a388bfee70707d4a97435ead5036b11
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -2216, y: -113}
+  - name: Body_clothes
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2826
+      y: 4
+      width: 911
+      height: 811
+    spriteID: a9a6bd1cbe14f1941b7fac364fb2026f
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 13, y: -249}
+  - name: Right_Arm_clothes
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3144
+      y: 823
+      width: 305
+      height: 386
+    spriteID: 2a9f111e78e00ce4cacef35a65f8301a
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -1222, y: -951}
+  - name: Left_Arm_clothes
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2826
+      y: 823
+      width: 310
+      height: 386
+    spriteID: 2feb110a18352af48bc866b69205acc4
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -2371, y: -951}
+  - name: Right_Hand_clothes
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3745
+      y: 325
+      width: 313
+      height: 311
+    spriteID: 05ad6ff4e714c1d4789840b31919040e
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -617, y: -653}
+  - name: Left_Hand_clothes
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3745
+      y: 4
+      width: 313
+      height: 313
+    spriteID: d977fdb020bdaea45b673024b58e4f64
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -1450, y: -973}
+  - name: Right_Shoes
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3538
+      y: 2084
+      width: 341
+      height: 366
+    spriteID: 9eb2d80ff22c0de4898357a4b6c38efe
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -810, y: 1967}
+  - name: Left_Shoes
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3577
+      y: 1446
+      width: 341
+      height: 366
+    spriteID: 2d308e85ef29e2f4395462f7333d84cc
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -1604, y: 1329}
+  - name: Sword
+    originalName: 
+    pivot: {x: 0, y: 0.5}
+    alignment: 4
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1929
+      y: 2084
+      width: 1601
+      height: 456
+    spriteID: b5d128f6d5d9cbf4f8056a1df6d1988e
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -2222, y: -338}
+  - name: Shiled
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1929
+      y: 2548
+      width: 703
+      height: 811
+    spriteID: bd7945126f946fa46a4e8451cf23d212
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1929, y: 1820}
+  - name: Ghost
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1929
+      y: 4
+      width: 889
+      height: 1434
+    spriteID: 73d46d02e56346e45991bc23840057e7
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 772, y: 4}
+  - name: Slash
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 3321
+      width: 1640
+      height: 630
+    spriteID: 9c9d40e8430731a488ad5417614288d3
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -4111, y: 361}
+  - name: Slash_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1929
+      y: 1446
+      width: 1640
+      height: 630
+    spriteID: c840bd1deca9577489054e4d5444bf6e
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -2186, y: -2231}
+  platformSettings: []
+  mosaicLayers: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 0
+  importHiddenLayers: 0
+  importedTextureWidth: 2048
+  importedTextureHeight: 2048
+  documentSize: {x: 5755, y: 4307}
+  paperDollMode: 0
+  keepDupilcateSpriteName: 0
+  spriteCategoryList:
+    categories: []
+  textureActualWidth: 4096
+  textureActualHeight: 4096
+  spritePackingTag: 
+  resliceFromLayer: 0
+  characterMode: 1
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: Hat
+    spriteName: Hat
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 55fd872dcd60a8547ab04dc8991f772f
+    layerID: 119
+    mosaicPosition: {x: 4, y: 4}
+  - name: Hair/Mustache/Beard
+    spriteName: Hair/Mustache/Beard
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 9a388bfee70707d4a97435ead5036b11
+    layerID: 102
+    mosaicPosition: {x: 4, y: 2072}
+  - name: Body_clothes
+    spriteName: Body_clothes
+    isGroup: 0
+    parentIndex: -1
+    spriteID: a9a6bd1cbe14f1941b7fac364fb2026f
+    layerID: 94
+    mosaicPosition: {x: 2826, y: 4}
+  - name: Right_Arm_clothes
+    spriteName: Right_Arm_clothes
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 2a9f111e78e00ce4cacef35a65f8301a
+    layerID: 78
+    mosaicPosition: {x: 3144, y: 823}
+  - name: Left_Arm_clothes
+    spriteName: Left_Arm_clothes
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 2feb110a18352af48bc866b69205acc4
+    layerID: 72
+    mosaicPosition: {x: 2826, y: 823}
+  - name: Right_Hand_clothes
+    spriteName: Right_Hand_clothes
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 05ad6ff4e714c1d4789840b31919040e
+    layerID: 66
+    mosaicPosition: {x: 3745, y: 325}
+  - name: Left_Hand_clothes
+    spriteName: Left_Hand_clothes
+    isGroup: 0
+    parentIndex: -1
+    spriteID: d977fdb020bdaea45b673024b58e4f64
+    layerID: 63
+    mosaicPosition: {x: 3745, y: 4}
+  - name: Right_Shoes
+    spriteName: Right_Shoes
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 9eb2d80ff22c0de4898357a4b6c38efe
+    layerID: 60
+    mosaicPosition: {x: 3538, y: 2084}
+  - name: Left_Shoes
+    spriteName: Left_Shoes
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 2d308e85ef29e2f4395462f7333d84cc
+    layerID: 57
+    mosaicPosition: {x: 3577, y: 1446}
+  - name: Sword
+    spriteName: Sword
+    isGroup: 0
+    parentIndex: -1
+    spriteID: b5d128f6d5d9cbf4f8056a1df6d1988e
+    layerID: 54
+    mosaicPosition: {x: 1929, y: 2084}
+  - name: Shiled
+    spriteName: Shiled
+    isGroup: 0
+    parentIndex: -1
+    spriteID: bd7945126f946fa46a4e8451cf23d212
+    layerID: 14
+    mosaicPosition: {x: 1929, y: 2548}
+  - name: Ghost
+    spriteName: Ghost
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 73d46d02e56346e45991bc23840057e7
+    layerID: 8
+    mosaicPosition: {x: 1929, y: 4}
+  - name: Slash
+    spriteName: Slash
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 9c9d40e8430731a488ad5417614288d3
+    layerID: 6
+    mosaicPosition: {x: 4, y: 3321}
+  - name: Slash_2
+    spriteName: Slash_2
+    isGroup: 0
+    parentIndex: -1
+    spriteID: c840bd1deca9577489054e4d5444bf6e
+    layerID: 3
+    mosaicPosition: {x: 1929, y: 1446}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+  generateGOHierarchy: 0
+  textureAssetName: Warrior_front_armor2 Texture
+  prefabAssetName: Warrior_front_armor2 Prefab
+  spriteLibAssetName: Warrior_front_armor2 Sprite Lib
+  secondarySpriteTextures: []
