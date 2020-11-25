@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
         Rigidbody2D playerBody;
         GameObject playerVertical;
         GameObject playerHorizontal;
+        bool HorVerSide = false;
     //_________||
 
 
@@ -38,32 +39,43 @@ public class PlayerMovement : MonoBehaviour
         {
             playerVerticalPerspective();
             newForce.y = movementMagnitude;
+            HorVerSide = false;
 
-        }else if (Input.GetKey("s") && !Input.GetKey("w"))
+        }
+        else if (Input.GetKey("s") && !Input.GetKey("w"))
         {
             playerVerticalPerspective();
             newForce.y = -movementMagnitude;
-        }else if (Input.GetKey("a") && !Input.GetKey("d"))
+            HorVerSide = false;
+        }
+        else if (Input.GetKey("a") && !Input.GetKey("d"))
         {
             playerHorizontalPerspective();
             newForce.x = -movementMagnitude;
-            playerHorizontal.transform.rotation = new Quaternion(0,180,0,1);
+            HorVerSide = true;
 
             //Change the image side
-           
-        }else if (Input.GetKey("d") && !Input.GetKey("a"))
+            playerHorizontal.transform.rotation = new Quaternion(0, 180, 0, 1);
+        }
+        else if (Input.GetKey("d") && !Input.GetKey("a"))
         {
             playerHorizontalPerspective();
             newForce.x = movementMagnitude;
-            playerHorizontal.transform.rotation = new Quaternion(0, 0, 0, 1);
+            HorVerSide = true;
 
             //Change the image side
-
+            playerHorizontal.transform.rotation = new Quaternion(0, 0, 0, 1);
         }
         else
         {
-            playerHorizontal.GetComponent<Animator>().SetBool("Moving", false);
-            playerVertical.GetComponent<Animator>().SetBool("Moving", false);
+            if (HorVerSide)
+            {
+                playerHorizontal.GetComponent<Animator>().SetBool("Moving", false);
+            }
+            else
+            {
+                playerVertical.GetComponent<Animator>().SetBool("Moving", false);
+            }
         }
 
         //Apply the force on the player's body
