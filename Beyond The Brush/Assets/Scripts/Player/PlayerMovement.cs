@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerVertical  = transform.Find("Vertical").gameObject;
         playerHorizontal = transform.Find("Horizontal").gameObject;
+        playerVerticalPerspective();
     }
 
     // Fixed update is called 50 times per frame
