@@ -2,53 +2,82 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ButtonEvents : MonoBehaviour
 {
+    //Variables||
+        
+        //UI windows
+        public GameObject confirmationWindow;
+        public GameObject loginForm;
+        public GameObject signupForm;
+        public GameObject loadingScreen;
 
-    private int MainGame = 0;
+        public GameObject background;
+        public GameObject loadingBar;
+
+        public GameObject createAccountLabel;
+
+        //The current index for the game build
+    public int MainGame = 0;
+    //_________||
+
 
     public void OpenNotification()
     {
-            //This is gonna show up the confirmation box
-            gameObject.SetActive(!gameObject.active);
+        //This is gonna show up the confirmation box
+        confirmationWindow.SetActive(!confirmationWindow.active);
     }
 
     public void StartOffline()
     {
-        //Get the loading screen
-        GameObject loadingScreen = GameObject.FindGameObjectWithTag("LoadingScreen");
+        //Start the scene loading
+        StartCoroutine("LoadAsync");
+    }
 
-        if (loadingScreen != null)
-            //Start Loading the Scene
-            StartCoroutine(LoadAsync(loadingScreen));
+    public void ChangeCurrentWindow()
+    {
+        //Get the current window state
+        bool onLogin = loginForm.active;
+
+        if (onLogin)
+        {
+            //In case the user is on the login window
+            loginForm.SetActive(false);
+            signupForm.SetActive(true);
+
+            createAccountLabel.GetComponent<Text>().text = "Already have an account?";
+        }
         else
-            Debug.Log("Error! Scene not found");
-       
-        
+        {
+            //In case the user is on the signup window
+            loginForm.SetActive(true);
+            signupForm.SetActive(false);
+
+            createAccountLabel.GetComponent<Text>().text = "Create Account";
+        }
+
     }
 
     public void CancelOffline()
     {
         //This closes the window
-        gameObject.SetActive(false);
+        confirmationWindow.SetActive(false);
     }
 
-    IEnumerator LoadAsync(GameObject loadingScreen)
+    IEnumerator LoadAsync()
     {
-
-        //Getting the loading bar
-        GameObject background = loadingScreen.GetComponent<Transform>().GetChild(0).gameObject;
-        GameObject loadingBar = loadingScreen.GetComponent<Transform>().GetChild(0).GetChild(0).gameObject;
-
         //Add some sort of transition
 
-
         //Turn the loading screen on
-        background.SetActive(true);
+        loadingScreen.SetActive(true);
+        loadingBar.SetActive(true);
 
         //Just wait
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
+
+
 
         //Start actually loading the new scene
         AsyncOperation opereration = SceneManager.LoadSceneAsync(MainGame);
