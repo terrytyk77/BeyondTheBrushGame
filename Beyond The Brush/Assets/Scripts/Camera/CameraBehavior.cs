@@ -77,9 +77,11 @@ public class CameraBehavior : MonoBehaviour
 
         if (cameraGoal != cameraPosition)
         {
+            //Camera input
+            decimal cameraOffsetInput = decimal.Round( (decimal)(cameraSpeed * Time.fixedDeltaTime) , 2);
 
             //Set the camera goal
-            Camera.main.GetComponent<Transform>().position = Vector3.Lerp(cameraPosition, cameraGoal, cameraSpeed * Time.fixedDeltaTime);
+            Camera.main.GetComponent<Transform>().position = Vector3.Lerp(cameraPosition, cameraGoal, (float)cameraOffsetInput);
 
         }
 

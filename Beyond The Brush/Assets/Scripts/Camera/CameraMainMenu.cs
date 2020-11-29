@@ -53,8 +53,11 @@ public class CameraMainMenu : MonoBehaviour
             //Get the current camera position
             Vector3 currentCameraPos = gameObject.GetComponent<Transform>().position;
 
+            //Make the new camera position
+            Vector3 newCameraPosition = (NextCameraGoal - currentCameraPos).normalized * (cameraSpeed * Time.deltaTime);
+
             //Add the position to the camera
-            gameObject.GetComponent<Transform>().position += (NextCameraGoal - currentCameraPos).normalized * (cameraSpeed * Time.deltaTime);
+            gameObject.GetComponent<Transform>().position += newCameraPosition;
         }
         else
         {

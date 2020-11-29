@@ -33,7 +33,7 @@ public class Login : MonoBehaviour
         });
     }
 
-    [System.Obsolete]
+
     private IEnumerator SendLoginData()
     {
         User user = new User
@@ -45,7 +45,7 @@ public class Login : MonoBehaviour
         WebServices.CookieString = null;
 
         var request = WebServices.Post("login", JsonUtility.ToJson(user));
-        yield return request.Send();
+        yield return request.SendWebRequest();
 
         if (request.isNetworkError)
         {
