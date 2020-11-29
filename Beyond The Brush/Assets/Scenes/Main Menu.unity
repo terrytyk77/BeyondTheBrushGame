@@ -57751,8 +57751,14 @@ MonoBehaviour:
   passwordSignup: {fileID: 1589577757}
   usernameLogin: {fileID: 1830904398}
   passwordLogin: {fileID: 1031335722}
+  signupRoute: account/signup
+  loginRoute: account/login
   usernameMaxChar: 15
   usernameMinChar: 4
+  emailMinChar: 1
+  emailMaxChar: 30
+  passwordMinChar: 8
+  passwordMaxChar: 15
 --- !u!1 &1446071522
 GameObject:
   m_ObjectHideFlags: 0
