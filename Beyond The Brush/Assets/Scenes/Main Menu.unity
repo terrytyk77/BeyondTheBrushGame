@@ -263,6 +263,7 @@ MonoBehaviour:
   loadingScreen: {fileID: 1525757424}
   background: {fileID: 1448747958}
   loadingBar: {fileID: 1626808226}
+  createAccountLabel: {fileID: 451882583}
   MainGame: 1
 --- !u!4 &43078264
 Transform:
@@ -9651,7 +9652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0}
   m_SizeDelta: {x: 0, y: -268.77777}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &725037775
@@ -9973,13 +9974,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1407509978}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 43078263}
+        m_TargetAssemblyTypeName: ButtonEvents, Assembly-CSharp
+        m_MethodName: ChangeCurrentWindow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
