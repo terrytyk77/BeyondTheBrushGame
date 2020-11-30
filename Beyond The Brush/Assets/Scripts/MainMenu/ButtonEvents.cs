@@ -68,15 +68,26 @@ public class ButtonEvents : MonoBehaviour
 
     IEnumerator LoadAsync()
     {
-        //Add some sort of transition
+        //Get the loading screen transparency
+        CanvasGroup backAlpha = background.GetComponent<CanvasGroup>();
+        backAlpha.alpha = 0;
 
         //Turn the loading screen on
         loadingScreen.SetActive(true);
+
+        //Add some sort of transition
+        while (backAlpha.alpha < 1)
+        {
+                backAlpha.alpha += 0.05f;
+                yield return new WaitForSeconds(0.05f);
+        }
+
+      
+
         loadingBar.SetActive(true);
 
         //Just wait
         yield return new WaitForSeconds(1);
-
 
 
         //Start actually loading the new scene
@@ -89,10 +100,10 @@ public class ButtonEvents : MonoBehaviour
             float CurrentProgress = Mathf.Clamp(opereration.progress / 0.9f, 1, 2);
 
             //Get the bar fill object
-            GameObject barFill = loadingScreen.GetComponent<Transform>().GetChild(0).GetChild(0).GetChild(0).gameObject;
+            GameObject barFill = loadingBar.GetComponent<Transform>().GetChild(0).gameObject;
 
             //Change the bar size
-            barFill.GetComponent<RectTransform>().localScale = new Vector3(CurrentProgress, 1, 1);
+            barFill.GetComponent<Image>().fillAmount = CurrentProgress;
 
             //Restart the loop
             yield return null;
