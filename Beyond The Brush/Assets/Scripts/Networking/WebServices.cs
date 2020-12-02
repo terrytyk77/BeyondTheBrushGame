@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class WebServices : MonoBehaviour
 {
-    static string baseURL = "http://localhost:3000";
+    static public string baseURL = "http://localhost:3000";
+
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     public static string CookieString
     {
