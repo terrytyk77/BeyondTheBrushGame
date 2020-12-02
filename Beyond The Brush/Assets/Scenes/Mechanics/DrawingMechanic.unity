@@ -479,5 +479,9 @@ PrefabInstance:
       propertyPath: recognizer
       value: 
       objectReference: {fileID: 1855488435}
+    - target: {fileID: 5151581451991004038, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
+      propertyPath: scoreToAccept
+      value: 0.875
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
