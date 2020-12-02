@@ -22,13 +22,11 @@ public class DrawingLocation{
 		bY = bY2;
 
 		Camera cam = Camera.main;
-		float height = cam.pixelWidth;
-		float width = cam.pixelHeight;
-
-		Debug.Log(height + " " + width);
+		float height = cam.pixelHeight;
+		float width = cam.pixelWidth;
 
 		//Set the middle vector
-		middle = new Vector2(((sX2 + bX2) * width) / 2, ((sY2 + bY2) * height) / 2);
+		middle = new Vector2(((sX2 + bX2) / 2) * width, ((sY2 + bY2) / 2) * height);
 	}
 
 }
@@ -38,7 +36,7 @@ public class OnDrawEvent : MonoBehaviour
 	//Variables||
 
 		public GameObject line;
-		public GameObject rock;
+		public GameObject box;
 	//_________||
 
 
@@ -91,14 +89,28 @@ public class OnDrawEvent : MonoBehaviour
   
 			DrawingLocation Location = GetDrawingMiddle(lineData);
 
-            if (result.gesture.id == "Square"){
+			switch (result.gesture.id)
+			{
+				case "horizontal":
+                    {
+						break;
+                    }
+				case "circle":
+                    {
+						break;
+                    }
+				case "Xspell":
+					{
+						break;
+					}
+				case "Square":
+					{ 
+						Vector2 worldPos = Camera.main.ScreenToWorldPoint(Location.middle);
+						Instantiate(box, worldPos, Quaternion.identity);
+						break;
+					}
+			}
 
-				Vector2 worldPos = Camera.main.ScreenToWorldPoint(Location.middle);
-
-				Debug.Log(worldPos.x + " , " + worldPos.y);
-				//TODO
-				Instantiate(	rock, worldPos, Quaternion.identity);
-            }
 
 		}
         else
