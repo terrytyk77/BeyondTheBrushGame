@@ -63669,6 +63669,22 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1472402348434798241, guid: 3ce34b03fb9f4024fa08672198533739, type: 3}
+      propertyPath: m_Size.x
+      value: 2.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472402348434798241, guid: 3ce34b03fb9f4024fa08672198533739, type: 3}
+      propertyPath: m_Size.y
+      value: 2.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472402348434798241, guid: 3ce34b03fb9f4024fa08672198533739, type: 3}
+      propertyPath: m_Offset.y
+      value: -2.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642799105253480748, guid: 3ce34b03fb9f4024fa08672198533739, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f18be8aa3d3d616468f7599ec104492a, type: 3}
     - target: {fileID: 1642799105253480748, guid: 3ce34b03fb9f4024fa08672198533739, type: 3}
       propertyPath: m_SortingOrder
       value: 7
@@ -63761,6 +63777,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2115696447384895682, guid: 3ce34b03fb9f4024fa08672198533739, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2203584459981873591, guid: 3ce34b03fb9f4024fa08672198533739, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -63797,6 +63817,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2765855693455177668, guid: 3ce34b03fb9f4024fa08672198533739, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e824f0c41f856724f9c3b0a8977b5fcb, type: 3}
     - target: {fileID: 2765855693455177668, guid: 3ce34b03fb9f4024fa08672198533739, type: 3}
       propertyPath: m_SortingOrder
       value: 6
@@ -64391,19 +64415,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce34b03fb9f4024fa08672198533739, type: 3}
---- !u!1 &5556766395972383147 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6805287562180612783, guid: 3ce34b03fb9f4024fa08672198533739, type: 3}
-  m_PrefabInstance: {fileID: 5556766395972383146}
-  m_PrefabAsset: {fileID: 0}
---- !u!210 &5556766395972383148
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5556766395972383147}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
