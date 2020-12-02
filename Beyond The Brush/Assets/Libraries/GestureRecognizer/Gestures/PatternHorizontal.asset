@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce0fdb4e39b5744abf0c061bd2a3e30, type: 3}
   m_Name: PatternHorizontal
   m_EditorClassIdentifier: 
-  id: horizontal
+  id: Horizontal
   points: []
   gesture:
     lines:

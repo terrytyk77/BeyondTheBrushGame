@@ -443,6 +443,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5151581451766431139, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151581451766431139, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5151581451766431149, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -475,6 +483,14 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 2100000, guid: aace10a574875e04e8789c3d13974f62, type: 2}
+    - target: {fileID: 5151581451991004037, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
+      propertyPath: box
+      value: 
+      objectReference: {fileID: 6498690047904201395, guid: c5cda9c372ee29c41946cc43fed16af0, type: 3}
+    - target: {fileID: 5151581451991004037, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
+      propertyPath: stone
+      value: 
+      objectReference: {fileID: 8722962404403761308, guid: a1495899a499bad49891bdf6522be5da, type: 3}
     - target: {fileID: 5151581451991004038, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
       propertyPath: recognizer
       value: 

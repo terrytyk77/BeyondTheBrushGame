@@ -37,6 +37,7 @@ public class OnDrawEvent : MonoBehaviour
 
 		public GameObject line;
 		public GameObject box;
+		public GameObject stone;
 	//_________||
 
 
@@ -91,22 +92,28 @@ public class OnDrawEvent : MonoBehaviour
 
 			switch (result.gesture.id)
 			{
-				case "horizontal":
+				case "Horizontal":
                     {
+						Debug.Log("Horizontal");
 						break;
                     }
-				case "circle":
+				case "Circle":
                     {
+						Vector2 worldPos = Camera.main.ScreenToWorldPoint(Location.middle);
+						Instantiate(stone, worldPos, Quaternion.identity);
+						Debug.Log("Circle");
 						break;
-                    }
+					}
 				case "Xspell":
 					{
+						Debug.Log("Xspell");
 						break;
 					}
 				case "Square":
 					{ 
 						Vector2 worldPos = Camera.main.ScreenToWorldPoint(Location.middle);
 						Instantiate(box, worldPos, Quaternion.identity);
+						Debug.Log("Square");
 						break;
 					}
 			}
