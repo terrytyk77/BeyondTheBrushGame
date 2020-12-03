@@ -38,8 +38,26 @@ public class OnDrawEvent : MonoBehaviour
 		public GameObject line;
 		public GameObject box;
 		public GameObject stone;
+		public GameObject player;
+		public GameObject drawingCollider;
 	//_________||
 
+	public bool HoverPlayer(Vector2 worldPos, GameObject player, BoxCollider2D playerCollider)
+	{
+		if (
+			(worldPos.x < player.transform.position.x + (playerCollider.size.x / 2) * player.transform.localScale.x) &&
+			(worldPos.x > player.transform.position.x - (playerCollider.size.x / 2) * player.transform.localScale.x) &&
+			(worldPos.y < player.transform.position.y + (playerCollider.size.y / 2 + playerCollider.offset.y) * player.transform.localScale.y) &&
+			(worldPos.y > player.transform.position.y - (playerCollider.size.y / 2 + playerCollider.offset.y) * player.transform.localScale.y))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+	}
 
 	public DrawingLocation GetDrawingMiddle(UILineRenderer lineData)
     {
@@ -88,9 +106,7 @@ public class OnDrawEvent : MonoBehaviour
 			UILineRenderer lineData = line.gameObject.GetComponent<UILineRenderer>();
   
 			DrawingLocation Location = GetDrawingMiddle(lineData);
-
-			GameObject player = GameObject.FindWithTag("Player");
-			BoxCollider2D playerCollider = player.GetComponent<BoxCollider2D>();
+			BoxCollider2D playerCollider = drawingCollider.GetComponent<BoxCollider2D>();
 
 			switch (result.gesture.id)
 			{
@@ -140,24 +156,6 @@ public class OnDrawEvent : MonoBehaviour
         }
 
 	}
-
-	public bool HoverPlayer(Vector2 worldPos, GameObject player, BoxCollider2D playerCollider)
-	{
-		if(
-			(worldPos.x < player.transform.position.x + (playerCollider.size.x / 2) * player.transform.localScale.x) &&
-			(worldPos.x > player.transform.position.x - (playerCollider.size.x / 2) * player.transform.localScale.x) &&
-			(worldPos.y < player.transform.position.y + (playerCollider.size.y / 2) * player.transform.localScale.y + (playerCollider.offset.y * player.transform.localScale.y)) &&
-			(worldPos.y > player.transform.position.y - (playerCollider.size.y / 2) * player.transform.localScale.y + (playerCollider.offset.y * player.transform.localScale.y)))
-		{
-			return true;
-        }
-        else
-        {
-			return false;
-        }
-
-	}
-
 }
 
 
