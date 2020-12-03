@@ -13,20 +13,20 @@ public class DrawingLocation{
 	public float bY;
 	public Vector2 middle;
 
-	public DrawingLocation(float sX2, float bX2, float sY2, float bY2)
+	public DrawingLocation(float smallerX, float biggerX, float smallerY, float biggerY)
 	{
 		//Set the points
-		sX = sX2;
-		bX = bX2;
-		sY = sY2;
-		bY = bY2;
+		sX = smallerX;
+		bX = biggerX;
+		sY = smallerY;
+		bY = biggerY;
 
 		Camera cam = Camera.main;
 		float height = cam.pixelHeight;
 		float width = cam.pixelWidth;
 
 		//Set the middle vector
-		middle = new Vector2(((sX2 + bX2) / 2) * width, ((sY2 + bY2) / 2) * height);
+		middle = new Vector2(((sX + bX) / 2) * width, ((sY + bY) / 2) * height);
 	}
 
 }
