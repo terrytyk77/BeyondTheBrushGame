@@ -768,7 +768,7 @@ PrefabInstance:
     - target: {fileID: 5151581451991004037, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
       propertyPath: stone
       value: 
-      objectReference: {fileID: 8722962404403761308, guid: a1495899a499bad49891bdf6522be5da, type: 3}
+      objectReference: {fileID: 5989668713407083425, guid: a1495899a499bad49891bdf6522be5da, type: 3}
     - target: {fileID: 5151581451991004037, guid: 00ccd745197dc3e45950e80b91bd3563, type: 3}
       propertyPath: player
       value: 
@@ -21282,7 +21282,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b807d28d72dc9f744971de16c9d68301, type: 2}
+  - {fileID: 2100000, guid: 49be718510915a2419ef7c266b2685c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -63858,6 +63858,16 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5019700632870275483, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
   m_PrefabInstance: {fileID: 6252450122993724062}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3301271873871369886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8869086325504228352, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
+  m_PrefabInstance: {fileID: 6252450122993724062}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4482633791734186199 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7561730607355128393, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
+  m_PrefabInstance: {fileID: 6252450122993724062}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6252450122993724062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63867,11 +63877,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 654150683684790221, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 654150683684790221, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
+      propertyPath: playerVertical
+      value: 
+      objectReference: {fileID: 4482633791734186199}
+    - target: {fileID: 654150683684790221, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
+      propertyPath: playerHorizontal
+      value: 
+      objectReference: {fileID: 3301271873871369886}
+    - target: {fileID: 4425369457472708375, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
+      propertyPath: m_Size.x
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4425369457472708375, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
       propertyPath: m_Size.y
-      value: 7
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4425369457472708375, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5019700632870275483, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
       propertyPath: m_Name
