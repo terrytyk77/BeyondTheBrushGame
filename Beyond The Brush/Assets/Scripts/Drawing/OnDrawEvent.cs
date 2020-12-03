@@ -77,7 +77,6 @@ public class OnDrawEvent : MonoBehaviour
 	}
 
 
-
 	public void OnRecognize(RecognitionResult result)
 	{
 		StopAllCoroutines();
@@ -90,6 +89,9 @@ public class OnDrawEvent : MonoBehaviour
   
 			DrawingLocation Location = GetDrawingMiddle(lineData);
 
+			GameObject player = GameObject.FindWithTag("Player");
+			BoxCollider2D playerCollider = player.GetComponent<BoxCollider2D>();
+
 			switch (result.gesture.id)
 			{
 				case "Horizontal":
@@ -99,10 +101,22 @@ public class OnDrawEvent : MonoBehaviour
                     }
 				case "Circle":
                     {
+
 						Vector2 worldPos = Camera.main.ScreenToWorldPoint(Location.middle);
-						Instantiate(stone, worldPos, Quaternion.identity);
-						Debug.Log("Circle");
-						break;
+
+						if (HoverPlayer(worldPos, player, playerCollider))
+                        {
+							Debug.Log("Shielded");
+							break;
+						}
+                        else
+                        {
+							Instantiate(stone, worldPos, Quaternion.identity);
+							Debug.Log(worldPos);
+							Debug.Log(player.transform.position.x + playerCollider.size.x / 2);
+							Debug.Log("Circle");
+							break;
+						}
 					}
 				case "Xspell":
 					{
@@ -127,4 +141,23 @@ public class OnDrawEvent : MonoBehaviour
 
 	}
 
+	public bool HoverPlayer(Vector2 worldPos, GameObject player, BoxCollider2D playerCollider)
+	{
+		if(
+			(worldPos.x < player.transform.position.x + (playerCollider.size.x / 2) * player.transform.localScale.x) &&
+			(worldPos.x > player.transform.position.x - (playerCollider.size.x / 2) * player.transform.localScale.x) &&
+			(worldPos.y < player.transform.position.y + (playerCollider.size.y / 2) * player.transform.localScale.y + (playerCollider.offset.y * player.transform.localScale.y)) &&
+			(worldPos.y > player.transform.position.y - (playerCollider.size.y / 2) * player.transform.localScale.y + (playerCollider.offset.y * player.transform.localScale.y)))
+		{
+			return true;
+        }
+        else
+        {
+			return false;
+        }
+
+	}
+
 }
+
+
