@@ -42,6 +42,9 @@ public class OnDrawEvent : MonoBehaviour
 		public GameObject drawingCollider;
 	//_________||
 
+
+
+
 	public bool HoverPlayer(Vector2 worldPos, GameObject player, BoxCollider2D playerCollider)
 	{
 		if (
@@ -128,9 +131,7 @@ public class OnDrawEvent : MonoBehaviour
                         else
                         {
 							Instantiate(stone, worldPos, Quaternion.identity);
-							Debug.Log(worldPos);
 							Debug.Log(player.transform.position.x + playerCollider.size.x / 2);
-							Debug.Log("Circle");
 							break;
 						}
 					}
@@ -147,8 +148,7 @@ public class OnDrawEvent : MonoBehaviour
 						break;
 					}
 			}
-
-
+			
 		}
         else
         {
