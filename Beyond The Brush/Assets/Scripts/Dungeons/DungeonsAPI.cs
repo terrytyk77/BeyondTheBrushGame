@@ -23,7 +23,7 @@ public class Dungeon
     [System.Serializable]
     public class room
     {
-        public string roomName = "room";
+        
 
         [System.Serializable]
         public class sides
@@ -34,10 +34,35 @@ public class Dungeon
                 public bool left = false;
                 public bool bottom = false;
             //__________||
+
+            public sides(bool t, bool r, bool l, bool b)
+            {
+                top = t;
+                right = r;
+                left = l;
+                bottom = b;
+            }
+
         }
 
+        public string roomName = "room";
         public GameObject roomPrefab;
-        public sides roomSides = new sides();
+        public sides roomSides = new sides(false, false ,false ,false);
+
+
+
+        public room()
+        {
+
+        }
+
+        //Constructor to setup the room
+        public room(string name, GameObject prefab, sides side)
+        {
+            roomName = name;
+            roomPrefab = prefab;
+            roomSides = side;
+        }
 
     }
 

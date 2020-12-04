@@ -36,26 +36,30 @@ public class CurrentDungeonData : MonoBehaviour
     class roomPos
     {
         public Vector2Int position = new Vector2Int();
-        public GameObject room;
+        public Dungeon.room room;
 
-        public roomPos(int x, int y, GameObject room)
+        public roomPos(int x, int y, Dungeon.room room2)
         {
             position.x = x;
             position.y = y;
+            room = room2;
         }
 
     }
 
-    private GameObject getRoomViaCords(Vector2Int cords)
+    private Dungeon.room getRoomViaCords(Vector2Int cords)
     {
-        GameObject foundRoom = new GameObject();
+        Dungeon.room foundRoom = new Dungeon.room();
 
         //Loop through all the dungeon rooms that exist
         foreach (roomPos room in map)
         {
+            Debug.Log("Here is a room!");
+
             if (room.position == cords)
             {
                 foundRoom = room.room;
+                return room.room;
             }
         }
 
@@ -106,25 +110,37 @@ public class CurrentDungeonData : MonoBehaviour
             Destroy(room);
         }
 
-        GameObject roomToCreate = getRoomViaCords(currentRoom);
-
-        Debug.Log(roomToCreate);
+        //Gets the room
+        Dungeon.room roomToCreate = getRoomViaCords(currentRoom);
 
         //Check if it needs to create new rooms
-        Instantiate(roomToCreate, Vector2.zero, Quaternion.identity);
+        Instantiate(roomToCreate.roomPrefab, roomToCreate.roomPrefab.transform.position, Quaternion.identity);
 
         //Teleport the player to the correct side
+        foreach (Transform child in roomToCreate.roomPrefab.transform)
+        {
+            if (child.gameObject.name == "TeleportLocations")
+            {
+                foreach(Transform child2 in child)
+                {
+                    if (child2.gameObject.name == nextRoomSide)
+                    {
+                        playerRB.position = child2.position; 
+                    }
+                }
+            }
+        }
     }
 
     private void createNewRoom(Vector2Int roomLocation)
     {
         //TODO
-        int randomNum = 1;
-        int a = Random.Range(0, 10);
+        //int randomNum = 1;
+        //int a = Random.Range(0, 10);
 
-        GameObject chosenRoom = currentDungeon.rooms[randomNum].roomPrefab;
+        //GameObject chosenRoom = currentDungeon.rooms[randomNum].roomPrefab;
 
-        map.Add(new roomPos(roomLocation.x, roomLocation.y, chosenRoom));
+        //map.Add(new roomPos(roomLocation.x, roomLocation.y, chosenRoom));
 
     }
     private void getCorrectDungeon(List<Dungeon> theList, string wantedResult)
@@ -146,7 +162,7 @@ public class CurrentDungeonData : MonoBehaviour
                     //ADD STARTING ROOM TO MAP||
 
                         //Add the starting room
-                        map.Add(new roomPos(0, 0, startingRoom));
+                        map.Add(new roomPos(0, 0, new Dungeon.room("Starting Room", dungeon.startingRoom, new Dungeon.room.sides(true, false, false, false))));
 
                         List<Dungeon.room> acceptedRooms = new List<Dungeon.room>();
 
@@ -161,7 +177,11 @@ public class CurrentDungeonData : MonoBehaviour
                         }
 
                         int chooseRandom = Random.Range(0, acceptedRooms.Count);
-                        map.Add(new roomPos(0, 1, acceptedRooms[chooseRandom].roomPrefab));
+
+                        Debug.Log(acceptedRooms[chooseRandom].roomPrefab);
+                        Debug.Log(chooseRandom);
+
+                        map.Add(new roomPos(0, 1, acceptedRooms[chooseRandom]));
                     //________________________||
 
 
