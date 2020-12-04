@@ -1107,7 +1107,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.75}
@@ -2039,7 +2039,7 @@ GameObject:
   - component: {fileID: 1132573910610062741}
   - component: {fileID: 3774435279461991674}
   m_Layer: 0
-  m_Name: Player 1
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2094,6 +2094,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 4
+  playerVertical: {fileID: 7561730607355128393}
+  playerHorizontal: {fileID: 8869086325504228352}
 --- !u!61 &1132573910610062741
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2128,8 +2130,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5019700632870275483}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1513248665
+  m_SortingLayer: 2
   m_SortingOrder: 1
 --- !u!1 &5027356601506261891
 GameObject:

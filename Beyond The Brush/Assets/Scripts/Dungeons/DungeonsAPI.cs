@@ -1,16 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class Dungeon
 {
+
     //Variables||
 
         public string DungeonName;
         public int baseReward;
 
-        GameObject startingRoom;
+        public GameObject startingRoom;
         public List<room> rooms = new List<room>();
     //_________||
 
@@ -46,6 +46,4 @@ public class Dungeon
 public class DungeonsAPI : MonoBehaviour
 {
     public List<Dungeon> dungeons = new List<Dungeon>();
-
-
 }

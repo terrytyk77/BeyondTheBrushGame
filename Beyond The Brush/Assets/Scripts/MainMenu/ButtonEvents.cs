@@ -20,7 +20,7 @@ public class ButtonEvents : MonoBehaviour
         public GameObject createAccountLabel;
 
         //The current index for the game build
-    public int MainGame = 0;
+        public int MainGame = 0;
     //_________||
 
 
