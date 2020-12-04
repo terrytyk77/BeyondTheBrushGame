@@ -54,7 +54,6 @@ public class CurrentDungeonData : MonoBehaviour
         //Loop through all the dungeon rooms that exist
         foreach (roomPos room in map)
         {
-            Debug.Log("Here is a room!");
 
             if (room.position == cords)
             {
@@ -113,7 +112,10 @@ public class CurrentDungeonData : MonoBehaviour
         //Gets the room
         Dungeon.room roomToCreate = getRoomViaCords(currentRoom);
 
-        //Check if it needs to create new rooms
+        //Check if the next rooms already exist and if not create them
+        createNextRooms(currentRoom);
+
+        //Spawn the next room into the map
         Instantiate(roomToCreate.roomPrefab, roomToCreate.roomPrefab.transform.position, Quaternion.identity);
 
         //Teleport the player to the correct side
@@ -132,15 +134,115 @@ public class CurrentDungeonData : MonoBehaviour
         }
     }
 
-    private void createNewRoom(Vector2Int roomLocation)
+    private void createNextRooms(Vector2Int roomLocation)
     {
-        //TODO
-        //int randomNum = 1;
-        //int a = Random.Range(0, 10);
 
-        //GameObject chosenRoom = currentDungeon.rooms[randomNum].roomPrefab;
+        void addNewRoom(string hasOposingSide)
+        {
+            //Check if the next shape can be created
+            //Store possible sides
+            List<Dungeon.room> possibleSides = new List<Dungeon.room>();
+            List<Dungeon.room> filteredList = new List<Dungeon.room>();
 
-        //map.Add(new roomPos(roomLocation.x, roomLocation.y, chosenRoom));
+            //loop through all possible rooms
+            foreach (Dungeon.room room in currentDungeon.rooms)
+            {
+                bool hasTheSide = false;
+
+                switch (hasOposingSide)
+                {
+                    case "top":
+                        hasTheSide = room.roomSides.bottom;
+                        break;
+
+                    case "bottom":
+                        hasTheSide = room.roomSides.top;
+                        break;
+
+                    case "right":
+                        hasTheSide = room.roomSides.left;
+                        break;
+
+                    case "left":
+                        hasTheSide = room.roomSides.right;
+                        break;
+                }
+
+                if (hasTheSide)
+                {
+
+                    //If the room has an opposing side then add to the list
+                    possibleSides.Add(room);
+                }
+            }
+
+            int chooseRandomRoom = Random.Range(0, filteredList.Count);
+
+            //Add to the map
+            roomPos toBeAddedToMap = new roomPos(roomLocation.x, roomLocation.y + 1, filteredList[chooseRandomRoom]);
+            //map.Add(toBeAddedToMap);
+        }
+
+
+
+        //Get the room you're in
+        Dungeon.room receivedRoom = getRoomViaCords(roomLocation);
+
+        //Get the sides avalible
+        Dungeon.room.sides receivedSides = receivedRoom.roomSides;
+
+        if (receivedSides.top)
+        {
+            //Has topside
+            Vector2Int nextRoomPos = new Vector2Int(roomLocation.x, roomLocation.y + 1);
+            Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);
+
+
+            
+            if (nextRoomElement.roomPrefab == null)
+            {
+                //The room still did not exist
+                //addNewRoom("top");
+            }
+
+        }
+        if (receivedSides.bottom)
+        {
+            //Has bottomside
+            Vector2Int nextRoomPos = new Vector2Int(roomLocation.x, roomLocation.y - 1);
+            Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);
+
+            if (nextRoomElement.roomPrefab == null)
+            {
+                //addNewRoom("bottom");
+            }
+
+        }
+        if (receivedSides.left)
+        {
+            //Has left side
+            Vector2Int nextRoomPos = new Vector2Int(roomLocation.x - 1, roomLocation.y);
+            Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);
+
+            if (nextRoomElement.roomPrefab == null)
+            {
+                //addNewRoom("left");
+            }
+
+        }
+        if (receivedSides.right)
+        {
+            //Has right side
+            Vector2Int nextRoomPos = new Vector2Int(roomLocation.x + 1, roomLocation.y);
+            Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);
+
+            if (nextRoomElement.roomPrefab == null)
+            {
+                //addNewRoom("right");
+            }
+
+        }
+
 
     }
     private void getCorrectDungeon(List<Dungeon> theList, string wantedResult)
@@ -177,9 +279,6 @@ public class CurrentDungeonData : MonoBehaviour
                         }
 
                         int chooseRandom = Random.Range(0, acceptedRooms.Count);
-
-                        Debug.Log(acceptedRooms[chooseRandom].roomPrefab);
-                        Debug.Log(chooseRandom);
 
                         map.Add(new roomPos(0, 1, acceptedRooms[chooseRandom]));
                     //________________________||
