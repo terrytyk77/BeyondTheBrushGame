@@ -8,6 +8,7 @@ TagManager:
   - SignupFrame
   - Enemy
   - proceduralData
+  - dungeonRoom
   layers:
   - Default
   - TransparentFX

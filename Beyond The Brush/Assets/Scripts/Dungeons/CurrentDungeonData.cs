@@ -46,6 +46,22 @@ public class CurrentDungeonData : MonoBehaviour
 
     }
 
+    private GameObject getRoomViaCords(Vector2Int cords)
+    {
+        GameObject foundRoom = new GameObject();
+
+        //Loop through all the dungeon rooms that exist
+        foreach (roomPos room in map)
+        {
+            if (room.position == cords)
+            {
+                foundRoom = room.room;
+            }
+        }
+
+        return foundRoom;
+    }
+
     public void changeNextRoom(string roomSide)
     {
 
@@ -54,18 +70,22 @@ public class CurrentDungeonData : MonoBehaviour
         {
             case "right":
                 nextRoomSide = "left";
+                currentRoom.x++;
                 break;
 
             case "left":
                 nextRoomSide = "right";
+                currentRoom.x--;
                 break;
 
             case "top":
                 nextRoomSide = "bottom";
+                currentRoom.y++;
                 break;
 
             case "bottom":
                 nextRoomSide = "top";
+                currentRoom.y--;
                 break;
 
             case "exit":
@@ -77,8 +97,23 @@ public class CurrentDungeonData : MonoBehaviour
                 break;
         }
 
-        //Check if it needs to create new rooms
 
+        //Add some sort of transition
+
+        //Destroy all the current existing dungeon rooms
+        foreach (GameObject room in GameObject.FindGameObjectsWithTag("dungeonRoom"))
+        {
+            Destroy(room);
+        }
+
+        GameObject roomToCreate = getRoomViaCords(currentRoom);
+
+        Debug.Log(roomToCreate);
+
+        //Check if it needs to create new rooms
+        Instantiate(roomToCreate, Vector2.zero, Quaternion.identity);
+
+        //Teleport the player to the correct side
     }
 
     private void createNewRoom(Vector2Int roomLocation)
@@ -107,8 +142,28 @@ public class CurrentDungeonData : MonoBehaviour
                     //Spawn the starting room
                     startingRoom = Instantiate(dungeon.startingRoom, Vector2.zero, Quaternion.identity);
 
-                    //Add to the map
-                    map.Add(new roomPos(0, 0, startingRoom));
+
+                    //ADD STARTING ROOM TO MAP||
+
+                        //Add the starting room
+                        map.Add(new roomPos(0, 0, startingRoom));
+
+                        List<Dungeon.room> acceptedRooms = new List<Dungeon.room>();
+
+                        //Add the following room
+                        foreach (Dungeon.room room in currentDungeon.rooms)
+                        {
+                            //Check if the room has a bottom dooor
+                            if (room.roomSides.bottom)
+                            {
+                                acceptedRooms.Add(room);
+                            }
+                        }
+
+                        int chooseRandom = Random.Range(0, acceptedRooms.Count);
+                        map.Add(new roomPos(0, 1, acceptedRooms[chooseRandom].roomPrefab));
+                    //________________________||
+
 
                     //Set the current coordinates
                     currentRoom = new Vector2Int(0, 0);

@@ -4437,7 +4437,7 @@ GameObject:
   - component: {fileID: 2407038760073169132}
   m_Layer: 0
   m_Name: S_L_R_B_T
-  m_TagString: Untagged
+  m_TagString: dungeonRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
