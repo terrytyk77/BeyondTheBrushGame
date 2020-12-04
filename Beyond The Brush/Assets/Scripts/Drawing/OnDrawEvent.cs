@@ -13,7 +13,7 @@ public class DrawingLocation{
 	public float bY;
 	public Vector2 middle;
 
-	public DrawingLocation(float smallerX, float biggerX, float smallerY, float biggerY)
+	public DrawingLocation(float biggerX, float smallerX, float biggerY, float smallerY)
 	{
 		//Set the points
 		sX = smallerX;
@@ -21,12 +21,8 @@ public class DrawingLocation{
 		sY = smallerY;
 		bY = biggerY;
 
-		Camera cam = Camera.main;
-		float height = cam.pixelHeight;
-		float width = cam.pixelWidth;
-
 		//Set the middle vector
-		middle = new Vector2(((sX + bX) / 2) * width, ((sY + bY) / 2) * height);
+		middle = new Vector2(((sX + bX) / 2), ((sY + bY) / 2));
 	}
 
 }
@@ -45,8 +41,11 @@ public class OnDrawEvent : MonoBehaviour
 
 
 
-	public bool HoverPlayer(Vector2 worldPos, GameObject player, BoxCollider2D playerCollider)
+	public bool HoverPlayer(DrawingLocation location)
 	{
+		Vector2 worldPos = Camera.main.ScreenToWorldPoint(location.middle);
+		BoxCollider2D playerCollider = drawingCollider.GetComponent<BoxCollider2D>();
+
 		if (
 			(worldPos.x < player.transform.position.x + (playerCollider.size.x / 2) * player.transform.localScale.x) &&
 			(worldPos.x > player.transform.position.x - (playerCollider.size.x / 2) * player.transform.localScale.x) &&
@@ -62,6 +61,34 @@ public class OnDrawEvent : MonoBehaviour
 
 	}
 
+	public void HoverEnemy(DrawingLocation location)
+    {
+		var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		Vector2 worldSmallPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.sX, location.sY));
+		Vector2 worldBigPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.bX, location.bY));
+
+		foreach (var enemy in enemies)
+		{
+			BoxCollider2D enemyCollider = enemy.GetComponent<BoxCollider2D>();
+
+			Rect drawingZone = Rect.MinMaxRect(worldSmallPoint.x, worldSmallPoint.y, worldBigPoint.x, worldBigPoint.y);
+			Rect enemyHitZone = new Rect(enemy.transform.position.x - enemyCollider.size.x/2, enemy.transform.position.y - enemyCollider.size.y / 2, enemyCollider.size.x, enemyCollider.size.y);
+
+
+			if (drawingZone.Overlaps(enemyHitZone))
+            {
+				Destroy(enemy);
+				Debug.Log("Enemy Killed!");
+			}
+		}
+	}
+
+	public void SpawnObject(DrawingLocation location, GameObject prefab)
+    {
+		Vector2 worldPos = Camera.main.ScreenToWorldPoint(location.middle);
+		Instantiate(prefab, worldPos, Quaternion.identity);
+	}
+
 	public DrawingLocation GetDrawingMiddle(UILineRenderer lineData)
     {
 		//Check the position of the drawing
@@ -69,6 +96,10 @@ public class OnDrawEvent : MonoBehaviour
 		float smallerX = 1f;
 		float biggerY = 0f;
 		float smallerY = 1f;
+
+		Camera cam = Camera.main;
+		float height = cam.pixelHeight;
+		float width = cam.pixelWidth;
 
 		foreach (Vector2 point in lineData.Points)
 		{
@@ -94,7 +125,7 @@ public class OnDrawEvent : MonoBehaviour
 				smallerY = point.y;
 			}
 		}
-			return new DrawingLocation(biggerX, smallerX, biggerY, smallerY);
+			return new DrawingLocation(biggerX * width, smallerX * width, biggerY * height, smallerY * height);
 	}
 
 
@@ -107,44 +138,39 @@ public class OnDrawEvent : MonoBehaviour
 		if (result != RecognitionResult.Empty)
 		{
 			UILineRenderer lineData = line.gameObject.GetComponent<UILineRenderer>();
-  
-			DrawingLocation Location = GetDrawingMiddle(lineData);
-			BoxCollider2D playerCollider = drawingCollider.GetComponent<BoxCollider2D>();
+			DrawingLocation location = GetDrawingMiddle(lineData);
 
 			switch (result.gesture.id)
 			{
 				case "Horizontal":
                     {
-						Debug.Log("Horizontal");
+						Debug.Log("Slash");
+						HoverEnemy(location);
 						break;
                     }
 				case "Circle":
                     {
-
-						Vector2 worldPos = Camera.main.ScreenToWorldPoint(Location.middle);
-
-						if (HoverPlayer(worldPos, player, playerCollider))
+						if (HoverPlayer(location))
                         {
-							Debug.Log("Shielded");
-							break;
+							Debug.Log("Shield");
 						}
                         else
                         {
-							Instantiate(stone, worldPos, Quaternion.identity);
-							Debug.Log(player.transform.position.x + playerCollider.size.x / 2);
-							break;
+							Debug.Log("Stone");
+							SpawnObject(location, stone);
 						}
+						break;
 					}
 				case "Xspell":
 					{
 						Debug.Log("Xspell");
+						HoverEnemy(location);
 						break;
 					}
 				case "Square":
-					{ 
-						Vector2 worldPos = Camera.main.ScreenToWorldPoint(Location.middle);
-						Instantiate(box, worldPos, Quaternion.identity);
-						Debug.Log("Square");
+					{
+						Debug.Log("Box");
+						SpawnObject(location, box);
 						break;
 					}
 			}
