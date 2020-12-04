@@ -144,6 +144,28 @@ public class CurrentDungeonData : MonoBehaviour
             List<Dungeon.room> possibleSides = new List<Dungeon.room>();
             List<Dungeon.room> filteredList = new List<Dungeon.room>();
 
+            Vector2Int newRoomDirection = roomLocation;
+
+            //Get direction of the new room
+            switch (hasOposingSide)
+            {
+                case "top":
+                    newRoomDirection.y++;
+                    break;
+
+                case "bottom":
+                    newRoomDirection.y--;
+                    break;
+
+                case "right":
+                    newRoomDirection.x++;
+                    break;
+
+                case "left":
+                    newRoomDirection.x--;
+                    break;
+            }
+
             //loop through all possible rooms
             foreach (Dungeon.room room in currentDungeon.rooms)
             {
@@ -176,11 +198,9 @@ public class CurrentDungeonData : MonoBehaviour
                 }
             }
 
-            int chooseRandomRoom = Random.Range(0, filteredList.Count);
-
-            //Add to the map
-            roomPos toBeAddedToMap = new roomPos(roomLocation.x, roomLocation.y + 1, filteredList[chooseRandomRoom]);
-            //map.Add(toBeAddedToMap);
+            //Add the new room
+            int chooseRandomRoom = Random.Range(0, possibleSides.Count);
+            map.Add(new roomPos(newRoomDirection.x, newRoomDirection.y, possibleSides[chooseRandomRoom]));
         }
 
 
@@ -202,7 +222,7 @@ public class CurrentDungeonData : MonoBehaviour
             if (nextRoomElement.roomPrefab == null)
             {
                 //The room still did not exist
-                //addNewRoom("top");
+                addNewRoom("top");
             }
 
         }
@@ -214,7 +234,7 @@ public class CurrentDungeonData : MonoBehaviour
 
             if (nextRoomElement.roomPrefab == null)
             {
-                //addNewRoom("bottom");
+                addNewRoom("bottom");
             }
 
         }
@@ -226,7 +246,7 @@ public class CurrentDungeonData : MonoBehaviour
 
             if (nextRoomElement.roomPrefab == null)
             {
-                //addNewRoom("left");
+                addNewRoom("left");
             }
 
         }
@@ -238,13 +258,22 @@ public class CurrentDungeonData : MonoBehaviour
 
             if (nextRoomElement.roomPrefab == null)
             {
-                //addNewRoom("right");
+                addNewRoom("right");
             }
 
         }
 
 
     }
+
+
+
+
+
+
+
+
+
     private void getCorrectDungeon(List<Dungeon> theList, string wantedResult)
     {
         //Check if the list is empty
