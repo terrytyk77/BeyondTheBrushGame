@@ -8,9 +8,9 @@ public class PlayerMovement : MonoBehaviour
     //Variables||
 
         public float playerSpeed = 4f;
+        public GameObject playerVertical;
+        public GameObject playerHorizontal;
         Rigidbody2D playerBody;
-        GameObject playerVertical;
-        GameObject playerHorizontal;
         bool HorVerSide = false;
     //_________||
 
@@ -19,8 +19,6 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerVertical  = transform.Find("Vertical").gameObject;
-        playerHorizontal = transform.Find("Horizontal").gameObject;
         playerVerticalPerspective();
     }
 
