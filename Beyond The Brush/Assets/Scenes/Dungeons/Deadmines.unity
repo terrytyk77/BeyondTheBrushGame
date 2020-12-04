@@ -308,7 +308,35 @@ MonoBehaviour:
         right: 1
         left: 1
         bottom: 1
-  - DungeonName: Deadmines
+    - roomName: S_R
+      roomPrefab: {fileID: 1695067745534084126, guid: f68ed376a5ff2404d9e7f17a84e00143, type: 3}
+      roomSides:
+        top: 0
+        right: 1
+        left: 0
+        bottom: 0
+    - roomName: S_L
+      roomPrefab: {fileID: 3958058499961428590, guid: 28e13a94a8d19384d890d522046ead00, type: 3}
+      roomSides:
+        top: 0
+        right: 0
+        left: 1
+        bottom: 0
+    - roomName: S_T
+      roomPrefab: {fileID: 1187944150668524305, guid: a92c26c0b7d9eb740beda289c443ac8e, type: 3}
+      roomSides:
+        top: 1
+        right: 0
+        left: 0
+        bottom: 0
+    - roomName: S_B
+      roomPrefab: {fileID: 7637210221371106590, guid: d186bc4d5a9b7a940a29c3a65283c11f, type: 3}
+      roomSides:
+        top: 0
+        right: 0
+        left: 0
+        bottom: 1
+  - DungeonName: Castle
     baseReward: 100
     startingRoom: {fileID: 0}
     rooms:

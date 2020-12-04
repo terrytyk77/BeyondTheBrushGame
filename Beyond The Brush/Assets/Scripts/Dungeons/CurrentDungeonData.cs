@@ -198,6 +198,86 @@ public class CurrentDungeonData : MonoBehaviour
                 }
             }
 
+
+            //ADD THE FILTER||
+
+            //Loop through the list of rooms that u have
+            foreach (Dungeon.room room in possibleSides)
+            {
+                bool roomShouldBeRemoved = false;
+
+                //Check what sides does this room has
+                //it will then check if there already is a room on that direction or not
+                //In case there is it will check if it is possible to make a connection
+                //if it isn't then this room cannot exist
+                //this avoids rooms whose doors would reach another room wall
+                //it will obviously increase the odds of the development of an impossible dungeon thoe
+                //a more specific algorithm will need to be added in a near future
+                if (room.roomSides.bottom)
+                {
+                    Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.down);
+                    if (nextHall.roomPrefab != null)
+                    {
+                        //There is already a room here
+                        if (!nextHall.roomSides.top)
+                        {
+                            //There was no door here
+                            roomShouldBeRemoved = true;
+
+                        }
+                    }
+                }
+                if (room.roomSides.top)
+                {
+                    Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.up);
+                    if (nextHall.roomPrefab != null)
+                    {
+                        //There is already a room here
+                        if (!nextHall.roomSides.bottom)
+                        {
+                            //There was no door here
+                            roomShouldBeRemoved = true;
+
+                        }
+                    }
+                }
+                if (room.roomSides.right)
+                {
+                    Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.right);
+                    if (nextHall.roomPrefab != null)
+                    {
+                        //There is already a room here
+                        if (!nextHall.roomSides.left)
+                        {
+                            //There was no door here
+                            roomShouldBeRemoved = true;
+
+                        }
+                    }
+                }
+                if (room.roomSides.left)
+                {
+                    Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.left);
+                    if (nextHall.roomPrefab != null)
+                    {
+                        //There is already a room here
+                        if (!nextHall.roomSides.right)
+                        {
+                            //There was no door here
+                            roomShouldBeRemoved = true;
+
+                        }
+                    }
+                }
+
+                if (!roomShouldBeRemoved)
+                {
+                    filteredList.Add(room);
+                }
+
+            }
+            //______________||
+
             //Add the new room
             int chooseRandomRoom = Random.Range(0, possibleSides.Count);
             map.Add(new roomPos(newRoomDirection.x, newRoomDirection.y, possibleSides[chooseRandomRoom]));
