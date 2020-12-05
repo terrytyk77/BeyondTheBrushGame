@@ -36,12 +36,10 @@ public class OnDrawEvent : MonoBehaviour
 		public GameObject stone;
 		public GameObject player;
 		public GameObject drawingCollider;
-	//_________||
+    //_________||
 
 
-
-
-	public bool HoverPlayer(DrawingLocation location)
+    public bool HoverPlayer(DrawingLocation location)
 	{
 		Vector2 worldPos = Camera.main.ScreenToWorldPoint(location.middle);
 		BoxCollider2D playerCollider = drawingCollider.GetComponent<BoxCollider2D>();
@@ -140,6 +138,7 @@ public class OnDrawEvent : MonoBehaviour
 			UILineRenderer lineData = line.gameObject.GetComponent<UILineRenderer>();
 			DrawingLocation location = GetDrawingMiddle(lineData);
 
+
 			switch (result.gesture.id)
 			{
 				case "Horizontal":
@@ -174,7 +173,9 @@ public class OnDrawEvent : MonoBehaviour
 						break;
 					}
 			}
+
 			
+
 		}
         else
         {

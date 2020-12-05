@@ -37,7 +37,7 @@ namespace GestureRecognizer {
 
 		public bool fixedArea = false;
 
-		GestureData data = new GestureData();
+		public GestureData data = new GestureData();
 
 		[System.Serializable]
 		public class ResultEvent : UnityEvent<RecognitionResult> {}
@@ -98,6 +98,7 @@ namespace GestureRecognizer {
 
 		public void OnBeginDrag (PointerEventData eventData) {
 
+			//CHANGED FROM maxLines TO 0
 			if (data.lines.Count >= maxLines) {
 				switch (removeStrategy) {
 				case RemoveStrategy.RemoveOld:
@@ -177,6 +178,9 @@ namespace GestureRecognizer {
 					OnRecognize.Invoke (RecognitionResult.Empty);
 				}
 			}
+
+			//added
+			ClearLines();
 
 			yield return null;
 		}
