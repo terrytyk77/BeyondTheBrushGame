@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - proceduralData
   - dungeonRoom
+  - MainShader
   layers:
   - Default
   - TransparentFX
