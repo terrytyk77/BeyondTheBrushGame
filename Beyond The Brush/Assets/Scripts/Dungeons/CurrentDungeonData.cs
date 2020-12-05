@@ -540,9 +540,26 @@ public class CurrentDungeonData : MonoBehaviour
         //Get the player body
         playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
 
-        //Change the second argument when needed
-        getCorrectDungeon(dungeonsList, "Deadmines");
-        SpawnPlayer();
+        GameObject dungeonAPI = GameObject.FindGameObjectWithTag("sceneAPI");
+        if (dungeonAPI != null)
+        {
+
+            //Change the second argument when needed
+            getCorrectDungeon(dungeonsList, dungeonAPI.GetComponent<sceneAPI>().nextDungeon);
+            SpawnPlayer();
+
+            //Avoid duplicates
+            Destroy(dungeonAPI);
+        }
+        else
+        {
+
+            //Change the second argument when needed
+            getCorrectDungeon(dungeonsList, "Deadmines");
+            SpawnPlayer();
+        }
+
+
     }
 
 

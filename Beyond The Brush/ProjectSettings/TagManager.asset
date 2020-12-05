@@ -10,6 +10,7 @@ TagManager:
   - proceduralData
   - dungeonRoom
   - MainShader
+  - sceneAPI
   layers:
   - Default
   - TransparentFX
