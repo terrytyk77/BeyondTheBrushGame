@@ -8,6 +8,9 @@ public class CurrentDungeonData : MonoBehaviour
 {
     //Variables||
 
+        //Public
+        public GameObject textview;
+
         //Main village id number
         public int mainVillageID = 1;
 
@@ -101,6 +104,9 @@ public class CurrentDungeonData : MonoBehaviour
         }
 
 
+        //REMOVE
+        textview.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;
+
         //Add some sort of transition
 
         //Destroy all the current existing dungeon rooms
@@ -143,6 +149,7 @@ public class CurrentDungeonData : MonoBehaviour
             //Store possible sides
             List<Dungeon.room> possibleSides = new List<Dungeon.room>();
             List<Dungeon.room> filteredList = new List<Dungeon.room>();
+            List<Dungeon.room> extraFilteredList = new List<Dungeon.room>();
 
             Vector2Int newRoomDirection = roomLocation;
 
@@ -218,6 +225,7 @@ public class CurrentDungeonData : MonoBehaviour
                     Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.down);
                     if (nextHall.roomPrefab != null)
                     {
+
                         //There is already a room here
                         if (!nextHall.roomSides.top)
                         {
@@ -227,6 +235,7 @@ public class CurrentDungeonData : MonoBehaviour
                         }
                     }
                 }
+
                 if (room.roomSides.top)
                 {
                     Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.up);
@@ -241,6 +250,7 @@ public class CurrentDungeonData : MonoBehaviour
                         }
                     }
                 }
+
                 if (room.roomSides.right)
                 {
                     Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.right);
@@ -255,6 +265,7 @@ public class CurrentDungeonData : MonoBehaviour
                         }
                     }
                 }
+
                 if (room.roomSides.left)
                 {
                     Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.left);
@@ -270,17 +281,90 @@ public class CurrentDungeonData : MonoBehaviour
                     }
                 }
 
+
                 if (!roomShouldBeRemoved)
                 {
                     filteredList.Add(room);
                 }
 
             }
+
+            //check if there are only one side rooms
+            bool thereAreNotOneSidedRooms = false;
+
+            foreach (Dungeon.room filteredRoom in filteredList)
+            {
+                int sidesCounter = 0;
+                if (filteredRoom.roomSides.top)
+                {
+                    sidesCounter++;
+                }
+                if (filteredRoom.roomSides.bottom)
+                {
+                    sidesCounter++;
+                }
+                if (filteredRoom.roomSides.left)
+                {
+                    sidesCounter++;
+                }
+                if (filteredRoom.roomSides.right)
+                {
+                    sidesCounter++;
+                }
+
+                if (sidesCounter > 1)
+                {
+                    thereAreNotOneSidedRooms = true;
+                }
+            }
+
+
+            //this means there are rooms that are not just one sided
+            //it means we can remove the one sided rooms to avoid dead ends
+            if (thereAreNotOneSidedRooms)
+            {
+                foreach(Dungeon.room filteredRoom in filteredList)
+                {
+                    int sidesCounter = 0;
+                    if (filteredRoom.roomSides.top)
+                    {
+                        sidesCounter++;
+                    }
+                    if (filteredRoom.roomSides.bottom)
+                    {
+                        sidesCounter++;
+                    }
+                    if (filteredRoom.roomSides.left)
+                    {
+                        sidesCounter++;
+                    }
+                    if (filteredRoom.roomSides.right)
+                    {
+                        sidesCounter++;
+                    }
+
+                    if (sidesCounter > 1)
+                    {
+                        extraFilteredList.Add(filteredRoom);
+                    }
+                }
+            }
             //______________||
 
-            //Add the new room
-            int chooseRandomRoom = Random.Range(0, possibleSides.Count);
-            map.Add(new roomPos(newRoomDirection.x, newRoomDirection.y, possibleSides[chooseRandomRoom]));
+            if (extraFilteredList.Count < 1)
+            {
+                //Add the new room
+                int chooseRandomRoom = Random.Range(0, filteredList.Count);
+                map.Add(new roomPos(newRoomDirection.x, newRoomDirection.y, filteredList[chooseRandomRoom]));
+            }
+            else
+            {
+                //Add the new room
+                int chooseRandomRoom = Random.Range(0, extraFilteredList.Count);
+                map.Add(new roomPos(newRoomDirection.x, newRoomDirection.y, extraFilteredList[chooseRandomRoom]));
+            }
+
+
         }
 
 
@@ -380,11 +464,33 @@ public class CurrentDungeonData : MonoBehaviour
                         //Add the following room
                         foreach (Dungeon.room room in currentDungeon.rooms)
                         {
+
+                            int roomAmountOfSides = 0;
+                            
                             //Check if the room has a bottom dooor
                             if (room.roomSides.bottom)
                             {
+                                roomAmountOfSides++;
+                                
+                            }
+                            if (room.roomSides.top)
+                            {
+                                roomAmountOfSides++;
+                            }
+                            if (room.roomSides.right)
+                            {
+                                roomAmountOfSides++;
+                            }
+                            if (room.roomSides.left)
+                            {
+                                roomAmountOfSides++;
+                            }
+
+                            if (roomAmountOfSides > 1 && room.roomSides.bottom)
+                            {
                                 acceptedRooms.Add(room);
                             }
+                            
                         }
 
                         int chooseRandom = Random.Range(0, acceptedRooms.Count);
