@@ -25,13 +25,24 @@ public class DoorTriggers : MonoBehaviour
                 Rigidbody2D playerRB = collision.gameObject.GetComponent<Rigidbody2D>();
                 playerRB.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
 
+
                 //Call for a camera transition
-                Camera.main.GetComponent<PostProcessEvents>().transition(MakeTheRoomTeleport);
+                Camera.main.GetComponent<PostProcessEvents>().transition(MakeTheRoomTeleport, gameObject.name);
 
                 void MakeTheRoomTeleport()
                 {
-                    dungeonData.GetComponent<CurrentDungeonData>().changeNextRoom(objectName);
+                    
                     playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+                    if (gameObject.name == "exit")
+                    {
+                        dungeonData.GetComponent<CurrentDungeonData>().callMapLoad();
+                    }
+                    else
+                    {
+                        dungeonData.GetComponent<CurrentDungeonData>().changeNextRoom(objectName);
+                    }
+                    
 
                 }
 
@@ -40,5 +51,6 @@ public class DoorTriggers : MonoBehaviour
         }
 
     }
+
 
 }

@@ -102,12 +102,10 @@ public class CurrentDungeonData : MonoBehaviour
                 nextRoomSide = null;
                 break;
         }
-
+        
 
         //REMOVE
         textview.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;
-
-        //Add some sort of transition
 
         //Destroy all the current existing dungeon rooms
         foreach (GameObject room in GameObject.FindGameObjectsWithTag("dungeonRoom"))
@@ -553,7 +551,7 @@ public class CurrentDungeonData : MonoBehaviour
         }
         else
         {
-
+            //deadmines is the current default dungeon
             //Change the second argument when needed
             getCorrectDungeon(dungeonsList, "Deadmines");
             SpawnPlayer();
@@ -575,8 +573,14 @@ public class CurrentDungeonData : MonoBehaviour
         public GameObject loadingBar;
     //________________________________||
 
+    public void callMapLoad() {
+        StartCoroutine("LoadMainMap", 1);
+    }
+
+
     IEnumerator LoadMainMap(int scene)
     {
+            
         //Get the loading screen transparency
         CanvasGroup backAlpha = background.GetComponent<CanvasGroup>();
         backAlpha.alpha = 0;

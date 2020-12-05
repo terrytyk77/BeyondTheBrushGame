@@ -9,15 +9,28 @@ public class PostProcessEvents : MonoBehaviour
 
     //Variables||
         public GameObject darkOverlay;
+        private string storeName = "";
     //_________||
 
-    public void transition(Action fun)
+    public void transition(Action fun, string name)
     {
+        storeName = name;
         StartCoroutine("TransitionAnimation", fun);
     }
 
     IEnumerator TransitionAnimation(Action fun)
     {
+
+        if (storeName == "exit")
+        {
+            fun();
+            yield return 0;
+        }
+        else
+        {
+
+
+
         Image imageElement = darkOverlay.GetComponent<Image>();
 
         //Make the screen get darker    
@@ -44,5 +57,8 @@ public class PostProcessEvents : MonoBehaviour
 
 
         yield return 0;
+
+        }
+
     }
 }
