@@ -8,8 +8,25 @@ public class CurrentDungeonData : MonoBehaviour
 {
     //Variables||
 
-        //Public
-        public GameObject textview;
+    //UI elements||
+            [System.Serializable]
+            public class uiElements
+            {
+                [System.Serializable]
+                public class minimap{
+
+                    public GameObject textElement;
+                    public GameObject mask;
+
+                }
+
+                public minimap miniMap = new minimap();
+
+            }
+
+            public uiElements UIelements = new uiElements();
+        //___________||
+        
 
         //Main village id number
         public int mainVillageID = 1;
@@ -102,10 +119,10 @@ public class CurrentDungeonData : MonoBehaviour
                 nextRoomSide = null;
                 break;
         }
-        
+
 
         //REMOVE
-        textview.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;
+        UIelements.miniMap.textElement.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;
 
         //Destroy all the current existing dungeon rooms
         foreach (GameObject room in GameObject.FindGameObjectsWithTag("dungeonRoom"))

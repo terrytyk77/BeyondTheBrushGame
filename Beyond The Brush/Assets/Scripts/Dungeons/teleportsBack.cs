@@ -10,7 +10,7 @@ public class teleportsBack : MonoBehaviour
 
         GameObject dungeonData = GameObject.FindGameObjectWithTag("proceduralData");
 
-
+        //Check if the player came from a dungeonn
         if (dungeonData != null)
         {
             //Variables||
@@ -18,21 +18,26 @@ public class teleportsBack : MonoBehaviour
                 string dungeonName = dungeonUsed.DungeonName;
             //_________||
 
+            //loop through all teleports
             foreach (Transform location in gameObject.transform)
             {
-
+                //check if the teleport back exists
                 if (dungeonName.ToLower() == location.gameObject.name.ToLower())
                 {
                     GameObject player = GameObject.FindGameObjectWithTag("Player");
-
+                    
+                    //check if the player exists
                     if(player != null)
                     {
 
+                        //teleports the player to the correct location
                         player.GetComponent<Transform>().position = new Vector2(location.position.x, location.position.y);
                     }
                 }
             }
 
+            //Get rid of the game object as it is no longer used
+            Destroy(dungeonData);
 
         }        
     }
