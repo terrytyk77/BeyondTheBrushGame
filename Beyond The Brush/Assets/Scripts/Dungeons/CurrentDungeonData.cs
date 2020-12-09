@@ -85,6 +85,22 @@ public class CurrentDungeonData : MonoBehaviour
         return foundRoom;
     }
 
+    private void updateUI()
+    {
+ 
+        //Change the minimap text
+        UIelements.miniMap.textElement.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;
+
+        //Destroy the room instances of the minimap
+        foreach (Transform room in UIelements.miniMap.mask.transform)
+        {
+            Destroy(room);
+        }
+
+        //Recreate the dungeon rooms layout
+
+    }
+
     public void changeNextRoom(string roomSide)
     {
 
@@ -120,9 +136,8 @@ public class CurrentDungeonData : MonoBehaviour
                 break;
         }
 
-
-        //REMOVE
-        UIelements.miniMap.textElement.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;
+        //Update the UI
+        updateUI();
 
         //Destroy all the current existing dungeon rooms
         foreach (GameObject room in GameObject.FindGameObjectsWithTag("dungeonRoom"))
