@@ -1295,6 +1295,11 @@ MonoBehaviour:
   textview: {fileID: 432807773}
   mainVillageID: 1
   dungeonsData: {fileID: 359513366}
+  currentDungeon:
+    DungeonName: 
+    baseReward: 0
+    startingRoom: {fileID: 0}
+    rooms: []
   background: {fileID: 1513799985}
   loadingScreen: {fileID: 1760424889}
   loadingBar: {fileID: 513232375}

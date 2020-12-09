@@ -30,7 +30,7 @@ public class CurrentDungeonData : MonoBehaviour
         Rigidbody2D playerRB;
 
         //Current played dungeon
-        Dungeon currentDungeon;
+        public Dungeon currentDungeon;
                
         private List<roomPos> map = new List<roomPos>();
     //_________||
@@ -532,6 +532,7 @@ public class CurrentDungeonData : MonoBehaviour
 
     private void Start()
     {
+
         //Get the list of dungeons
         List<Dungeon> dungeonsList = dungeonsData.GetComponent<DungeonsAPI>().dungeons;
 
@@ -574,6 +575,10 @@ public class CurrentDungeonData : MonoBehaviour
     //________________________________||
 
     public void callMapLoad() {
+
+        //Save the object for the next scene
+        DontDestroyOnLoad(gameObject);
+
         StartCoroutine("LoadMainMap", 1);
     }
 
