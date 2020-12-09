@@ -59,7 +59,7 @@ public class OnDrawEvent : MonoBehaviour
 
 	}
 
-	public void HoverEnemy(DrawingLocation location)
+	public void HoverEnemy(DrawingLocation location, int damage)
     {
 		var enemies = GameObject.FindGameObjectsWithTag("Enemy");
 		Vector2 worldSmallPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.sX, location.sY));
@@ -75,8 +75,7 @@ public class OnDrawEvent : MonoBehaviour
 
 			if (drawingZone.Overlaps(enemyHitZone))
             {
-				Destroy(enemy);
-				Debug.Log("Enemy Killed!");
+				enemy.GetComponent<Enemy>().damage(damage);
 			}
 		}
 	}
@@ -144,7 +143,7 @@ public class OnDrawEvent : MonoBehaviour
 				case "Horizontal":
                     {
 						Debug.Log("Slash");
-						HoverEnemy(location);
+						HoverEnemy(location, 20);
 						break;
                     }
 				case "Circle":
@@ -163,7 +162,7 @@ public class OnDrawEvent : MonoBehaviour
 				case "Xspell":
 					{
 						Debug.Log("Xspell");
-						HoverEnemy(location);
+						HoverEnemy(location, 50);
 						break;
 					}
 				case "Square":
