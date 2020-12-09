@@ -23,7 +23,13 @@ public class Dungeon
     [System.Serializable]
     public class room
     {
-        
+        //Variables||
+
+            public string roomName = "room";
+            public GameObject roomPrefab;
+            public sides roomSides = new sides(false, false ,false ,false);
+            public bool completed = false;
+        //_________||
 
         [System.Serializable]
         public class sides
@@ -45,9 +51,7 @@ public class Dungeon
 
         }
 
-        public string roomName = "room";
-        public GameObject roomPrefab;
-        public sides roomSides = new sides(false, false ,false ,false);
+
 
 
 

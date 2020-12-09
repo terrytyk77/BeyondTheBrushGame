@@ -19,6 +19,9 @@ public class DungeonTeleportation : MonoBehaviour
             //This means that the user who entered is the played
             //Start the teleportation of scene proccess
             GameObject sceneAPI = GameObject.FindGameObjectWithTag("sceneAPI");
+
+
+
             if (sceneAPI)
             {
                 //Store the next dungeon name
