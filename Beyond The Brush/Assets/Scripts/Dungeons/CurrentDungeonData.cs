@@ -157,6 +157,16 @@ public class CurrentDungeonData : MonoBehaviour
             }
         }
 
+        //Change the explored state
+        foreach (CurrentDungeonData.roomPos mappyroommy in map)
+        {
+            if (currentRoom == mappyroommy.position)
+            {
+                Debug.Log("Found the room that is being explored");
+                mappyroommy.room.setExplored(true);
+            }
+        }
+
         //Update the UI
         updateMap();
 
@@ -565,7 +575,7 @@ public class CurrentDungeonData : MonoBehaviour
             //Found the correct room
             if (childRoomPos == currentRoom)
             {
-      
+
                 //Also show the player marker
                 playerElement.gameObject.SetActive(true);
             }
@@ -593,7 +603,9 @@ public class CurrentDungeonData : MonoBehaviour
         //Check explored status
         foreach (CurrentDungeonData.roomPos pos in map)
         {
-            Debug.Log(pos.position.x + ":" + pos.position.y + " - " + pos.room.getExplored());
+
+            Debug.Log(pos.room.getCompleted());
+            //Debug.Log(pos.position.x + ":" + pos.position.y + " - " + pos.room.getExplored());
         }
 
     }
@@ -606,21 +618,8 @@ public class CurrentDungeonData : MonoBehaviour
 
         //Add to the minimap||
 
-            bool alreadyExists = false;
-            int roomSize = (int)UIelements.miniMap.roomPrefab.GetComponent<RectTransform>().sizeDelta.x;
+                int roomSize = (int)UIelements.miniMap.roomPrefab.GetComponent<RectTransform>().sizeDelta.x;
 
-            //Check if it already exists
-            foreach (Transform child in UIelements.miniMap.mask.transform)
-            {
-
-                if (child.position.x == x * roomSize && child.position.y == y * roomSize)
-                {
-                    alreadyExists = true;
-                }
-            }
-
-            if (!alreadyExists)
-            {
                 //Create the element on the room
                 GameObject newRoom = Instantiate(UIelements.miniMap.roomPrefab);
 
@@ -631,11 +630,12 @@ public class CurrentDungeonData : MonoBehaviour
                 //Put at correct position
                 newRoom.transform.localPosition = new Vector2(x * roomSize, y * roomSize);
 
-                //Set correct color
-                if (room.getCompleted())
-                    newRoom.GetComponent<Image>().color = UIelements.miniMap.completedRoom;
-                else
-                    newRoom.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
+
+            //Set correct color
+            if (room.getCompleted())
+                newRoom.GetComponent<Image>().color = UIelements.miniMap.completedRoom;
+            else
+                newRoom.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
                 
 
             //Change door displaying
@@ -651,7 +651,7 @@ public class CurrentDungeonData : MonoBehaviour
                         door.gameObject.SetActive(room.roomSides.left);
                 }
 
-            }
+
         //__________________||
 
         //The room cannot be explored
@@ -659,7 +659,7 @@ public class CurrentDungeonData : MonoBehaviour
 
         //Add to the list
         map.Add(new roomPos(x, y, 
-            new Dungeon.room(room.roomName, room.roomPrefab, room.roomSides)));
+            new Dungeon.room(room.roomName, room.roomPrefab, room.roomSides, room.getCompleted(), false)));
     }
 
     private void SpawnPlayer()

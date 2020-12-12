@@ -88,6 +88,15 @@ public class Dungeon
             roomSides = side;
         }
 
+        public room(string name, GameObject prefab, sides side, bool completed2, bool unexplored)
+        {
+            roomName = name;
+            roomPrefab = prefab;
+            roomSides = side;
+            completed = completed2;
+            explored = unexplored;
+        }
+
     }
 
 }
