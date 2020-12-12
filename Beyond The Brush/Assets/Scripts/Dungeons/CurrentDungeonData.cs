@@ -481,7 +481,7 @@ public class CurrentDungeonData : MonoBehaviour
                     //Add the starting room
 
                         Dungeon.room startingRoomObject = new Dungeon.room("Starting Room", dungeon.startingRoom, new Dungeon.room.sides(true, false, false, false));
-                        startingRoomObject.completed = true;
+                        startingRoomObject.setCompleted(true);
 
                         CreateNewRoom(0, 0, startingRoomObject);
 
@@ -549,6 +549,7 @@ public class CurrentDungeonData : MonoBehaviour
         //Get the room size
         int roomSize = (int)UIelements.miniMap.roomPrefab.GetComponent<RectTransform>().sizeDelta.x;
 
+
         //Redo the minimap colors 
         foreach (Transform child in UIelements.miniMap.mask.transform)
         {
@@ -560,11 +561,11 @@ public class CurrentDungeonData : MonoBehaviour
 
             //Get the player pointer
             Transform playerElement = child.Find("player");
+
             //Found the correct room
             if (childRoomPos == currentRoom)
             {
-                minimapRoom.explored = true;
-
+      
                 //Also show the player marker
                 playerElement.gameObject.SetActive(true);
             }
@@ -575,9 +576,9 @@ public class CurrentDungeonData : MonoBehaviour
             }
 
             //Change the room color to the correct one
-            if (minimapRoom.completed)
+            if (minimapRoom.getCompleted())
                 child.GetComponent<Image>().color = UIelements.miniMap.completedRoom;
-            else if (minimapRoom.explored)
+            else if (minimapRoom.getExplored())
                 child.GetComponent<Image>().color = UIelements.miniMap.uncompletedRoom;
             else
                 child.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
@@ -588,6 +589,13 @@ public class CurrentDungeonData : MonoBehaviour
         UIelements.miniMap.mask.transform.localPosition = 
             new Vector2(-currentRoom.x  * (roomSize * UIelements.miniMap.mask.transform.localScale.x), 
             -currentRoom.y * (roomSize * UIelements.miniMap.mask.transform.localScale.y));
+
+        //Check explored status
+        foreach (CurrentDungeonData.roomPos pos in map)
+        {
+            Debug.Log(pos.position.x + ":" + pos.position.y + " - " + pos.room.getExplored());
+        }
+
     }
 
 
@@ -624,7 +632,7 @@ public class CurrentDungeonData : MonoBehaviour
                 newRoom.transform.localPosition = new Vector2(x * roomSize, y * roomSize);
 
                 //Set correct color
-                if (room.completed)
+                if (room.getCompleted())
                     newRoom.GetComponent<Image>().color = UIelements.miniMap.completedRoom;
                 else
                     newRoom.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
@@ -646,8 +654,12 @@ public class CurrentDungeonData : MonoBehaviour
             }
         //__________________||
 
+        //The room cannot be explored
+        room.setExplored(false);
+
         //Add to the list
-        map.Add(new roomPos(x, y, room));
+        map.Add(new roomPos(x, y, 
+            new Dungeon.room(room.roomName, room.roomPrefab, room.roomSides)));
     }
 
     private void SpawnPlayer()
