@@ -44,7 +44,7 @@ public class CurrentDungeonData : MonoBehaviour
         private GameObject startingRoom;
 
         //The current room coordinates
-        private Vector2Int currentRoom;
+        public Vector2Int currentRoom;
 
         //The next room teleport point
         private string nextRoomSide;
@@ -549,7 +549,7 @@ public class CurrentDungeonData : MonoBehaviour
     }
 
 
-    private void updateMap()
+    public void updateMap()
     {
 
         //Change the minimap text
@@ -599,13 +599,6 @@ public class CurrentDungeonData : MonoBehaviour
             new Vector2(-currentRoom.x  * (roomSize * UIelements.miniMap.mask.transform.localScale.x), 
             -currentRoom.y * (roomSize * UIelements.miniMap.mask.transform.localScale.y));
 
-        //Check explored status
-        foreach (CurrentDungeonData.roomPos pos in map)
-        {
-
-            Debug.Log(pos.room.getCompleted());
-            //Debug.Log(pos.position.x + ":" + pos.position.y + " - " + pos.room.getExplored());
-        }
 
     }
 
