@@ -162,7 +162,6 @@ public class CurrentDungeonData : MonoBehaviour
         {
             if (currentRoom == mappyroommy.position)
             {
-                Debug.Log("Found the room that is being explored");
                 mappyroommy.room.setExplored(true);
             }
         }
@@ -699,6 +698,9 @@ public class CurrentDungeonData : MonoBehaviour
 
             //Avoid duplicates
             Destroy(dungeonAPI);
+
+            //Update the minimap
+            updateMap();
         }
         else
         {
@@ -706,6 +708,9 @@ public class CurrentDungeonData : MonoBehaviour
             //Change the second argument when needed
             getCorrectDungeon(dungeonsList, "Deadmines");
             SpawnPlayer();
+
+            //Update the minimap
+            updateMap();
         }
 
 
