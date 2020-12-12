@@ -127,9 +127,6 @@ public class CurrentDungeonData : MonoBehaviour
                 break;
         }
 
-        //Update the UI
-        updateMap();
-
         //Destroy all the current existing dungeon rooms
         foreach (GameObject room in GameObject.FindGameObjectsWithTag("dungeonRoom"))
         {
@@ -159,6 +156,10 @@ public class CurrentDungeonData : MonoBehaviour
                 }
             }
         }
+
+        //Update the UI
+        updateMap();
+
     }
 
     private void createNextRooms(Vector2Int roomLocation)
@@ -477,8 +478,12 @@ public class CurrentDungeonData : MonoBehaviour
 
                     //ADD STARTING ROOM TO MAP||
 
-                        //Add the starting room
-                        CreateNewRoom(0, 0, new Dungeon.room("Starting Room", dungeon.startingRoom, new Dungeon.room.sides(true, false, false, false)));
+                    //Add the starting room
+
+                        Dungeon.room startingRoomObject = new Dungeon.room("Starting Room", dungeon.startingRoom, new Dungeon.room.sides(true, false, false, false));
+                        startingRoomObject.completed = true;
+
+                        CreateNewRoom(0, 0, startingRoomObject);
 
                         List<Dungeon.room> acceptedRooms = new List<Dungeon.room>();
 
@@ -534,14 +539,55 @@ public class CurrentDungeonData : MonoBehaviour
 
     }
 
+
     private void updateMap()
     {
 
         //Change the minimap text
         UIelements.miniMap.textElement.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;
 
-        //Redo the minimap colors 
+        //Get the room size
+        int roomSize = (int)UIelements.miniMap.roomPrefab.GetComponent<RectTransform>().sizeDelta.x;
 
+        //Redo the minimap colors 
+        foreach (Transform child in UIelements.miniMap.mask.transform)
+        {
+            //The room position
+            Vector2Int childRoomPos = new Vector2Int((int)child.localPosition.x / roomSize, (int)child.localPosition.y / roomSize);
+
+            //Get the room
+            Dungeon.room minimapRoom = getRoomViaCords(childRoomPos);
+
+            //Get the player pointer
+            Transform playerElement = child.Find("player");
+            //Found the correct room
+            if (childRoomPos == currentRoom)
+            {
+                minimapRoom.explored = true;
+
+                //Also show the player marker
+                playerElement.gameObject.SetActive(true);
+            }
+            else
+            {
+                //Disable the player marker just in case
+                playerElement.gameObject.SetActive(false);
+            }
+
+            //Change the room color to the correct one
+            if (minimapRoom.completed)
+                child.GetComponent<Image>().color = UIelements.miniMap.completedRoom;
+            else if (minimapRoom.explored)
+                child.GetComponent<Image>().color = UIelements.miniMap.uncompletedRoom;
+            else
+                child.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
+
+        }
+
+        //Repositionate the map
+        UIelements.miniMap.mask.transform.localPosition = 
+            new Vector2(-currentRoom.x  * (roomSize * UIelements.miniMap.mask.transform.localScale.x), 
+            -currentRoom.y * (roomSize * UIelements.miniMap.mask.transform.localScale.y));
     }
 
 

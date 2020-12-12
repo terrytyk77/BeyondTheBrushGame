@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 15}
-  m_SizeDelta: {x: 8, y: 12}
+  m_SizeDelta: {x: 13, y: 12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8021721802106323040
 CanvasRenderer:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 2a10c5a048c80cc4781ae8a182cbc89e, type: 3}
+  m_Texture: {fileID: 2800000, guid: cf66073b3bc55454db0f9310eb4a3c82, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -107,7 +107,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 15, y: 0}
-  m_SizeDelta: {x: 8, y: 12}
+  m_SizeDelta: {x: 13, y: 12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &940717367651848824
 CanvasRenderer:
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 2a10c5a048c80cc4781ae8a182cbc89e, type: 3}
+  m_Texture: {fileID: 2800000, guid: cf66073b3bc55454db0f9310eb4a3c82, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -179,7 +179,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.00012207031, y: -15}
-  m_SizeDelta: {x: 8, y: 12}
+  m_SizeDelta: {x: 13, y: 12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7490896007511379423
 CanvasRenderer:
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 2a10c5a048c80cc4781ae8a182cbc89e, type: 3}
+  m_Texture: {fileID: 2800000, guid: cf66073b3bc55454db0f9310eb4a3c82, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -323,7 +323,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -15, y: 0}
-  m_SizeDelta: {x: 8, y: 12}
+  m_SizeDelta: {x: 13, y: 12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6391623447142274497
 CanvasRenderer:
@@ -353,7 +353,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 2a10c5a048c80cc4781ae8a182cbc89e, type: 3}
+  m_Texture: {fileID: 2800000, guid: cf66073b3bc55454db0f9310eb4a3c82, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0

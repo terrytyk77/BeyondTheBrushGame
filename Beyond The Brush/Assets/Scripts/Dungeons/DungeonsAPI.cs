@@ -28,6 +28,7 @@ public class Dungeon
             public string roomName = "room";
             public GameObject roomPrefab;
             public sides roomSides = new sides(false, false ,false ,false);
+            public bool explored = false;
             public bool completed = false;
         //_________||
 
