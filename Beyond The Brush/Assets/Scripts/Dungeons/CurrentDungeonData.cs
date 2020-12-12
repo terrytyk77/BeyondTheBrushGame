@@ -17,6 +17,12 @@ public class CurrentDungeonData : MonoBehaviour
 
                     public GameObject textElement;
                     public GameObject mask;
+                    public GameObject roomPrefab;
+
+                    public Color completedRoom;
+                    public Color uncompletedRoom;
+                    public Color unexploredRoom;
+
 
                 }
 
@@ -85,21 +91,6 @@ public class CurrentDungeonData : MonoBehaviour
         return foundRoom;
     }
 
-    private void updateUI()
-    {
- 
-        //Change the minimap text
-        UIelements.miniMap.textElement.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;
-
-        //Destroy the room instances of the minimap
-        foreach (Transform room in UIelements.miniMap.mask.transform)
-        {
-            Destroy(room);
-        }
-
-        //Recreate the dungeon rooms layout
-
-    }
 
     public void changeNextRoom(string roomSide)
     {
@@ -137,7 +128,7 @@ public class CurrentDungeonData : MonoBehaviour
         }
 
         //Update the UI
-        updateUI();
+        updateMap();
 
         //Destroy all the current existing dungeon rooms
         foreach (GameObject room in GameObject.FindGameObjectsWithTag("dungeonRoom"))
@@ -385,13 +376,13 @@ public class CurrentDungeonData : MonoBehaviour
             {
                 //Add the new room
                 int chooseRandomRoom = Random.Range(0, filteredList.Count);
-                map.Add(new roomPos(newRoomDirection.x, newRoomDirection.y, filteredList[chooseRandomRoom]));
+                CreateNewRoom(newRoomDirection.x, newRoomDirection.y, filteredList[chooseRandomRoom]);
             }
             else
             {
                 //Add the new room
                 int chooseRandomRoom = Random.Range(0, extraFilteredList.Count);
-                map.Add(new roomPos(newRoomDirection.x, newRoomDirection.y, extraFilteredList[chooseRandomRoom]));
+                CreateNewRoom(newRoomDirection.x, newRoomDirection.y, extraFilteredList[chooseRandomRoom]);
             }
 
 
@@ -487,7 +478,7 @@ public class CurrentDungeonData : MonoBehaviour
                     //ADD STARTING ROOM TO MAP||
 
                         //Add the starting room
-                        map.Add(new roomPos(0, 0, new Dungeon.room("Starting Room", dungeon.startingRoom, new Dungeon.room.sides(true, false, false, false))));
+                        CreateNewRoom(0, 0, new Dungeon.room("Starting Room", dungeon.startingRoom, new Dungeon.room.sides(true, false, false, false)));
 
                         List<Dungeon.room> acceptedRooms = new List<Dungeon.room>();
 
@@ -525,7 +516,7 @@ public class CurrentDungeonData : MonoBehaviour
 
                         int chooseRandom = Random.Range(0, acceptedRooms.Count);
 
-                        map.Add(new roomPos(0, 1, acceptedRooms[chooseRandom]));
+                    CreateNewRoom(0, 1, acceptedRooms[chooseRandom]);
                     //________________________||
 
 
@@ -543,6 +534,75 @@ public class CurrentDungeonData : MonoBehaviour
 
     }
 
+    private void updateMap()
+    {
+
+        //Change the minimap text
+        UIelements.miniMap.textElement.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;
+
+        //Redo the minimap colors 
+
+    }
+
+
+    private void CreateNewRoom(int x, int y, Dungeon.room room)
+    {
+
+        //Maybe attach this to the map???
+
+        //Add to the minimap||
+
+            bool alreadyExists = false;
+            int roomSize = (int)UIelements.miniMap.roomPrefab.GetComponent<RectTransform>().sizeDelta.x;
+
+            //Check if it already exists
+            foreach (Transform child in UIelements.miniMap.mask.transform)
+            {
+
+                if (child.position.x == x * roomSize && child.position.y == y * roomSize)
+                {
+                    alreadyExists = true;
+                }
+            }
+
+            if (!alreadyExists)
+            {
+                //Create the element on the room
+                GameObject newRoom = Instantiate(UIelements.miniMap.roomPrefab);
+
+                //Change it's nesting position
+                newRoom.transform.parent = UIelements.miniMap.mask.transform;
+                newRoom.GetComponent<RectTransform>().localScale = new Vector2(1, 1);
+
+                //Put at correct position
+                newRoom.transform.localPosition = new Vector2(x * roomSize, y * roomSize);
+
+                //Set correct color
+                if (room.completed)
+                    newRoom.GetComponent<Image>().color = UIelements.miniMap.completedRoom;
+                else
+                    newRoom.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
+                
+
+            //Change door displaying
+            foreach (Transform door in newRoom.transform)
+                {
+                    if (door.gameObject.name == "top")
+                        door.gameObject.SetActive(room.roomSides.top);
+                    if (door.gameObject.name == "bottom")
+                        door.gameObject.SetActive(room.roomSides.bottom);
+                    if (door.gameObject.name == "right")
+                        door.gameObject.SetActive(room.roomSides.right);
+                    if (door.gameObject.name == "left")
+                        door.gameObject.SetActive(room.roomSides.left);
+                }
+
+            }
+        //__________________||
+
+        //Add to the list
+        map.Add(new roomPos(x, y, room));
+    }
 
     private void SpawnPlayer()
     {
