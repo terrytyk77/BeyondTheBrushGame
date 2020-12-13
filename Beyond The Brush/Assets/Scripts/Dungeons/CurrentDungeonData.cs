@@ -17,6 +17,12 @@ public class CurrentDungeonData : MonoBehaviour
 
                     public GameObject textElement;
                     public GameObject mask;
+                    public GameObject roomPrefab;
+
+                    public Color completedRoom;
+                    public Color uncompletedRoom;
+                    public Color unexploredRoom;
+
 
                 }
 
@@ -38,7 +44,7 @@ public class CurrentDungeonData : MonoBehaviour
         private GameObject startingRoom;
 
         //The current room coordinates
-        private Vector2Int currentRoom;
+        public Vector2Int currentRoom;
 
         //The next room teleport point
         private string nextRoomSide;
@@ -85,21 +91,6 @@ public class CurrentDungeonData : MonoBehaviour
         return foundRoom;
     }
 
-    private void updateUI()
-    {
- 
-        //Change the minimap text
-        UIelements.miniMap.textElement.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;
-
-        //Destroy the room instances of the minimap
-        foreach (Transform room in UIelements.miniMap.mask.transform)
-        {
-            Destroy(room);
-        }
-
-        //Recreate the dungeon rooms layout
-
-    }
 
     public void changeNextRoom(string roomSide)
     {
@@ -136,9 +127,6 @@ public class CurrentDungeonData : MonoBehaviour
                 break;
         }
 
-        //Update the UI
-        updateUI();
-
         //Destroy all the current existing dungeon rooms
         foreach (GameObject room in GameObject.FindGameObjectsWithTag("dungeonRoom"))
         {
@@ -168,6 +156,19 @@ public class CurrentDungeonData : MonoBehaviour
                 }
             }
         }
+
+        //Change the explored state
+        foreach (CurrentDungeonData.roomPos mappyroommy in map)
+        {
+            if (currentRoom == mappyroommy.position)
+            {
+                mappyroommy.room.setExplored(true);
+            }
+        }
+
+        //Update the UI
+        updateMap();
+
     }
 
     private void createNextRooms(Vector2Int roomLocation)
@@ -385,13 +386,13 @@ public class CurrentDungeonData : MonoBehaviour
             {
                 //Add the new room
                 int chooseRandomRoom = Random.Range(0, filteredList.Count);
-                map.Add(new roomPos(newRoomDirection.x, newRoomDirection.y, filteredList[chooseRandomRoom]));
+                CreateNewRoom(newRoomDirection.x, newRoomDirection.y, filteredList[chooseRandomRoom]);
             }
             else
             {
                 //Add the new room
                 int chooseRandomRoom = Random.Range(0, extraFilteredList.Count);
-                map.Add(new roomPos(newRoomDirection.x, newRoomDirection.y, extraFilteredList[chooseRandomRoom]));
+                CreateNewRoom(newRoomDirection.x, newRoomDirection.y, extraFilteredList[chooseRandomRoom]);
             }
 
 
@@ -486,8 +487,12 @@ public class CurrentDungeonData : MonoBehaviour
 
                     //ADD STARTING ROOM TO MAP||
 
-                        //Add the starting room
-                        map.Add(new roomPos(0, 0, new Dungeon.room("Starting Room", dungeon.startingRoom, new Dungeon.room.sides(true, false, false, false))));
+                    //Add the starting room
+
+                        Dungeon.room startingRoomObject = new Dungeon.room("Starting Room", dungeon.startingRoom, new Dungeon.room.sides(true, false, false, false));
+                        startingRoomObject.setCompleted(true);
+
+                        CreateNewRoom(0, 0, startingRoomObject);
 
                         List<Dungeon.room> acceptedRooms = new List<Dungeon.room>();
 
@@ -525,7 +530,7 @@ public class CurrentDungeonData : MonoBehaviour
 
                         int chooseRandom = Random.Range(0, acceptedRooms.Count);
 
-                        map.Add(new roomPos(0, 1, acceptedRooms[chooseRandom]));
+                    CreateNewRoom(0, 1, acceptedRooms[chooseRandom]);
                     //________________________||
 
 
@@ -543,6 +548,111 @@ public class CurrentDungeonData : MonoBehaviour
 
     }
 
+
+    public void updateMap()
+    {
+
+        //Change the minimap text
+        UIelements.miniMap.textElement.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;
+
+        //Get the room size
+        int roomSize = (int)UIelements.miniMap.roomPrefab.GetComponent<RectTransform>().sizeDelta.x;
+
+
+        //Redo the minimap colors 
+        foreach (Transform child in UIelements.miniMap.mask.transform)
+        {
+            //The room position
+            Vector2Int childRoomPos = new Vector2Int((int)child.localPosition.x / roomSize, (int)child.localPosition.y / roomSize);
+
+            //Get the room
+            Dungeon.room minimapRoom = getRoomViaCords(childRoomPos);
+
+            //Get the player pointer
+            Transform playerElement = child.Find("player");
+
+            //Found the correct room
+            if (childRoomPos == currentRoom)
+            {
+
+                //Also show the player marker
+                playerElement.gameObject.SetActive(true);
+            }
+            else
+            {
+                //Disable the player marker just in case
+                playerElement.gameObject.SetActive(false);
+            }
+
+            //Change the room color to the correct one
+            if (minimapRoom.getCompleted())
+                child.GetComponent<Image>().color = UIelements.miniMap.completedRoom;
+            else if (minimapRoom.getExplored())
+                child.GetComponent<Image>().color = UIelements.miniMap.uncompletedRoom;
+            else
+                child.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
+
+        }
+
+        //Repositionate the map
+        UIelements.miniMap.mask.transform.localPosition = 
+            new Vector2(-currentRoom.x  * (roomSize * UIelements.miniMap.mask.transform.localScale.x), 
+            -currentRoom.y * (roomSize * UIelements.miniMap.mask.transform.localScale.y));
+
+
+    }
+
+
+    private void CreateNewRoom(int x, int y, Dungeon.room room)
+    {
+
+        //Maybe attach this to the map???
+
+        //Add to the minimap||
+
+                int roomSize = (int)UIelements.miniMap.roomPrefab.GetComponent<RectTransform>().sizeDelta.x;
+
+                //Create the element on the room
+                GameObject newRoom = Instantiate(UIelements.miniMap.roomPrefab);
+
+                //Change it's nesting position
+                newRoom.transform.parent = UIelements.miniMap.mask.transform;
+                newRoom.GetComponent<RectTransform>().localScale = new Vector2(1, 1);
+
+                //Put at correct position
+                newRoom.transform.localPosition = new Vector2(x * roomSize, y * roomSize);
+
+
+            //Set correct color
+            if (room.getCompleted())
+                newRoom.GetComponent<Image>().color = UIelements.miniMap.completedRoom;
+            else
+                newRoom.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
+                
+
+            //Change door displaying
+            foreach (Transform door in newRoom.transform)
+                {
+                    if (door.gameObject.name == "top")
+                        door.gameObject.SetActive(room.roomSides.top);
+                    if (door.gameObject.name == "bottom")
+                        door.gameObject.SetActive(room.roomSides.bottom);
+                    if (door.gameObject.name == "right")
+                        door.gameObject.SetActive(room.roomSides.right);
+                    if (door.gameObject.name == "left")
+                        door.gameObject.SetActive(room.roomSides.left);
+                }
+
+
+        //__________________||
+
+        //The room cannot be explored
+        room.setExplored(false);
+
+        //Add to the list
+        map.Add(new roomPos(x, y, 
+            new Dungeon.room(room.roomName, room.roomPrefab, room.roomSides, room.getCompleted(), false)));
+    }
 
     private void SpawnPlayer()
     {
@@ -581,6 +691,9 @@ public class CurrentDungeonData : MonoBehaviour
 
             //Avoid duplicates
             Destroy(dungeonAPI);
+
+            //Update the minimap
+            updateMap();
         }
         else
         {
@@ -588,6 +701,9 @@ public class CurrentDungeonData : MonoBehaviour
             //Change the second argument when needed
             getCorrectDungeon(dungeonsList, "Deadmines");
             SpawnPlayer();
+
+            //Update the minimap
+            updateMap();
         }
 
 

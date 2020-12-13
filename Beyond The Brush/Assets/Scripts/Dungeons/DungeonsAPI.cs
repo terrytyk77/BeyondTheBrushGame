@@ -28,8 +28,28 @@ public class Dungeon
             public string roomName = "room";
             public GameObject roomPrefab;
             public sides roomSides = new sides(false, false ,false ,false);
-            public bool completed = false;
+            private bool explored = false;
+            private bool completed = false;
         //_________||
+
+        public bool getExplored()
+        {
+            return explored;
+        }
+        public void setExplored(bool state)
+        {
+            explored = state;
+        }
+
+        public void setCompleted(bool state)
+        {
+            completed = state;
+        }
+
+        public bool getCompleted()
+        {
+            return completed;
+        }
 
         [System.Serializable]
         public class sides
@@ -66,6 +86,15 @@ public class Dungeon
             roomName = name;
             roomPrefab = prefab;
             roomSides = side;
+        }
+
+        public room(string name, GameObject prefab, sides side, bool completed2, bool unexplored)
+        {
+            roomName = name;
+            roomPrefab = prefab;
+            roomSides = side;
+            completed = completed2;
+            explored = unexplored;
         }
 
     }
