@@ -769,6 +769,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 8476358736472857115, guid: 9d370335703470f4ca325489c6af898f, type: 3}
+  usernameDisplay: {fileID: 1802753170}
+  healthbar:
+    fill: {fileID: 6257022741739191513}
   minimap: {fileID: 270800322}
   minimapComponent: {fileID: 541179854}
   minimapSlider: {fileID: 1907095909479934}
