@@ -592,6 +592,7 @@ public class CurrentDungeonData : MonoBehaviour
             else
                 child.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
 
+
         }
 
         //Repositionate the map
@@ -628,10 +629,17 @@ public class CurrentDungeonData : MonoBehaviour
                 newRoom.GetComponent<Image>().color = UIelements.miniMap.completedRoom;
             else
                 newRoom.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
-                
 
-            //Change door displaying
-            foreach (Transform door in newRoom.transform)
+            //If it is the entrance room
+            if (new Vector2Int(x, y) == Vector2Int.zero)
+            {
+                Transform entranceElement = newRoom.transform.Find("entrance");
+                entranceElement.gameObject.SetActive(true);
+            }
+
+
+        //Change door displaying
+        foreach (Transform door in newRoom.transform)
                 {
                     if (door.gameObject.name == "top")
                         door.gameObject.SetActive(room.roomSides.top);

@@ -6,11 +6,22 @@ using UnityEngine.UI;
 public class UIevents : MonoBehaviour
 {
     //Variables||
-        public GameObject minimapComponent;
+
+        //room
         public GameObject roomPrefab;
-        public GameObject minimapSlider;
 
         private Vector2Int currentRoom;
+
+        //minimap
+        public GameObject minimap;
+        public GameObject minimapComponent;
+        public GameObject minimapSlider;
+        public KeyCode minimapKey = KeyCode.M;
+
+        private Vector2 defaultMinimapPosition;
+        private Vector2 defaultMinimapScale;
+        private bool minimapOpened = false;
+        private bool alreadyChangeMinimap = true;
     //_________||
 
     private void Start()
@@ -18,8 +29,45 @@ public class UIevents : MonoBehaviour
         //Adapt to the correct map zoom
         changeMinimapZoon();
         currentRoom = GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().currentRoom;
+
+        //Minimap
+        if (minimap != null)
+        {
+            //Get the default position
+            defaultMinimapPosition = minimap.GetComponent<RectTransform>().localPosition;
+            defaultMinimapScale = minimap.GetComponent<RectTransform>().localScale;
+        }
     }
 
+    private void Update()
+    {
+        //Listen to the keyboard keys||
+            if (Input.GetKeyDown(minimapKey)){ if (!minimapOpened) { alreadyChangeMinimap = false; } minimapOpened = true; }
+            if (Input.GetKeyUp(minimapKey)) minimapOpened = alreadyChangeMinimap = false;
+        //___________________________||
+
+        //Minimap||
+            if (!alreadyChangeMinimap)
+            {
+                if (!minimapOpened)
+                {
+                    //It was closed
+                    minimapOpened = false;
+                    //Reverse the variables
+                    minimap.GetComponent<RectTransform>().localScale = defaultMinimapScale;
+                    minimap.GetComponent<RectTransform>().localPosition = defaultMinimapPosition;
+                }
+                else
+                {
+                    //It was opened
+                    minimapOpened = true;
+                    minimap.GetComponent<RectTransform>().localScale = new Vector2(2.5f, 1.8f);
+                    minimap.GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
+                }
+                alreadyChangeMinimap = true;
+            }
+        //_______||
+    }
     public void changeMinimapZoon()
     {
         //Get the slider value
