@@ -5,23 +5,23 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    public float health;
+    public float maxHealth;
     public GameObject healthBar;
 
-    private float maxHealth;
+    private float currentHealth;
 
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = health;
+        currentHealth = maxHealth;
     }
 
     public void damage(float damage)
     {
-        health -= damage;
+        currentHealth -= damage;
         healthBar.GetComponent<Image>().fillAmount -= damage / maxHealth;
 
-        if (health <= 0)
+        if (currentHealth <= 0)
         {
             // Delay Death For Animation
             Invoke("death", 0.2f);

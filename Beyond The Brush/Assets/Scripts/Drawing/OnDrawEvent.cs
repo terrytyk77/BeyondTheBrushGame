@@ -68,9 +68,10 @@ public class OnDrawEvent : MonoBehaviour
 		foreach (var enemy in enemies)
 		{
 			BoxCollider2D enemyCollider = enemy.GetComponent<BoxCollider2D>();
+			Vector2 enemyCorner = new Vector2(enemy.transform.position.x - (enemyCollider.size.x / 2 * enemy.transform.localScale.x), enemy.transform.position.y - (enemyCollider.size.y / 2 * enemy.transform.localScale.y));
 
 			Rect drawingZone = Rect.MinMaxRect(worldSmallPoint.x, worldSmallPoint.y, worldBigPoint.x, worldBigPoint.y);
-			Rect enemyHitZone = new Rect(enemy.transform.position.x - enemyCollider.size.x/2, enemy.transform.position.y - enemyCollider.size.y / 2, enemyCollider.size.x, enemyCollider.size.y);
+			Rect enemyHitZone = new Rect(enemyCorner.x, enemyCorner.y, enemyCollider.size.x * enemy.transform.localScale.x, enemyCollider.size.y * enemy.transform.localScale.y);
 
 
 			if (drawingZone.Overlaps(enemyHitZone))
