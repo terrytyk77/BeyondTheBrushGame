@@ -12,6 +12,26 @@ public class UIevents : MonoBehaviour
 
         private Vector2Int currentRoom;
 
+        [System.Serializable]
+        public class healthbarClass
+        {
+            public GameObject fill;
+        }
+
+        [System.Serializable]
+        public class expbarClass
+        {
+            public GameObject fill;
+            public GameObject text;
+        }
+
+        //username
+        public GameObject usernameDisplay;
+
+        //Bars
+        public healthbarClass healthbar;
+        public expbarClass expBar;
+
         //minimap
         public GameObject minimap;
         public GameObject minimapComponent;
@@ -26,6 +46,7 @@ public class UIevents : MonoBehaviour
 
     private void Start()
     {
+
         //Adapt to the correct map zoom
         changeMinimapZoon();
         currentRoom = GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().currentRoom;
@@ -37,6 +58,9 @@ public class UIevents : MonoBehaviour
             defaultMinimapPosition = minimap.GetComponent<RectTransform>().localPosition;
             defaultMinimapScale = minimap.GetComponent<RectTransform>().localScale;
         }
+
+        //Change your name
+        usernameDisplay.GetComponent<Text>().text = PlayerData.username;
     }
 
     private void Update()
@@ -67,7 +91,25 @@ public class UIevents : MonoBehaviour
                 alreadyChangeMinimap = true;
             }
         //_______||
+
+        updateUiElements();
+
     }
+
+    private void updateUiElements()
+    {
+        //Healthbar
+        float healthBarFillAmount = ((float)PlayerData.healthPoints/(float)PlayerData.maxHealthPoints);
+        healthbar.fill.GetComponent<Image>().fillAmount = healthBarFillAmount;
+
+        //Exp bar
+        float expBarFillAmount = ((float)PlayerData.exp/(float)PlayerData.getNeededExp());
+        expBar.fill.GetComponent<Image>().fillAmount = expBarFillAmount;
+
+        expBar.text.GetComponent<Text>().text = PlayerData.exp + "/" + PlayerData.getNeededExp();
+
+    }
+
     public void changeMinimapZoon()
     {
         //Get the slider value

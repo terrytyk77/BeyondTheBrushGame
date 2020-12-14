@@ -769,6 +769,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 8476358736472857115, guid: 9d370335703470f4ca325489c6af898f, type: 3}
+  usernameDisplay: {fileID: 1802753170}
+  healthbar:
+    fill: {fileID: 6257022741739191513}
+  expBar:
+    fill: {fileID: 7803686661464842336}
+    text: {fileID: 7803987069113821268}
   minimap: {fileID: 270800322}
   minimapComponent: {fileID: 541179854}
   minimapSlider: {fileID: 1907095909479934}
@@ -5200,10 +5206,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: e1b8f41597e5e874e946ecec118dbc67, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -5650,7 +5656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5647059, g: 0.5058824, b: 0.4392157, a: 1}
+  m_Color: {r: 1, g: 0.93333334, b: 0.85490197, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5661,10 +5667,10 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 36ac510fd1f880c44b751e31a79ed4f3, type: 3}
     m_FontSize: 26
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -5785,7 +5791,7 @@ RectTransform:
   m_GameObject: {fileID: 7803535220512208552}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children:
   - {fileID: 8022450416678418342}
   - {fileID: 8022882323903780744}
@@ -6009,8 +6015,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -6}
-  m_SizeDelta: {x: 600, y: 36}
+  m_AnchoredPosition: {x: 0, y: -3.6}
+  m_SizeDelta: {x: 600, y: 31.999878}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &8022621584609419862
 RectTransform:
