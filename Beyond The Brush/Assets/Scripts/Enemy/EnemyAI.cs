@@ -8,9 +8,12 @@ public class EnemyAI : MonoBehaviour
     private GameObject player;
 
 
-    //Ranges
-    public float aggroRange;
-    public float chaseRange;
+    //Ranges        ||
+        public float aggroRange;
+        public float chaseRange;
+        public float minPatrolRange;
+        public float maxPatrolRange;
+    //--------------||
 
     //Enemy State   ||
     private enum State
@@ -80,7 +83,7 @@ public class EnemyAI : MonoBehaviour
 
     Vector2 GetPatrollingPosition()
     {
-        return startingPosition + GetRandomDirection() * Random.Range(3f, 8f);
+        return startingPosition + GetRandomDirection() * Random.Range(minPatrolRange, maxPatrolRange);
     }
 
     Vector2 GetRandomDirection()
