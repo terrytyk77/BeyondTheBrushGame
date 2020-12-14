@@ -148,7 +148,7 @@ public class OnDrawEvent : MonoBehaviour
 			{
 				case "Horizontal":
                     {
-                        if (PlayerData.slashCooldown <= 0)
+                        if (PlayerData.slashCooldown <= 0 && result.score.score >= 0.8f)
                         {
 							Debug.Log("Slash");
 							HoverEnemy(location, 20);
@@ -161,7 +161,7 @@ public class OnDrawEvent : MonoBehaviour
                     {
 						if (HoverPlayer(location))
                         {
-                            if (PlayerData.shieldCooldown <= 0)
+                            if (PlayerData.shieldCooldown <= 0 && result.score.score >= 0.7f)
                             {
 								Debug.Log("Shield");
 								PlayerData.shieldCooldown = PlayerData.shieldCooldownDefault;
