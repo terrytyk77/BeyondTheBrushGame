@@ -39,6 +39,11 @@ public class OnDrawEvent : MonoBehaviour
     //_________||
 
 
+    private void Update()
+    {
+		PlayerData.resetCooldowns();
+	}
+
     public bool HoverPlayer(DrawingLocation location)
 	{
 		Vector2 worldPos = Camera.main.ScreenToWorldPoint(location.middle);
@@ -143,15 +148,25 @@ public class OnDrawEvent : MonoBehaviour
 			{
 				case "Horizontal":
                     {
-						Debug.Log("Slash");
-						HoverEnemy(location, 20);
+                        if (PlayerData.slashCooldown <= 0)
+                        {
+							Debug.Log("Slash");
+							HoverEnemy(location, 20);
+							PlayerData.slashCooldown = PlayerData.slashCooldownDefault;
+                        }
+	
 						break;
                     }
 				case "Circle":
                     {
 						if (HoverPlayer(location))
                         {
-							Debug.Log("Shield");
+                            if (PlayerData.shieldCooldown <= 0)
+                            {
+								Debug.Log("Shield");
+								PlayerData.shieldCooldown = PlayerData.shieldCooldownDefault;
+							}
+
 						}
                         else
                         {
@@ -162,8 +177,13 @@ public class OnDrawEvent : MonoBehaviour
 					}
 				case "Xspell":
 					{
-						Debug.Log("Xspell");
-						HoverEnemy(location, 50);
+						if (PlayerData.xslashCooldown <= 0)
+						{
+							Debug.Log("Xspell");
+							HoverEnemy(location, 50);
+							PlayerData.xslashCooldown = PlayerData.xslashCooldownDefault;
+						}
+
 						break;
 					}
 				case "Square":

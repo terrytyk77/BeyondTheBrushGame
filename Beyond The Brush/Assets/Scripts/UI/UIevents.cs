@@ -25,6 +25,17 @@ public class UIevents : MonoBehaviour
             public GameObject text;
         }
 
+        [System.Serializable]
+        public class skillsCooldowns
+        {
+            public GameObject slashSkill;
+            public GameObject XslashSkill;
+            public GameObject shieldSkill;
+        }
+
+        //Skills cooldowns
+        public skillsCooldowns cooldowns;
+
         //username
         public GameObject usernameDisplay;
 
@@ -107,6 +118,35 @@ public class UIevents : MonoBehaviour
         expBar.fill.GetComponent<Image>().fillAmount = expBarFillAmount;
 
         expBar.text.GetComponent<Text>().text = PlayerData.exp + "/" + PlayerData.getNeededExp();
+
+        //Skills cooldowns
+
+        //slash
+        string slashSkillText = "";
+        if (PlayerData.slashCooldown > 0)
+        {
+            slashSkillText = slashSkillText + decimal.Round((decimal)PlayerData.slashCooldown, 2);
+        }
+        cooldowns.slashSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.slashCooldown/PlayerData.slashCooldownDefault);
+        cooldowns.slashSkill.transform.Find("CooldownText").GetComponent<Text>().text = slashSkillText;
+
+        //xslash
+        string xslashSkillText = "";
+        if (PlayerData.xslashCooldown > 0)
+        {
+            xslashSkillText = xslashSkillText + decimal.Round((decimal)PlayerData.xslashCooldown, 2);
+        }
+        cooldowns.XslashSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.xslashCooldown / PlayerData.xslashCooldownDefault);
+        cooldowns.XslashSkill.transform.Find("CooldownText").GetComponent<Text>().text = xslashSkillText;
+
+        //shield
+        string shieldSkillText = "";
+        if (PlayerData.shieldCooldown > 0)
+        {
+            shieldSkillText = shieldSkillText + decimal.Round((decimal)PlayerData.shieldCooldown, 2);
+        }
+        cooldowns.shieldSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.shieldCooldown / PlayerData.shieldCooldownDefault);
+        cooldowns.shieldSkill.transform.Find("CooldownText").GetComponent<Text>().text = shieldSkillText;
 
     }
 

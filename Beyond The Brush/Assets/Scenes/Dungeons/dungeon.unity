@@ -769,6 +769,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 8476358736472857115, guid: 9d370335703470f4ca325489c6af898f, type: 3}
+  cooldowns:
+    slashSkill: {fileID: 7804269009422859516}
+    XslashSkill: {fileID: 1649526253}
+    shieldSkill: {fileID: 2043267647}
   usernameDisplay: {fileID: 1802753170}
   healthbar:
     fill: {fileID: 6257022741739191513}

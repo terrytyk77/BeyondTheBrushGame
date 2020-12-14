@@ -18,7 +18,20 @@ public class PlayerData : MonoBehaviour
         //local data
         static private int _healthPoints = 100;
         static private int _maxHealthPoints = 100;
-        static private float _slashCooldown = 10f;
+
+        //Cooldowns
+        static public float slashCooldownDefault = 0.5f;
+        static public float xslashCooldownDefault = 5f;
+        static public float shieldCooldownDefault = 6f;
+
+        private class cooldowsClass{
+            public float _slashCooldown = 0;
+            public float _xslashCooldown = 0;
+            public float _shieldCooldown = 0;
+        }
+
+        static private cooldowsClass cooldowns = new cooldowsClass();
+
     //_________||
 
     //Get the database data
@@ -32,13 +45,38 @@ public class PlayerData : MonoBehaviour
     //Get the local data
     public static int healthPoints { get { return _healthPoints; } set { _healthPoints = value; } }
     public static int maxHealthPoints { get { return _maxHealthPoints; } set { _maxHealthPoints = value; } }
-    public static float slashCooldown { get { return _slashCooldown; } set { _slashCooldown = value; } }
+
+    //Cooldowns
+    public static float slashCooldown { get { return cooldowns._slashCooldown; } set { cooldowns._slashCooldown = value; } }
+    public static float xslashCooldown { get { return cooldowns._xslashCooldown; } set { cooldowns._xslashCooldown = value; } }
+    public static float shieldCooldown { get { return cooldowns._shieldCooldown; } set { cooldowns._shieldCooldown = value; } }
 
     public static int getNeededExp()
     {
         int result = level * 10;
 
         return result;
+    }
+
+    public static void resetCooldowns()
+    {
+        //Slash
+        if (cooldowns._slashCooldown > 0)
+            cooldowns._slashCooldown -= Time.deltaTime;
+        else
+            cooldowns._slashCooldown = 0;
+
+        //XSlash
+        if (cooldowns._xslashCooldown > 0)
+            cooldowns._xslashCooldown -= Time.deltaTime;
+        else
+            cooldowns._xslashCooldown = 0;
+
+        //Shield
+        if (cooldowns._shieldCooldown > 0)
+            cooldowns._shieldCooldown -= Time.deltaTime;
+        else
+            cooldowns._shieldCooldown = 0;
     }
 
     static public void SetPlayerData(string id, string username, int level, int exp, int resources, int gold)
