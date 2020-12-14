@@ -18,9 +18,19 @@ public class UIevents : MonoBehaviour
             public GameObject fill;
         }
 
+        [System.Serializable]
+        public class expbarClass
+        {
+            public GameObject fill;
+            public GameObject text;
+        }
+
+        //username
         public GameObject usernameDisplay;
 
+        //Bars
         public healthbarClass healthbar;
+        public expbarClass expBar;
 
         //minimap
         public GameObject minimap;
@@ -90,8 +100,14 @@ public class UIevents : MonoBehaviour
     {
         //Healthbar
         float healthBarFillAmount = ((float)PlayerData.healthPoints/(float)PlayerData.maxHealthPoints);
-        
         healthbar.fill.GetComponent<Image>().fillAmount = healthBarFillAmount;
+
+        //Exp bar
+        float expBarFillAmount = ((float)PlayerData.exp/(float)PlayerData.getNeededExp());
+        expBar.fill.GetComponent<Image>().fillAmount = expBarFillAmount;
+
+        expBar.text.GetComponent<Text>().text = PlayerData.exp + "/" + PlayerData.getNeededExp();
+
     }
 
     public void changeMinimapZoon()

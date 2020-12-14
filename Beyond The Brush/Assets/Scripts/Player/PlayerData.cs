@@ -34,6 +34,13 @@ public class PlayerData : MonoBehaviour
     public static int maxHealthPoints { get { return _maxHealthPoints; } set { _maxHealthPoints = value; } }
     public static float slashCooldown { get { return _slashCooldown; } set { _slashCooldown = value; } }
 
+    public static int getNeededExp()
+    {
+        int result = level * 10;
+
+        return result;
+    }
+
     static public void SetPlayerData(string id, string username, int level, int exp, int resources, int gold)
     {
         _id = id;
