@@ -11,6 +11,7 @@ public class DrawingLocation{
 	public float bX;
 	public float sY;
 	public float bY;
+
 	public Vector2 middle;
 
 	public DrawingLocation(float biggerX, float smallerX, float biggerY, float smallerY)
@@ -36,10 +37,12 @@ public class OnDrawEvent : MonoBehaviour
 		public GameObject stone;
 		public GameObject player;
 		public GameObject drawingCollider;
-    //_________||
+		public GameObject playerVertical;
+		public GameObject playerHorizontal;
+	//_________||
 
 
-    private void Update()
+	private void Update()
     {
 		PlayerData.resetCooldowns();
 	}
@@ -150,7 +153,14 @@ public class OnDrawEvent : MonoBehaviour
                     {
                         if (PlayerData.slashCooldown <= 0 && result.score.score >= 0.8f)
                         {
-							Debug.Log("Slash");
+							if (playerHorizontal.activeSelf)
+							{
+								playerHorizontal.GetComponent<Animator>().SetTrigger("Slash");
+							}
+							else if (playerVertical.activeSelf)
+							{
+								playerVertical.GetComponent<Animator>().SetTrigger("Slash");
+							}
 							HoverEnemy(location, 20);
 							PlayerData.slashCooldown = PlayerData.slashCooldownDefault;
                         }
@@ -163,7 +173,14 @@ public class OnDrawEvent : MonoBehaviour
                         {
                             if (PlayerData.shieldCooldown <= 0 && result.score.score >= 0.7f)
                             {
-								Debug.Log("Shield");
+								if (playerHorizontal.activeSelf)
+								{
+									playerHorizontal.GetComponent<Animator>().SetTrigger("Shield");
+								}
+								else if (playerVertical.activeSelf)
+								{
+									playerVertical.GetComponent<Animator>().SetTrigger("Shield");
+								}
 								PlayerData.shieldCooldown = PlayerData.shieldCooldownDefault;
 							}
 
@@ -179,7 +196,14 @@ public class OnDrawEvent : MonoBehaviour
 					{
 						if (PlayerData.xslashCooldown <= 0)
 						{
-							Debug.Log("Xspell");
+                            if (playerHorizontal.activeSelf)
+                            {
+								playerHorizontal.GetComponent<Animator>().SetTrigger("Xspell");
+							}
+                            else if(playerVertical.activeSelf)
+                            {
+								playerVertical.GetComponent<Animator>().SetTrigger("Xspell");
+							}
 							HoverEnemy(location, 50);
 							PlayerData.xslashCooldown = PlayerData.xslashCooldownDefault;
 						}
