@@ -33,11 +33,26 @@ public class UIevents : MonoBehaviour
             public GameObject shieldSkill;
         }
 
-        //Skills cooldowns
-        public skillsCooldowns cooldowns;
+        [System.Serializable]
+        public class gameMenuClass
+        {
+            public GameObject mainWindow;
+            public GameObject resume;
+            public GameObject logout;
+            public GameObject options;
+            public GameObject exit;
+        }
 
         //username
         public GameObject usernameDisplay;
+
+        //game menu
+        public gameMenuClass mainMenu;
+        private bool escapeKeyDebounce = false;
+        public KeyCode mainMenuKey = KeyCode.Escape;
+
+        //Skills cooldowns
+        public skillsCooldowns cooldowns;
 
         //Bars
         public healthbarClass healthbar;
@@ -77,8 +92,14 @@ public class UIevents : MonoBehaviour
     private void Update()
     {
         //Listen to the keyboard keys||
+            
+            //minimap
             if (Input.GetKeyDown(minimapKey)){ if (!minimapOpened) { alreadyChangeMinimap = false; } minimapOpened = true; }
             if (Input.GetKeyUp(minimapKey)) minimapOpened = alreadyChangeMinimap = false;
+            
+            //main menu
+            if (Input.GetKeyDown(mainMenuKey)) { if (!escapeKeyDebounce) { escapeKeyDebounce = true; if (!mainMenu.mainWindow.activeSelf) { Time.timeScale = 0; } else { Time.timeScale = 1; } mainMenu.mainWindow.SetActive(!mainMenu.mainWindow.activeSelf); } }
+            if (Input.GetKeyUp(mainMenuKey)) { if (escapeKeyDebounce) { escapeKeyDebounce = false; } }
         //___________________________||
 
         //Minimap||
@@ -168,6 +189,33 @@ public class UIevents : MonoBehaviour
         new Vector2(-currentRoom.x * (roomSize * minimapComponent.transform.localScale.x),
         -currentRoom.y * (roomSize * minimapComponent.transform.localScale.y));
 
+    }
+
+    public void OnResume()
+    {
+        //Resum the game by closing the window
+
+        //Set the time back to normal
+        Time.timeScale = 1;
+
+        //Close the main menu window
+        mainMenu.mainWindow.SetActive(false);
+    }
+
+    public void OnLogout()
+    {
+
+    }
+
+    public void OnOptions()
+    {
+        //Open the options panel
+    }
+
+    public void OnExit()
+    {
+
+        //Make it save before closing
     }
 
 }
