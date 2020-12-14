@@ -210,5 +210,7 @@ MonoBehaviour:
   line: {fileID: 9089475573109205699}
   box: {fileID: 6498690047904201395, guid: f56e6d87123e53f4b82e0a1ef8822722, type: 3}
   stone: {fileID: 5989668713407083425, guid: a1495899a499bad49891bdf6522be5da, type: 3}
-  player: {fileID: 0}
+  player: {fileID: 5019700632870275483, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
   drawingCollider: {fileID: 0}
+  playerVertical: {fileID: 0}
+  playerHorizontal: {fileID: 0}
