@@ -876,4 +876,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851e0197837097e4c861ac82a99e0cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 5019700632870275483, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
+  aggroRange: 10
+  chaseRange: 20

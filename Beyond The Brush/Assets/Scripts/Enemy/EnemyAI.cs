@@ -9,15 +9,15 @@ public class EnemyAI : MonoBehaviour
 
 
     //Ranges
-    public float aggroRange = 10f;
-    public float chaseRange = 15f;
+    public float aggroRange;
+    public float chaseRange;
 
     //Enemy State   ||
     private enum State
     {
         Patrolling,
         Chassing,
-        Restting
+        Resetting
     }
     private State currentState;
     //--------------||
@@ -60,13 +60,13 @@ public class EnemyAI : MonoBehaviour
             case State.Chassing:
                 {
                     MoveTo(player.transform.position);
-                    if (Vector2.Distance(transform.position, player.transform.position) > chaseRange)
+                    if (Vector2.Distance(transform.position, startingPosition) > chaseRange)
                     {
-                        currentState = State.Restting;
+                        currentState = State.Resetting;
                     }
                     break;
                 }
-            case State.Restting:
+            case State.Resetting:
                 {
                     MoveTo(startingPosition);
                     if (Vector2.Distance(transform.position, startingPosition) < distanceChangePatrol)
