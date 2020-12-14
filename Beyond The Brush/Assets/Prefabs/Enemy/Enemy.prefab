@@ -876,5 +876,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851e0197837097e4c861ac82a99e0cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aggroRange: 10
-  chaseRange: 20
+  movementSpeed: 2
+  aggroRange: 8
+  chaseRange: 16
+  minPatrolRange: 4
+  maxPatrolRange: 8

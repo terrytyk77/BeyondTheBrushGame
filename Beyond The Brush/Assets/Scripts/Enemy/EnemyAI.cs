@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+    public float movementSpeed;
 
-    private GameObject player;
-
-
-    //Ranges
-    public float aggroRange;
-    public float chaseRange;
+    //Ranges        ||
+        public float aggroRange;
+        public float chaseRange;
+        public float minPatrolRange;
+        public float maxPatrolRange;
+    //--------------||
 
     //Enemy State   ||
     private enum State
@@ -22,9 +23,10 @@ public class EnemyAI : MonoBehaviour
     private State currentState;
     //--------------||
 
+    private GameObject player;
     private Vector2 startingPosition;
     private Vector2 patrollingPosition;
-    private float distanceChangePatrol = 2f;
+    private float distanceChangePatrol = 1f;
 
 
     // Start is called before the first frame update
@@ -36,7 +38,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Get Player Position
         player = GameObject.FindGameObjectWithTag("Player");
@@ -80,7 +82,7 @@ public class EnemyAI : MonoBehaviour
 
     Vector2 GetPatrollingPosition()
     {
-        return startingPosition + GetRandomDirection() * Random.Range(3f, 8f);
+        return startingPosition + GetRandomDirection() * Random.Range(minPatrolRange, maxPatrolRange);
     }
 
     Vector2 GetRandomDirection()
@@ -90,7 +92,7 @@ public class EnemyAI : MonoBehaviour
 
     void MoveTo(Vector2 targetPosition)
     {
-        transform.position = Vector2.Lerp(transform.position, targetPosition, 0.001f);
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
     }
 
     void FindTarget()
