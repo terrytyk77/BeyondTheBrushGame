@@ -30,11 +30,13 @@ public class EnemyAI : MonoBehaviour
     private Vector2 patrollingPosition;
     private float distanceChangePatrol = 1f;
     private float enemyDirectionX;
+    private Animator Animator;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        Animator = gameObject.GetComponent<Animator>();
         currentState = State.Patrolling;
         startingPosition = transform.position;
         patrollingPosition = GetPatrollingPosition();
@@ -75,6 +77,8 @@ public class EnemyAI : MonoBehaviour
                 }
             case State.Attacking:
                 {
+                    Animator.SetTrigger("Attacking");
+                    Animator.SetBool("Walking", false);
                     FindTarget();
                     OutOfChaseRange();
                     break;
@@ -84,6 +88,7 @@ public class EnemyAI : MonoBehaviour
                     MoveTo(startingPosition);
                     if (Vector2.Distance(transform.position, startingPosition) < distanceChangePatrol)
                     {
+                        Animator.SetBool("Walking", false);
                         currentState = State.Patrolling;
                     }
                     break;
@@ -105,6 +110,7 @@ public class EnemyAI : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
         enemyDirectionX = (targetPosition.x - transform.position.x);
+        Animator.SetBool("Walking", true);
     }
 
     private void FindTarget()
