@@ -210,7 +210,11 @@ public class UIevents : MonoBehaviour
 
     public void OnLogout()
     {
+        //Save data
 
+        mainMenu.mainWindow.SetActive(false);
+        Time.timeScale = 1;
+        sceneTeleport.start(0);
     }
 
     public void OnOptions()
@@ -222,6 +226,8 @@ public class UIevents : MonoBehaviour
     {
 
         //Make it save before closing
+        UnityEditor.EditorApplication.isPlaying = false; //Show the quit on the editor as well
+        Application.Quit();
     }
 
 }
