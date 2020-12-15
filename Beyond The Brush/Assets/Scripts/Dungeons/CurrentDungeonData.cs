@@ -119,7 +119,7 @@ public class CurrentDungeonData : MonoBehaviour
                 break;
 
             case "exit":
-                StartCoroutine("LoadMainMap", mainVillageID);
+                sceneTeleport.start(mainVillageID);
                 break;
 
             default:
@@ -694,7 +694,7 @@ public class CurrentDungeonData : MonoBehaviour
         {
 
             //Change the second argument when needed
-            getCorrectDungeon(dungeonsList, dungeonAPI.GetComponent<sceneAPI>().nextDungeon);
+            getCorrectDungeon(dungeonsList, sceneTeleport.dungeonName);
             SpawnPlayer();
 
             //Avoid duplicates
@@ -735,54 +735,8 @@ public class CurrentDungeonData : MonoBehaviour
         //Save the object for the next scene
         DontDestroyOnLoad(gameObject);
 
-        StartCoroutine("LoadMainMap", 1);
+        sceneTeleport.start(1);
+
+        //StartCoroutine("LoadMainMap", 1);
     }
-
-
-    IEnumerator LoadMainMap(int scene)
-    {
-            
-        //Get the loading screen transparency
-        CanvasGroup backAlpha = background.GetComponent<CanvasGroup>();
-        backAlpha.alpha = 0;
-
-        //Turn the loading screen on
-        loadingScreen.SetActive(true);
-
-        //Add some sort of transition
-        while (backAlpha.alpha < 1)
-        {
-            backAlpha.alpha += 0.05f;
-            yield return new WaitForSeconds(0.05f);
-        }
-
-
-
-        loadingBar.SetActive(true);
-
-        //Just wait
-        yield return new WaitForSeconds(1);
-
-
-        //Start actually loading the new scene
-        AsyncOperation opereration = SceneManager.LoadSceneAsync(scene);
-
-        //Track the new scene progress
-        while (!opereration.isDone)
-        {
-            //Calculate current progress
-            float CurrentProgress = Mathf.Clamp(opereration.progress / 0.9f, 1, 2);
-
-            //Get the bar fill object
-            GameObject barFill = loadingBar.GetComponent<Transform>().GetChild(0).gameObject;
-
-            //Change the bar size
-            barFill.GetComponent<Image>().fillAmount = CurrentProgress;
-
-            //Restart the loop
-            yield return null;
-        }
-
-    }
-
 }

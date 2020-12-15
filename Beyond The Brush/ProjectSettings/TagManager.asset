@@ -12,6 +12,8 @@ TagManager:
   - MainShader
   - sceneAPI
   - teleportsBack
+  - shadowOverlay
+  - loadingBar
   layers:
   - Default
   - TransparentFX

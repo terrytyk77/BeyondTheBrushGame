@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIevents : MonoBehaviour
 {
@@ -74,8 +75,13 @@ public class UIevents : MonoBehaviour
     {
 
         //Adapt to the correct map zoom
-        changeMinimapZoon();
-        currentRoom = GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().currentRoom;
+
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            changeMinimapZoon();
+            currentRoom = GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().currentRoom;
+        }
+
 
         //Minimap
         if (minimap != null)
