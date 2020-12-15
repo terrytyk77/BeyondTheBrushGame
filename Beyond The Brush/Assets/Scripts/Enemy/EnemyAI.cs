@@ -29,7 +29,7 @@ public class EnemyAI : MonoBehaviour
     private Vector2 startingPosition;
     private Vector2 patrollingPosition;
     private float distanceChangePatrol = 1f;
-    private float enemyDirectionX;
+    private Vector2 enemyDirection;
     private Animator Animator;
 
 
@@ -109,7 +109,8 @@ public class EnemyAI : MonoBehaviour
     private void MoveTo(Vector2 targetPosition)
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
-        enemyDirectionX = (targetPosition.x - transform.position.x);
+        enemyDirection.x = (targetPosition.x - transform.position.x);
+        enemyDirection.y = (targetPosition.y - transform.position.y);
         Animator.SetBool("Walking", true);
     }
 
@@ -130,11 +131,11 @@ public class EnemyAI : MonoBehaviour
     }
     private void GetEnemyDirection()
     {
-        if (enemyDirectionX < 0)
+        if (enemyDirection.x < 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
-        else if(enemyDirectionX > 0)
+        else if(enemyDirection.x > 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
