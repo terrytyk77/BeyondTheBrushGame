@@ -14,6 +14,7 @@ public class PlayerData : MonoBehaviour
         static private int _exp = 0;
         static private int _resources = 0;
         static private int _gold = 0;
+        static private string _email;
 
         //local data
         static private int _healthPoints = 100;
@@ -79,14 +80,15 @@ public class PlayerData : MonoBehaviour
             cooldowns._shieldCooldown = 0;
     }
 
-    static public void SetPlayerData(string id, string username, int level, int exp, int resources, int gold)
+    static public void SetPlayerData(accountInfoResponse json)
     {
-        _id = id;
-        _username = username;
-        _level = level;
-        _exp = exp;
-        _resources = resources;
-        _gold = gold;
+        _id = json.body._id;
+        _username = json.body.name;
+        _level = json.body.stats.level;
+        _exp = json.body.stats.exp;
+        _resources = json.body.stats.ressources;
+        _gold = json.body.stats.gold;
+        _email = json.body.email;
 
         //Calculate the max health
         _healthPoints = _maxHealthPoints;

@@ -116,16 +116,20 @@ public class AccountServices : MonoBehaviour
             //The server response
             string result = request.downloadHandler.text;
 
-
-
             accountInfoResponse result2 = JsonUtility.FromJson<accountInfoResponse>(result);
 
             if (result2.status)
             {
-                Debug.Log(result2.body.name);
+                //The login was accepted
+                //Store the data locally
+                PlayerData.SetPlayerData(result2);
+
+                //Start the game
+                sceneTeleport.start(1);
             }
             else
             {
+                //Handle the error
                 Debug.Log("ERROR");
                 Debug.Log(result2.result);
             }
