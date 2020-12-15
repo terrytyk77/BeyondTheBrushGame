@@ -74,7 +74,6 @@ public class EnemyAI : MonoBehaviour
                         patrollingPosition = GetPatrollingPosition();
                     }
                     FindTarget();
-                    OutOfChaseRange();
                     break;
                 }
             case State.Chassing:
@@ -98,9 +97,11 @@ public class EnemyAI : MonoBehaviour
             case State.Resetting:
                 {
                     MoveTo(startingPosition);
+                    ResetHP();
                     if (Vector2.Distance(transform.position, startingPosition) < distanceChangePatrol)
                     {
                         Animator.SetBool("Walking", false);
+                        currentHealth = maxHealth;
                         currentState = State.Patrolling;
                     }
                     break;
@@ -141,6 +142,7 @@ public class EnemyAI : MonoBehaviour
             currentState = State.Resetting;
         }
     }
+
     private void GetEnemyDirection()
     {
         if (enemyDirection.x < 0)
@@ -162,6 +164,18 @@ public class EnemyAI : MonoBehaviour
         {
             // Delay Death For Animation
             Invoke("death", 0.2f);
+        }
+    }
+
+    private void ResetHP()
+    {
+        float hpTicks = 10f;
+        currentHealth += hpTicks;
+        healthBar.GetComponent<Image>().fillAmount += hpTicks / maxHealth;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+            healthBar.GetComponent<Image>().fillAmount = maxHealth / maxHealth;
         }
     }
 
