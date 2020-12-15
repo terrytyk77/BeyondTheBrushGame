@@ -60,6 +60,12 @@ public class AccountServices : MonoBehaviour
 
         public int passwordMinChar = 8;
         public int passwordMaxChar = 15;
+
+        public GameObject notifactionError;
+        public GameObject networkLoading;
+
+        private bool uiElementsDebounce = false;    
+
     //_________||
 
 
@@ -85,14 +91,24 @@ public class AccountServices : MonoBehaviour
             password = passwordLogin.text
         };
 
-        //Ask the server for a responce
-        StartCoroutine("SendLoginRequest", fmdt);
+
+        if (!uiElementsDebounce)
+        {
+            uiElementsDebounce = true;
+            //Ask the server for a responce
+            StartCoroutine("SendLoginRequest", fmdt);
+        }
+
 
     }
 
 
     private IEnumerator SendLoginRequest(FormatedData data)
     {
+
+        GameObject maincanvas = GameObject.FindGameObjectWithTag("mainUI");
+        GameObject networkLoadingWindow = Instantiate(networkLoading, maincanvas.transform);
+        networkLoadingWindow.transform.SetParent(maincanvas.transform);
 
         //Set the cookie
         WebServices.CookieString = null;
@@ -103,10 +119,12 @@ public class AccountServices : MonoBehaviour
         //Make the code wait until the server responds
         yield return request.SendWebRequest();
 
+        Destroy(networkLoadingWindow);
+
         if (request.isNetworkError)
         {
             //Check if there was a network error
-            Debug.LogError(request.error);
+            ChangeErrorNotification("There was a problem connecting to the server...");
         }
         else
         {
@@ -134,6 +152,8 @@ public class AccountServices : MonoBehaviour
             }
 
         }
+
+        uiElementsDebounce = false;
 
     }
 
@@ -183,8 +203,11 @@ public class AccountServices : MonoBehaviour
 
 
         //Check if there was any problem with the user input
-        if (accepted)
+        if (accepted && !uiElementsDebounce)
         {
+
+            uiElementsDebounce = true;
+
             //Get the data formated
             FormatedData fmdt = new FormatedData
             {
@@ -207,7 +230,11 @@ public class AccountServices : MonoBehaviour
 
     private IEnumerator SendSignupRequest(FormatedData data)
     {
-        
+
+        GameObject maincanvas = GameObject.FindGameObjectWithTag("mainUI");
+        GameObject networkLoadingWindow = Instantiate(networkLoading, maincanvas.transform);
+        networkLoadingWindow.transform.SetParent(maincanvas.transform);
+
         //Set the cookie
         WebServices.CookieString = null;
 
@@ -217,10 +244,13 @@ public class AccountServices : MonoBehaviour
         //Make the code wait until the server responds
         yield return request.SendWebRequest();
 
+        Destroy(networkLoadingWindow);
+
+
         if (request.isNetworkError)
         {
             //Check if there was a network error
-            Debug.LogError(request.error);
+            ChangeErrorNotification("There was a problem connecting to the server...");
         }
         else
         {
@@ -249,16 +279,16 @@ public class AccountServices : MonoBehaviour
 
         }
 
+        uiElementsDebounce = false;
+
     }
 
 
-    public GameObject notifactionError;
+
     private void ChangeErrorNotification(string message)
     {
 
         GameObject maincanvas = GameObject.FindGameObjectWithTag("mainUI");
-       
-
         GameObject notificationWindow = Instantiate(notifactionError, maincanvas.transform);
         notificationWindow.transform.SetParent(maincanvas.transform);
 
