@@ -130,8 +130,7 @@ public class AccountServices : MonoBehaviour
             else
             {
                 //Handle the error
-                Debug.Log("ERROR");
-                Debug.Log(result2.result);
+                ChangeErrorNotification(result2.result);
             }
 
         }
@@ -158,28 +157,28 @@ public class AccountServices : MonoBehaviour
             if (usernameSignup.text != null)
             {
                 if (usernameSignup.text.Length < usernameMinChar || usernameSignup.text.Length > usernameMaxChar)
-                    dataError("The username has an invalid size");
+                    dataError("The username has an invalid size!");
             }
             else
-                dataError("The username has an invalid data type");
+                dataError("The username has an invalid data type!");
 
             //email
             if (emailSignup.text != null)
             {
                 if (emailSignup.text.Length < emailMinChar || emailSignup.text.Length > emailMaxChar)
-                    dataError("The email has an invalid size");
+                    dataError("The email has an invalid size!");
             }
             else
-                dataError("The email has an invalid data type");
+                dataError("The email has an invalid data type!");
 
             //password
             if (passwordSignup.text != null)
             {
                 if (passwordSignup.text.Length < passwordMinChar || passwordSignup.text.Length > passwordMaxChar)
-                    dataError("The password has an invalid size");
+                    dataError("The password has an invalid size!");
             }
             else
-                dataError("The password has an invalid data type");
+                dataError("The password has an invalid data type!");
         //____________________________________||
 
 
@@ -201,7 +200,7 @@ public class AccountServices : MonoBehaviour
         else
         {
             //Tell what the problem was with the user input
-            Debug.Log(errorMessage);
+            ChangeErrorNotification(errorMessage);
         }
 
     }
@@ -245,11 +244,36 @@ public class AccountServices : MonoBehaviour
             else
             {
                 //Handle the error
-                Debug.Log("ERROR");
-                Debug.Log(result2.result);
+                ChangeErrorNotification(result2.result);
             }
 
         }
+
+    }
+
+
+    public GameObject notifactionError;
+    private void ChangeErrorNotification(string message)
+    {
+
+        GameObject maincanvas = GameObject.FindGameObjectWithTag("mainUI");
+       
+
+        GameObject notificationWindow = Instantiate(notifactionError, maincanvas.transform);
+        notificationWindow.transform.SetParent(maincanvas.transform);
+
+
+
+        //Start window
+        notifactionError.SetActive(true);
+        notificationWindow.transform.Find("Content Group").Find("Text").gameObject.GetComponent<Text>().text = message;
+
+        void clickedButton()
+        {
+            Destroy(notificationWindow);
+        }
+
+        notificationWindow.transform.Find("Button Group").Find("Accept").GetComponent<Button>().onClick.AddListener(clickedButton);
 
     }
 

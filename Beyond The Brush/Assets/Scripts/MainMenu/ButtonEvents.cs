@@ -7,7 +7,10 @@ using UnityEngine.UI;
 public class ButtonEvents : MonoBehaviour
 {
     //Variables||
-        
+
+        //Notifaction
+        public GameObject notifactionError;
+
         //UI windows
         public GameObject confirmationWindow;
         public GameObject loginForm;
@@ -23,8 +26,13 @@ public class ButtonEvents : MonoBehaviour
         public int MainGame = 0;
     //_________||
 
+    public void CloseErrorNotification()
+    {
+        //Close the window
+        notifactionError.SetActive(false);
+    }
 
-    public void OpenNotification()
+public void OpenNotification()
     {
         //This is gonna show up the confirmation box
         confirmationWindow.SetActive(!confirmationWindow.activeSelf);
