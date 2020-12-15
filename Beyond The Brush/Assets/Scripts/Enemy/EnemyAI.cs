@@ -29,6 +29,7 @@ public class EnemyAI : MonoBehaviour
     private Vector2 startingPosition;
     private Vector2 patrollingPosition;
     private float distanceChangePatrol = 1f;
+    private float enemyDirectionX;
 
 
     // Start is called before the first frame update
@@ -44,6 +45,7 @@ public class EnemyAI : MonoBehaviour
     {
         //Get Player Position
         player = GameObject.FindGameObjectWithTag("Player");
+        GetEnemyDirection();
 
         //State Machine
         switch (currentState)
@@ -102,6 +104,7 @@ public class EnemyAI : MonoBehaviour
     private void MoveTo(Vector2 targetPosition)
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
+        enemyDirectionX = (targetPosition.x - transform.position.x);
     }
 
     private void FindTarget()
@@ -117,6 +120,17 @@ public class EnemyAI : MonoBehaviour
         if (Vector2.Distance(transform.position, startingPosition) > chaseRange)
         {
             currentState = State.Resetting;
+        }
+    }
+    private void GetEnemyDirection()
+    {
+        if (enemyDirectionX < 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if(enemyDirectionX > 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
     }
 }
