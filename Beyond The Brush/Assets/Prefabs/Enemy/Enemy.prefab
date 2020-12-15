@@ -879,5 +879,6 @@ MonoBehaviour:
   movementSpeed: 2
   aggroRange: 8
   chaseRange: 16
+  attackRange: 1
   minPatrolRange: 4
   maxPatrolRange: 8
