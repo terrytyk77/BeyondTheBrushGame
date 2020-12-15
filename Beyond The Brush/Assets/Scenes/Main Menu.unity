@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 69649531}
   - component: {fileID: 69649530}
   - component: {fileID: 69649529}
+  - component: {fileID: 69649533}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -384,6 +385,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &69649533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69649528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42607e31a3052604f825562969a016fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  background: {fileID: 1983214122}
+  loadingScreen: {fileID: 1525757424}
+  loadingBar: {fileID: 395326836}
 --- !u!1 &88774302
 GameObject:
   m_ObjectHideFlags: 0
@@ -55284,7 +55300,7 @@ MonoBehaviour:
   usernameMinChar: 4
   emailMinChar: 1
   emailMaxChar: 30
-  passwordMinChar: 8
+  passwordMinChar: 5
   passwordMaxChar: 15
 --- !u!1 &1446071522
 GameObject:
@@ -69829,13 +69845,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8577e0dc49f99194aab243a7435a222e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInfo:
-    id: 
-    username: 
-    level: 0
-    exp: 0
-    resources: 0
-    gold: 0
 --- !u!4 &1971191385
 Transform:
   m_ObjectHideFlags: 0
