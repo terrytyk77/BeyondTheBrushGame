@@ -3,6 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+    //This class is a body used to store the data
+    //that was received from the node js server
+    //it will also be used to send all the data back
+    //in case it needs to be saved or manipulated
+    public class accountInfoResponse
+    {
+        [System.Serializable]
+        public class nestedData
+            {
+            [System.Serializable]
+            public class nested2Data
+                {
+                    public int level;
+                    public int exp;
+                    public int ressources;
+                    public int gold;
+                }
+
+                public nested2Data stats;
+                public string _id;
+                public string name;
+                public string email;
+                public string password;
+        }
+
+        public string result;
+        public nestedData body;
+        public bool status;
+
+    }
 public class AccountServices : MonoBehaviour
 {
 
@@ -31,6 +61,10 @@ public class AccountServices : MonoBehaviour
         public int passwordMinChar = 8;
         public int passwordMaxChar = 15;
     //_________||
+
+
+
+
 
     //Data format
     private class FormatedData{
@@ -82,8 +116,19 @@ public class AccountServices : MonoBehaviour
             //The server response
             string result = request.downloadHandler.text;
 
-            //TO DO
-            Debug.Log(result);
+
+
+            accountInfoResponse result2 = JsonUtility.FromJson<accountInfoResponse>(result);
+
+            if (result2.status)
+            {
+                Debug.Log(result2.body.name);
+            }
+            else
+            {
+                Debug.Log("ERROR");
+                Debug.Log(result2.result);
+            }
 
         }
 
