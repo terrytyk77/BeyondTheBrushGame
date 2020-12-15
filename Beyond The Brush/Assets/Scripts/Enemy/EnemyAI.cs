@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
     //Ranges        ||
         public float aggroRange;
         public float chaseRange;
+        public float attackRange;
         public float minPatrolRange;
         public float maxPatrolRange;
     //--------------||
@@ -18,6 +19,7 @@ public class EnemyAI : MonoBehaviour
     {
         Patrolling,
         Chassing,
+        Attacking,
         Resetting
     }
     private State currentState;
@@ -50,22 +52,29 @@ public class EnemyAI : MonoBehaviour
             case State.Patrolling:
                 {
                     MoveTo(patrollingPosition);
-
                     if (Vector2.Distance(transform.position, patrollingPosition) < distanceChangePatrol)
                     {
-                        //Reached Patrolling Position
+                        //Reached Patrolling Position? Get a New One!
                         patrollingPosition = GetPatrollingPosition();
                     }
                     FindTarget();
+                    OutOfChaseRange();
                     break;
                 }
             case State.Chassing:
                 {
                     MoveTo(player.transform.position);
-                    if (Vector2.Distance(transform.position, startingPosition) > chaseRange)
+                    if (Vector2.Distance(transform.position, player.transform.position) < attackRange) 
                     {
-                        currentState = State.Resetting;
+                        currentState = State.Attacking;
                     }
+                    OutOfChaseRange();
+                    break;
+                }
+            case State.Attacking:
+                {
+                    FindTarget();
+                    OutOfChaseRange();
                     break;
                 }
             case State.Resetting:
@@ -80,27 +89,34 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    Vector2 GetPatrollingPosition()
+    private Vector2 GetPatrollingPosition()
     {
         return startingPosition + GetRandomDirection() * Random.Range(minPatrolRange, maxPatrolRange);
     }
 
-    Vector2 GetRandomDirection()
+    private Vector2 GetRandomDirection()
     {
         return new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
     }
 
-    void MoveTo(Vector2 targetPosition)
+    private void MoveTo(Vector2 targetPosition)
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
     }
 
-    void FindTarget()
+    private void FindTarget()
     {
-        if (Vector2.Distance(transform.position, player.transform.position) < aggroRange)
+        if ((Vector2.Distance(transform.position, player.transform.position) < aggroRange) && (Vector2.Distance(transform.position, player.transform.position) > attackRange))
         {
             //Player within target Range!
             currentState = State.Chassing;
+        }
+    }
+
+    private void OutOfChaseRange() {
+        if (Vector2.Distance(transform.position, startingPosition) > chaseRange)
+        {
+            currentState = State.Resetting;
         }
     }
 }
