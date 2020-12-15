@@ -101,7 +101,6 @@ public class EnemyAI : MonoBehaviour
                     if (Vector2.Distance(transform.position, startingPosition) < distanceChangePatrol)
                     {
                         Animator.SetBool("Walking", false);
-                        currentHealth = maxHealth;
                         currentState = State.Patrolling;
                     }
                     break;
@@ -169,10 +168,13 @@ public class EnemyAI : MonoBehaviour
 
     private void ResetHP()
     {
-        float hpTicks = 10f;
-        currentHealth += hpTicks;
-        healthBar.GetComponent<Image>().fillAmount += hpTicks / maxHealth;
-        if (currentHealth > maxHealth)
+        if(currentHealth < maxHealth)
+        {
+            float hpTicks = 10f;
+            currentHealth += hpTicks;
+            healthBar.GetComponent<Image>().fillAmount += hpTicks / maxHealth;
+        }
+        else
         {
             currentHealth = maxHealth;
             healthBar.GetComponent<Image>().fillAmount = maxHealth / maxHealth;
