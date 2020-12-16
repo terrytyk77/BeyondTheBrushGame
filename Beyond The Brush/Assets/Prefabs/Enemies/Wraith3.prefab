@@ -323,10 +323,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 70
-  movementSpeed: 1.5
+  movementSpeed: 3
   aggroRange: 8
   chaseRange: 15
-  attackRange: 5
+  attackRange: 6
   minPatrolRange: 3
   maxPatrolRange: 5
   healthBar: {fileID: 4939915628599338985}

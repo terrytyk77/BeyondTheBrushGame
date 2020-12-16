@@ -15,6 +15,7 @@ TagManager:
   - shadowOverlay
   - loadingBar
   - mainUI
+  - DrawingCollider
   layers:
   - Default
   - TransparentFX
