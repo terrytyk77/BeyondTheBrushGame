@@ -6,12 +6,15 @@ public class CameraBehavior : MonoBehaviour
 {
     //Variables||
 
-        //player
-        public float cameraPercentageLimit = 0.7f;
-        public float cameraSpeed = 4f;
+
 
         GameObject player;
         private Vector3 cameraGoal;
+
+        //player
+        private float cameraPercentageLimit = 0.2f;
+        private float cameraSpeed = 4f;
+
     //_________||
 
 
@@ -20,7 +23,7 @@ public class CameraBehavior : MonoBehaviour
     {
         //Get the player element
         player = GameObject.FindGameObjectWithTag("Player");
-
+        cameraSpeed = player.GetComponent<PlayerMovement>().playerSpeed;
         //Get the player position
         Vector2 playerPos = player.GetComponent<Transform>().position;
 
@@ -59,31 +62,54 @@ public class CameraBehavior : MonoBehaviour
 
         //Check the borders offsets
         if (playerPosition.y > cameraPosition.y + heightOffset / 2)
-        {
+        {        
             UpdatedCameraGoal();
+            //Camera input
+            decimal cameraOffsetInput = decimal.Round((decimal)(cameraSpeed * Time.fixedDeltaTime), 2);
+
+            //Set the camera goal
+            Camera.main.GetComponent<Transform>().position = Vector3.MoveTowards(cameraPosition, cameraGoal, (float)cameraOffsetInput);
         } 
         else if (playerPosition.y < cameraPosition.y - heightOffset / 2)
         {
             UpdatedCameraGoal();
+            //Camera input
+            decimal cameraOffsetInput = decimal.Round((decimal)(cameraSpeed * Time.fixedDeltaTime), 2);
+
+            //Set the camera goal
+            Camera.main.GetComponent<Transform>().position = Vector3.MoveTowards(cameraPosition, cameraGoal, (float)cameraOffsetInput);
         } 
         else if (playerPosition.x > cameraPosition.x + widthOffset / 2)
         {
             UpdatedCameraGoal();
+            //Camera input
+            decimal cameraOffsetInput = decimal.Round((decimal)(cameraSpeed * Time.fixedDeltaTime), 2);
+
+            //Set the camera goal
+            Camera.main.GetComponent<Transform>().position = Vector3.MoveTowards(cameraPosition, cameraGoal, (float)cameraOffsetInput);
         }
         else if (playerPosition.x < cameraPosition.x - widthOffset/2)
         {
             UpdatedCameraGoal();
+            //Camera input
+            decimal cameraOffsetInput = decimal.Round((decimal)(cameraSpeed * Time.fixedDeltaTime), 2);
+
+            //Set the camera goal
+            Camera.main.GetComponent<Transform>().position = Vector3.MoveTowards(cameraPosition, cameraGoal, (float)cameraOffsetInput);
         }
 
-        if (cameraGoal != cameraPosition)
+
+        /*
+        if (cameraGoal != cameraPosition && playerOffLimits)
         {
             //Camera input
             decimal cameraOffsetInput = decimal.Round( (decimal)(cameraSpeed * Time.fixedDeltaTime) , 2);
 
             //Set the camera goal
-            Camera.main.GetComponent<Transform>().position = Vector3.Lerp(cameraPosition, cameraGoal, (float)cameraOffsetInput);
+            Camera.main.GetComponent<Transform>().position = Vector3.MoveTowards(cameraPosition, cameraGoal, (float)cameraOffsetInput);
 
         }
+        */
 
 
 

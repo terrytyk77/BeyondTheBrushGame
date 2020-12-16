@@ -55265,77 +55265,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6498690047904201392, guid: 888a99a6ee631ee41b5bdb39a8c46752, type: 3}
   m_PrefabInstance: {fileID: 1416216950}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1423370413
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1423370414}
-  - component: {fileID: 1423370415}
-  - component: {fileID: 1423370416}
-  m_Layer: 0
-  m_Name: '[ Code - Networking ]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1423370414
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1423370413}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 386.6462, y: 254.20451, z: -520.442}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1423370415
+--- !u!114 &1423370416 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8617937385728107518, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+  m_PrefabInstance: {fileID: 8617937384307624782}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1423370413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e81e70fa527b44459885d617bdccd7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1423370416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1423370413}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a648454ce123a784ab7c64c0c25dd16a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usernameSignup: {fileID: 1092409105}
-  emailSignup: {fileID: 1598896648}
-  passwordSignup: {fileID: 1589577757}
-  usernameLogin: {fileID: 1830904398}
-  passwordLogin: {fileID: 1031335722}
-  signupRoute: account/signup
-  loginRoute: account/login
-  usernameMaxChar: 15
-  usernameMinChar: 4
-  emailMinChar: 1
-  emailMaxChar: 30
-  passwordMinChar: 5
-  passwordMaxChar: 15
-  notifactionError: {fileID: 3695288344465816907, guid: 67a54c3729be6dc4881beb2073910794, type: 3}
-  networkLoading: {fileID: 8106798866056110242, guid: e13012d4892d3f344a34c19416a908e2, type: 3}
 --- !u!1 &1446071522
 GameObject:
   m_ObjectHideFlags: 0
@@ -70593,3 +70533,80 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6498690047904201392, guid: c5cda9c372ee29c41946cc43fed16af0, type: 3}
   m_PrefabInstance: {fileID: 2140476164}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8617937384307624782
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8617937385728107488, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617937385728107488, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 386.6462
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617937385728107488, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 254.20451
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617937385728107488, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -520.442
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617937385728107488, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617937385728107488, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617937385728107488, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617937385728107488, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617937385728107488, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617937385728107488, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617937385728107488, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617937385728107491, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: m_Name
+      value: '[ Code - Networking ]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617937385728107518, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: emailSignup
+      value: 
+      objectReference: {fileID: 1598896648}
+    - target: {fileID: 8617937385728107518, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: passwordLogin
+      value: 
+      objectReference: {fileID: 1031335722}
+    - target: {fileID: 8617937385728107518, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: usernameLogin
+      value: 
+      objectReference: {fileID: 1830904398}
+    - target: {fileID: 8617937385728107518, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: passwordSignup
+      value: 
+      objectReference: {fileID: 1589577757}
+    - target: {fileID: 8617937385728107518, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
+      propertyPath: usernameSignup
+      value: 
+      objectReference: {fileID: 1092409105}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3431264537ba91945a1858ecf28092f3, type: 3}
