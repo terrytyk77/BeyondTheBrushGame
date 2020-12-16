@@ -9,11 +9,6 @@ public class WebServices : MonoBehaviour
 {
     static public string baseURL = "http://localhost:3000";
 
-    private void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
     public static string CookieString
     {
         get

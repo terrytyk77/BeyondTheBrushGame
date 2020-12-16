@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,16 @@ public class PlayerData : MonoBehaviour
 {
     //Variables||
 
-        //Database data
-        static private string _id = "";
+        //Instance
+        static public PlayerData instance;
+
+        private void Awake()
+        {
+            instance = this;
+        }
+
+    //Database data
+    static private string _id = null;
         static private string _username = "Offline Player";
         static private int _level = 1;
         static private int _exp = 0;
@@ -52,6 +61,8 @@ public class PlayerData : MonoBehaviour
     public static float xslashCooldown { get { return cooldowns._xslashCooldown; } set { cooldowns._xslashCooldown = value; } }
     public static float shieldCooldown { get { return cooldowns._shieldCooldown; } set { cooldowns._shieldCooldown = value; } }
 
+
+
     public static int getNeededExp()
     {
         int result = level * 10;
@@ -79,6 +90,54 @@ public class PlayerData : MonoBehaviour
         else
             cooldowns._shieldCooldown = 0;
     }
+
+    static public accountInfoResponse.nestedData savePlayerData()
+    {
+        accountInfoResponse.nestedData data = new accountInfoResponse.nestedData();
+
+        data.stats = new accountInfoResponse.nestedData.nested2Data();
+
+        //Set the data to be sent
+        data._id = _id;
+        data.stats.level = _level;
+        data.stats.exp = _exp;
+        data.stats.gold = _gold;
+        data.stats.ressources = _resources;
+
+        return data;
+    }
+
+        public static IEnumerator savePlayerDataRequest(accountInfoResponse.nestedData data, Action doLast)
+        {
+            Debug.Log("Trying to save player data");
+
+            //Set the cookie
+            WebServices.CookieString = null;
+
+            var request = WebServices.Post("save/fullSave", JsonUtility.ToJson(data));
+
+            //Make the code wait until the server responds
+            yield return request.SendWebRequest();
+
+            if (request.isNetworkError)
+            {
+                Debug.Log("Network Error");
+            }
+            else
+            {
+                //Get the header for proccessing
+                WebServices.CookieString = request.GetResponseHeader("set-cookie");
+
+                //The server response
+                string result = request.downloadHandler.text;
+
+                doLast();
+
+                Debug.Log("Completed");
+        }
+        }
+
+
 
     static public void SetPlayerData(accountInfoResponse json)
     {
@@ -108,7 +167,7 @@ public class PlayerData : MonoBehaviour
 
     static public void ResetPlayerData()
     {
-        _id = "";
+        _id = null;
         _username = "Offline Player";
         _level = 1;
         _exp = 0;

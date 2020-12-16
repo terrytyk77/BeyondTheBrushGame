@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8617937385728107491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8617937385728107488}
+  - component: {fileID: 8617937385728107489}
+  - component: {fileID: 8617937385728107518}
+  m_Layer: 0
+  m_Name: '[ Code - Networking ]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8617937385728107488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8617937385728107491}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 386.6462, y: 254.20451, z: -520.442}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8617937385728107489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8617937385728107491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e81e70fa527b44459885d617bdccd7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8617937385728107518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8617937385728107491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a648454ce123a784ab7c64c0c25dd16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usernameSignup: {fileID: 0}
+  emailSignup: {fileID: 0}
+  passwordSignup: {fileID: 0}
+  usernameLogin: {fileID: 0}
+  passwordLogin: {fileID: 0}
+  signupRoute: account/signup
+  loginRoute: account/login
+  usernameMaxChar: 15
+  usernameMinChar: 4
+  emailMinChar: 1
+  emailMaxChar: 30
+  passwordMinChar: 5
+  passwordMaxChar: 15
+  notifactionError: {fileID: 3695288344465816907, guid: 67a54c3729be6dc4881beb2073910794, type: 3}
+  networkLoading: {fileID: 8106798866056110242, guid: e13012d4892d3f344a34c19416a908e2, type: 3}

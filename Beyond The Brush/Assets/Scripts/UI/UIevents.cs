@@ -221,25 +221,58 @@ public class UIevents : MonoBehaviour
     public void OnLogout()
     {
         //Save data
+        if (PlayerData.id != null)
+        {
+            void doLast()
+            {
+                PlayerData.ResetPlayerData();
+                mainMenu.mainWindow.SetActive(false);
+                Time.timeScale = 1;
+                sceneTeleport.start(0);
+            }
 
-        PlayerData.ResetPlayerData();
-
-        mainMenu.mainWindow.SetActive(false);
-        Time.timeScale = 1;
-        sceneTeleport.start(0);
+            accountInfoResponse.nestedData tosendData = PlayerData.savePlayerData();
+            //Open the options panel
+            StartCoroutine(PlayerData.savePlayerDataRequest(tosendData, doLast));
+        }
+        else
+        {
+            PlayerData.ResetPlayerData();
+            mainMenu.mainWindow.SetActive(false);
+            Time.timeScale = 1;
+            sceneTeleport.start(0);
+        }
     }
 
     public void OnOptions()
     {
-        //Open the options panel
+
     }
 
     public void OnExit()
     {
+        //Save data
+        if (PlayerData.id != null)
+        {
+            void doLast()
+            {
+                //Make it save before closing
+                UnityEditor.EditorApplication.isPlaying = false; //Show the quit on the editor as well
+                Application.Quit();
+            }
 
-        //Make it save before closing
-        UnityEditor.EditorApplication.isPlaying = false; //Show the quit on the editor as well
-        Application.Quit();
+            accountInfoResponse.nestedData tosendData = PlayerData.savePlayerData();
+            //Open the options panel
+            StartCoroutine(PlayerData.savePlayerDataRequest(tosendData, doLast));
+        }
+        else
+        {
+            //Make it save before closing
+            UnityEditor.EditorApplication.isPlaying = false; //Show the quit on the editor as well
+            Application.Quit();
+        }
+
+
     }
 
 }
