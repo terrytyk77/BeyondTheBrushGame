@@ -39,7 +39,7 @@ public class PostProcessEvents : MonoBehaviour
             float transparencyVolume = imageElement.color.a;
             imageElement.color = new Color(0, 0, 0, transparencyVolume + 0.05f);
 
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.015f);
         }
 
         //Call the teleport
@@ -52,7 +52,7 @@ public class PostProcessEvents : MonoBehaviour
             float transparencyVolume = imageElement.color.a;
             imageElement.color = new Color(0, 0, 0, transparencyVolume - 0.05f);
 
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.015f);
         }
 
 

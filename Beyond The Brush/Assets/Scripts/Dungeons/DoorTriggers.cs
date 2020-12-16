@@ -25,7 +25,6 @@ public class DoorTriggers : MonoBehaviour
                 Rigidbody2D playerRB = collision.gameObject.GetComponent<Rigidbody2D>();
                 playerRB.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
 
-
                 //Call for a camera transition
                 Camera.main.GetComponent<PostProcessEvents>().transition(MakeTheRoomTeleport, gameObject.name);
 
