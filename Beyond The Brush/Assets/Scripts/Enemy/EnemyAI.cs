@@ -22,6 +22,7 @@ public class EnemyAI : MonoBehaviour
 
     //Image         ||
         public GameObject healthBar;
+        public GameObject enemyProjectile;
     //--------------||
 
     //Enemy State   ||
@@ -42,6 +43,7 @@ public class EnemyAI : MonoBehaviour
     private Vector2 enemyDirection;
     private float currentHealth;
     private float distanceChangePatrol = 1f;
+    private bool firing;
 
 
     // Start is called before the first frame update
@@ -89,6 +91,14 @@ public class EnemyAI : MonoBehaviour
             case State.Attacking:
                 {
                     Animator.SetTrigger("Attacking");
+                    if (enemyProjectile)
+                    {
+                        if (firing)
+                        {
+                            firing = false;
+                            createProjectile(transform.position);
+                        }                    
+                    }
                     Animator.SetBool("Walking", false);
                     FindTarget();
                     OutOfChaseRange();
@@ -185,5 +195,15 @@ public class EnemyAI : MonoBehaviour
     {
         Destroy(gameObject);
         Debug.Log("Enemy Killed!");
+    }
+
+    private void createProjectile(Vector2 spawnPosition)
+    {
+        Instantiate(enemyProjectile, spawnPosition, Quaternion.identity);
+    }
+
+    private void Fire()
+    {
+        firing = true;
     }
 }
