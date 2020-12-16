@@ -23,8 +23,6 @@ public class sceneTeleport : MonoBehaviour
 
     IEnumerator LoadAsync(int sceneNum)
     {
-        Debug.Log(loadingScreen);
-
         //Get the loading screen transparency
         CanvasGroup backAlpha = background.GetComponent<CanvasGroup>();
         backAlpha.alpha = 0;

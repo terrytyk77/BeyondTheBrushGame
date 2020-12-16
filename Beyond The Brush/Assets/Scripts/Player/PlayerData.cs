@@ -82,16 +82,41 @@ public class PlayerData : MonoBehaviour
 
     static public void SetPlayerData(accountInfoResponse json)
     {
-        _id = json.body._id;
-        _username = json.body.name;
-        _level = json.body.stats.level;
+        if (json.body._id != null){_id = json.body._id;}
+        if (json.body.name != null){ _username = json.body.name;}
+        if (json.body.email != null) { _email = json.body.email; }
+
+        if (json.body.stats.level < 1)
+        {
+            _level = 1;
+        }
+        else
+        {
+            _level = json.body.stats.level;
+        }
+
         _exp = json.body.stats.exp;
         _resources = json.body.stats.ressources;
         _gold = json.body.stats.gold;
-        _email = json.body.email;
 
         //Calculate the max health
+        _maxHealthPoints = 100;
+
+        //Reset the player hp
         _healthPoints = _maxHealthPoints;
+    }
+
+    static public void ResetPlayerData()
+    {
+        _id = "";
+        _username = "Offline Player";
+        _level = 1;
+        _exp = 0;
+        _resources = 0;
+        _gold = 0;
+        _email = "";
+        _healthPoints = 100;
+        _maxHealthPoints = 100;
     }
 
 }

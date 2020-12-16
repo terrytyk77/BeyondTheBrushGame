@@ -17,6 +17,7 @@ public class UIevents : MonoBehaviour
         public class healthbarClass
         {
             public GameObject fill;
+            public GameObject text;
         }
 
         [System.Serializable]
@@ -58,6 +59,8 @@ public class UIevents : MonoBehaviour
         //Bars
         public healthbarClass healthbar;
         public expbarClass expBar;
+
+        public GameObject levelText;
 
         //minimap
         public GameObject minimap;
@@ -139,6 +142,7 @@ public class UIevents : MonoBehaviour
         //Healthbar
         float healthBarFillAmount = ((float)PlayerData.healthPoints/(float)PlayerData.maxHealthPoints);
         healthbar.fill.GetComponent<Image>().fillAmount = healthBarFillAmount;
+        healthbar.text.GetComponent<Text>().text = PlayerData.healthPoints + "/" + PlayerData.maxHealthPoints + " HP";
 
         //Exp bar
         float expBarFillAmount = ((float)PlayerData.exp/(float)PlayerData.getNeededExp());
@@ -146,34 +150,40 @@ public class UIevents : MonoBehaviour
 
         expBar.text.GetComponent<Text>().text = PlayerData.exp + "/" + PlayerData.getNeededExp();
 
-        //Skills cooldowns
+        //level text
+        levelText.GetComponent<Text>().text = PlayerData.level.ToString();
+
+        //Skills cooldowns||
 
         //slash
         string slashSkillText = "";
-        if (PlayerData.slashCooldown > 0)
-        {
-            slashSkillText = slashSkillText + decimal.Round((decimal)PlayerData.slashCooldown, 2);
-        }
-        cooldowns.slashSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.slashCooldown/PlayerData.slashCooldownDefault);
-        cooldowns.slashSkill.transform.Find("CooldownText").GetComponent<Text>().text = slashSkillText;
+            if (PlayerData.slashCooldown > 0)
+            {
+                slashSkillText = slashSkillText + decimal.Round((decimal)PlayerData.slashCooldown, 2);
+            }
+            cooldowns.slashSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.slashCooldown/PlayerData.slashCooldownDefault);
+            cooldowns.slashSkill.transform.Find("CooldownText").GetComponent<Text>().text = slashSkillText;
 
-        //xslash
-        string xslashSkillText = "";
-        if (PlayerData.xslashCooldown > 0)
-        {
-            xslashSkillText = xslashSkillText + decimal.Round((decimal)PlayerData.xslashCooldown, 2);
-        }
-        cooldowns.XslashSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.xslashCooldown / PlayerData.xslashCooldownDefault);
-        cooldowns.XslashSkill.transform.Find("CooldownText").GetComponent<Text>().text = xslashSkillText;
+            //xslash
+            string xslashSkillText = "";
+            if (PlayerData.xslashCooldown > 0)
+            {
+                xslashSkillText = xslashSkillText + decimal.Round((decimal)PlayerData.xslashCooldown, 2);
+            }
+            cooldowns.XslashSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.xslashCooldown / PlayerData.xslashCooldownDefault);
+            cooldowns.XslashSkill.transform.Find("CooldownText").GetComponent<Text>().text = xslashSkillText;
 
-        //shield
-        string shieldSkillText = "";
-        if (PlayerData.shieldCooldown > 0)
-        {
-            shieldSkillText = shieldSkillText + decimal.Round((decimal)PlayerData.shieldCooldown, 2);
-        }
-        cooldowns.shieldSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.shieldCooldown / PlayerData.shieldCooldownDefault);
-        cooldowns.shieldSkill.transform.Find("CooldownText").GetComponent<Text>().text = shieldSkillText;
+            //shield
+            string shieldSkillText = "";
+            if (PlayerData.shieldCooldown > 0)
+            {
+                shieldSkillText = shieldSkillText + decimal.Round((decimal)PlayerData.shieldCooldown, 2);
+            }
+            cooldowns.shieldSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.shieldCooldown / PlayerData.shieldCooldownDefault);
+            cooldowns.shieldSkill.transform.Find("CooldownText").GetComponent<Text>().text = shieldSkillText;
+        //________________||
+
+
 
     }
 
@@ -211,6 +221,8 @@ public class UIevents : MonoBehaviour
     public void OnLogout()
     {
         //Save data
+
+        PlayerData.ResetPlayerData();
 
         mainMenu.mainWindow.SetActive(false);
         Time.timeScale = 1;

@@ -617,7 +617,7 @@ public class CurrentDungeonData : MonoBehaviour
                 GameObject newRoom = Instantiate(UIelements.miniMap.roomPrefab);
 
                 //Change it's nesting position
-                newRoom.transform.parent = UIelements.miniMap.mask.transform;
+                newRoom.transform.SetParent(UIelements.miniMap.mask.transform);
                 newRoom.GetComponent<RectTransform>().localScale = new Vector2(1, 1);
 
                 //Put at correct position
