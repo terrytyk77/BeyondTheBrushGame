@@ -192,8 +192,7 @@ public class CurrentDungeonData : MonoBehaviour
             //Check if the next shape can be created
             //Store possible sides
             List<Dungeon.room> possibleSides = new List<Dungeon.room>();
-            List<Dungeon.room> filteredList = new List<Dungeon.room>();
-            List<Dungeon.room> extraFilteredList = new List<Dungeon.room>();
+            List<Dungeon.room> possibleSidesFiltered = new List<Dungeon.room>();
 
             Vector2Int newRoomDirection = roomLocation;
 
@@ -250,13 +249,13 @@ public class CurrentDungeonData : MonoBehaviour
             }
 
 
+            Debug.Log("Possible rooms : " + possibleSides.Count);
+
             //ADD THE FILTER||
 
             //Loop through the list of rooms that u have
             foreach (Dungeon.room room in possibleSides)
             {
-                bool roomShouldBeRemoved = false;
-
                 //Check what sides does this room has
                 //it will then check if there already is a room on that direction or not
                 //In case there is it will check if it is possible to make a connection
@@ -269,12 +268,12 @@ public class CurrentDungeonData : MonoBehaviour
                     Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.down);
                     if (nextHall.roomPrefab != null)
                     {
-
                         //There is already a room here
                         if (!nextHall.roomSides.top)
                         {
                             //There was no door here
-                            roomShouldBeRemoved = true;
+                            possibleSides.Remove(room);
+                            break;
 
                         }
                     }
@@ -289,7 +288,8 @@ public class CurrentDungeonData : MonoBehaviour
                         if (!nextHall.roomSides.bottom)
                         {
                             //There was no door here
-                            roomShouldBeRemoved = true;
+                            possibleSides.Remove(room);
+                            break;
 
                         }
                     }
@@ -304,7 +304,8 @@ public class CurrentDungeonData : MonoBehaviour
                         if (!nextHall.roomSides.left)
                         {
                             //There was no door here
-                            roomShouldBeRemoved = true;
+                            possibleSides.Remove(room);
+                            break;
 
                         }
                     }
@@ -319,95 +320,62 @@ public class CurrentDungeonData : MonoBehaviour
                         if (!nextHall.roomSides.right)
                         {
                             //There was no door here
-                            roomShouldBeRemoved = true;
+                            possibleSides.Remove(room);
+                            break;
 
                         }
                     }
                 }
-
-
-                if (!roomShouldBeRemoved)
-                {
-                    filteredList.Add(room);
-                }
-
             }
 
-            //check if there are only one side rooms
-            bool thereAreNotOneSidedRooms = false;
-
-            foreach (Dungeon.room filteredRoom in filteredList)
-            {
-                int sidesCounter = 0;
-                if (filteredRoom.roomSides.top)
-                {
-                    sidesCounter++;
-                }
-                if (filteredRoom.roomSides.bottom)
-                {
-                    sidesCounter++;
-                }
-                if (filteredRoom.roomSides.left)
-                {
-                    sidesCounter++;
-                }
-                if (filteredRoom.roomSides.right)
-                {
-                    sidesCounter++;
-                }
-
-                if (sidesCounter > 1)
-                {
-                    thereAreNotOneSidedRooms = true;
-                }
-            }
+            Debug.Log("Possible rooms 2: " + possibleSides.Count);
 
 
             //this means there are rooms that are not just one sided
             //it means we can remove the one sided rooms to avoid dead ends
-            if (thereAreNotOneSidedRooms)
+            if (possibleSides.Count > 1)
             {
-                foreach(Dungeon.room filteredRoom in filteredList)
+
+                foreach(Dungeon.room filteredRoom2 in possibleSides)
                 {
                     int sidesCounter = 0;
-                    if (filteredRoom.roomSides.top)
+                    if (filteredRoom2.roomSides.top)
                     {
                         sidesCounter++;
                     }
-                    if (filteredRoom.roomSides.bottom)
+                    if (filteredRoom2.roomSides.bottom)
                     {
                         sidesCounter++;
                     }
-                    if (filteredRoom.roomSides.left)
+                    if (filteredRoom2.roomSides.left)
                     {
                         sidesCounter++;
                     }
-                    if (filteredRoom.roomSides.right)
+                    if (filteredRoom2.roomSides.right)
                     {
                         sidesCounter++;
                     }
+
+                    Debug.Log(sidesCounter);
 
                     if (sidesCounter > 1)
                     {
-                        extraFilteredList.Add(filteredRoom);
+                        Debug.Log("There is a one door room!");
+                        possibleSidesFiltered.Add(filteredRoom2);
                     }
                 }
-            }
-            //______________||
 
-            if (extraFilteredList.Count < 1)
-            {
                 //Add the new room
-                int chooseRandomRoom = Random.Range(0, filteredList.Count);
-                CreateNewRoom(newRoomDirection.x, newRoomDirection.y, filteredList[chooseRandomRoom]);
+                int chooseRandomRoom = Random.Range(0, possibleSidesFiltered.Count);
+                CreateNewRoom(newRoomDirection.x, newRoomDirection.y, possibleSidesFiltered[chooseRandomRoom]);
             }
             else
             {
                 //Add the new room
-                int chooseRandomRoom = Random.Range(0, extraFilteredList.Count);
-                CreateNewRoom(newRoomDirection.x, newRoomDirection.y, extraFilteredList[chooseRandomRoom]);
+                int chooseRandomRoom = Random.Range(0, possibleSides.Count);
+                CreateNewRoom(newRoomDirection.x, newRoomDirection.y, possibleSides[chooseRandomRoom]);
             }
-
+            //______________||
 
         }
 
@@ -424,8 +392,6 @@ public class CurrentDungeonData : MonoBehaviour
             //Has topside
             Vector2Int nextRoomPos = new Vector2Int(roomLocation.x, roomLocation.y + 1);
             Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);
-
-
             
             if (nextRoomElement.roomPrefab == null)
             {
