@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -95,6 +97,13 @@ public class CurrentDungeonData : MonoBehaviour
     public void changeNextRoom(string roomSide)
     {
 
+        //Same a cloned version of the current room
+        GameObject CurrentRoomReference = GameObject.FindGameObjectWithTag("dungeonRoom"); //Current room object
+        string LocalPath = "Assets/Dungeons/CurrentRooms/" + getRoomViaCords(currentRoom).roomPrefab.name + ".prefab";
+        getRoomViaCords(currentRoom).roomPrefab = PrefabUtility.SaveAsPrefabAssetAndConnect(CurrentRoomReference, LocalPath, InteractionMode.AutomatedAction);
+
+        Debug.Log(getRoomViaCords(currentRoom).roomPrefab.name);
+
         //Calculate on which side from the next room should the player be spawned in
         switch (roomSide)
         {
@@ -139,8 +148,13 @@ public class CurrentDungeonData : MonoBehaviour
         //Check if the next rooms already exist and if not create them
         createNextRooms(currentRoom);
 
-        //Spawn the next room into the map
-        Instantiate(roomToCreate.roomPrefab, roomToCreate.roomPrefab.transform.position, Quaternion.identity);
+
+        if (roomToCreate.roomPrefab != null)
+        {
+            //Spawn the next room into the map
+            Instantiate(roomToCreate.roomPrefab, roomToCreate.roomPrefab.transform.position, Quaternion.identity);
+        }
+
 
         //Teleport the player to the correct side
         foreach (Transform child in roomToCreate.roomPrefab.transform)
