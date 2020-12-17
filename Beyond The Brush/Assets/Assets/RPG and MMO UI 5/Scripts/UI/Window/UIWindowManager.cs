@@ -48,6 +48,7 @@ namespace DuloGames.UI
 
         protected virtual void OnDestroy()
         {
+            if(m_Instance != null)
             if (m_Instance.Equals(this))
                 m_Instance = null;
         }

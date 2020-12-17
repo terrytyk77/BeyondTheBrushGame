@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CurrentDungeonData : MonoBehaviour
@@ -99,10 +97,8 @@ public class CurrentDungeonData : MonoBehaviour
 
         //Same a cloned version of the current room
         GameObject CurrentRoomReference = GameObject.FindGameObjectWithTag("dungeonRoom"); //Current room object
-        string LocalPath = "Assets/Dungeons/CurrentRooms/" + getRoomViaCords(currentRoom).roomPrefab.name + ".prefab";
+        string LocalPath = "Assets/Dungeons/CurrentRooms/" + getRoomViaCords(currentRoom).roomPrefab.name + currentRoom.x + currentRoom.y + ".prefab";
         getRoomViaCords(currentRoom).roomPrefab = PrefabUtility.SaveAsPrefabAssetAndConnect(CurrentRoomReference, LocalPath, InteractionMode.AutomatedAction);
-
-        Debug.Log(getRoomViaCords(currentRoom).roomPrefab.name);
 
         //Calculate on which side from the next room should the player be spawned in
         switch (roomSide)
@@ -165,7 +161,10 @@ public class CurrentDungeonData : MonoBehaviour
                 {
                     if (child2.gameObject.name == nextRoomSide)
                     {
-                        playerRB.position = child2.position; 
+                        playerRB.position = child2.position;
+
+                        //Reset the camera position
+                        Camera.main.transform.position = new Vector3(child2.position.x, child2.position.y, Camera.main.transform.position.z);
                     }
                 }
             }
@@ -614,7 +613,6 @@ public class CurrentDungeonData : MonoBehaviour
             new Vector2(-currentRoom.x  * (roomSize * UIelements.miniMap.mask.transform.localScale.x), 
             -currentRoom.y * (roomSize * UIelements.miniMap.mask.transform.localScale.y));
 
-
     }
 
 
@@ -687,11 +685,23 @@ public class CurrentDungeonData : MonoBehaviour
                     if (location.gameObject.name == "exit")
                     {
                         playerRB.position = location.position;
+
+                        //Reset the camera position
+                        Camera.main.transform.position = new Vector3(location.position.x, location.position.y, Camera.main.transform.position.z);
                     }
                 }
             }
         }
 
+    }
+
+    
+    private void Awake()
+    {
+        //Reset the current path folder
+        string path = "Assets/Dungeons/CurrentRooms";
+        if (Directory.Exists(path)) { Directory.Delete(path, true); }
+        Directory.CreateDirectory(path);
     }
 
     private void Start()
@@ -727,7 +737,6 @@ public class CurrentDungeonData : MonoBehaviour
             //Update the minimap
             updateMap();
         }
-
 
     }
 
