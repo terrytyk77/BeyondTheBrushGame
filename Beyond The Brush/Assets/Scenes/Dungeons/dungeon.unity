@@ -658,8 +658,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eddb1b224ad3b4428239c2906ab580b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraPercentageLimit: 0.4
-  cameraSpeed: 1.4
 --- !u!114 &1448610874
 MonoBehaviour:
   m_ObjectHideFlags: 0
