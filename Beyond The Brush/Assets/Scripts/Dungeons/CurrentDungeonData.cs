@@ -80,6 +80,8 @@ public class CurrentDungeonData : MonoBehaviour
     {
         Dungeon.room foundRoom = new Dungeon.room();
 
+        bool foundAroom = false;
+
         //Loop through all the dungeon rooms that exist
         foreach (roomPos room in map)
         {
@@ -87,11 +89,22 @@ public class CurrentDungeonData : MonoBehaviour
             if (room.position == cords)
             {
                 foundRoom = room.room;
+                foundAroom = true;
                 return room.room;
             }
         }
 
-        return foundRoom;
+        if (!foundAroom)
+        {
+            foundRoom.roomPrefab = null;
+            return foundRoom;
+        }
+        else
+        {
+            return foundRoom;
+        }
+
+
     }
 
 
@@ -226,6 +239,7 @@ public class CurrentDungeonData : MonoBehaviour
 
         void addNewRoom(string hasOposingSide)
         {
+
             //Check if the next shape can be created
             //Store possible sides
             List<Dungeon.room> possibleSides = new List<Dungeon.room>();
@@ -254,8 +268,10 @@ public class CurrentDungeonData : MonoBehaviour
             }
 
             //loop through all possible rooms
-            foreach (Dungeon.room room in currentDungeon.rooms)
+            for(int i = 0; i < currentDungeon.rooms.Count; i++)
             {
+                Dungeon.room room = currentDungeon.rooms[i];
+
                 bool hasTheSide = false;
 
                 switch (hasOposingSide)
@@ -285,88 +301,96 @@ public class CurrentDungeonData : MonoBehaviour
                 }
             }
 
-
-            Debug.Log("Possible rooms : " + possibleSides.Count);
-
             //ADD THE FILTER||
 
+            List<Dungeon.room> toBeRemovedRooms = new List<Dungeon.room>();
+
             //Loop through the list of rooms that u have
-            foreach (Dungeon.room room in possibleSides)
+            for (int i = 0; i < possibleSides.Count; i++)
             {
-                //Check what sides does this room has
-                //it will then check if there already is a room on that direction or not
-                //In case there is it will check if it is possible to make a connection
-                //if it isn't then this room cannot exist
-                //this avoids rooms whose doors would reach another room wall
-                //it will obviously increase the odds of the development of an impossible dungeon thoe
-                //a more specific algorithm will need to be added in a near future
-                if (room.roomSides.bottom)
-                {
-                    Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.down);
-                    if (nextHall.roomPrefab != null)
-                    {
-                        //There is already a room here
-                        if (!nextHall.roomSides.top)
-                        {
-                            //There was no door here
-                            possibleSides.Remove(room);
-                            break;
+                //Checks each side of the room to see if something should be removed or not
 
-                        }
+                Dungeon.room room = possibleSides[i];
+
+                //Bottom room
+                Vector2Int nextHallPositionBottom = (newRoomDirection + Vector2Int.down);
+                Dungeon.room nextHallBottom = getRoomViaCords(nextHallPositionBottom);
+
+                //Top room
+                Vector2Int nextHallPositionTop = (newRoomDirection + Vector2Int.up);
+                Dungeon.room nextHallTop = getRoomViaCords(nextHallPositionTop);
+
+                //Right room
+                Vector2Int nextHallPositionRight = (newRoomDirection + Vector2Int.right);
+                Dungeon.room nextHallRight = getRoomViaCords(nextHallPositionRight);
+
+                //Left room
+                Vector2Int nextHallPositionLeft = (newRoomDirection + Vector2Int.left);
+                Dungeon.room nextHallLeft = getRoomViaCords(nextHallPositionLeft);
+
+                //Check if there is a room in each of this sides
+                if(nextHallBottom.roomPrefab != null) {
+                    //There is a room at its bottom
+                    bool HasConection = nextHallBottom.roomSides.top;
+
+                    if (HasConection && !room.roomSides.bottom || !HasConection && room.roomSides.bottom)
+                    {
+
+                        //They cannot connect
+                        toBeRemovedRooms.Add(room);
+                        continue;
                     }
                 }
 
-                if (room.roomSides.top)
+                if (nextHallTop.roomPrefab != null)
                 {
-                    Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.up);
-                    if (nextHall.roomPrefab != null)
-                    {
-                        //There is already a room here
-                        if (!nextHall.roomSides.bottom)
-                        {
-                            //There was no door here
-                            possibleSides.Remove(room);
-                            break;
+                    //There is a room at its top
+                    bool HasConection = nextHallTop.roomSides.bottom;
 
-                        }
+                    if (HasConection && !room.roomSides.top || !HasConection && room.roomSides.top)
+                    {
+
+                        //They cannot connect
+                        toBeRemovedRooms.Add(room);
+                        continue;
                     }
                 }
 
-                if (room.roomSides.right)
+                if (nextHallRight.roomPrefab != null)
                 {
-                    Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.right);
-                    if (nextHall.roomPrefab != null)
-                    {
-                        //There is already a room here
-                        if (!nextHall.roomSides.left)
-                        {
-                            //There was no door here
-                            possibleSides.Remove(room);
-                            break;
+                    //There is a room at its right
+                    bool HasConection = nextHallRight.roomSides.left;
 
-                        }
+                    if (HasConection && !room.roomSides.right || !HasConection && room.roomSides.right)
+                    {
+
+                        //They cannot connect
+                        toBeRemovedRooms.Add(room);
+                        continue;
                     }
                 }
 
-                if (room.roomSides.left)
+                if (nextHallLeft.roomPrefab != null)
                 {
-                    Dungeon.room nextHall = getRoomViaCords(newRoomDirection + Vector2Int.left);
-                    if (nextHall.roomPrefab != null)
-                    {
-                        //There is already a room here
-                        if (!nextHall.roomSides.right)
-                        {
-                            //There was no door here
-                            possibleSides.Remove(room);
-                            break;
+                    //There is a room at its left
+                    bool HasConection = nextHallLeft.roomSides.right;
 
-                        }
+                    if (HasConection && !room.roomSides.left || !HasConection && room.roomSides.left)
+                    {
+                        //They cannot connect
+                        toBeRemovedRooms.Add(room);
+                        continue;
                     }
                 }
+
+
             }
 
-            Debug.Log("Possible rooms 2: " + possibleSides.Count);
-
+            //Remove the rooms that are extra
+            for (int i = 0; i < toBeRemovedRooms.Count; i++)
+            {
+                possibleSides.Remove(toBeRemovedRooms[i]);
+            }
 
             //this means there are rooms that are not just one sided
             //it means we can remove the one sided rooms to avoid dead ends
@@ -393,11 +417,8 @@ public class CurrentDungeonData : MonoBehaviour
                         sidesCounter++;
                     }
 
-                    Debug.Log(sidesCounter);
-
                     if (sidesCounter > 1)
                     {
-                        Debug.Log("There is a one door room!");
                         possibleSidesFiltered.Add(filteredRoom2);
                     }
                 }
