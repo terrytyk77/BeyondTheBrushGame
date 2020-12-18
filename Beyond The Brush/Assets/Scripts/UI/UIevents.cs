@@ -257,7 +257,11 @@ public class UIevents : MonoBehaviour
             void doLast()
             {
                 //Make it save before closing
-                UnityEditor.EditorApplication.isPlaying = false; //Show the quit on the editor as well
+                if (Application.isEditor)
+                {
+                    //UnityEditor.EditorApplication.isPlaying = false; //Show the quit on the editor as well
+                }
+
                 Application.Quit();
             }
 
@@ -268,7 +272,11 @@ public class UIevents : MonoBehaviour
         else
         {
             //Make it save before closing
-            UnityEditor.EditorApplication.isPlaying = false; //Show the quit on the editor as well
+            if (Application.isEditor)
+            {
+                //UnityEditor.EditorApplication.isPlaying = false; //Show the quit on the editor as well
+            }
+
             Application.Quit();
         }
 

@@ -54,6 +54,9 @@ public class CurrentDungeonData : MonoBehaviour
 
         //Current played dungeon
         public Dungeon currentDungeon;
+
+        //Store inactive rooms
+        private List<GameObject> inactiveRooms = new List<GameObject>();
                
         private List<roomPos> map = new List<roomPos>();
     //_________||
@@ -94,11 +97,20 @@ public class CurrentDungeonData : MonoBehaviour
 
     public void changeNextRoom(string roomSide)
     {
-
         //Same a cloned version of the current room
-        GameObject CurrentRoomReference = GameObject.FindGameObjectWithTag("dungeonRoom"); //Current room object
-        string LocalPath = "Assets/Dungeons/CurrentRooms/" + getRoomViaCords(currentRoom).roomPrefab.name + currentRoom.x + currentRoom.y + ".prefab";
-        getRoomViaCords(currentRoom).roomPrefab = PrefabUtility.SaveAsPrefabAssetAndConnect(CurrentRoomReference, LocalPath, InteractionMode.AutomatedAction);
+        GameObject CurrentRoomReference;
+        
+        //Get the current active room
+        foreach(GameObject child in GameObject.FindGameObjectsWithTag("dungeonRoom"))
+        {
+            if (child.activeSelf)
+            {
+                CurrentRoomReference = child;
+            }
+        }
+        
+        //string LocalPath = "Assets/Dungeons/CurrentRooms/" + getRoomViaCords(currentRoom).roomPrefab.name + currentRoom.x + currentRoom.y + ".prefab";
+        //getRoomViaCords(currentRoom).roomPrefab = PrefabUtility.SaveAsPrefabAssetAndConnect(CurrentRoomReference, LocalPath, InteractionMode.AutomatedAction);
 
         //Calculate on which side from the next room should the player be spawned in
         switch (roomSide)
@@ -135,7 +147,12 @@ public class CurrentDungeonData : MonoBehaviour
         //Destroy all the current existing dungeon rooms
         foreach (GameObject room in GameObject.FindGameObjectsWithTag("dungeonRoom"))
         {
-            Destroy(room);
+            if (room.activeSelf)
+            {
+                room.SetActive(false);
+                inactiveRooms.Add(room);
+            }
+            //Destroy(room);
         }
 
         //Gets the room
@@ -144,11 +161,31 @@ public class CurrentDungeonData : MonoBehaviour
         //Check if the next rooms already exist and if not create them
         createNextRooms(currentRoom);
 
-
         if (roomToCreate.roomPrefab != null)
         {
-            //Spawn the next room into the map
-            Instantiate(roomToCreate.roomPrefab, roomToCreate.roomPrefab.transform.position, Quaternion.identity);
+            //Check if it was already spawned, if not spawn it!
+            bool roomWasSpawned = false;
+
+            for (int index = 0; index < inactiveRooms.Count; index++)
+            {
+                GameObject room = inactiveRooms[index];
+                if (room != null && room.name == roomToCreate.roomPrefab.name + currentRoom.x + currentRoom.y)
+                {
+                    roomWasSpawned = true;
+                    room.SetActive(true);
+                    inactiveRooms.Remove(room);
+                }
+            }
+
+            if (!roomWasSpawned)
+            {
+                //Then create a new instance
+                //Spawn the next room into the map
+                GameObject roomThatDidntExist = Instantiate(roomToCreate.roomPrefab, roomToCreate.roomPrefab.transform.position, Quaternion.identity);
+                roomThatDidntExist.name = roomToCreate.roomPrefab.name + currentRoom.x + currentRoom.y;
+            }
+
+
         }
 
 
@@ -462,13 +499,14 @@ public class CurrentDungeonData : MonoBehaviour
 
                     //Spawn the starting room
                     startingRoom = Instantiate(dungeon.startingRoom, Vector2.zero, Quaternion.identity);
-
+                    startingRoom.name = dungeon.startingRoom.name + "00";
 
                     //ADD STARTING ROOM TO MAP||
 
                     //Add the starting room
 
                         Dungeon.room startingRoomObject = new Dungeon.room("Starting Room", dungeon.startingRoom, new Dungeon.room.sides(true, false, false, false));
+                        
                         startingRoomObject.setCompleted(true);
 
                         CreateNewRoom(0, 0, startingRoomObject);
@@ -659,15 +697,6 @@ public class CurrentDungeonData : MonoBehaviour
             }
         }
 
-    }
-
-    
-    private void Awake()
-    {
-        //Reset the current path folder
-        string path = "Assets/Dungeons/CurrentRooms";
-        if (Directory.Exists(path)) { Directory.Delete(path, true); }
-        Directory.CreateDirectory(path);
     }
 
     private void Start()
