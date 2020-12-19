@@ -865,7 +865,7 @@ MonoBehaviour:
   enemyType: Melee
   maxHealth: 100
   movementSpeed: 2
-  aggroRange: 8
+  aggroRange: 3
   chaseRange: 15
   attackRange: 1
   minPatrolRange: 2
