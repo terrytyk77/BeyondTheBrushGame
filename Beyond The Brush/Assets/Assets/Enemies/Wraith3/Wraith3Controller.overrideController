@@ -7,7 +7,7 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wraith3Controller
-  m_Controller: {fileID: 9100000, guid: c8b1c6f5d28685b4bb7dc323e17f1f6c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 99543703f33258e4cbf54598e5d45b1d, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: e91ee9e4140d7a047b3bea77da6c4946, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: d1a33493032f7564babe5bf028e13c7c, type: 2}
@@ -15,3 +15,5 @@ AnimatorOverrideController:
     m_OverrideClip: {fileID: 7400000, guid: 7c72a93bf7003b24ba982c0697c2338b, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 17903188814c3e74e8b670540f5a975c, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: ac0b78816a6250840853933e4e541f0d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6637d2bac90ee8242b0436e5390e0030, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6637d2bac90ee8242b0436e5390e0030, type: 2}

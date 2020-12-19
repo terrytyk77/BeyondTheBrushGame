@@ -859,17 +859,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6244542843124459993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 851e0197837097e4c861ac82a99e0cd1, type: 3}
+  m_Script: {fileID: 11500000, guid: 477e2f7ae673ebf4d966494f23c16621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: Melee
   maxHealth: 100
   movementSpeed: 2
   aggroRange: 8
-  chaseRange: 16
+  chaseRange: 15
   attackRange: 1
-  minPatrolRange: 4
-  maxPatrolRange: 8
+  minPatrolRange: 2
+  maxPatrolRange: 5
   healthBar: {fileID: 5683236862401581981}
+  enemyProjectile: {fileID: 0}
 --- !u!1 &8225803868821398229
 GameObject:
   m_ObjectHideFlags: 0

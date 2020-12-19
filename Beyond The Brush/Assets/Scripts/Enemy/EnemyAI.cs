@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour
 {
     //Stats       ||
     [Header("Enemy Stats")]
+        public string enemyType;
         public float maxHealth;
         public float movementSpeed;
     //--------------||
@@ -31,6 +32,7 @@ public class EnemyAI : MonoBehaviour
         Patrolling,
         Chassing,
         Attacking,
+        Castting,
         Resetting
     }
     private State currentState;
@@ -44,6 +46,8 @@ public class EnemyAI : MonoBehaviour
     private float currentHealth;
     private float distanceChangePatrol = 1f;
     private bool firing;
+    private bool attackEnded;
+    private bool castEnded;
 
 
     // Start is called before the first frame update
@@ -80,28 +84,56 @@ public class EnemyAI : MonoBehaviour
                 }
             case State.Chassing:
                 {
-                    MoveTo(player.transform.position);
                     if (Vector2.Distance(transform.position, player.transform.position) < attackRange) 
                     {
-                        currentState = State.Attacking;
+                        if(enemyType == "Ranged")
+                        {
+                            currentState = State.Castting;
+                        }
+                        else
+                        {
+                            currentState = State.Attacking;
+                        }
                     }
-                    OutOfChaseRange();
+                    else
+                    {
+                        MoveTo(player.transform.position);
+                        OutOfChaseRange();
+                    }
+                    break;
+                }
+            case State.Castting:
+                {
+                    Animator.SetBool("Walking", false);
+                    Animator.SetTrigger("Castting");
+                    currentState = State.Attacking;
                     break;
                 }
             case State.Attacking:
                 {
-                    Animator.SetTrigger("Attacking");
-                    if (enemyProjectile)
-                    {
-                        if (firing)
-                        {
-                            firing = false;
-                            createProjectile(transform.position);
-                        }                    
-                    }
                     Animator.SetBool("Walking", false);
-                    FindTarget();
-                    OutOfChaseRange();
+                    if (enemyType == "Ranged")
+                    {
+                        if (castEnded)
+                        {
+                            if (firing)
+                            {
+                                castEnded = false;
+                                firing = false;
+                                createProjectile(transform.position);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Animator.SetTrigger("Attacking");
+                    }
+
+                    if (attackEnded)
+                    {
+                        attackEnded = false;
+                        currentState = State.Chassing;
+                    }
                     break;
                 }
             case State.Resetting:
@@ -154,6 +186,12 @@ public class EnemyAI : MonoBehaviour
 
     private void GetEnemyDirection()
     {
+        if(currentState == State.Castting || currentState == State.Attacking)
+        {
+            enemyDirection.x = (player.transform.position.x - transform.position.x);
+            enemyDirection.y = (player.transform.position.y - transform.position.y);
+        }
+
         if (enemyDirection.x < 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
@@ -172,7 +210,7 @@ public class EnemyAI : MonoBehaviour
         if (currentHealth <= 0)
         {
             // Delay Death For Animation
-            Invoke("death", 0.2f);
+            Invoke("Death", 0.2f);
         }
     }
 
@@ -191,7 +229,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void death()
+    private void Death()
     {
         Destroy(gameObject);
         Debug.Log("Enemy Killed!");
@@ -205,5 +243,15 @@ public class EnemyAI : MonoBehaviour
     private void Fire()
     {
         firing = true;
+    }
+
+    private void AttackEnded()
+    {
+        attackEnded = true;
+    }
+
+    private void CastEnded()
+    {
+        castEnded = true;
     }
 }
