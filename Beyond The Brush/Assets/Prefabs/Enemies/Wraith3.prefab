@@ -319,19 +319,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2774145579693851419}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 477e2f7ae673ebf4d966494f23c16621, type: 3}
+  m_Script: {fileID: 11500000, guid: 483779e3346a9a44ea809268afa7d45c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: Ranged
-  maxHealth: 70
-  movementSpeed: 1
-  aggroRange: 8
-  chaseRange: 20
-  attackRange: 5
-  minPatrolRange: 1
-  maxPatrolRange: 2
-  healthBar: {fileID: 4939915628599338985}
-  enemyProjectile: {fileID: 9122027484780612759, guid: 83084d98402bd5a4f9cd08132ea3c784, type: 3}
+  enemyType: 
+  maxHealth: 0
+  movementSpeed: 0
+  aggroRange: 0
+  chaseRange: 0
+  attackRange: 0
+  minPatrolRange: 0
+  maxPatrolRange: 0
+  healthBar: {fileID: 0}
+  enemyProjectile: {fileID: 0}
 --- !u!95 &2774145579693850849
 Animator:
   serializedVersion: 3
