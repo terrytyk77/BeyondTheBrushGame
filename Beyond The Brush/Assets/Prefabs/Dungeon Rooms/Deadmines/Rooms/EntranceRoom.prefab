@@ -7110,6 +7110,7 @@ GameObject:
   - component: {fileID: 2396211081124589203}
   - component: {fileID: 2396211081124589202}
 <<<<<<< HEAD:Beyond The Brush/Assets/Prefabs/Dungeon Rooms/Deadmines/Rooms/EntranceRoom.prefab
+<<<<<<< HEAD:Beyond The Brush/Assets/Prefabs/Dungeon Rooms/Deadmines/Rooms/EntranceRoom.prefab
   - component: {fileID: 8414232522302665078}
   - component: {fileID: 8231508475876262207}
   - component: {fileID: 4223808798205615820}
@@ -7118,6 +7119,9 @@ GameObject:
   - component: {fileID: 1122033844038842269}
   - component: {fileID: 3667983552818993684}
 >>>>>>> parent of d3e27c6... Trying to emplement a*:Beyond The Brush/Assets/Dungeons/Deadmines/Rooms/EntranceRoom.prefab
+=======
+  - component: {fileID: 2396211081124589201}
+>>>>>>> parent of ec94796... ai:Beyond The Brush/Assets/Dungeons/Deadmines/Rooms/EntranceRoom.prefab
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -10121,7 +10125,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!19719996 &8414232522302665078
+--- !u!19719996 &2396211081124589201
 TilemapCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10133,10 +10137,11 @@ TilemapCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+<<<<<<< HEAD:Beyond The Brush/Assets/Prefabs/Dungeon Rooms/Deadmines/Rooms/EntranceRoom.prefab
 <<<<<<< HEAD:Beyond The Brush/Assets/Prefabs/Dungeon Rooms/Deadmines/Rooms/EntranceRoom.prefab
 --- !u!50 &8231508475876262207
 =======
@@ -11152,6 +11157,8 @@ CompositeCollider2D:
       - {x: -1.5781224, y: -8.9609375}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
+=======
+>>>>>>> parent of ec94796... ai:Beyond The Brush/Assets/Dungeons/Deadmines/Rooms/EntranceRoom.prefab
 --- !u!1 &2396211081192509821
 GameObject:
   m_ObjectHideFlags: 0
@@ -13226,6 +13233,7 @@ PrefabInstance:
     - target: {fileID: 2351010287152529648, guid: 628b19eb67f500647b2f5d72366edcea, type: 3}
       propertyPath: m_LocalPosition.x
 <<<<<<< HEAD:Beyond The Brush/Assets/Prefabs/Dungeon Rooms/Deadmines/Rooms/EntranceRoom.prefab
+<<<<<<< HEAD:Beyond The Brush/Assets/Prefabs/Dungeon Rooms/Deadmines/Rooms/EntranceRoom.prefab
       value: -3.3
       objectReference: {fileID: 0}
     - target: {fileID: 2351010287152529648, guid: 628b19eb67f500647b2f5d72366edcea, type: 3}
@@ -13238,6 +13246,13 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.9633431
 >>>>>>> parent of d3e27c6... Trying to emplement a*:Beyond The Brush/Assets/Dungeons/Deadmines/Rooms/EntranceRoom.prefab
+=======
+      value: -11.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 2351010287152529648, guid: 628b19eb67f500647b2f5d72366edcea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.04
+>>>>>>> parent of ec94796... ai:Beyond The Brush/Assets/Dungeons/Deadmines/Rooms/EntranceRoom.prefab
       objectReference: {fileID: 0}
     - target: {fileID: 2351010287152529648, guid: 628b19eb67f500647b2f5d72366edcea, type: 3}
       propertyPath: m_LocalPosition.z

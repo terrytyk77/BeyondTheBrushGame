@@ -74,6 +74,7 @@ public class EnemyAI : MonoBehaviour
         default:
         case State.Patrolling:
             {
+<<<<<<< HEAD
                 //FindTarget();
                     if(tile != null || currentPath == null)
                     {
@@ -85,6 +86,16 @@ public class EnemyAI : MonoBehaviour
                         MoveTo(patrollingPosition);
                     }
                     
+=======
+                FindTarget();
+                MoveTo(patrollingPosition);
+                if (Vector2.Distance(transform.position, patrollingPosition) < distanceChangePatrol || tile != null || currentPath == null || currentPath.Count <= 0)
+                {
+                    //Reached Patrolling Position? Get a New One!
+                    patrollingPosition = GetPatrollingPosition();
+                        Debug.Log(patrollingPosition);
+                }
+>>>>>>> parent of ec94796... ai
                 break;
             }
         case State.Chassing:
@@ -192,6 +203,7 @@ public class EnemyAI : MonoBehaviour
         {
             if (pathIndex < currentPath.Count)
             {
+<<<<<<< HEAD
                 Vector3 targetPositionx = currentDestination;
                 transform.position = Vector3.MoveTowards(transform.position, targetPositionx, movementSpeed * Time.deltaTime);
                 Debug.DrawLine(transform.position, targetPositionx);
@@ -201,6 +213,13 @@ public class EnemyAI : MonoBehaviour
                     Debug.Log("Index: " + pathIndex);
                     Debug.Log("Count: " + currentPath.Count);
                     
+=======
+                Vector2 targetPositionx = currentDestination;
+                transform.position = Vector2.MoveTowards(transform.position, targetPositionx, movementSpeed * Time.deltaTime);
+                if (Vector3.Distance(targetPositionx, transform.position) < 0.05)
+                {
+                    pathIndex++;
+>>>>>>> parent of ec94796... ai
                     if (pathIndex < currentPath.Count)
                     {
                         currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
@@ -216,11 +235,12 @@ public class EnemyAI : MonoBehaviour
                 currentPath = null;
             }
 
-            //enemyDirection.x = (targetPosition.x - transform.position.x);
-            //enemyDirection.y = (targetPosition.y - transform.position.y);
+            enemyDirection.x = (targetPosition.x - transform.position.x);
+            enemyDirection.y = (targetPosition.y - transform.position.y);
             Animator.SetBool("Walking", true);
         }
 
+<<<<<<< HEAD
         
     }
 
@@ -228,28 +248,38 @@ public class EnemyAI : MonoBehaviour
     {
         Debug.DrawLine(transform.position, targetPosition);
         if (currentPath == null)
+=======
+        if(currentPath == null)
+>>>>>>> parent of ec94796... ai
         {
-            Debug.Log("New incoming TargetPosition: " + targetPosition);
             tile = collisionTilemap.GetTile(collisionTilemap.WorldToCell(targetPosition));
+<<<<<<< HEAD
             Debug.Log(tile);
             if (tile == null)
             {
                 Debug.Log("New Location: " + targetPosition);
                 Debug.Log("to move");
+=======
+
+            if (tile == null)
+            {
+                Debug.Log("Nowhere to move");
+>>>>>>> parent of ec94796... ai
                 currentPath = pathfinding.FindPath(collisionTilemap,
                 collisionTilemap.WorldToCell(transform.position),
                 collisionTilemap.WorldToCell(targetPosition));
-                Debug.Log("New Path Count: " + currentPath.Count);
-                Debug.Log("State of New Path: " + currentPath);
                 if (currentPath.Count > 0)
                 {
                     pathIndex = 0;
                     currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
+<<<<<<< HEAD
                     Debug.Log("Next Path: " + currentPath[pathIndex]);
                     Debug.Log(currentPath.Count);
                 }else
                 {
                     currentPath = null;
+=======
+>>>>>>> parent of ec94796... ai
                 }
             }
         }
