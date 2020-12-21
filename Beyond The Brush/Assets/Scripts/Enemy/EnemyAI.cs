@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -39,17 +38,6 @@ public class EnemyAI : MonoBehaviour
     private State currentState;
     //--------------||
 
-    private Pathfinding pathfinding;
-    private int pathIndex = 0;
-    private List<Vector3Int> currentPath = null;
-    private Vector2 currentDestination = Vector2.zero;
-
-    //Collision-----||
-    private GameObject collisionObject;
-    private Tilemap collisionTilemap;
-    private TileBase tile;
-    //--------------||
-
     private GameObject player;
     private Animator Animator;
     private Vector2 startingPosition;
@@ -65,9 +53,6 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
-        collisionTilemap = collisionObject.GetComponent<Tilemap>();
-        pathfinding = new Pathfinding();
         Animator = gameObject.GetComponent<Animator>();
         currentHealth = maxHealth;
         currentState = State.Patrolling;
@@ -85,6 +70,7 @@ public class EnemyAI : MonoBehaviour
         //State Machine
         switch (currentState)
         {
+<<<<<<< HEAD
         default:
         case State.Patrolling:
             {
@@ -104,68 +90,85 @@ public class EnemyAI : MonoBehaviour
         case State.Chassing:
             {
                 if (Vector2.Distance(transform.position, player.transform.position) < attackRange) 
+=======
+            default:
+            case State.Patrolling:
                 {
-                    if(enemyType == "Ranged")
+                    MoveTo(patrollingPosition);
+                    if (Vector2.Distance(transform.position, patrollingPosition) < distanceChangePatrol)
                     {
-                        currentState = State.Castting;
+                        //Reached Patrolling Position? Get a New One!
+                        patrollingPosition = GetPatrollingPosition();
+                    }
+                    FindTarget();
+                    break;
+                }
+            case State.Chassing:
+>>>>>>> parent of d3e27c6... Trying to emplement a*
+                {
+                    if (Vector2.Distance(transform.position, player.transform.position) < attackRange) 
+                    {
+                        if(enemyType == "Ranged")
+                        {
+                            currentState = State.Castting;
+                        }
+                        else
+                        {
+                            currentState = State.Attacking;
+                        }
                     }
                     else
                     {
-                        currentState = State.Attacking;
+                        MoveTo(player.transform.position);
+                        OutOfChaseRange();
                     }
+                    break;
                 }
-                else
-                {
-                    MoveTo(player.transform.position);
-                    OutOfChaseRange();
-                }
-                break;
-            }
-        case State.Castting:
-            {
-                Animator.SetBool("Walking", false);
-                Animator.SetTrigger("Castting");
-                currentState = State.Attacking;
-                break;
-            }
-        case State.Attacking:
-            {
-                Animator.SetBool("Walking", false);
-                if (enemyType == "Ranged")
-                {
-                    if (castEnded)
-                    {
-                        if (firing)
-                        {
-                            castEnded = false;
-                            firing = false;
-                            createProjectile(transform.position);
-                        }
-                    }
-                }
-                else
-                {
-                    Animator.SetTrigger("Attacking");
-                }
-
-                if (attackEnded)
-                {
-                    attackEnded = false;
-                    currentState = State.Chassing;
-                }
-                break;
-            }
-        case State.Resetting:
-            {
-                MoveTo(startingPosition);
-                ResetHP();
-                if (Vector2.Distance(transform.position, startingPosition) < distanceChangePatrol)
+            case State.Castting:
                 {
                     Animator.SetBool("Walking", false);
-                    currentState = State.Patrolling;
+                    Animator.SetTrigger("Castting");
+                    currentState = State.Attacking;
+                    break;
                 }
-                break;
-            }
+            case State.Attacking:
+                {
+                    Animator.SetBool("Walking", false);
+                    if (enemyType == "Ranged")
+                    {
+                        if (castEnded)
+                        {
+                            if (firing)
+                            {
+                                castEnded = false;
+                                firing = false;
+                                createProjectile(transform.position);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Animator.SetTrigger("Attacking");
+                    }
+
+                    if (attackEnded)
+                    {
+                        attackEnded = false;
+                        currentState = State.Chassing;
+                    }
+                    break;
+                }
+            case State.Resetting:
+                {
+                    MoveTo(startingPosition);
+                    ResetHP();
+                    if (Vector2.Distance(transform.position, startingPosition) < distanceChangePatrol)
+                    {
+                        Animator.SetBool("Walking", false);
+                        currentState = State.Patrolling;
+                    }
+                    break;
+                }
         }
     }
 
@@ -181,6 +184,7 @@ public class EnemyAI : MonoBehaviour
 
     private void MoveTo(Vector3 targetPosition)
     {
+<<<<<<< HEAD
         
         //transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
 
@@ -249,6 +253,12 @@ public class EnemyAI : MonoBehaviour
                 }
             }
         }
+=======
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
+        enemyDirection.x = (targetPosition.x - transform.position.x);
+        enemyDirection.y = (targetPosition.y - transform.position.y);
+        Animator.SetBool("Walking", true);
+>>>>>>> parent of d3e27c6... Trying to emplement a*
     }
 
     private void FindTarget()
