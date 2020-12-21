@@ -12619,17 +12619,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2396211081100954184}
     m_Modifications:
+    - target: {fileID: -2253060385061735012, guid: 628b19eb67f500647b2f5d72366edcea, type: 3}
+      propertyPath: collisionTilemap
+      value: 
+      objectReference: {fileID: 2396211081124589203}
     - target: {fileID: 2351010287152529648, guid: 628b19eb67f500647b2f5d72366edcea, type: 3}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2351010287152529648, guid: 628b19eb67f500647b2f5d72366edcea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.4085023
+      value: -4.54
       objectReference: {fileID: 0}
     - target: {fileID: 2351010287152529648, guid: 628b19eb67f500647b2f5d72366edcea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.85090446
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2351010287152529648, guid: 628b19eb67f500647b2f5d72366edcea, type: 3}
       propertyPath: m_LocalPosition.z

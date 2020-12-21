@@ -39,22 +39,17 @@ public class EnemyAI : MonoBehaviour
     private State currentState;
     //--------------||
 
-    private Pathfinding pathfinding;
-    private int pathIndex = 0;
-    private List<Vector3Int> currentPath = null;
-    private Vector2 currentDestination = Vector2.zero;
 
     //Collision-----||
     private GameObject collisionObject;
     private Tilemap collisionTilemap;
-    private TileBase tile;
     //--------------||
 
     private GameObject player;
     private Animator Animator;
-    private Vector2 startingPosition;
-    private Vector2 patrollingPosition;
-    private Vector2 enemyDirection;
+    private Vector3 startingPosition;
+    private Vector3 patrollingPosition;
+    private Vector3 enemyDirection;
     private float currentHealth;
     private float distanceChangePatrol = 1f;
     private bool firing;
@@ -65,9 +60,9 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
-        collisionTilemap = collisionObject.GetComponent<Tilemap>();
-        pathfinding = new Pathfinding();
+        //collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
+        //collisionTilemap = collisionObject.GetComponent<Tilemap>();
+
         Animator = gameObject.GetComponent<Animator>();
         currentHealth = maxHealth;
         currentState = State.Patrolling;
@@ -76,7 +71,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         //Get Player Position
         player = GameObject.FindGameObjectWithTag("Player");
@@ -88,23 +83,18 @@ public class EnemyAI : MonoBehaviour
         default:
         case State.Patrolling:
             {
-                //FindTarget();
-                    if(tile != null || currentPath == null)
+                    MoveTo(patrollingPosition);
+                    if (Vector2.Distance(transform.position, patrollingPosition) < distanceChangePatrol)
                     {
-                        patrollingPosition = new Vector2(-8.3f, 0f);
-                        Pathfinding(patrollingPosition);    
+                        //Reached Patrolling Position? Get a New One!
+                        patrollingPosition = GetPatrollingPosition();
                     }
-
-                    if(currentPath != null && currentPath.Count > pathIndex)
-                    {
-                        MoveTo(patrollingPosition);
-                    }
-                    
-                break;
+                    FindTarget();
+                    break;
             }
         case State.Chassing:
             {
-                if (Vector2.Distance(transform.position, player.transform.position) < attackRange) 
+                if (Vector3.Distance(transform.position, player.transform.position) < attackRange) 
                 {
                     if(enemyType == "Ranged")
                     {
@@ -160,7 +150,7 @@ public class EnemyAI : MonoBehaviour
             {
                 MoveTo(startingPosition);
                 ResetHP();
-                if (Vector2.Distance(transform.position, startingPosition) < distanceChangePatrol)
+                if (Vector3.Distance(transform.position, startingPosition) < distanceChangePatrol)
                 {
                     Animator.SetBool("Walking", false);
                     currentState = State.Patrolling;
@@ -170,87 +160,28 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private Vector2 GetPatrollingPosition()
+    private Vector3 GetPatrollingPosition()
     {
         return startingPosition + GetRandomDirection() * Random.Range(minPatrolRange, maxPatrolRange);
     }
 
-    private Vector2 GetRandomDirection()
+    private Vector3 GetRandomDirection()
     {
-        return new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
+        return new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0f).normalized;
     }
 
-    private void MoveTo(Vector2 targetPosition)
+    private void MoveTo(Vector3 targetPosition)
     {
-        
-        //transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
-
-        if (currentPath != null)
-        {
-            if (pathIndex < currentPath.Count)
-            {
-                Vector2 targetPositionx = currentDestination;
-                transform.position = Vector2.MoveTowards(transform.position, targetPositionx, movementSpeed * Time.deltaTime);
-                Debug.DrawLine(transform.position, targetPositionx);
-                if (Vector3.Distance(targetPositionx, transform.position) < 0.05)
-                {
-                    pathIndex++;
-                    Debug.Log("Index: " + pathIndex);
-                    Debug.Log("Count: " + currentPath.Count);
-                    if (pathIndex < currentPath.Count)
-                    {
-                        currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
-                    }
-                    else
-                    {
-                        currentPath = null;
-                    }
-                }
-            }
-            else
-            {
-                currentPath = null;
-            }
-
-            //enemyDirection.x = (targetPosition.x - transform.position.x);
-            //enemyDirection.y = (targetPosition.y - transform.position.y);
-            Animator.SetBool("Walking", true);
-        }
-
-        
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
+        enemyDirection.x = (targetPosition.x - transform.position.x);
+        enemyDirection.y = (targetPosition.y - transform.position.y);
+        Animator.SetBool("Walking", true);
     }
 
-    private void Pathfinding(Vector2 targetPosition)
-    {
-        Debug.DrawLine(transform.position, targetPosition);
-        if (currentPath == null)
-        {
-            Debug.Log("New incoming TargetPosition: " + targetPosition);
-            tile = collisionTilemap.GetTile(collisionTilemap.WorldToCell(targetPosition));
-            if (tile == null)
-            {
-                Debug.Log("to move");
-                currentPath = pathfinding.FindPath(collisionTilemap,
-                collisionTilemap.WorldToCell(transform.position),
-                collisionTilemap.WorldToCell(targetPosition));
-                Debug.Log("New Path Count: " + currentPath.Count);
-                Debug.Log("State of New Path: " + currentPath);
-                if (currentPath.Count > 0)
-                {
-                    pathIndex = 0;
-                    currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
-                    Debug.Log(currentPath.Count);
-                }else
-                {
-                    currentPath = null;
-                }
-            }
-        }
-    }
 
     private void FindTarget()
     {
-        if ((Vector2.Distance(transform.position, player.transform.position) < aggroRange) && (Vector2.Distance(transform.position, player.transform.position) > attackRange))
+        if ((Vector3.Distance(transform.position, player.transform.position) < aggroRange) && (Vector3.Distance(transform.position, player.transform.position) > attackRange))
         {
             //Player within target Range!
             currentState = State.Chassing;
@@ -258,7 +189,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     private void OutOfChaseRange() {
-        if (Vector2.Distance(transform.position, startingPosition) > chaseRange)
+        if (Vector3.Distance(transform.position, startingPosition) > chaseRange)
         {
             currentState = State.Resetting;
         }
@@ -315,7 +246,7 @@ public class EnemyAI : MonoBehaviour
         Debug.Log("Enemy Killed!");
     }
 
-    private void createProjectile(Vector2 spawnPosition)
+    private void createProjectile(Vector3 spawnPosition)
     {
         Instantiate(enemyProjectile, spawnPosition, Quaternion.identity);
     }

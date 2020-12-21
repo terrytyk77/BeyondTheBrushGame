@@ -862,15 +862,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483779e3346a9a44ea809268afa7d45c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 
-  maxHealth: 0
-  movementSpeed: 0
-  aggroRange: 0
-  chaseRange: 0
-  attackRange: 0
-  minPatrolRange: 0
-  maxPatrolRange: 0
-  healthBar: {fileID: 0}
+  enemyType: Melee
+  maxHealth: 100
+  movementSpeed: 2
+  aggroRange: 5
+  chaseRange: 10
+  attackRange: 1
+  minPatrolRange: 2
+  maxPatrolRange: 4
+  healthBar: {fileID: 5683236862401581981}
   enemyProjectile: {fileID: 0}
 --- !u!1 &8225803868821398229
 GameObject:
