@@ -72,7 +72,7 @@ public class EnemyAI : MonoBehaviour
         currentHealth = maxHealth;
         currentState = State.Patrolling;
         startingPosition = transform.position;
-        patrollingPosition = GetPatrollingPosition();
+        patrollingPosition = new Vector3(0f, 3f, 0f);
     }
 
     // Update is called once per frame
@@ -91,7 +91,6 @@ public class EnemyAI : MonoBehaviour
                 //FindTarget();
                     if(tile != null || currentPath == null)
                     {
-                        patrollingPosition = new Vector2(-8.3f, 0f);
                         Pathfinding(patrollingPosition);    
                     }
 
@@ -180,7 +179,7 @@ public class EnemyAI : MonoBehaviour
         return new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
     }
 
-    private void MoveTo(Vector2 targetPosition)
+    private void MoveTo(Vector3 targetPosition)
     {
         
         //transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
@@ -189,14 +188,15 @@ public class EnemyAI : MonoBehaviour
         {
             if (pathIndex < currentPath.Count)
             {
-                Vector2 targetPositionx = currentDestination;
-                transform.position = Vector2.MoveTowards(transform.position, targetPositionx, movementSpeed * Time.deltaTime);
+                Vector3 targetPositionx = currentDestination;
+                transform.position = Vector3.MoveTowards(transform.position, targetPositionx, movementSpeed * Time.deltaTime);
                 Debug.DrawLine(transform.position, targetPositionx);
                 if (Vector3.Distance(targetPositionx, transform.position) < 0.05)
                 {
                     pathIndex++;
                     Debug.Log("Index: " + pathIndex);
                     Debug.Log("Count: " + currentPath.Count);
+                    
                     if (pathIndex < currentPath.Count)
                     {
                         currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
@@ -220,15 +220,17 @@ public class EnemyAI : MonoBehaviour
         
     }
 
-    private void Pathfinding(Vector2 targetPosition)
+    private void Pathfinding(Vector3 targetPosition)
     {
         Debug.DrawLine(transform.position, targetPosition);
         if (currentPath == null)
         {
             Debug.Log("New incoming TargetPosition: " + targetPosition);
             tile = collisionTilemap.GetTile(collisionTilemap.WorldToCell(targetPosition));
+            Debug.Log(tile);
             if (tile == null)
             {
+                Debug.Log("New Location: " + targetPosition);
                 Debug.Log("to move");
                 currentPath = pathfinding.FindPath(collisionTilemap,
                 collisionTilemap.WorldToCell(transform.position),
@@ -239,6 +241,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     pathIndex = 0;
                     currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
+                    Debug.Log("Next Path: " + currentPath[pathIndex]);
                     Debug.Log(currentPath.Count);
                 }else
                 {
