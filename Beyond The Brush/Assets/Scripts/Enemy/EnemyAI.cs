@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -38,6 +39,17 @@ public class EnemyAI : MonoBehaviour
     private State currentState;
     //--------------||
 
+    private Pathfinding pathfinding;
+    private int pathIndex = 0;
+    private List<Vector3Int> currentPath = null;
+    private Vector2 currentDestination = Vector2.zero;
+
+    //Collision-----||
+    private GameObject collisionObject;
+    private Tilemap collisionTilemap;
+    private TileBase tile;
+    //--------------||
+
     private GameObject player;
     private Animator Animator;
     private Vector2 startingPosition;
@@ -53,6 +65,9 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
+        collisionTilemap = collisionObject.GetComponent<Tilemap>();
+        pathfinding = new Pathfinding();
         Animator = gameObject.GetComponent<Animator>();
         currentHealth = maxHealth;
         currentState = State.Patrolling;
@@ -70,83 +85,84 @@ public class EnemyAI : MonoBehaviour
         //State Machine
         switch (currentState)
         {
-            default:
-            case State.Patrolling:
+        default:
+        case State.Patrolling:
+            {
+                FindTarget();
+                MoveTo(patrollingPosition);
+                if (Vector2.Distance(transform.position, patrollingPosition) < distanceChangePatrol || tile != null || currentPath == null || currentPath.Count <= 0)
                 {
-                    MoveTo(patrollingPosition);
-                    if (Vector2.Distance(transform.position, patrollingPosition) < distanceChangePatrol)
-                    {
-                        //Reached Patrolling Position? Get a New One!
-                        patrollingPosition = GetPatrollingPosition();
-                    }
-                    FindTarget();
-                    break;
+                    //Reached Patrolling Position? Get a New One!
+                    patrollingPosition = GetPatrollingPosition();
+                        Debug.Log(patrollingPosition);
                 }
-            case State.Chassing:
+                break;
+            }
+        case State.Chassing:
+            {
+                if (Vector2.Distance(transform.position, player.transform.position) < attackRange) 
                 {
-                    if (Vector2.Distance(transform.position, player.transform.position) < attackRange) 
+                    if(enemyType == "Ranged")
                     {
-                        if(enemyType == "Ranged")
-                        {
-                            currentState = State.Castting;
-                        }
-                        else
-                        {
-                            currentState = State.Attacking;
-                        }
+                        currentState = State.Castting;
                     }
                     else
                     {
-                        MoveTo(player.transform.position);
-                        OutOfChaseRange();
+                        currentState = State.Attacking;
                     }
-                    break;
                 }
-            case State.Castting:
+                else
                 {
-                    Animator.SetBool("Walking", false);
-                    Animator.SetTrigger("Castting");
-                    currentState = State.Attacking;
-                    break;
+                    MoveTo(player.transform.position);
+                    OutOfChaseRange();
                 }
-            case State.Attacking:
+                break;
+            }
+        case State.Castting:
+            {
+                Animator.SetBool("Walking", false);
+                Animator.SetTrigger("Castting");
+                currentState = State.Attacking;
+                break;
+            }
+        case State.Attacking:
+            {
+                Animator.SetBool("Walking", false);
+                if (enemyType == "Ranged")
                 {
-                    Animator.SetBool("Walking", false);
-                    if (enemyType == "Ranged")
+                    if (castEnded)
                     {
-                        if (castEnded)
+                        if (firing)
                         {
-                            if (firing)
-                            {
-                                castEnded = false;
-                                firing = false;
-                                createProjectile(transform.position);
-                            }
+                            castEnded = false;
+                            firing = false;
+                            createProjectile(transform.position);
                         }
                     }
-                    else
-                    {
-                        Animator.SetTrigger("Attacking");
-                    }
+                }
+                else
+                {
+                    Animator.SetTrigger("Attacking");
+                }
 
-                    if (attackEnded)
-                    {
-                        attackEnded = false;
-                        currentState = State.Chassing;
-                    }
-                    break;
-                }
-            case State.Resetting:
+                if (attackEnded)
                 {
-                    MoveTo(startingPosition);
-                    ResetHP();
-                    if (Vector2.Distance(transform.position, startingPosition) < distanceChangePatrol)
-                    {
-                        Animator.SetBool("Walking", false);
-                        currentState = State.Patrolling;
-                    }
-                    break;
+                    attackEnded = false;
+                    currentState = State.Chassing;
                 }
+                break;
+            }
+        case State.Resetting:
+            {
+                MoveTo(startingPosition);
+                ResetHP();
+                if (Vector2.Distance(transform.position, startingPosition) < distanceChangePatrol)
+                {
+                    Animator.SetBool("Walking", false);
+                    currentState = State.Patrolling;
+                }
+                break;
+            }
         }
     }
 
@@ -162,10 +178,55 @@ public class EnemyAI : MonoBehaviour
 
     private void MoveTo(Vector2 targetPosition)
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
-        enemyDirection.x = (targetPosition.x - transform.position.x);
-        enemyDirection.y = (targetPosition.y - transform.position.y);
-        Animator.SetBool("Walking", true);
+        
+        //transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
+
+        if (currentPath != null)
+        {
+            if (pathIndex < currentPath.Count)
+            {
+                Vector2 targetPositionx = currentDestination;
+                transform.position = Vector2.MoveTowards(transform.position, targetPositionx, movementSpeed * Time.deltaTime);
+                if (Vector3.Distance(targetPositionx, transform.position) < 0.05)
+                {
+                    pathIndex++;
+                    if (pathIndex < currentPath.Count)
+                    {
+                        currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
+                    }
+                    else
+                    {
+                        currentPath = null;
+                    }
+                }
+            }
+            else
+            {
+                currentPath = null;
+            }
+
+            enemyDirection.x = (targetPosition.x - transform.position.x);
+            enemyDirection.y = (targetPosition.y - transform.position.y);
+            Animator.SetBool("Walking", true);
+        }
+
+        if(currentPath == null)
+        {
+            tile = collisionTilemap.GetTile(collisionTilemap.WorldToCell(targetPosition));
+
+            if (tile == null)
+            {
+                Debug.Log("Nowhere to move");
+                currentPath = pathfinding.FindPath(collisionTilemap,
+                collisionTilemap.WorldToCell(transform.position),
+                collisionTilemap.WorldToCell(targetPosition));
+                if (currentPath.Count > 0)
+                {
+                    pathIndex = 0;
+                    currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
+                }
+            }
+        }
     }
 
     private void FindTarget()

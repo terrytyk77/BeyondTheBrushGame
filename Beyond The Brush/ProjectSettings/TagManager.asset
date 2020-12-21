@@ -16,6 +16,7 @@ TagManager:
   - loadingBar
   - mainUI
   - DrawingCollider
+  - CollisionLayer
   layers:
   - Default
   - TransparentFX
