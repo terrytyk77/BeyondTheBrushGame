@@ -864,7 +864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: Melee
   maxHealth: 100
-  movementSpeed: 2
+  movementSpeed: 1
   aggroRange: 3
   chaseRange: 15
   attackRange: 1

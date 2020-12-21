@@ -88,14 +88,18 @@ public class EnemyAI : MonoBehaviour
         default:
         case State.Patrolling:
             {
-                FindTarget();
-                MoveTo(patrollingPosition);
-                if (Vector2.Distance(transform.position, patrollingPosition) < distanceChangePatrol || tile != null || currentPath == null || currentPath.Count <= 0)
-                {
-                    //Reached Patrolling Position? Get a New One!
-                    patrollingPosition = GetPatrollingPosition();
-                        Debug.Log(patrollingPosition);
-                }
+                //FindTarget();
+                    if(tile != null || currentPath == null)
+                    {
+                        patrollingPosition = new Vector2(-8.3f, 0f);
+                        Pathfinding(patrollingPosition);    
+                    }
+
+                    if(currentPath != null && currentPath.Count > pathIndex)
+                    {
+                        MoveTo(patrollingPosition);
+                    }
+                    
                 break;
             }
         case State.Chassing:
@@ -187,9 +191,12 @@ public class EnemyAI : MonoBehaviour
             {
                 Vector2 targetPositionx = currentDestination;
                 transform.position = Vector2.MoveTowards(transform.position, targetPositionx, movementSpeed * Time.deltaTime);
+                Debug.DrawLine(transform.position, targetPositionx);
                 if (Vector3.Distance(targetPositionx, transform.position) < 0.05)
                 {
                     pathIndex++;
+                    Debug.Log("Index: " + pathIndex);
+                    Debug.Log("Count: " + currentPath.Count);
                     if (pathIndex < currentPath.Count)
                     {
                         currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
@@ -205,25 +212,37 @@ public class EnemyAI : MonoBehaviour
                 currentPath = null;
             }
 
-            enemyDirection.x = (targetPosition.x - transform.position.x);
-            enemyDirection.y = (targetPosition.y - transform.position.y);
+            //enemyDirection.x = (targetPosition.x - transform.position.x);
+            //enemyDirection.y = (targetPosition.y - transform.position.y);
             Animator.SetBool("Walking", true);
         }
 
-        if(currentPath == null)
-        {
-            tile = collisionTilemap.GetTile(collisionTilemap.WorldToCell(targetPosition));
+        
+    }
 
+    private void Pathfinding(Vector2 targetPosition)
+    {
+        Debug.DrawLine(transform.position, targetPosition);
+        if (currentPath == null)
+        {
+            Debug.Log("New incoming TargetPosition: " + targetPosition);
+            tile = collisionTilemap.GetTile(collisionTilemap.WorldToCell(targetPosition));
             if (tile == null)
             {
-                Debug.Log("Nowhere to move");
+                Debug.Log("to move");
                 currentPath = pathfinding.FindPath(collisionTilemap,
                 collisionTilemap.WorldToCell(transform.position),
                 collisionTilemap.WorldToCell(targetPosition));
+                Debug.Log("New Path Count: " + currentPath.Count);
+                Debug.Log("State of New Path: " + currentPath);
                 if (currentPath.Count > 0)
                 {
                     pathIndex = 0;
                     currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
+                    Debug.Log(currentPath.Count);
+                }else
+                {
+                    currentPath = null;
                 }
             }
         }
