@@ -72,6 +72,19 @@ public class UIevents : MonoBehaviour
         private Vector2 defaultMinimapScale;
         private bool minimapOpened = false;
         private bool alreadyChangeMinimap = true;
+
+    //options window
+        [System.Serializable]
+        public class OptionsClass
+        {
+            public GameObject optionsWindow;
+            public GameObject dataText;
+            public GameObject musicSlider;
+            public GameObject sfxSlider;
+            public GameObject dropdownWindow;
+        }
+
+        public OptionsClass options = new OptionsClass();
     //_________||
 
     private void Start()
@@ -96,6 +109,12 @@ public class UIevents : MonoBehaviour
 
         //Change your name
         usernameDisplay.GetComponent<Text>().text = PlayerData.username;
+
+        //Options info
+        options.musicSlider.GetComponent<Slider>().value = PlayerData.musicVolume;
+        options.sfxSlider.GetComponent<Slider>().value = PlayerData.sfxVolume;
+
+        updateOptionsWindowInfo();
     }
 
     private void Update()
@@ -107,7 +126,7 @@ public class UIevents : MonoBehaviour
             if (Input.GetKeyUp(minimapKey)) minimapOpened = alreadyChangeMinimap = false;
             
             //main menu
-            if (Input.GetKeyDown(mainMenuKey)) { if (!escapeKeyDebounce) { escapeKeyDebounce = true; if (!mainMenu.mainWindow.activeSelf) { Time.timeScale = 0; } else { Time.timeScale = 1; } mainMenu.mainWindow.SetActive(!mainMenu.mainWindow.activeSelf); } }
+            if (Input.GetKeyDown(mainMenuKey)) { if (!escapeKeyDebounce) { escapeKeyDebounce = true; if (!mainMenu.mainWindow.activeSelf) { Time.timeScale = 0; } else { Time.timeScale = 1; options.optionsWindow.SetActive(false); } mainMenu.mainWindow.SetActive(!mainMenu.mainWindow.activeSelf); } }
             if (Input.GetKeyUp(mainMenuKey)) { if (escapeKeyDebounce) { escapeKeyDebounce = false; } }
         //___________________________||
 
@@ -133,9 +152,67 @@ public class UIevents : MonoBehaviour
             }
         //_______||
 
+        if (options.optionsWindow.activeSelf)
+        {
+            //If the options window is open then update it at real time
+            updateOptionsWindowInfo();
+        }
+
         updateUiElements();
 
     }
+
+    //Options window||
+
+        public void updateOptionsWindowInfo()
+        {
+            options.dataText.GetComponent<Text>().text = 
+                "\n ID: " + PlayerData.id +
+                "\n Email: " + PlayerData.email +
+                "\n Name: " + PlayerData.username +
+                "\n Level: " + PlayerData.level + 
+                "\n Exp: " + PlayerData.exp + "/" + PlayerData.getNeededExp() + 
+                "\n Gold: " + PlayerData.gold +
+                "\n Resources: " + PlayerData.resources;
+        }
+
+        public void musicChanged()
+        {
+            PlayerData.musicVolume = options.musicSlider.GetComponent<Slider>().value;
+        }
+
+        public void sfxChanged()
+        {
+            PlayerData.sfxVolume = options.sfxSlider.GetComponent<Slider>().value;
+        }
+
+        public void dropDownChanged(int valeu, string option)
+        {
+            if (option == "Fullscreen")
+            {
+                PlayerData.windowmode = true;
+                Screen.fullScreen = true;
+            }
+            else if (option == "Windowed")
+            {
+                PlayerData.windowmode = false;
+                Screen.fullScreen = false;
+            }
+        }
+
+        public void OnOptions()
+        {
+            //Just enable the options menu
+            options.optionsWindow.SetActive(!options.optionsWindow.activeSelf);
+        }
+
+        public void closeOption()
+        {
+            options.optionsWindow.SetActive(!options.optionsWindow.activeSelf);
+        }
+
+    //______________||
+
 
     private void updateUiElements()
     {
@@ -242,11 +319,6 @@ public class UIevents : MonoBehaviour
             Time.timeScale = 1;
             sceneTeleport.start(0);
         }
-    }
-
-    public void OnOptions()
-    {
-
     }
 
     public void OnExit()

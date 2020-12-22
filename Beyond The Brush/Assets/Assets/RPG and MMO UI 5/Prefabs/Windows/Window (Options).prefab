@@ -5565,8 +5565,6 @@ GameObject:
   - component: {fileID: 222014198231750524}
   - component: {fileID: 114829978619665318}
   - component: {fileID: 225625355317543092}
-  - component: {fileID: 114739008354080622}
-  - component: {fileID: 114464732555108952}
   m_Layer: 5
   m_Name: Window (Options)
   m_TagString: Untagged
@@ -5673,31 +5671,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &114739008354080622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1536126752854130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f26e384af0ea08d45a9a608f128c84ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Order: 2
---- !u!114 &114464732555108952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1536126752854130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2e1ce3fe4b4851478e36a2f9a4db54b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1547260982820622
 GameObject:
   m_ObjectHideFlags: 0
