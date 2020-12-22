@@ -16,14 +16,20 @@ public class PlayerData : MonoBehaviour
             instance = this;
         }
 
-    //Database data
-    static private string _id = null;
+        //Database data
+        static private string _id = null;
         static private string _username = "Offline Player";
         static private int _level = 1;
         static private int _exp = 0;
         static private int _resources = 0;
         static private int _gold = 0;
         static private string _email;
+
+
+        //options database data
+        static private bool _windowmode = true;
+        static private float _musicVolume = 0.5f;
+        static private float _sfxVolume = 0.5f;
 
         //local data
         static private int _healthPoints = 100;
@@ -46,11 +52,15 @@ public class PlayerData : MonoBehaviour
 
     //Get the database data
     public static string id {get{return _id;} set { _id = value; } }
+    public static string email { get { return _email; } }
     public static string username { get { return _username; } set { _username = value; } }
     public static int level { get { return _level; } set { _level = value; } }
     public static int exp { get { return _exp; } set { _exp = value; } }
     public static int resources { get { return _resources; } set { _resources = value; } }
     public static int gold { get { return _gold; } set { _gold = value; } }
+    public static float musicVolume { get { return _musicVolume; } set { _musicVolume = value; } }
+    public static float sfxVolume { get { return _sfxVolume; } set { _sfxVolume = value; } }
+    public static bool windowmode { get { return _windowmode; } set { _windowmode = value; } }
 
     //Get the local data
     public static int healthPoints { get { return _healthPoints; } set { _healthPoints = value; } }
