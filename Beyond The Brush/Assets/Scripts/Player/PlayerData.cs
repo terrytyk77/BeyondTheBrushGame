@@ -28,8 +28,8 @@ public class PlayerData : MonoBehaviour
 
         //options database data
         static private bool _windowmode = true;
-        static private float _musicVolume = 0.5f;
-        static private float _sfxVolume = 0.5f;
+        static private float _musicVolume = 0.3f;
+        static private float _sfxVolume = 0.3f;
 
         //local data
         static private int _healthPoints = 100;

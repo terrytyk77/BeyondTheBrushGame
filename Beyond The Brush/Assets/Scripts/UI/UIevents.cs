@@ -198,6 +198,18 @@ public class UIevents : MonoBehaviour
                 Screen.fullScreen = false;
             }
         }
+
+        public void OnOptions()
+        {
+            //Just enable the options menu
+            options.optionsWindow.SetActive(!options.optionsWindow.activeSelf);
+        }
+
+        public void closeOption()
+        {
+            options.optionsWindow.SetActive(!options.optionsWindow.activeSelf);
+        }
+
     //______________||
 
 
@@ -306,17 +318,6 @@ public class UIevents : MonoBehaviour
             Time.timeScale = 1;
             sceneTeleport.start(0);
         }
-    }
-
-    public void OnOptions()
-    {
-        //Just enable the options menu
-        options.optionsWindow.SetActive(true);
-    }
-
-    public void closeOption()
-    {
-        options.optionsWindow.SetActive(false);
     }
 
     public void OnExit()

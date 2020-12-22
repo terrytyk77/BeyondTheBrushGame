@@ -6765,7 +6765,7 @@ MonoBehaviour:
     dataText: {fileID: 199456743}
     musicSlider: {fileID: 5588119842374282201}
     sfxSlider: {fileID: 1785057919}
-    dropdownWindow: {fileID: 0}
+    dropdownWindow: {fileID: 6163425743680458267}
 --- !u!114 &1531342935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8651,7 +8651,19 @@ MonoBehaviour:
   startSeparator: 0
   onChange:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3956660341335235844}
+        m_TargetAssemblyTypeName: UIevents, Assembly-CSharp
+        m_MethodName: dropDownChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onTransition:
     m_PersistentCalls:
       m_Calls: []
@@ -10410,7 +10422,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6572415724299931927}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3956660341335235844}
+        m_TargetAssemblyTypeName: UIevents, Assembly-CSharp
+        m_MethodName: OnOptions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6572445090606011853
 MonoBehaviour:
   m_ObjectHideFlags: 0
