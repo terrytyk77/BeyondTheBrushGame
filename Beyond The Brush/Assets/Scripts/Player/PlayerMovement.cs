@@ -67,14 +67,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (HorVerSide)
-            {
                 playerHorizontal.GetComponent<Animator>().SetBool("Moving", false);
-            }
-            else
-            {
                 playerVertical.GetComponent<Animator>().SetBool("Moving", false);
-            }
+
         }
 
         //Apply the force on the player's body
@@ -84,15 +79,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void playerVerticalPerspective()
     {
-        playerVertical.SetActive(true);
-        playerHorizontal.SetActive(false);
+        playerVertical.transform.localScale = new Vector3(1, 1, 0);
+        playerHorizontal.transform.localScale = new Vector3(0, 0, 0);
+        //playerVertical.SetActive(true);
+        //playerHorizontal.SetActive(false);
         playerVertical.GetComponent<Animator>().SetBool("Moving", true);
     }
 
     private void playerHorizontalPerspective()
     {
-        playerHorizontal.SetActive(true);
-        playerVertical.SetActive(false);
+        playerVertical.transform.localScale = new Vector3(0, 0, 0);
+        playerHorizontal.transform.localScale = new Vector3(1, 1, 0);
+
+        //playerHorizontal.SetActive(true);
+        //playerVertical.SetActive(false);
         playerHorizontal.GetComponent<Animator>().SetBool("Moving", true);
     }
 }

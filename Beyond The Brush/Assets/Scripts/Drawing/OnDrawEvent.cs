@@ -153,14 +153,9 @@ public class OnDrawEvent : MonoBehaviour
                     {
                         if (PlayerData.slashCooldown <= 0 && result.score.score >= 0.8f)
                         {
-							if (playerHorizontal.activeSelf)
-							{
 								playerHorizontal.GetComponent<Animator>().SetTrigger("Slash");
-							}
-							else if (playerVertical.activeSelf)
-							{
 								playerVertical.GetComponent<Animator>().SetTrigger("Slash");
-							}
+
 							HoverEnemy(location, 20);
 							PlayerData.slashCooldown = PlayerData.slashCooldownDefault;
                         }
@@ -173,14 +168,10 @@ public class OnDrawEvent : MonoBehaviour
                         {
                             if (PlayerData.shieldCooldown <= 0 && result.score.score >= 0.7f)
                             {
-								if (playerHorizontal.activeSelf)
-								{
+
 									playerHorizontal.GetComponent<Animator>().SetTrigger("Shield");
-								}
-								else if (playerVertical.activeSelf)
-								{
 									playerVertical.GetComponent<Animator>().SetTrigger("Shield");
-								}
+
 								PlayerData.shieldCooldown = PlayerData.shieldCooldownDefault;
 							}
 
@@ -196,11 +187,11 @@ public class OnDrawEvent : MonoBehaviour
 					{
 						if (PlayerData.xslashCooldown <= 0)
 						{
-                            if (playerHorizontal.activeSelf)
+                            if (playerHorizontal.transform.localScale.x == 1)
                             {
 								playerHorizontal.GetComponent<Animator>().SetTrigger("Xspell");
 							}
-                            else if(playerVertical.activeSelf)
+                            else if(playerVertical.transform.localScale.x == 1)
                             {
 								playerVertical.GetComponent<Animator>().SetTrigger("Xspell");
 							}
