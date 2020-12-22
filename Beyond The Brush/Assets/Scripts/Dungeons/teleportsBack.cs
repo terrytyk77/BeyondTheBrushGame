@@ -32,6 +32,7 @@ public class teleportsBack : MonoBehaviour
 
                         //teleports the player to the correct location
                         player.GetComponent<Transform>().position = new Vector2(location.position.x, location.position.y);
+                        Camera.main.GetComponent<Transform>().position = new Vector3(location.position.x, location.position.y, Camera.main.transform.position.z);
                     }
                 }
             }
