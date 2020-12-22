@@ -170,7 +170,7 @@ public class UIevents : MonoBehaviour
                 "\n Email: " + PlayerData.email +
                 "\n Name: " + PlayerData.username +
                 "\n Level: " + PlayerData.level + 
-                "\n Exp: " + PlayerData.exp + 
+                "\n Exp: " + PlayerData.exp + "/" + PlayerData.getNeededExp() + 
                 "\n Gold: " + PlayerData.gold +
                 "\n Resources: " + PlayerData.resources;
         }
