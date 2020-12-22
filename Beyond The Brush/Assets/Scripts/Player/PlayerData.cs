@@ -109,6 +109,9 @@ public class PlayerData : MonoBehaviour
 
         //Set the data to be sent
         data._id = _id;
+        data.musicVolume = _musicVolume;
+        data.sfxVolume = _sfxVolume;
+        data.windowMode = _windowmode;
         data.stats.level = _level;
         data.stats.exp = _exp;
         data.stats.gold = _gold;
@@ -163,6 +166,14 @@ public class PlayerData : MonoBehaviour
         {
             _level = json.body.stats.level;
         }
+
+        //Set the options
+        _windowmode = json.body.windowMode;
+        _musicVolume = json.body.musicVolume;
+        _sfxVolume = json.body.sfxVolume;
+
+        //Set the correct window mode
+        Screen.fullScreen = _windowmode;
 
         _exp = json.body.stats.exp;
         _resources = json.body.stats.ressources;

@@ -113,6 +113,7 @@ public class UIevents : MonoBehaviour
         //Options info
         options.musicSlider.GetComponent<Slider>().value = PlayerData.musicVolume;
         options.sfxSlider.GetComponent<Slider>().value = PlayerData.sfxVolume;
+
         updateOptionsWindowInfo();
     }
 
