@@ -332,7 +332,6 @@ MonoBehaviour:
   maxPatrolRange: 3
   healthBar: {fileID: 4939915628599338985}
   enemyProjectile: {fileID: 9122027484780612759, guid: 83084d98402bd5a4f9cd08132ea3c784, type: 3}
-  collisionTilemap: {fileID: 0}
 --- !u!95 &2774145579693850849
 Animator:
   serializedVersion: 3
@@ -380,7 +379,7 @@ RectTransform:
   m_GameObject: {fileID: 2953339403914981659}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.013125, y: 0.013125, z: 1}
+  m_LocalScale: {x: 0.015, y: 0.015, z: 1}
   m_Children:
   - {fileID: 8642997275248468266}
   m_Father: {fileID: 2774145579693850854}
@@ -388,8 +387,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.1, y: 2.75}
-  m_SizeDelta: {x: 538.7987, y: 122.65146}
+  m_AnchoredPosition: {x: 0, y: 2.75}
+  m_SizeDelta: {x: 550, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3802208972014799744
 Canvas:
@@ -409,7 +408,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1213815481
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &4028308579791614428

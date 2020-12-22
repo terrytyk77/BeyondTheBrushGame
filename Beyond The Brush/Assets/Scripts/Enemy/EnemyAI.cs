@@ -43,6 +43,18 @@ public class EnemyAI : MonoBehaviour
     //Collision-----||
     private GameObject collisionObject;
     private Tilemap collisionTilemap;
+    Vector3 HalfTile;
+    //--------------||
+
+    //Path----------||
+    private Vector3 currentDestination = Vector3.zero;
+    private Pathfinding pathfinding;
+    private List<Vector3Int> currentPath = null;
+    private int pathIndex = 0;
+    //--------------||
+
+    //Timer---------||
+    private float CheckPlayerTimer = 0f;
     //--------------||
 
     private GameObject player;
@@ -56,18 +68,20 @@ public class EnemyAI : MonoBehaviour
     private bool attackEnded;
     private bool castEnded;
 
-
     // Start is called before the first frame update
     void Start()
     {
-        //collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
-        //collisionTilemap = collisionObject.GetComponent<Tilemap>();
+        collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
+        collisionTilemap = collisionObject.GetComponent<Tilemap>();
+        HalfTile = new Vector3(collisionTilemap.cellSize.x / 2, collisionTilemap.cellSize.y / 2, 0);
+
+        currentDestination = collisionTilemap.CellToWorld(collisionTilemap.WorldToCell(transform.position));
+        pathfinding = new Pathfinding();
 
         Animator = gameObject.GetComponent<Animator>();
         currentHealth = maxHealth;
         currentState = State.Patrolling;
         startingPosition = transform.position;
-        patrollingPosition = GetPatrollingPosition();
     }
 
     // Update is called once per frame
@@ -80,83 +94,109 @@ public class EnemyAI : MonoBehaviour
         //State Machine
         switch (currentState)
         {
-        default:
-        case State.Patrolling:
-            {
-                    MoveTo(patrollingPosition);
-                    if (Vector2.Distance(transform.position, patrollingPosition) < distanceChangePatrol)
-                    {
-                        //Reached Patrolling Position? Get a New One!
-                        patrollingPosition = GetPatrollingPosition();
-                    }
-                    FindTarget();
-                    break;
-            }
-        case State.Chassing:
-            {
-                if (Vector3.Distance(transform.position, player.transform.position) < attackRange) 
+            default:
+            case State.Patrolling:
                 {
-                    if(enemyType == "Ranged")
+                    if (currentPath == null)
                     {
-                        currentState = State.Castting;
+                        getPath(GetPatrollingPosition());
                     }
                     else
                     {
-                        currentState = State.Attacking;
+                        MoveTo();
                     }
+
+                    FindTarget();
+                    break;
                 }
-                else
+            case State.Chassing:
                 {
-                    MoveTo(player.transform.position);
-                    OutOfChaseRange();
-                }
-                break;
-            }
-        case State.Castting:
-            {
-                Animator.SetBool("Walking", false);
-                Animator.SetTrigger("Castting");
-                currentState = State.Attacking;
-                break;
-            }
-        case State.Attacking:
-            {
-                Animator.SetBool("Walking", false);
-                if (enemyType == "Ranged")
-                {
-                    if (castEnded)
+                    if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
                     {
-                        if (firing)
+                        currentPath = null;
+                        if (enemyType == "Ranged")
                         {
-                            castEnded = false;
-                            firing = false;
-                            createProjectile(transform.position);
+                            currentState = State.Castting;
+                        }
+                        else
+                        {
+                            currentState = State.Attacking;
                         }
                     }
+                    else
+                    {
+                        // Move to Player If Not in Range for Attack
+                        if (currentPath == null)
+                        {
+                            getPath(player.transform.position);
+                        }
+                        else
+                        {
+                            CheckPlayerTimer+= 1 * Time.deltaTime;
+                            if(CheckPlayerTimer >= 1f)
+                            {
+                                CheckPlayerTimer = 0;
+                                getPath(player.transform.position);
+                            }
+                            MoveTo();
+                        }
+                        //Check if out of range!
+                        OutOfChaseRange();
+                    }
+                    break;
                 }
-                else
-                {
-                    Animator.SetTrigger("Attacking");
-                }
-
-                if (attackEnded)
-                {
-                    attackEnded = false;
-                    currentState = State.Chassing;
-                }
-                break;
-            }
-        case State.Resetting:
-            {
-                MoveTo(startingPosition);
-                ResetHP();
-                if (Vector3.Distance(transform.position, startingPosition) < distanceChangePatrol)
+            case State.Castting:
                 {
                     Animator.SetBool("Walking", false);
-                    currentState = State.Patrolling;
+                    Animator.SetTrigger("Castting");
+                    currentState = State.Attacking;
+                    break;
                 }
-                break;
-            }
+            case State.Attacking:
+                {
+                    Animator.SetBool("Walking", false);
+                    if (enemyType == "Ranged")
+                    {
+                        if (castEnded)
+                        {
+                            if (firing)
+                            {
+                                castEnded = false;
+                                firing = false;
+                                createProjectile(transform.position);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Animator.SetTrigger("Attacking");
+                    }
+
+                    if (attackEnded)
+                    {
+                        attackEnded = false;
+                        currentState = State.Chassing;
+                    }
+                    break;
+                }
+            case State.Resetting:
+                {
+                    if (currentPath == null)
+                    {
+                        getPath(startingPosition);
+                    }
+                    else
+                    {
+                        MoveTo();
+                        ResetHP();
+                    }
+                    if (Vector3.Distance(transform.position, startingPosition) < distanceChangePatrol)
+                    {
+                        Animator.SetBool("Walking", false);
+                        currentState = State.Patrolling;
+                    }
+                    break;
+                }
         }
     }
 
@@ -170,14 +210,50 @@ public class EnemyAI : MonoBehaviour
         return new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0f).normalized;
     }
 
-    private void MoveTo(Vector3 targetPosition)
+    private void getPath(Vector3 position)
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
-        enemyDirection.x = (targetPosition.x - transform.position.x);
-        enemyDirection.y = (targetPosition.y - transform.position.y);
-        Animator.SetBool("Walking", true);
+        TileBase tile = collisionTilemap.GetTile(collisionTilemap.WorldToCell(position));
+        if (tile == null)
+        {
+            currentPath = pathfinding.FindPath(collisionTilemap, collisionTilemap.WorldToCell(transform.position), collisionTilemap.WorldToCell(position));
+            if (currentPath.Count > 0)
+            {
+                pathIndex = 0;
+                currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
+            }
+        }
     }
 
+
+    private void MoveTo()
+    {
+        //add movement
+        if (pathIndex < currentPath.Count)
+        {
+            Vector3 targetPosition = new Vector3(currentDestination.x, currentDestination.y, transform.position.z) + HalfTile;
+            enemyDirection.x = (targetPosition.x - transform.position.x);
+            enemyDirection.y = (targetPosition.y - transform.position.y);
+            Animator.SetBool("Walking", true);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
+            if (Vector3.Distance(targetPosition, transform.position) < 0.05)
+            {
+                pathIndex++;
+                if (pathIndex < currentPath.Count)
+                {
+                    currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
+                }
+                else
+                {
+                    currentPath = null;
+                }
+            }
+        }
+        else
+        {
+            currentPath = null;
+        }
+
+    }
 
     private void FindTarget()
     {
@@ -264,5 +340,20 @@ public class EnemyAI : MonoBehaviour
     private void CastEnded()
     {
         castEnded = true;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        if (currentPath != null)
+        {
+            for (int i = 0; i < currentPath.Count; i++)
+            {
+                if (i + 1 < currentPath.Count)
+                    if (currentPath[i] != null)
+                        Gizmos.DrawLine(currentPath[i] + HalfTile, currentPath[i + 1] + HalfTile);
+            }
+        }
     }
 }

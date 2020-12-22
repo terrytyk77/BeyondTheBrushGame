@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.59, y: 2.87}
-  m_SizeDelta: {x: 538.7987, y: 122.65146}
+  m_AnchoredPosition: {x: 0, y: 2.75}
+  m_SizeDelta: {x: 550, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4000485426763289541
 Canvas:
@@ -57,7 +57,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1213815481
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &7322541918239210203
@@ -736,7 +736,7 @@ Transform:
   m_GameObject: {fileID: 6244542843124459993}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 4369013770065444827}
   - {fileID: 2532366136400205688}
@@ -869,7 +869,7 @@ MonoBehaviour:
   chaseRange: 10
   attackRange: 1
   minPatrolRange: 2
-  maxPatrolRange: 4
+  maxPatrolRange: 6
   healthBar: {fileID: 5683236862401581981}
   enemyProjectile: {fileID: 0}
 --- !u!1 &8225803868821398229
