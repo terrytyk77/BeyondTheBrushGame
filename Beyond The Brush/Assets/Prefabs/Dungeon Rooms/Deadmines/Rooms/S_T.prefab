@@ -7070,9 +7070,9 @@ GameObject:
   - component: {fileID: 2892313226563058914}
   - component: {fileID: 8232486365195837879}
   - component: {fileID: 8346587594231249093}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: CollisionLayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
