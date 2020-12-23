@@ -10,7 +10,8 @@ public class EnemyAI : MonoBehaviour
     [Header("Enemy Stats")]
         public string enemyType;
         public float maxHealth;
-        public float movementSpeed;
+        public float walkingMovementSpeed;
+        public float fleeingMovementSpeed;
     //--------------||
 
     //Ranges        ||
@@ -62,6 +63,7 @@ public class EnemyAI : MonoBehaviour
     private Vector3 startingPosition;
     private Vector3 patrollingPosition;
     private Vector3 enemyDirection;
+    private float currentMovementSpeed;
     private float currentHealth;
     private float distanceChangePatrol = 1f;
     private bool firing;
@@ -79,6 +81,7 @@ public class EnemyAI : MonoBehaviour
         pathfinding = new Pathfinding();
 
         Animator = gameObject.GetComponent<Animator>();
+        currentMovementSpeed = walkingMovementSpeed;
         currentHealth = maxHealth;
         currentState = State.Patrolling;
         startingPosition = transform.position;
@@ -184,6 +187,7 @@ public class EnemyAI : MonoBehaviour
                     if (currentPath == null)
                     {
                         getPath(startingPosition);
+                        currentMovementSpeed = fleeingMovementSpeed;
                     }
                     else
                     {
@@ -193,6 +197,7 @@ public class EnemyAI : MonoBehaviour
                     if (Vector3.Distance(transform.position, startingPosition) < distanceChangePatrol)
                     {
                         Animator.SetBool("Walking", false);
+                        currentMovementSpeed = walkingMovementSpeed;
                         currentState = State.Patrolling;
                     }
                     break;
@@ -234,7 +239,7 @@ public class EnemyAI : MonoBehaviour
             enemyDirection.x = (targetPosition.x - transform.position.x);
             enemyDirection.y = (targetPosition.y - transform.position.y);
             Animator.SetBool("Walking", true);
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, currentMovementSpeed * Time.deltaTime);
             if (Vector3.Distance(targetPosition, transform.position) < 0.05)
             {
                 pathIndex++;
@@ -267,6 +272,7 @@ public class EnemyAI : MonoBehaviour
     private void OutOfChaseRange() {
         if (Vector3.Distance(transform.position, startingPosition) > chaseRange)
         {
+            currentPath = null;
             currentState = State.Resetting;
         }
     }
@@ -319,7 +325,6 @@ public class EnemyAI : MonoBehaviour
     private void Death()
     {
         Destroy(gameObject);
-        Debug.Log("Enemy Killed!");
     }
 
     private void createProjectile(Vector3 spawnPosition)
