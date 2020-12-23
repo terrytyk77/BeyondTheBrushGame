@@ -135,12 +135,15 @@ public class EnemyAI : MonoBehaviour
                         }
                         else
                         {
-                            CheckPlayerTimer+= 1 * Time.deltaTime;
-                            if(CheckPlayerTimer >= 1f)
+                            //CheckPlayerTimer+= 1 * Time.deltaTime;
+                            //if(CheckPlayerTimer >= 1f)
+                            //{
+                            //    CheckPlayerTimer = 0;
+                            if(pathIndex >= 2)
                             {
-                                CheckPlayerTimer = 0;
                                 getPath(player.transform.position);
                             }
+                            //}
                             MoveTo();
                         }
                         //Check if out of range!
