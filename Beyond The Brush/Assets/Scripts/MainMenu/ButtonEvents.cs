@@ -47,7 +47,7 @@ public void OpenNotification()
     public void ChangeCurrentWindow()
     {
         //Get the current window state
-        bool onLogin = loginForm.active;
+        bool onLogin = loginForm.activeSelf;
 
         if (onLogin)
         {

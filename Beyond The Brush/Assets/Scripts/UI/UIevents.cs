@@ -85,6 +85,8 @@ public class UIevents : MonoBehaviour
         }
 
         public OptionsClass options = new OptionsClass();
+
+        public GameObject loadingNetworkPrefab;
     //_________||
 
     private void Start()
@@ -297,14 +299,35 @@ public class UIevents : MonoBehaviour
 
     public void OnLogout()
     {
+
+
+
         //Save data
         if (PlayerData.id != null)
         {
+
+            //Spawn the network loading screen
+            GameObject loadingScreen = Instantiate(loadingNetworkPrefab);
+            loadingScreen.transform.SetParent(gameObject.transform);
+            loadingScreen.transform.localPosition = loadingNetworkPrefab.transform.localPosition;
+            loadingScreen.transform.localScale = new Vector3(1, 1, 1);
+            loadingScreen.name = loadingNetworkPrefab.name;
+
             void doLast()
             {
+                //Remove the loading screen
+                Destroy(loadingScreen);
+
+                //Remove the local data of the player
                 PlayerData.ResetPlayerData();
+
+                //Close the main menu
                 mainMenu.mainWindow.SetActive(false);
+
+                //Reset the time scale of the game
                 Time.timeScale = 1;
+
+                //Move to the main menu
                 sceneTeleport.start(0);
             }
 
@@ -326,8 +349,19 @@ public class UIevents : MonoBehaviour
         //Save data
         if (PlayerData.id != null)
         {
+
+            //Spawn the network loading screen
+            GameObject loadingScreen = Instantiate(loadingNetworkPrefab);
+            loadingScreen.transform.SetParent(gameObject.transform);
+            loadingScreen.transform.localPosition = loadingNetworkPrefab.transform.localPosition;
+            loadingScreen.transform.localScale = new Vector3(1, 1, 1);
+            loadingScreen.name = loadingNetworkPrefab.name;
+
             void doLast()
             {
+                //Remove the loading screen
+                Destroy(loadingScreen);
+
                 //Make it save before closing
                 if (Application.isEditor)
                 {
