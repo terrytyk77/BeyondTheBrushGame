@@ -35,7 +35,8 @@ public class DoorTriggers : MonoBehaviour
 
                     if (gameObject.name == "exit")
                     {
-                        dungeonData.GetComponent<CurrentDungeonData>().callMapLoad();
+                        playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
+                        sceneTeleport.start(1);
                     }
                     else
                     {
