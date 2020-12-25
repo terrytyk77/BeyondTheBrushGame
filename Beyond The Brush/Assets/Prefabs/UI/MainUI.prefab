@@ -6778,7 +6778,7 @@ MonoBehaviour:
     musicSlider: {fileID: 5588119842374282201}
     sfxSlider: {fileID: 1785057919}
     dropdownWindow: {fileID: 6163425743680458267}
-  loadingNetworkPrefab: {fileID: 0}
+  loadingNetworkPrefab: {fileID: 8106798866056110242, guid: e13012d4892d3f344a34c19416a908e2, type: 3}
 --- !u!114 &1531342935
 MonoBehaviour:
   m_ObjectHideFlags: 0

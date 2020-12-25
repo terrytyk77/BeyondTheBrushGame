@@ -310,4 +310,18 @@ public class AccountServices : MonoBehaviour
 
     }
 
+    //When the game is closed
+    void OnApplicationQuit()
+    {
+        void doLast()
+        {
+
+        }
+
+        if (PlayerData.id != null)
+        {
+            StartCoroutine(PlayerData.savePlayerDataRequest(PlayerData.savePlayerData(), doLast));
+        }
+    }
+
 }
