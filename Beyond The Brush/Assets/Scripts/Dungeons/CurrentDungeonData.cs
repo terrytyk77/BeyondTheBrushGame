@@ -47,7 +47,7 @@ public class CurrentDungeonData : MonoBehaviour
         public Vector2Int currentRoom;
 
         //The next room teleport point
-        private string nextRoomSide;
+        public string nextRoomSide;
 
         //The player
         Rigidbody2D playerRB;
@@ -107,6 +107,14 @@ public class CurrentDungeonData : MonoBehaviour
 
     }
 
+
+    public void CompletedRoom()
+    {
+        //Get the current room
+        Dungeon.room RoomWeAreIn = getRoomViaCords(currentRoom);
+        RoomWeAreIn.setCompleted(true);
+        updateMap();
+    }
 
     public void changeNextRoom(string roomSide)
     {
