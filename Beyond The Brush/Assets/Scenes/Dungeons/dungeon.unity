@@ -919,6 +919,7 @@ MonoBehaviour:
   mainVillageID: 1
   dungeonsData: {fileID: 359513366}
   currentRoom: {x: 0, y: 0}
+  nextRoomSide: 
   currentDungeon:
     DungeonName: 
     baseReward: 0

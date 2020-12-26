@@ -86,7 +86,11 @@ public class UIevents : MonoBehaviour
 
         public OptionsClass options = new OptionsClass();
 
+        public GameObject talentTreeWindow;
+        
         public GameObject loadingNetworkPrefab;
+
+
     //_________||
 
     private void Start()
@@ -387,6 +391,11 @@ public class UIevents : MonoBehaviour
         }
 
 
+    }
+
+    public void openTalentTree()
+    {
+        talentTreeWindow.SetActive(!talentTreeWindow.activeSelf);
     }
 
 }
