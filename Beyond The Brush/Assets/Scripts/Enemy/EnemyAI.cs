@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour
     [Header("Enemy Stats")]
         public string enemyType;
         public float maxHealth;
+        public int experience;
         public float walkingMovementSpeed;
         public float fleeingMovementSpeed;
     //--------------||
@@ -322,6 +323,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Death()
     {
+        PlayerData.addPlayerExp(experience);
         Destroy(gameObject);
     }
 

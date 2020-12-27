@@ -324,6 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: Ranged
   maxHealth: 70
+  experience: 15
   walkingMovementSpeed: 1.5
   fleeingMovementSpeed: 4
   aggroRange: 8
