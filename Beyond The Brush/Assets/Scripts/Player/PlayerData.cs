@@ -96,7 +96,7 @@ public class PlayerData : MonoBehaviour
 
     public static int getNeededExp()
     {
-        int result = level * 10;
+        int result = (level * 100) + 50;
 
         return result;
     }
