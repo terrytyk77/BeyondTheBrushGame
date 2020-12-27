@@ -21,7 +21,7 @@ public class PlayerData : MonoBehaviour
         static private string _username = "Offline Player";
         static private int _level = 1;
         static private int _exp = 0;
-        static private int _resources = 0;
+        static private int _resources = 50000;
         static private int _gold = 0;
         static private string _email;
 
@@ -96,7 +96,7 @@ public class PlayerData : MonoBehaviour
 
     public static int getNeededExp()
     {
-        int result = level * 10;
+        int result = (level * 100) + 50;
 
         return result;
     }
