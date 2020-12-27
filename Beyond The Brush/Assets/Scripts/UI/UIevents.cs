@@ -84,10 +84,42 @@ public class UIevents : MonoBehaviour
             public GameObject dropdownWindow;
         }
 
-        public OptionsClass options = new OptionsClass();
+        //Options||
 
-        public GameObject talentTreeWindow;
-        
+        public OptionsClass options = new OptionsClass();
+    //_______||
+
+
+        //Talent tree||
+
+            [System.Serializable]
+            public class talentTreeClass
+            {
+                public GameObject talentTreeWindow;   
+                public struct nodes
+                {
+                    public GameObject node0;
+                    public GameObject node1;
+                    public GameObject node2;
+                    public GameObject node3;
+                    public GameObject node4;
+                    public GameObject node5;
+                    public GameObject node6;
+                    public GameObject node7;
+                    public GameObject node8;
+                    public GameObject node9;
+                    public GameObject node10;
+                }
+
+            
+
+            }
+
+            public talentTreeClass talentTree = new talentTreeClass();
+        //___________||
+
+
+
         public GameObject loadingNetworkPrefab;
 
 
@@ -393,9 +425,13 @@ public class UIevents : MonoBehaviour
 
     }
 
+    //Talent tree related methods||
+
     public void openTalentTree()
     {
-        talentTreeWindow.SetActive(!talentTreeWindow.activeSelf);
+        talentTree.talentTreeWindow.SetActive(!talentTree.talentTreeWindow.activeSelf);
     }
+    //___________________________||
+
 
 }
