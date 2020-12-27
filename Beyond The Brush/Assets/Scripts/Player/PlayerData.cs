@@ -48,6 +48,27 @@ public class PlayerData : MonoBehaviour
 
         static private cooldowsClass cooldowns = new cooldowsClass();
 
+        //Talent tree
+        [System.Serializable]
+        public class talentTreeClass
+        {
+            public bool node0 = false;
+            public bool node1 = false;
+            public bool node2 = false;
+            public bool node3 = false;
+            public bool node4 = false;
+            public bool node5 = false;
+            public bool node6 = false;
+            public bool node7 = false;
+            public bool node8 = false;
+            public bool node9 = false;
+            public bool node10 = false;
+        }
+
+    static private talentTreeClass _talentTreeData = new talentTreeClass();
+    public static talentTreeClass talentTreeData { get { return _talentTreeData; } set { _talentTreeData = value; } }
+
+
     //_________||
 
     //Get the database data
@@ -116,6 +137,8 @@ public class PlayerData : MonoBehaviour
         data.stats.exp = _exp;
         data.stats.gold = _gold;
         data.stats.ressources = _resources;
+        data.talentTree = _talentTreeData;
+
 
         return data;
     }
@@ -167,6 +190,12 @@ public class PlayerData : MonoBehaviour
             _level = json.body.stats.level;
         }
 
+        //Setup the talent tree uwu
+        if(json.body.talentTree != null)
+        {
+            _talentTreeData = json.body.talentTree;
+        }
+
         //Set the options
         _windowmode = json.body.windowMode;
         _musicVolume = json.body.musicVolume;
@@ -197,6 +226,7 @@ public class PlayerData : MonoBehaviour
         _email = "";
         _healthPoints = 100;
         _maxHealthPoints = 100;
+        _talentTreeData = new talentTreeClass();
     }
 
 }

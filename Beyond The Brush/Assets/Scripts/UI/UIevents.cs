@@ -483,6 +483,11 @@ public class UIevents : MonoBehaviour
             talentTreeData.displayWindow.nodeTittle.GetComponent<Text>().text = selectedNode.name;
             talentTreeData.displayWindow.nodeDesc.GetComponent<Text>().text = selectedNode.description;
         }
+
+        public void unlockNode()
+        {
+            
+        }
     //___________________________||
 
 

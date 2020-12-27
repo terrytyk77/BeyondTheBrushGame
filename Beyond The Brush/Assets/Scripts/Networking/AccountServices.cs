@@ -21,10 +21,14 @@ using UnityEngine.UI;
                     public int gold;
                 }
 
+
+
+                
                 public bool windowMode = true;
                 public float musicVolume = 0.3f;
                 public float sfxVolume = 0.3f;
                 public nested2Data stats;
+                public PlayerData.talentTreeClass talentTree;
                 public string _id;
                 public string name;
                 public string email;
