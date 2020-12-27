@@ -84,7 +84,7 @@ public class OnDrawEvent : MonoBehaviour
 
 			if (drawingZone.Overlaps(enemyHitZone))
             {
-				enemy.GetComponent<EnemyAI>().damage(damage);
+				enemy.GetComponent<EnemyAI>().getDamaged(damage);
 			}
 		}
 	}

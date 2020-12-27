@@ -8,7 +8,7 @@ public class DamagePlayer : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            PlayerData.healthPoints -= 20;
+            gameObject.GetComponentInParent<EnemyAI>().dealDamage();
         }
     }
 }
