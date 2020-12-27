@@ -5,7 +5,6 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public GameObject target;
-
     private GameObject player;
     private float speed = 10f;
     private float autoDestroyDistance = 0.1f;
@@ -40,7 +39,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.tag == "DrawingCollider")
         {
-            PlayerData.healthPoints -= 10;
+            gameObject.GetComponentInParent<EnemyAI>().dealDamage();
         }
     }
 }

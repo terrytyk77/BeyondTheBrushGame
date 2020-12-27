@@ -323,6 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: Ranged
+  damage: 20
   maxHealth: 70
   experience: 15
   walkingMovementSpeed: 1.5

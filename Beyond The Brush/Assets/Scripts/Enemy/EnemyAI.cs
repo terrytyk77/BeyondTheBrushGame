@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
     //Stats       ||
     [Header("Enemy Stats")]
         public string enemyType;
+        public int damage;
         public float maxHealth;
         public int experience;
         public float walkingMovementSpeed;
@@ -268,6 +269,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+
     private void OutOfChaseRange() {
         if (Vector3.Distance(transform.position, startingPosition) > chaseRange)
         {
@@ -294,7 +296,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public void damage(float damage)
+    public void getDamaged(float damage)
     {
         currentHealth -= damage;
         healthBar.GetComponent<Image>().fillAmount -= damage / maxHealth;
@@ -304,6 +306,11 @@ public class EnemyAI : MonoBehaviour
             // Delay Death For Animation
             Invoke("Death", 0.2f);
         }
+    }
+
+    public void dealDamage()
+    {
+        PlayerData.healthPoints -= damage;
     }
 
     private void ResetHP()
@@ -329,7 +336,8 @@ public class EnemyAI : MonoBehaviour
 
     private void createProjectile(Vector3 spawnPosition)
     {
-        Instantiate(enemyProjectile, spawnPosition, Quaternion.identity);
+        GameObject projectile = Instantiate(enemyProjectile, spawnPosition, Quaternion.identity);
+        projectile.transform.SetParent(transform);
     }
 
     private void Fire()

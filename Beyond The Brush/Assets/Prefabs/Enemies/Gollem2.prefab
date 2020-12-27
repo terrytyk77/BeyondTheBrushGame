@@ -863,6 +863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: Melee
+  damage: 5
   maxHealth: 200
   experience: 20
   walkingMovementSpeed: 3
