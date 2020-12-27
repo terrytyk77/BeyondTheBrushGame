@@ -66,6 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 6c84818b61fc47449947eac2a2c472ca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -91,6 +92,23 @@ MonoBehaviour:
   m_ElementType: 0
   m_Shade: 4
 --- !u!1 &95925796
+=======
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 79cb662f273c9614684a8b9febeeb553, type: 3}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 14
+    m_MaxSize: 55
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: My cock is very
+--- !u!1 &39388626
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -245,6 +263,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_FontData:
     m_Font: {fileID: 12800000, guid: 36ac510fd1f880c44b751e31a79ed4f3, type: 3}
     m_FontSize: 14
@@ -260,6 +279,32 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Level: SAMPLE'
 --- !u!1 &213199108
+=======
+  m_Sprite: {fileID: 21300000, guid: 654b9ac463615a94e8d5189a67d89bf4, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &50469747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50469745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
+--- !u!1 &54688838
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,10 +312,16 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 213199109}
   - component: {fileID: 213199112}
   - component: {fileID: 213199111}
   - component: {fileID: 213199110}
+=======
+  - component: {fileID: 54688839}
+  - component: {fileID: 54688841}
+  - component: {fileID: 54688840}
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_Layer: 5
   m_Name: Border (Right)
   m_TagString: Untagged
@@ -335,6 +386,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< HEAD
 --- !u!114 &213199110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +402,9 @@ MonoBehaviour:
   m_Horizontal: 0
   m_Veritical: 1
 --- !u!1 &215898500
+=======
+--- !u!1 &64470445
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1294,12 +1349,21 @@ RectTransform:
   m_Father: {fileID: 1374690935}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 100, y: -38}
   m_SizeDelta: {x: -200, y: 70}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1239037281
+=======
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 500, y: 500}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &299519918
+>>>>>>> parent of a265597... Updated meta files ooga booga
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1327,6 +1391,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_FontData:
     m_Font: {fileID: 12800000, guid: 79cb662f273c9614684a8b9febeeb553, type: 3}
     m_FontSize: 50
@@ -1357,6 +1422,19 @@ MonoBehaviour:
   m_EffectDistance: {x: 4, y: -4}
   m_UseGraphicAlpha: 1
 --- !u!1 &1359946878
+=======
+  m_Sprite: {fileID: 21300000, guid: b37a5f4437c678646ac6d5187bd261b7, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &311247956
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1364,9 +1442,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 1359946879}
   - component: {fileID: 1359946881}
   - component: {fileID: 1359946880}
+=======
+  - component: {fileID: 311247957}
+  - component: {fileID: 311247959}
+  - component: {fileID: 311247958}
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_Layer: 5
   m_Name: WindowTitle
   m_TagString: Untagged
@@ -1421,6 +1505,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_FontData:
     m_Font: {fileID: 12800000, guid: 36ac510fd1f880c44b751e31a79ed4f3, type: 3}
     m_FontSize: 14
@@ -1436,6 +1521,19 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Information:'
 --- !u!1 &1374690934
+=======
+  m_Sprite: {fileID: 21300000, guid: b183b9bafdb805c4ca1933e5c78d94f3, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &341219649
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2137,9 +2235,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 1844419901}
   - component: {fileID: 1844419903}
   - component: {fileID: 1844419902}
+=======
+  - component: {fileID: 487095240}
+  - component: {fileID: 487095242}
+  - component: {fileID: 487095241}
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_Layer: 5
   m_Name: Hover Overlay
   m_TagString: Untagged
@@ -2204,7 +2308,11 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< HEAD
 --- !u!1 &2044715873
+=======
+--- !u!1 &518848644
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2698,9 +2806,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 1601614265068223635}
   - component: {fileID: 4324090755344723848}
   - component: {fileID: 1026331088798303616}
+=======
+  - component: {fileID: 622189185}
+  - component: {fileID: 622189187}
+  - component: {fileID: 622189186}
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -2765,7 +2879,11 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< HEAD
 --- !u!1 &589827800548817384
+=======
+--- !u!1 &662053706
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5281,6 +5399,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 610272135061613193}
   - component: {fileID: 788192129174972167}
   - component: {fileID: 788514654198676905}
@@ -5292,6 +5411,11 @@ GameObject:
   - component: {fileID: 792492389946447131}
   - component: {fileID: 788839158254200805}
   - component: {fileID: 820544974026492132}
+=======
+  - component: {fileID: 1203956032}
+  - component: {fileID: 1203956034}
+  - component: {fileID: 1203956033}
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_Layer: 5
   m_Name: Button (Resume)
   m_TagString: Untagged
@@ -5327,6 +5451,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 820544974026492133}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -5378,10 +5503,39 @@ MonoBehaviour:
         m_CallState: 2
 --- !u!114 &788514654198676905
 MonoBehaviour:
+=======
+  m_GameObject: {fileID: 1203956031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b183b9bafdb805c4ca1933e5c78d94f3, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1230851615
+GameObject:
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 820544974026492133}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -5417,6 +5571,22 @@ MonoBehaviour:
   m_TargetToggle: {fileID: 0}
 --- !u!114 &788901435919824525
 MonoBehaviour:
+=======
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1230851616}
+  - component: {fileID: 1230851618}
+  - component: {fileID: 1230851617}
+  m_Layer: 5
+  m_Name: TreeNode_8
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1230851616
+RectTransform:
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5492,6 +5662,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< HEAD
 --- !u!95 &735084408213674301
 Animator:
   serializedVersion: 3
@@ -5539,6 +5710,10 @@ MonoBehaviour:
   m_ReverseArrangement: 0
 --- !u!114 &792492389946447131
 MonoBehaviour:
+=======
+--- !u!1 &1239037277
+GameObject:
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5882,9 +6057,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 8344706500407288698}
   - component: {fileID: 8280397827951756955}
   - component: {fileID: 8964019164035062698}
+=======
+  - component: {fileID: 1256549604}
+  - component: {fileID: 1256549606}
+  - component: {fileID: 1256549605}
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -5949,7 +6130,11 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< HEAD
 --- !u!1 &1130875131248595080
+=======
+--- !u!1 &1274211770
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6047,10 +6232,16 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 4227254745980561818}
   - component: {fileID: 1620126484874757000}
   - component: {fileID: 3253444904738963296}
   - component: {fileID: 807823306899722281}
+=======
+  - component: {fileID: 1279608931}
+  - component: {fileID: 1279608933}
+  - component: {fileID: 1279608932}
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
@@ -6116,6 +6307,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< HEAD
 --- !u!114 &807823306899722281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6130,6 +6322,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
 --- !u!1 &1219743092852447040
+=======
+--- !u!1 &1348271035
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6242,10 +6437,16 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 3515657444358208718}
   - component: {fileID: 6937166355306370970}
   - component: {fileID: 4829935393820618692}
   - component: {fileID: 4785153543419602715}
+=======
+  - component: {fileID: 1356096901}
+  - component: {fileID: 1356096903}
+  - component: {fileID: 1356096902}
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
@@ -6311,6 +6512,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< HEAD
 --- !u!114 &4785153543419602715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6325,6 +6527,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
 --- !u!1 &1310716251508914512
+=======
+--- !u!1 &1359946878
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7467,9 +7672,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 6917129072777478076}
   - component: {fileID: 1784540427829624316}
   - component: {fileID: 6624663823268863035}
+=======
+  - component: {fileID: 1642873509}
+  - component: {fileID: 1642873511}
+  - component: {fileID: 1642873510}
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_Layer: 5
   m_Name: Icon 2
   m_TagString: Untagged
@@ -7534,7 +7745,11 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< HEAD
 --- !u!1 &2959994254968361347
+=======
+--- !u!1 &1643755232
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7864,11 +8079,17 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 6589783695801308706}
   - component: {fileID: 6126425119780368852}
   - component: {fileID: 2906845118348900309}
   - component: {fileID: 1639804931691419064}
   - component: {fileID: 2855772165073619865}
+=======
+  - component: {fileID: 1699306652}
+  - component: {fileID: 1699306654}
+  - component: {fileID: 1699306653}
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_Layer: 5
   m_Name: Profile
   m_TagString: Untagged
@@ -7936,6 +8157,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< HEAD
 --- !u!225 &1639804931691419064
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -7962,6 +8184,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Order: 2
 --- !u!1 &3230320031287990300
+=======
+--- !u!1 &1708983846
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11346,6 +11571,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 2d9e3fa7ab459c44c8225d70794af2ec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -11370,6 +11596,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
 --- !u!1 &4073875199188603146
+=======
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 79cb662f273c9614684a8b9febeeb553, type: 3}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 30
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: gdsag sgadsgdasgsadf adsgsdgg asgdsgasgddsagdsagadsgasgdasgdgas gds gasdg
+    sagasdg asgds gasd gadsg dasdga gds agdsaggd ag
+--- !u!1 &3956660339326040725
+>>>>>>> parent of a265597... Updated meta files ooga booga
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12833,7 +13077,162 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 5587980448487136685}
+=======
+  m_GameObject: {fileID: 3956660341335235841}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 3956660340184165627}
+  - {fileID: 5245757321838936099}
+  - {fileID: 3888520110553890819}
+  - {fileID: 7144622422846649830}
+  - {fileID: 6466284211876170025}
+  - {fileID: 3956660340091669201}
+  - {fileID: 611277255445511361}
+  - {fileID: 2044715874}
+  - {fileID: 235900137}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!223 &3956660341335235846
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956660341335235841}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &3956660341335235847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956660341335235841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+--- !u!114 &3956660341335235840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956660341335235841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &3956660341335235844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956660341335235841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372ca6c81312fe54dbbba87f449c6018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomPrefab: {fileID: 8476358736472857115, guid: 9d370335703470f4ca325489c6af898f, type: 3}
+  usernameDisplay: {fileID: 3956660340151053817}
+  mainMenu:
+    mainWindow: {fileID: 819958903333658413}
+    resume: {fileID: 820544974026492133}
+    logout: {fileID: 820398446442888203}
+    options: {fileID: 819967495645398395}
+    exit: {fileID: 820147977566847577}
+  mainMenuKey: 27
+  cooldowns:
+    slashSkill: {fileID: 6532107103901484439}
+    XslashSkill: {fileID: 3956660340270726278}
+    shieldSkill: {fileID: 3956660339842380628}
+  healthbar:
+    fill: {fileID: 6934849177100748210}
+    text: {fileID: 6935237000447519340}
+  expBar:
+    fill: {fileID: 6531523693614946571}
+    text: {fileID: 6531826368058151231}
+  levelText: {fileID: 6934671229119971886}
+  minimap:
+    window: {fileID: 3957292503466895589}
+    minimapComponent: {fileID: 3956660341309834917}
+    minimapSlider: {fileID: 3958144980611697813}
+    minimapKey: 109
+  options:
+    optionsWindow: {fileID: 2044715873}
+    dataText: {fileID: 199456743}
+    musicSlider: {fileID: 5588119842374282201}
+    sfxSlider: {fileID: 1785057919}
+    dropdownWindow: {fileID: 6163425743680458267}
+  talentTreeData:
+    talentTreeWindow: {fileID: 0}
+    nodes:
+      node0: {fileID: 0}
+      node1: {fileID: 0}
+      node2: {fileID: 0}
+      node3: {fileID: 0}
+      node4: {fileID: 0}
+      node5: {fileID: 0}
+      node6: {fileID: 0}
+      node7: {fileID: 0}
+      node8: {fileID: 0}
+      node9: {fileID: 0}
+      node10: {fileID: 0}
+    displayWindow:
+      nodeImage: {fileID: 0}
+      nodeTittle: {fileID: 0}
+      nodeDesc: {fileID: 0}
+      nodeButton: {fileID: 0}
+  loadingNetworkPrefab: {fileID: 8106798866056110242, guid: e13012d4892d3f344a34c19416a908e2, type: 3}
+--- !u!114 &1531342935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956660341335235841}
+>>>>>>> parent of a265597... Updated meta files ooga booga
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
@@ -20606,14 +21005,22 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 114279089264393036, guid: 125d26dde90a190458139bd878f494a5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 125d26dde90a190458139bd878f494a5, type: 3}
+<<<<<<< HEAD
 --- !u!1 &3957292503466895589 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1056687484831270, guid: 125d26dde90a190458139bd878f494a5, type: 3}
   m_PrefabInstance: {fileID: 3956660339476131523}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of a265597... Updated meta files ooga booga
 --- !u!224 &3888520110553890819 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224667530514329280, guid: 125d26dde90a190458139bd878f494a5, type: 3}
+  m_PrefabInstance: {fileID: 3956660339476131523}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3888271677861775825 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224348617340626706, guid: 125d26dde90a190458139bd878f494a5, type: 3}
   m_PrefabInstance: {fileID: 3956660339476131523}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &3888271677861775825 stripped
