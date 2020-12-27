@@ -544,7 +544,7 @@ public class UIevents : MonoBehaviour
             talentTreeData.displayWindow.nodeImage.GetComponent<Image>().sprite = nodeImageElement;
 
             //Get the corresponding node data  
-            TalentTree.treeNode selectedNode = new TalentTree.treeNode("", "", "");
+            TalentTree.treeNode selectedNode = new TalentTree.treeNode("", "", "", 0);
             selectedNode = TalentTree.nodes["node" + nodeNum.ToString()];
 
             //Store the ID for future proccessing
