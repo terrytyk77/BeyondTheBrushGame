@@ -145,17 +145,17 @@ public class UIevents : MonoBehaviour
     private void Start()
     {
         //Add the listeners for the talent tree
-        talentTreeData.nodes.node0.GetComponent<Button>().onClick.AddListener(delegate{ selectNode(0);});
-        talentTreeData.nodes.node1.GetComponent<Button>().onClick.AddListener(delegate { selectNode(1); });
-        talentTreeData.nodes.node2.GetComponent<Button>().onClick.AddListener(delegate { selectNode(2); });
-        talentTreeData.nodes.node3.GetComponent<Button>().onClick.AddListener(delegate { selectNode(3); });
-        talentTreeData.nodes.node4.GetComponent<Button>().onClick.AddListener(delegate { selectNode(4); });
-        talentTreeData.nodes.node5.GetComponent<Button>().onClick.AddListener(delegate { selectNode(5); });
-        talentTreeData.nodes.node6.GetComponent<Button>().onClick.AddListener(delegate { selectNode(6); });
-        talentTreeData.nodes.node7.GetComponent<Button>().onClick.AddListener(delegate { selectNode(7); });
-        talentTreeData.nodes.node8.GetComponent<Button>().onClick.AddListener(delegate { selectNode(8); });
-        talentTreeData.nodes.node9.GetComponent<Button>().onClick.AddListener(delegate { selectNode(9); });
-        talentTreeData.nodes.node10.GetComponent<Button>().onClick.AddListener(delegate { selectNode(10); });
+        talentTreeData.nodes.node0.GetComponent<Button>().onClick.AddListener(delegate{ selectNode(0, talentTreeData.nodes.node0);});
+        talentTreeData.nodes.node1.GetComponent<Button>().onClick.AddListener(delegate { selectNode(1, talentTreeData.nodes.node1); });
+        talentTreeData.nodes.node2.GetComponent<Button>().onClick.AddListener(delegate { selectNode(2, talentTreeData.nodes.node2); });
+        talentTreeData.nodes.node3.GetComponent<Button>().onClick.AddListener(delegate { selectNode(3, talentTreeData.nodes.node3); });
+        talentTreeData.nodes.node4.GetComponent<Button>().onClick.AddListener(delegate { selectNode(4, talentTreeData.nodes.node4); });
+        talentTreeData.nodes.node5.GetComponent<Button>().onClick.AddListener(delegate { selectNode(5, talentTreeData.nodes.node5); });
+        talentTreeData.nodes.node6.GetComponent<Button>().onClick.AddListener(delegate { selectNode(6, talentTreeData.nodes.node6); });
+        talentTreeData.nodes.node7.GetComponent<Button>().onClick.AddListener(delegate { selectNode(7, talentTreeData.nodes.node7); });
+        talentTreeData.nodes.node8.GetComponent<Button>().onClick.AddListener(delegate { selectNode(8, talentTreeData.nodes.node8); });
+        talentTreeData.nodes.node9.GetComponent<Button>().onClick.AddListener(delegate { selectNode(9, talentTreeData.nodes.node9); });
+        talentTreeData.nodes.node10.GetComponent<Button>().onClick.AddListener(delegate { selectNode(10, talentTreeData.nodes.node10); });
 
         //Adapt to the correct map zoom
 
@@ -463,10 +463,25 @@ public class UIevents : MonoBehaviour
 
         //talentTreeData.
 
-        void selectNode(int nodeNum)
+        void selectNode(int nodeNum, GameObject nodeElement)
         {
-       
-            Debug.Log(nodeNum);
+
+            //Get the current slot image
+            Sprite nodeImageElement = nodeElement.transform.Find("Container").Find("Icon").GetComponent<Image>().sprite;
+
+            //Set the image
+            talentTreeData.displayWindow.nodeImage.GetComponent<Image>().sprite = nodeImageElement;
+
+            //Get the corresponding node data  
+            TalentTree.treeNode selectedNode = new TalentTree.treeNode("", "", "");
+            selectedNode = TalentTree.nodes["node" + nodeNum.ToString()];
+
+            //Store the ID for future proccessing
+            currentNode = selectedNode.id;
+
+            //Update the UI data
+            talentTreeData.displayWindow.nodeTittle.GetComponent<Text>().text = selectedNode.name;
+            talentTreeData.displayWindow.nodeDesc.GetComponent<Text>().text = selectedNode.description;
         }
     //___________________________||
 

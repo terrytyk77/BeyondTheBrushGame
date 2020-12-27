@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TalentTree : MonoBehaviour
+
+public static class TalentTree
 {
     //Buffs variables||
 
@@ -95,5 +96,22 @@ public class TalentTree : MonoBehaviour
         /*Description*/ "Xspell resets after executing an enemy.", /*Description*/ 
         /*Name*/ "Overkill" /*Name*/
     );
+
+    public static readonly Dictionary<string, treeNode> nodes = new Dictionary<string, treeNode>
+    {
+        {"node0", node0},
+        {"node1", node1},
+        {"node2", node2},
+        {"node3", node3},
+        {"node4", node4},
+        {"node5", node5},
+        {"node6", node6},
+        {"node7", node7},
+        {"node8", node8},
+        {"node9", node9},
+        {"node10", node10}
+    };
+
+
 
 }
