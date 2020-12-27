@@ -56,40 +56,87 @@ public class UIevents : MonoBehaviour
         //Skills cooldowns
         public skillsCooldowns cooldowns;
 
-        //Bars
-        public healthbarClass healthbar;
+    //Bars
+    public healthbarClass healthbar;
         public expbarClass expBar;
 
         public GameObject levelText;
 
-        //minimap
-        public GameObject minimap;
-        public GameObject minimapComponent;
-        public GameObject minimapSlider;
-        public KeyCode minimapKey = KeyCode.M;
+    //Minimap||
 
-        private Vector2 defaultMinimapPosition;
-        private Vector2 defaultMinimapScale;
-        private bool minimapOpened = false;
-        private bool alreadyChangeMinimap = true;
+            [System.Serializable]
+            public class miniMapClass
+            {
+                public GameObject window;
+                public GameObject minimapComponent;
+                public GameObject minimapSlider;
+                public KeyCode minimapKey = KeyCode.M;
+            }
 
-    //options window
-        [System.Serializable]
-        public class OptionsClass
-        {
-            public GameObject optionsWindow;
-            public GameObject dataText;
-            public GameObject musicSlider;
-            public GameObject sfxSlider;
-            public GameObject dropdownWindow;
-        }
+            public miniMapClass minimap = new miniMapClass();
 
-        public OptionsClass options = new OptionsClass();
+            private Vector2 defaultMinimapPosition;
+            private Vector2 defaultMinimapScale;
+            private bool minimapOpened = false;
+            private bool alreadyChangeMinimap = true;
+        //_______||
 
-        public GameObject talentTreeWindow;
+        //Options||
 
-        public GameObject playerProfile;
-        
+            [System.Serializable]
+            public class OptionsClass
+            {
+                public GameObject optionsWindow;
+                public GameObject dataText;
+                public GameObject musicSlider;
+                public GameObject sfxSlider;
+                public GameObject dropdownWindow;
+            }
+
+            public OptionsClass options = new OptionsClass();
+        //_______||
+
+
+        //Talent tree||
+
+            [System.Serializable]
+            public class talentTreeClass
+            {
+                public GameObject talentTreeWindow;
+                [System.Serializable]
+                public class nodesStruct
+                {
+                    public GameObject node0;
+                    public GameObject node1;
+                    public GameObject node2;
+                    public GameObject node3;
+                    public GameObject node4;
+                    public GameObject node5;
+                    public GameObject node6;
+                    public GameObject node7;
+                    public GameObject node8;
+                    public GameObject node9;
+                    public GameObject node10;
+                }
+
+                [System.Serializable]
+                public class displayWindowClass
+                {
+                    public GameObject nodeImage;
+                    public GameObject nodeTittle;
+                    public GameObject nodeDesc;
+                    public GameObject nodeButton;
+                }
+
+                public nodesStruct nodes = new nodesStruct();
+                public displayWindowClass displayWindow = new displayWindowClass();
+            }
+
+            public talentTreeClass talentTreeData = new talentTreeClass();
+            private string currentNode = "";
+        //___________||
+
+        //Loading a network instance window
         public GameObject loadingNetworkPrefab;
 
 
@@ -97,6 +144,18 @@ public class UIevents : MonoBehaviour
 
     private void Start()
     {
+        //Add the listeners for the talent tree
+        talentTreeData.nodes.node0.GetComponent<Button>().onClick.AddListener(delegate{ selectNode(0, talentTreeData.nodes.node0);});
+        talentTreeData.nodes.node1.GetComponent<Button>().onClick.AddListener(delegate { selectNode(1, talentTreeData.nodes.node1); });
+        talentTreeData.nodes.node2.GetComponent<Button>().onClick.AddListener(delegate { selectNode(2, talentTreeData.nodes.node2); });
+        talentTreeData.nodes.node3.GetComponent<Button>().onClick.AddListener(delegate { selectNode(3, talentTreeData.nodes.node3); });
+        talentTreeData.nodes.node4.GetComponent<Button>().onClick.AddListener(delegate { selectNode(4, talentTreeData.nodes.node4); });
+        talentTreeData.nodes.node5.GetComponent<Button>().onClick.AddListener(delegate { selectNode(5, talentTreeData.nodes.node5); });
+        talentTreeData.nodes.node6.GetComponent<Button>().onClick.AddListener(delegate { selectNode(6, talentTreeData.nodes.node6); });
+        talentTreeData.nodes.node7.GetComponent<Button>().onClick.AddListener(delegate { selectNode(7, talentTreeData.nodes.node7); });
+        talentTreeData.nodes.node8.GetComponent<Button>().onClick.AddListener(delegate { selectNode(8, talentTreeData.nodes.node8); });
+        talentTreeData.nodes.node9.GetComponent<Button>().onClick.AddListener(delegate { selectNode(9, talentTreeData.nodes.node9); });
+        talentTreeData.nodes.node10.GetComponent<Button>().onClick.AddListener(delegate { selectNode(10, talentTreeData.nodes.node10); });
 
         //Adapt to the correct map zoom
 
@@ -111,8 +170,8 @@ public class UIevents : MonoBehaviour
         if (minimap != null)
         {
             //Get the default position
-            defaultMinimapPosition = minimap.GetComponent<RectTransform>().localPosition;
-            defaultMinimapScale = minimap.GetComponent<RectTransform>().localScale;
+            defaultMinimapPosition = minimap.window.GetComponent<RectTransform>().localPosition;
+            defaultMinimapScale = minimap.window.GetComponent<RectTransform>().localScale;
         }
 
         //Change your name
@@ -130,8 +189,8 @@ public class UIevents : MonoBehaviour
         //Listen to the keyboard keys||
             
             //minimap
-            if (Input.GetKeyDown(minimapKey)){ if (!minimapOpened) { alreadyChangeMinimap = false; } minimapOpened = true; }
-            if (Input.GetKeyUp(minimapKey)) minimapOpened = alreadyChangeMinimap = false;
+            if (Input.GetKeyDown(minimap.minimapKey)){ if (!minimapOpened) { alreadyChangeMinimap = false; } minimapOpened = true; }
+            if (Input.GetKeyUp(minimap.minimapKey)) minimapOpened = alreadyChangeMinimap = false;
             
             //main menu
             if (Input.GetKeyDown(mainMenuKey)) { if (!escapeKeyDebounce) { escapeKeyDebounce = true; if (!mainMenu.mainWindow.activeSelf) { Time.timeScale = 0; } else { Time.timeScale = 1; options.optionsWindow.SetActive(false); } mainMenu.mainWindow.SetActive(!mainMenu.mainWindow.activeSelf); } }
@@ -146,15 +205,15 @@ public class UIevents : MonoBehaviour
                     //It was closed
                     minimapOpened = false;
                     //Reverse the variables
-                    minimap.GetComponent<RectTransform>().localScale = defaultMinimapScale;
-                    minimap.GetComponent<RectTransform>().localPosition = defaultMinimapPosition;
+                    minimap.window.GetComponent<RectTransform>().localScale = defaultMinimapScale;
+                    minimap.window.GetComponent<RectTransform>().localPosition = defaultMinimapPosition;
                 }
                 else
                 {
                     //It was opened
                     minimapOpened = true;
-                    minimap.GetComponent<RectTransform>().localScale = new Vector2(2.5f, 1.8f);
-                    minimap.GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
+                    minimap.window.GetComponent<RectTransform>().localScale = new Vector2(2.5f, 1.8f);
+                    minimap.window.GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
                 }
                 alreadyChangeMinimap = true;
             }
@@ -275,10 +334,10 @@ public class UIevents : MonoBehaviour
     public void changeMinimapZoon()
     {
         //Get the slider value
-        float value = minimapSlider.GetComponent<Slider>().value;
+        float value = minimap.minimapSlider.GetComponent<Slider>().value;
 
         //Resize the minimap
-        minimapComponent.GetComponent<RectTransform>().localScale = new Vector2(value, value);
+        minimap.minimapComponent.GetComponent<RectTransform>().localScale = new Vector2(value, value);
 
         //Get the room size
         int roomSize = (int)roomPrefab.GetComponent<RectTransform>().sizeDelta.x;
@@ -286,9 +345,9 @@ public class UIevents : MonoBehaviour
         currentRoom = GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().currentRoom;
 
         //Change to the correct position
-        minimapComponent.transform.localPosition =
-        new Vector2(-currentRoom.x * (roomSize * minimapComponent.transform.localScale.x),
-        -currentRoom.y * (roomSize * minimapComponent.transform.localScale.y));
+        minimap.minimapComponent.transform.localPosition =
+        new Vector2(-currentRoom.x * (roomSize * minimap.minimapComponent.transform.localScale.x),
+        -currentRoom.y * (roomSize * minimap.minimapComponent.transform.localScale.y));
 
     }
 
@@ -395,14 +454,36 @@ public class UIevents : MonoBehaviour
 
     }
 
-    public void openTalentTree()
-    {
-        talentTreeWindow.SetActive(!talentTreeWindow.activeSelf);
-    }
+    //Talent tree related methods||
 
-    public void openProfile()
-    {
-        playerProfile.SetActive(!playerProfile.activeSelf);
-    }
+        public void openTalentTree()
+        {
+            talentTreeData.talentTreeWindow.SetActive(!talentTreeData.talentTreeWindow.activeSelf);
+        }
+
+        //talentTreeData.
+
+        void selectNode(int nodeNum, GameObject nodeElement)
+        {
+
+            //Get the current slot image
+            Sprite nodeImageElement = nodeElement.transform.Find("Container").Find("Icon").GetComponent<Image>().sprite;
+
+            //Set the image
+            talentTreeData.displayWindow.nodeImage.GetComponent<Image>().sprite = nodeImageElement;
+
+            //Get the corresponding node data  
+            TalentTree.treeNode selectedNode = new TalentTree.treeNode("", "", "");
+            selectedNode = TalentTree.nodes["node" + nodeNum.ToString()];
+
+            //Store the ID for future proccessing
+            currentNode = selectedNode.id;
+
+            //Update the UI data
+            talentTreeData.displayWindow.nodeTittle.GetComponent<Text>().text = selectedNode.name;
+            talentTreeData.displayWindow.nodeDesc.GetComponent<Text>().text = selectedNode.description;
+        }
+    //___________________________||
+
 
 }
