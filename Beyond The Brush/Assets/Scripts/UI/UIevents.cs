@@ -131,10 +131,12 @@ public class UIevents : MonoBehaviour
 
                 public nodesStruct nodes = new nodesStruct();
                 public displayWindowClass displayWindow = new displayWindowClass();
+                public GameObject confirmationWindow;
             }
 
             public talentTreeClass talentTreeData = new talentTreeClass();
             private string currentNode = "";
+            private GameObject currentNodeObject;
         //___________||
 
         //Loading a network instance window
@@ -479,7 +481,7 @@ public class UIevents : MonoBehaviour
                 Color imageColor = new Color(1, 1, 1, 0);
                 if (nodeInfo.Item1)
                 {
-                    imageColor = new Color(54f/255f, 243/255f, 0/255f, 81f/255f);
+                    imageColor = new Color(1, 1, 1, 0);
                 }else if (nodeInfo.Item2)
                 {
                     imageColor = new Color(54f / 255f, 243 / 255f, 0 / 255f, 40f / 255f);
@@ -536,6 +538,9 @@ public class UIevents : MonoBehaviour
 
         void selectNode(int nodeNum, GameObject nodeElement)
         {
+
+            //Store the current object for later manipulation
+            currentNodeObject = nodeElement;
 
             //Get the current slot image
             Sprite nodeImageElement = nodeElement.transform.Find("Container").Find("Icon").GetComponent<Image>().sprite;
@@ -737,8 +742,120 @@ public class UIevents : MonoBehaviour
         {
             if (currentNode != "")
             {
-                int currentNodeNum = int.Parse(currentNode.Replace("node", ""));
-                Debug.Log(currentNodeNum);
+                //Current node object
+                TalentTree.treeNode nodeObject = TalentTree.nodes[currentNode];
+
+                //Update the text and click listeners              
+                if (!talentTreeData.confirmationWindow.activeSelf)
+                {
+                    if (PlayerData.resources >= nodeObject.price)
+                    {
+                        //Set the buttons and the main text
+                        talentTreeData.confirmationWindow.transform.Find("Button Group").Find("Accept").GetComponent<Button>().interactable = true;
+                        talentTreeData.confirmationWindow.transform.Find("Content Group").Find("Text").GetComponent<Text>().text =
+                        "Do you wish to unlock <b><color=#f5e000>" + nodeObject.name.ToUpper() + "</color></b> for <b><color=#f52500>" + NumAbv.prettyValues(nodeObject.price) + "</color></b> resource points?";
+
+
+                        //Set the listener for the purchase service
+                        talentTreeData.confirmationWindow.transform.Find("Button Group").Find("Accept").GetComponent<Button>().onClick.AddListener(() => {
+
+                            //Stop future listeners
+                            talentTreeData.confirmationWindow.transform.Find("Button Group").Find("Accept").GetComponent<Button>().onClick.RemoveAllListeners();
+
+                            //Hide the window
+                            talentTreeData.confirmationWindow.SetActive(false);
+
+                            //Get the node num in int
+                            int currentNodeNum = int.Parse(currentNode.Replace("node", ""));
+
+                            //Make the purchase
+                            PlayerData.resources -= nodeObject.price;
+
+                            switch (currentNodeNum)
+                            {
+                                case 0:
+                                    PlayerData.talentTreeData.node0 = true;
+                                    break;
+                                case 1:
+                                    PlayerData.talentTreeData.node1 = true;
+                                    break;
+                                case 2:
+                                    PlayerData.talentTreeData.node2 = true;
+                                    break;
+                                case 3:
+                                    PlayerData.talentTreeData.node3 = true;
+                                    break;
+                                case 4:
+                                    PlayerData.talentTreeData.node4 = true;
+                                    break;
+                                case 5:
+                                    PlayerData.talentTreeData.node5 = true;
+                                    break;
+                                case 6:
+                                    PlayerData.talentTreeData.node6 = true;
+                                    break;
+                                case 7:
+                                    PlayerData.talentTreeData.node7 = true;
+                                    break;
+                                case 8:
+                                    PlayerData.talentTreeData.node8 = true;
+                                    break;
+                                case 9:
+                                    PlayerData.talentTreeData.node9 = true;
+                                    break;
+                                case 10:
+                                    PlayerData.talentTreeData.node10 = true;
+                                    break;
+                            }
+
+                            //Update the layout of the tree
+                            updateTalentTree();
+
+                            //Current selected element updated
+                            selectNode(currentNodeNum, currentNodeObject);
+
+                            if (PlayerData.id != null)
+                            {
+                                //Spawn the network loading screen
+                                GameObject loadingScreen = Instantiate(loadingNetworkPrefab);
+                                loadingScreen.transform.SetParent(gameObject.transform);
+                                loadingScreen.transform.localPosition = loadingNetworkPrefab.transform.localPosition;
+                                loadingScreen.transform.localScale = new Vector3(1, 1, 1);
+                                loadingScreen.name = loadingNetworkPrefab.name;
+
+                                //Player is logged in
+                                //request for a save
+                                accountInfoResponse.nestedData playerInfo = PlayerData.savePlayerData();
+                                PlayerData.savePlayerDataRequest(playerInfo, () =>
+                                {
+                                    Destroy(loadingScreen);
+                                });
+                            }
+
+                        });
+                    }
+                    else
+                    {
+                        //Set the buttons and the main text
+                        talentTreeData.confirmationWindow.transform.Find("Button Group").Find("Accept").GetComponent<Button>().interactable = false;
+                        talentTreeData.confirmationWindow.transform.Find("Content Group").Find("Text").GetComponent<Text>().text =
+                        "You do not have enough resource points. You're short by <b><color=#f52500>" + (nodeObject.price - PlayerData.resources).ToString() + "</color></b> resource points.";
+                    }
+
+                    //Set the listener for the closing button of the window
+                    talentTreeData.confirmationWindow.transform.Find("Button Group").Find("Cancel").GetComponent<Button>().onClick.AddListener(() => {
+                        //Reset the listener to avoid overload
+                        talentTreeData.confirmationWindow.transform.Find("Button Group").Find("Cancel").GetComponent<Button>().onClick.RemoveAllListeners();
+                        talentTreeData.confirmationWindow.SetActive(false);
+                    });
+
+            }    
+
+                //Display the window
+                talentTreeData.confirmationWindow.SetActive(!talentTreeData.confirmationWindow.activeSelf);
+
+                //int currentNodeNum = int.Parse(currentNode.Replace("node", ""));
+                //Debug.Log(currentNodeNum);
             }
 
         }

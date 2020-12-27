@@ -14192,6 +14192,7 @@ MonoBehaviour:
       nodeDesc: {fileID: 1966140440654230506}
       nodeButton: {fileID: 6092824664002828641}
       resourcesHolder: {fileID: 496458885}
+    confirmationWindow: {fileID: 0}
   loadingNetworkPrefab: {fileID: 8106798866056110242, guid: e13012d4892d3f344a34c19416a908e2, type: 3}
 --- !u!114 &1531342935
 MonoBehaviour:
