@@ -126,6 +126,7 @@ public class UIevents : MonoBehaviour
                     public GameObject nodeTittle;
                     public GameObject nodeDesc;
                     public GameObject nodeButton;
+                    public GameObject resourcesHolder;
                 }
 
                 public nodesStruct nodes = new nodesStruct();
@@ -158,6 +159,7 @@ public class UIevents : MonoBehaviour
         talentTreeData.nodes.node10.GetComponent<Button>().onClick.AddListener(delegate { selectNode(10, talentTreeData.nodes.node10); });
 
         //Choose the colors for the talent tree nodes
+        updateTalentTree();
 
         //Adapt to the correct map zoom
 
@@ -465,7 +467,69 @@ public class UIevents : MonoBehaviour
 
         private void updateTalentTree()
         {
+            //Update the resources text
+            talentTreeData.displayWindow.resourcesHolder.transform.Find("Label").GetComponent<Text>().text = NumAbv.prettyValues(PlayerData.resources);
 
+            for(int i = 0; i < 11; i++)
+            {
+                //Get the info about this particular node
+                (bool, bool) nodeInfo = getNodeInfo(i);
+
+                //Get the correct color
+                Color imageColor = new Color(1, 1, 1, 0);
+                if (nodeInfo.Item1)
+                {
+                    imageColor = new Color(54f/255f, 243/255f, 0/255f, 81f/255f);
+                }else if (nodeInfo.Item2)
+                {
+                    imageColor = new Color(54f / 255f, 243 / 255f, 0 / 255f, 40f / 255f);
+                }
+                else
+                {
+                    imageColor = new Color(0, 0, 0,  81f / 125f);
+                }
+
+                switch (i)
+                {
+                    case 0:
+                    talentTreeData.nodes.node0.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                        break;
+                    case 1:
+                        talentTreeData.nodes.node1.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                        break;
+
+                    case 2:
+                        talentTreeData.nodes.node2.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                        break;
+                    case 3:
+                        talentTreeData.nodes.node3.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                        break;
+                    case 4:
+                        talentTreeData.nodes.node4.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                        break;
+                    case 5:
+                        talentTreeData.nodes.node5.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                        break;
+                    case 6:
+                        talentTreeData.nodes.node6.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                        break;
+                    case 7:
+                        talentTreeData.nodes.node7.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                        break;
+                    case 8:
+                        talentTreeData.nodes.node8.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                        break;
+                    case 9:
+                        talentTreeData.nodes.node9.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                        break;
+                    case 10:
+                        talentTreeData.nodes.node10.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                        break;
+
+                }
+
+
+            }
         }
 
         //talentTreeData.
@@ -480,7 +544,7 @@ public class UIevents : MonoBehaviour
             talentTreeData.displayWindow.nodeImage.GetComponent<Image>().sprite = nodeImageElement;
 
             //Get the corresponding node data  
-            TalentTree.treeNode selectedNode = new TalentTree.treeNode("", "", "");
+            TalentTree.treeNode selectedNode = new TalentTree.treeNode("", "", "", 0);
             selectedNode = TalentTree.nodes["node" + nodeNum.ToString()];
 
             //Store the ID for future proccessing
@@ -671,7 +735,12 @@ public class UIevents : MonoBehaviour
 
         public void unlockNode()
         {
-            
+            if (currentNode != "")
+            {
+                int currentNodeNum = int.Parse(currentNode.Replace("node", ""));
+                Debug.Log(currentNodeNum);
+            }
+
         }
     //___________________________||
 
