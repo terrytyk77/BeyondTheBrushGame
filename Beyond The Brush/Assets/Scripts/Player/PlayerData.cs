@@ -122,6 +122,21 @@ public class PlayerData : MonoBehaviour
             cooldowns._shieldCooldown = 0;
     }
 
+    public static void addPlayerExp(int enemyExp)
+    {
+        int missingExp = getNeededExp() - PlayerData.exp;
+        if (enemyExp >= missingExp)
+        {
+            int restExpToAddNextLevel = enemyExp  - missingExp;
+            PlayerData.level++;
+            PlayerData.exp = restExpToAddNextLevel;
+        }
+        else
+        {
+            PlayerData.exp = PlayerData.exp + enemyExp;
+        }
+    }
+
     static public accountInfoResponse.nestedData savePlayerData()
     {
         accountInfoResponse.nestedData data = new accountInfoResponse.nestedData();
@@ -143,35 +158,35 @@ public class PlayerData : MonoBehaviour
         return data;
     }
 
-        public static IEnumerator savePlayerDataRequest(accountInfoResponse.nestedData data, Action doLast)
+    public static IEnumerator savePlayerDataRequest(accountInfoResponse.nestedData data, Action doLast)
+    {
+        Debug.Log("Trying to save player data");
+
+        //Set the cookie
+        WebServices.CookieString = null;
+
+        var request = WebServices.Post("save/fullSave", JsonUtility.ToJson(data));
+
+        //Make the code wait until the server responds
+        yield return request.SendWebRequest();
+
+        if (request.isNetworkError)
         {
-            Debug.Log("Trying to save player data");
-
-            //Set the cookie
-            WebServices.CookieString = null;
-
-            var request = WebServices.Post("save/fullSave", JsonUtility.ToJson(data));
-
-            //Make the code wait until the server responds
-            yield return request.SendWebRequest();
-
-            if (request.isNetworkError)
-            {
-                Debug.Log("Network Error");
-            }
-            else
-            {
-                //Get the header for proccessing
-                WebServices.CookieString = request.GetResponseHeader("set-cookie");
-
-                //The server response
-                string result = request.downloadHandler.text;
-
-                doLast();
-
-                Debug.Log("Completed");
+            Debug.Log("Network Error");
         }
+        else
+        {
+            //Get the header for proccessing
+            WebServices.CookieString = request.GetResponseHeader("set-cookie");
+
+            //The server response
+            string result = request.downloadHandler.text;
+
+            doLast();
+
+            Debug.Log("Completed");
         }
+    }
 
 
 
