@@ -116,6 +116,8 @@ public class EnemyAI : MonoBehaviour
                 }
             case State.Chassing:
                 {
+                    TargetDead();
+
                     if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
                     {
                         currentPath = null;
@@ -150,6 +152,8 @@ public class EnemyAI : MonoBehaviour
                 }
             case State.Castting:
                 {
+                    TargetDead();
+
                     Animator.SetBool("Walking", false);
                     Animator.SetTrigger("Castting");
                     currentState = State.Attacking;
@@ -157,6 +161,8 @@ public class EnemyAI : MonoBehaviour
                 }
             case State.Attacking:
                 {
+                    TargetDead(); 
+
                     Animator.SetBool("Walking", false);
                     if (enemyType == "Ranged")
                     {
@@ -262,10 +268,19 @@ public class EnemyAI : MonoBehaviour
 
     private void FindTarget()
     {
-        if ((Vector3.Distance(transform.position, player.transform.position) < aggroRange) && (Vector3.Distance(transform.position, player.transform.position) > attackRange))
+        if ((Vector3.Distance(transform.position, player.transform.position) < aggroRange) && (Vector3.Distance(transform.position, player.transform.position) > attackRange) && PlayerData.healthPoints > 0)
         {
             //Player within target Range!
             currentState = State.Chassing;
+        }
+    }
+    
+    private void TargetDead()
+    {
+        if (PlayerData.healthPoints <= 0)
+        {
+            currentPath = null;
+            currentState = State.Patrolling;
         }
     }
 
