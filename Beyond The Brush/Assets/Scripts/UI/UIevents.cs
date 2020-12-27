@@ -157,6 +157,8 @@ public class UIevents : MonoBehaviour
         talentTreeData.nodes.node9.GetComponent<Button>().onClick.AddListener(delegate { selectNode(9, talentTreeData.nodes.node9); });
         talentTreeData.nodes.node10.GetComponent<Button>().onClick.AddListener(delegate { selectNode(10, talentTreeData.nodes.node10); });
 
+        //Choose the colors for the talent tree nodes
+
         //Adapt to the correct map zoom
 
         if (SceneManager.GetActiveScene().buildIndex == 2)
@@ -461,6 +463,11 @@ public class UIevents : MonoBehaviour
             talentTreeData.talentTreeWindow.SetActive(!talentTreeData.talentTreeWindow.activeSelf);
         }
 
+        private void updateTalentTree()
+        {
+
+        }
+
         //talentTreeData.
 
         void selectNode(int nodeNum, GameObject nodeElement)
@@ -482,6 +489,184 @@ public class UIevents : MonoBehaviour
             //Update the UI data
             talentTreeData.displayWindow.nodeTittle.GetComponent<Text>().text = selectedNode.name;
             talentTreeData.displayWindow.nodeDesc.GetComponent<Text>().text = selectedNode.description;
+
+
+            string newButtonText = "";
+            (bool, bool) nodeStatus = getNodeInfo(nodeNum);
+            //Check what should be displayed by the button
+            if (nodeStatus.Item1)
+            {
+                //Already owns this node
+                newButtonText = "Owned";
+                talentTreeData.displayWindow.nodeButton.GetComponent<Button>().interactable = false;
+            }
+            else if (nodeStatus.Item2)
+            {
+                //Can unlock this
+                newButtonText = "Unlock";
+                talentTreeData.displayWindow.nodeButton.GetComponent<Button>().interactable = true;
+            }
+            else
+            {
+                //Can't unlock because of the tree order
+                newButtonText = "Unavalible";
+                talentTreeData.displayWindow.nodeButton.GetComponent<Button>().interactable = false;
+            }
+
+            //Setup the button text
+            talentTreeData.displayWindow.nodeButton.transform.Find("Text").GetComponent<Text>().text = newButtonText;
+        }
+
+        private (bool, bool) getNodeInfo(int nodeNum)
+        {
+        bool hasNode = false;
+        bool canUnlock = false;
+        //See if the player can unlock this node or not
+        switch (nodeNum)
+        {
+            //Handle the node 0
+            case 0:
+                if (PlayerData.talentTreeData.node0)
+                {
+                    hasNode = true;
+                }
+                {
+                    canUnlock = true;
+                }
+
+                break;
+
+            //Handle the node 1
+            case 1:
+                if (PlayerData.talentTreeData.node1)
+                {
+                    hasNode = true;
+                }
+                else if (PlayerData.talentTreeData.node0)
+                {
+                    canUnlock = true;
+                }
+                break;
+
+            //Handle the node 2
+            case 2:
+                if (PlayerData.talentTreeData.node2)
+                {
+                    hasNode = true;
+                }
+                else if (PlayerData.talentTreeData.node0)
+                {
+                    canUnlock = true;
+                }
+
+                break;
+
+            //Handle the node 3
+            case 3:
+                if (PlayerData.talentTreeData.node3)
+                {
+                    hasNode = true;
+                }
+                else if (PlayerData.talentTreeData.node0)
+                {
+                    canUnlock = true;
+                }
+
+                break;
+
+            //Handle the node 4
+            case 4:
+                if (PlayerData.talentTreeData.node4)
+                {
+                    hasNode = true;
+                }
+                else if (PlayerData.talentTreeData.node1)
+                {
+                    canUnlock = true;
+                }
+
+                break;
+
+            //Handle the node 5
+            case 5:
+                if (PlayerData.talentTreeData.node5)
+                {
+                    hasNode = true;
+                }
+                else if (PlayerData.talentTreeData.node2)
+                {
+                    canUnlock = true;
+                }
+
+                break;
+
+            //Handle the node 6
+            case 6:
+                if (PlayerData.talentTreeData.node6)
+                {
+                    hasNode = true;
+                }
+                else if (PlayerData.talentTreeData.node2)
+                {
+                    canUnlock = true;
+                }
+
+                break;
+
+            //Handle the node 7
+            case 7:
+                if (PlayerData.talentTreeData.node7)
+                {
+                    hasNode = true;
+                }
+                else if (PlayerData.talentTreeData.node3)
+                {
+                    canUnlock = true;
+                }
+
+                break;
+
+            //Handle the node 8
+            case 8:
+                if (PlayerData.talentTreeData.node8)
+                {
+                    hasNode = true;
+                }
+                else if (PlayerData.talentTreeData.node4)
+                {
+                    canUnlock = true;
+                }
+
+                break;
+
+            //Handle the node 9
+            case 9:
+                if (PlayerData.talentTreeData.node9)
+                {
+                    hasNode = true;
+                }
+                else if (PlayerData.talentTreeData.node7)
+                {
+                    canUnlock = true;
+                }
+
+                break;
+
+            //Handle the node 10
+            case 10:
+                if (PlayerData.talentTreeData.node10)
+                {
+                    hasNode = true;
+                }
+                else if (PlayerData.talentTreeData.node9 || PlayerData.talentTreeData.node6 || PlayerData.talentTreeData.node5 || PlayerData.talentTreeData.node8)
+                {
+                    canUnlock = true;
+                }
+
+                break;
+        }
+
+            return (hasNode, canUnlock);
         }
 
         public void unlockNode()
