@@ -372,7 +372,7 @@ public class EnemyAI : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.green;
 
         if (currentPath != null)
         {
@@ -383,5 +383,8 @@ public class EnemyAI : MonoBehaviour
                         Gizmos.DrawLine(currentPath[i] + HalfTile, currentPath[i + 1] + HalfTile);
             }
         }
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, aggroRange);
     }
 }
