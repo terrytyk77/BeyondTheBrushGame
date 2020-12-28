@@ -154,7 +154,6 @@ public class PlayerData : MonoBehaviour
         data.stats.ressources = _resources;
         data.talentTree = _talentTreeData;
 
-
         return data;
     }
 
