@@ -32,8 +32,8 @@ public class PlayerData : MonoBehaviour
         static private float _sfxVolume = 0.3f;
 
         //local data
-        static private int _healthPoints = 100;
-        static private int _maxHealthPoints = 100;
+        static private int _healthPoints = 1000;
+        static private int _maxHealthPoints = 1000;
 
         //Cooldowns
         static public float slashCooldownDefault = 0.5f;

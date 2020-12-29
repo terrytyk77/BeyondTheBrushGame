@@ -163,7 +163,7 @@ public class EnemyAI : MonoBehaviour
                 }
             case State.Attacking:
                 {
-                    TargetDead(); 
+                    TargetDead();
 
                     Animator.SetBool("Walking", false);
                     if (enemyType == "Ranged")
@@ -283,8 +283,9 @@ public class EnemyAI : MonoBehaviour
     
     private void TargetDead()
     {
-        if (PlayerData.healthPoints <= 0)
+        if (PlayerData.healthPoints <= 0 ||  player == null)
         {
+            Debug.Log(player);
             currentPath = null;
             currentState = State.Patrolling;
         }
@@ -342,7 +343,6 @@ public class EnemyAI : MonoBehaviour
         {
             PlayerData.healthPoints = 0;
         }
-
     }
 
     private void ResetHP()
@@ -378,18 +378,21 @@ public class EnemyAI : MonoBehaviour
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
 
         //Adjusting Sorting Layer
-        gameObject.GetComponent<SortingGroup>().sortingLayerName = "ObjectsUnderPlayer";
+        gameObject.GetComponent<SortingGroup>().sortingOrder = -10;
         
         //Grant Exp to the Player
         PlayerData.addPlayerExp(experience);
 
-        //Dispawn AI after 10s
-        Invoke("RemoveAI", 10f);
+        //Dispawn AI after 5s to 10s
+        Invoke("RemoveAI", UnityEngine.Random.Range(5f, 10f));
     }
 
     private void RemoveAI()
     {
-        Destroy(gameObject);
+        if (gameObject != null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void createProjectile(Vector3 spawnPosition)
@@ -411,6 +414,15 @@ public class EnemyAI : MonoBehaviour
     private void CastEnded()
     {
         castEnded = true;
+    }
+
+    public void ResetAI()
+    {
+        currentHealth = maxHealth;
+        healthBar.GetComponent<Image>().fillAmount = 1;
+        transform.position = startingPosition;
+        currentPath = null;
+        currentState = State.Patrolling;
     }
 
     private void OnDrawGizmos()
