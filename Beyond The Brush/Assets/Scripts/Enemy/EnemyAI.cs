@@ -319,14 +319,16 @@ public class EnemyAI : MonoBehaviour
 
     public void getDamaged(float damage)
     {
+        currentHealth -= damage;
+        if(healthBar != null)
+        {
+            healthBar.GetComponent<Image>().fillAmount -= damage / maxHealth;
+        }
+
+
         if (currentHealth <= 0)
         {
             Death();
-        }
-        else
-        {
-            currentHealth -= damage;
-            healthBar.GetComponent<Image>().fillAmount -= damage / maxHealth;
         }
     }
 
@@ -360,15 +362,16 @@ public class EnemyAI : MonoBehaviour
 
     private void Death()
     {
-        //Change The Tag So Drawing Isn't Detected!
-        transform.gameObject.tag = "DeadEnemy";
-
         currentState = State.Diying;
         //Runing Death Animation
         Animator.SetTrigger("Diying");
 
         //Removing HP Bar
-        Destroy(gameObject.transform.Find("Canvas").gameObject);
+        if(gameObject.transform.Find("Canvas").gameObject != null)
+        {
+            gameObject.transform.Find("Canvas").gameObject.SetActive(false);
+        }
+
 
         //Remove Box Collider
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
