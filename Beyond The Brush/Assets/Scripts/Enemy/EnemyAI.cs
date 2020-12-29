@@ -320,7 +320,11 @@ public class EnemyAI : MonoBehaviour
     public void getDamaged(float damage)
     {
         currentHealth -= damage;
-        healthBar.GetComponent<Image>().fillAmount -= damage / maxHealth;
+        if(healthBar != null)
+        {
+            healthBar.GetComponent<Image>().fillAmount -= damage / maxHealth;
+        }
+
 
         if (currentHealth <= 0)
         {
@@ -355,7 +359,11 @@ public class EnemyAI : MonoBehaviour
         Animator.SetTrigger("Diying");
 
         //Removing HP Bar
-        Destroy(gameObject.transform.Find("Canvas").gameObject);
+        if(gameObject.transform.Find("Canvas").gameObject != null)
+        {
+            gameObject.transform.Find("Canvas").gameObject.SetActive(false);
+        }
+
 
         //Remove Box Collider
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
