@@ -334,7 +334,15 @@ public class EnemyAI : MonoBehaviour
 
     public void dealDamage()
     {
-        PlayerData.healthPoints -= damage;
+        if(PlayerData.healthPoints >= damage)
+        {
+            PlayerData.healthPoints -= damage;
+        }
+        else
+        {
+            PlayerData.healthPoints = 0;
+        }
+
     }
 
     private void ResetHP()
