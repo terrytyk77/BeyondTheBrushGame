@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -37,7 +38,8 @@ public class EnemyAI : MonoBehaviour
         Chassing,
         Attacking,
         Castting,
-        Resetting
+        Resetting,
+        Diying
     }
     private State currentState;
     //--------------||
@@ -208,6 +210,10 @@ public class EnemyAI : MonoBehaviour
                     }
                     break;
                 }
+            case State.Diying:
+                {
+                    break;
+                }
         }
     }
 
@@ -318,8 +324,7 @@ public class EnemyAI : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            // Delay Death For Animation
-            Invoke("Death", 0.2f);
+            Death();
         }
     }
 
@@ -345,7 +350,28 @@ public class EnemyAI : MonoBehaviour
 
     private void Death()
     {
+        currentState = State.Diying;
+        //Runing Death Animation
+        Animator.SetTrigger("Diying");
+
+        //Removing HP Bar
+        Destroy(gameObject.transform.Find("Canvas").gameObject);
+
+        //Remove Box Collider
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
+        //Adjusting Sorting Layer
+        gameObject.GetComponent<SortingGroup>().sortingLayerName = "ObjectsUnderPlayer";
+        
+        //Grant Exp to the Player
         PlayerData.addPlayerExp(experience);
+
+        //Dispawn AI after 10s
+        Invoke("RemoveAI", 10f);
+    }
+
+    private void RemoveAI()
+    {
         Destroy(gameObject);
     }
 
