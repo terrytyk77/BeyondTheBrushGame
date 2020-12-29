@@ -319,12 +319,14 @@ public class EnemyAI : MonoBehaviour
 
     public void getDamaged(float damage)
     {
-        currentHealth -= damage;
-        healthBar.GetComponent<Image>().fillAmount -= damage / maxHealth;
-
         if (currentHealth <= 0)
         {
             Death();
+        }
+        else
+        {
+            currentHealth -= damage;
+            healthBar.GetComponent<Image>().fillAmount -= damage / maxHealth;
         }
     }
 
@@ -358,6 +360,9 @@ public class EnemyAI : MonoBehaviour
 
     private void Death()
     {
+        //Change The Tag So Drawing Isn't Detected!
+        transform.gameObject.tag = "DeadEnemy";
+
         currentState = State.Diying;
         //Runing Death Animation
         Animator.SetTrigger("Diying");

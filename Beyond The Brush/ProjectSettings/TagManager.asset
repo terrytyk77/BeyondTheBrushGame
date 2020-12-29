@@ -17,6 +17,7 @@ TagManager:
   - mainUI
   - DrawingCollider
   - CollisionLayer
+  - DeadEnemy
   layers:
   - Default
   - TransparentFX
