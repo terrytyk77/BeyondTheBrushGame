@@ -865,7 +865,7 @@ MonoBehaviour:
   enemyType: Melee
   damage: 5
   maxHealth: 200
-  experience: 20
+  experience: 15
   walkingMovementSpeed: 3
   fleeingMovementSpeed: 6
   aggroRange: 5
