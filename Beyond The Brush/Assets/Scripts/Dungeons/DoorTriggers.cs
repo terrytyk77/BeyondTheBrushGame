@@ -30,7 +30,38 @@ public class DoorTriggers : MonoBehaviour
 
                 void MakeTheRoomTeleport()
                 {
-                    
+                    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                    GameObject[] deadEnemies = GameObject.FindGameObjectsWithTag("DeadEnemy");
+                    GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Projectile");
+
+                    //Reset Alive Enemies
+                    if (enemies != null)
+                    {
+                        foreach (GameObject enemy in enemies)
+                        {
+                            enemy.GetComponent<EnemyAI>().ResetAI();
+                        }
+                    }
+
+                    //Remove Flying Projectile
+                    if (projectiles != null)
+                    {
+                        foreach (GameObject projectile in projectiles)
+                        {
+                            Destroy(projectile);
+                        }
+                    }
+
+                    //Remove Corpes
+                    if (deadEnemies != null)
+                    {
+                        foreach (GameObject deadEnemy in deadEnemies)
+                        {
+                            Destroy(deadEnemy);
+                        }
+                    }
+
+
                     playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
 
                     if (gameObject.name == "exit")
