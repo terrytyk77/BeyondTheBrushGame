@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 612553772384894504}
   m_Layer: 0
   m_Name: Crate
-  m_TagString: Untagged
+  m_TagString: Drawable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,7 +55,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 6498690047904201395}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: d3aa6bb51b884744d9f2aa7f4f7e1fe5, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

@@ -19,6 +19,7 @@ TagManager:
   - CollisionLayer
   - DeadEnemy
   - Projectile
+  - Drawable
   layers:
   - Default
   - TransparentFX
