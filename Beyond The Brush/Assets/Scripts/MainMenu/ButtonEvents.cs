@@ -82,10 +82,8 @@ public void OpenNotification()
 
     //Navigation variables||
 
-        GameObject lastSelectedObject = null;
+        private GameObject lastSelectedObject = null;
     //____________________||
-
-
 
     private void Update()
     {
@@ -94,27 +92,15 @@ public void OpenNotification()
         bool elementExists = (EventSystem.current.currentSelectedGameObject != null);
 
         //Choose the direction for the action
-        if (((Input.GetKeyDown(KeyCode.Tab) && elementExists) || (Input.GetKeyDown(KeyCode.DownArrow) && elementExists) ) )
+        if (lastSelectedObject != null && ((Input.GetKeyDown(KeyCode.Tab) && elementExists) || (Input.GetKeyDown(KeyCode.DownArrow) && elementExists)) && elementExists)
+            next = lastSelectedObject.GetComponent<Selectable>().navigation.selectOnDown;
+        else if (lastSelectedObject != null && Input.GetKeyDown(KeyCode.UpArrow) && elementExists)
+            next = lastSelectedObject.GetComponent<Selectable>().navigation.selectOnUp;
+        else if ((Input.GetKeyDown(KeyCode.Tab) && elementExists) || (Input.GetKeyDown(KeyCode.DownArrow) && elementExists))
             next = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>().navigation.selectOnDown;
         else if (Input.GetKeyDown(KeyCode.UpArrow) && elementExists)
-        {
-            Debug.Log(EventSystem.current.currentSelectedGameObject);
+            next = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>().navigation.selectOnUp;
 
-            if (EventSystem.current.currentSelectedGameObject.GetComponent<Button>() != null)
-            {
-                next = EventSystem.current.currentSelectedGameObject.GetComponent<Button>().navigation.selectOnUp;
-
-            }
-            else
-            {
-                next = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>().navigation.selectOnUp;
-            }
-
-        }
-        else
-        {
-
-        }
 
 
         //Go to the next navigation object
@@ -122,16 +108,16 @@ public void OpenNotification()
         {
 
             //Check if the gameobjecet has an input field
-            InputField inputfield = next.GetComponent<InputField>();
-            Button buttonField = next.GetComponent<Button>();
+            Selectable inputfield = next.GetComponent<Selectable>();
+            Button buttonInput = next.GetComponent<Button>();
+
+            if (buttonInput != null)
+                lastSelectedObject = next.gameObject;
+            else
+                lastSelectedObject = null;
 
             if (inputfield != null)
-                inputfield.OnPointerClick(new PointerEventData(EventSystem.current));
-            else if (buttonField != null)
-                buttonField.OnPointerClick(new PointerEventData(EventSystem.current));
-
-          
-
+                inputfield.OnPointerDown(new PointerEventData(EventSystem.current));
 
             //Change the current focus of the navigation
             EventSystem.current.SetSelectedGameObject(next.gameObject, new BaseEventData(EventSystem.current));
