@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ButtonEvents : MonoBehaviour
 {
@@ -68,10 +69,74 @@ public void OpenNotification()
 
     }
 
+    public void closeGame()
+    {
+        Application.Quit();
+    }
+
     public void CancelOffline()
     {
         //This closes the window
         confirmationWindow.SetActive(false);
+    }
+
+    //Navigation variables||
+
+        GameObject lastSelectedObject = null;
+    //____________________||
+
+
+
+    private void Update()
+    {
+        //Store the next UI element
+        Selectable next = null;
+        bool elementExists = (EventSystem.current.currentSelectedGameObject != null);
+
+        //Choose the direction for the action
+        if (((Input.GetKeyDown(KeyCode.Tab) && elementExists) || (Input.GetKeyDown(KeyCode.DownArrow) && elementExists) ) )
+            next = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>().navigation.selectOnDown;
+        else if (Input.GetKeyDown(KeyCode.UpArrow) && elementExists)
+        {
+            Debug.Log(EventSystem.current.currentSelectedGameObject);
+
+            if (EventSystem.current.currentSelectedGameObject.GetComponent<Button>() != null)
+            {
+                next = EventSystem.current.currentSelectedGameObject.GetComponent<Button>().navigation.selectOnUp;
+
+            }
+            else
+            {
+                next = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>().navigation.selectOnUp;
+            }
+
+        }
+        else
+        {
+
+        }
+
+
+        //Go to the next navigation object
+        if (next != null)
+        {
+
+            //Check if the gameobjecet has an input field
+            InputField inputfield = next.GetComponent<InputField>();
+            Button buttonField = next.GetComponent<Button>();
+
+            if (inputfield != null)
+                inputfield.OnPointerClick(new PointerEventData(EventSystem.current));
+            else if (buttonField != null)
+                buttonField.OnPointerClick(new PointerEventData(EventSystem.current));
+
+          
+
+
+            //Change the current focus of the navigation
+            EventSystem.current.SetSelectedGameObject(next.gameObject, new BaseEventData(EventSystem.current));
+        }
+
     }
 
 }
