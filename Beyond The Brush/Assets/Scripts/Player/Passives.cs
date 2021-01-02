@@ -31,7 +31,7 @@ public class Passives : MonoBehaviour
 
     //BattleThrist         ||
     [Header("BattleThrist  Settings:")]
-        public int BattleThristHealingPercentage = 5;
+        public int BattleThristHealingPercentage = 10;
     //-------------------||
 
     private void Start()

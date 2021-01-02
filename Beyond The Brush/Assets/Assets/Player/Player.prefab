@@ -2151,7 +2151,7 @@ MonoBehaviour:
   ToArmsReduceSlashTimer: 0.5
   ToArmsTimer: 6
   ToArmsMaxStack: 2
-  BattleThristHealingPercentage: 5
+  BattleThristHealingPercentage: 10
 --- !u!1 &5027356601506261891
 GameObject:
   m_ObjectHideFlags: 0

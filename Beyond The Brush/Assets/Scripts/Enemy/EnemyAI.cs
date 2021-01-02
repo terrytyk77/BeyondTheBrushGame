@@ -327,7 +327,10 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            player.GetComponent<Passives>().BattleThrist();
+            if(damage == PlayerData.xslashDamage)
+            {
+                player.GetComponent<Passives>().BattleThrist();
+            }
             healthBar.GetComponent<Image>().fillAmount = 0;
             currentHealth = 0;
             Death();
