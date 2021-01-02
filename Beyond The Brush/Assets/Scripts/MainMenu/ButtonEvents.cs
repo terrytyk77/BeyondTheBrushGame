@@ -101,12 +101,9 @@ public void OpenNotification()
         else if (Input.GetKeyDown(KeyCode.UpArrow) && elementExists)
             next = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>().navigation.selectOnUp;
 
-
-
         //Go to the next navigation object
         if (next != null)
         {
-
             //Check if the gameobjecet has an input field
             Selectable inputfield = next.GetComponent<Selectable>();
             Button buttonInput = next.GetComponent<Button>();
