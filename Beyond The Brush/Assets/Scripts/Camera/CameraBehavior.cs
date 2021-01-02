@@ -23,7 +23,7 @@ public class CameraBehavior : MonoBehaviour
     {
         //Get the player element
         player = GameObject.FindGameObjectWithTag("Player");
-        cameraSpeed = player.GetComponent<PlayerMovement>().playerSpeed;
+        cameraSpeed = PlayerData.movementSpeed;
         //Get the player position
         Vector2 playerPos = player.GetComponent<Transform>().position;
 

@@ -6,8 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
 
     //Variables||
-
-        public float playerSpeed = 4f;
         public GameObject playerVertical;
         public GameObject playerHorizontal;
         Rigidbody2D playerBody;
@@ -29,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         playerBody = gameObject.GetComponent<Rigidbody2D>();
 
         //Player movement magnitude
-        float movementMagnitude = playerSpeed;
+        int movementMagnitude = PlayerData.movementSpeed;
 
         //New force
         Vector2 newForce = new Vector2(0, 0);

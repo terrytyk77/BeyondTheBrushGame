@@ -34,6 +34,7 @@ public class PlayerData : MonoBehaviour
         //local data
         static private int _healthPoints = 1000;
         static private int _maxHealthPoints = 1000;
+        static private int _movementSpeed = 4;
 
         //Cooldowns
         static public float slashCooldownDefault = 0.5f;
@@ -86,6 +87,7 @@ public class PlayerData : MonoBehaviour
     //Get the local data
     public static int healthPoints { get { return _healthPoints; } set { _healthPoints = value; } }
     public static int maxHealthPoints { get { return _maxHealthPoints; } set { _maxHealthPoints = value; } }
+    public static int movementSpeed { get { return _movementSpeed; } set { _movementSpeed = value; } }
 
     //Cooldowns
     public static float slashCooldown { get { return cooldowns._slashCooldown; } set { cooldowns._slashCooldown = value; } }
@@ -238,6 +240,7 @@ public class PlayerData : MonoBehaviour
         _resources = 0;
         _gold = 0;
         _email = "";
+        _movementSpeed = 4;
         _healthPoints = 100;
         _maxHealthPoints = 100;
         _talentTreeData = new talentTreeClass();
