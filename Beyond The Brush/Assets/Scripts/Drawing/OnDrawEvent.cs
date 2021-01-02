@@ -79,21 +79,34 @@ public class OnDrawEvent : MonoBehaviour
 		Vector2 worldSmallPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.sX, location.sY));
 		Vector2 worldBigPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.bX, location.bY));
 
-		foreach (var enemy in enemies)
-		{
-			BoxCollider2D enemyCollider = enemy.GetComponent<BoxCollider2D>();
-			Vector2 enemyCorner = new Vector2(enemy.transform.position.x - (enemyCollider.size.x / 2 * enemy.transform.localScale.x), enemy.transform.position.y - (enemyCollider.size.y / 2 * enemy.transform.localScale.y));
+		if(enemies.Length != 0)
+        {
+			foreach (var enemy in enemies)
+			{
+				BoxCollider2D enemyCollider = enemy.GetComponent<BoxCollider2D>();
+				Vector2 enemyCorner = new Vector2(enemy.transform.position.x - (enemyCollider.size.x / 2 * enemy.transform.localScale.x), enemy.transform.position.y - (enemyCollider.size.y / 2 * enemy.transform.localScale.y));
 
-			Rect drawingZone = Rect.MinMaxRect(worldSmallPoint.x, worldSmallPoint.y, worldBigPoint.x, worldBigPoint.y);
-			Rect enemyHitZone = new Rect(enemyCorner.x, enemyCorner.y, enemyCollider.size.x * enemy.transform.localScale.x, enemyCollider.size.y * enemy.transform.localScale.y);
+				Rect drawingZone = Rect.MinMaxRect(worldSmallPoint.x, worldSmallPoint.y, worldBigPoint.x, worldBigPoint.y);
+				Rect enemyHitZone = new Rect(enemyCorner.x, enemyCorner.y, enemyCollider.size.x * enemy.transform.localScale.x, enemyCollider.size.y * enemy.transform.localScale.y);
 
 
-			if (drawingZone.Overlaps(enemyHitZone))
-            {
-				playerPassives.FlashStrike();
-				enemy.GetComponent<EnemyAI>().getDamaged(damage);
+				if (drawingZone.Overlaps(enemyHitZone))
+				{
+					playerPassives.FlashStrike();
+					playerPassives.ToArms();
+					enemy.GetComponent<EnemyAI>().getDamaged(damage);
+                }
+                else
+                {
+					PlayerData.slashCooldown = PlayerData.slashCooldownDefault;
+				}
 			}
 		}
+        else
+        {
+			PlayerData.slashCooldown = PlayerData.slashCooldownDefault;
+		}
+
 	}
 
 	public void SpawnObject(DrawingLocation location, GameObject prefab)
@@ -163,8 +176,7 @@ public class OnDrawEvent : MonoBehaviour
 							playerHorizontal.GetComponent<Animator>().SetTrigger("Slash");
 							playerVertical.GetComponent<Animator>().SetTrigger("Slash");
 							HoverEnemy(location, 20);
-							PlayerData.slashCooldown = PlayerData.slashCooldownDefault;
-                        }
+						}
 	
 						break;
                     }

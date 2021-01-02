@@ -2148,6 +2148,9 @@ MonoBehaviour:
   flashStrikeMovementSpeedIncrease: 10
   flashStrikeTimer: 6
   flashStrikeMaxStack: 1
+  ToArmsReduceSlashTimer: 0.5
+  ToArmsTimer: 6
+  ToArmsMaxStack: 2
 --- !u!1 &5027356601506261891
 GameObject:
   m_ObjectHideFlags: 0

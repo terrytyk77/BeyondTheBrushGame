@@ -37,7 +37,7 @@ public class PlayerData : MonoBehaviour
         static private float _movementSpeed = 4f;
 
         //Cooldowns
-        static public float slashCooldownDefault = 0.5f;
+        static public float slashCooldownDefault = 1.5f;
         static public float xslashCooldownDefault = 5f;
         static public float shieldCooldownDefault = 6f;
 
