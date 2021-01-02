@@ -175,7 +175,7 @@ public class OnDrawEvent : MonoBehaviour
                         {
 							playerHorizontal.GetComponent<Animator>().SetTrigger("Slash");
 							playerVertical.GetComponent<Animator>().SetTrigger("Slash");
-							HoverEnemy(location, 20);
+							HoverEnemy(location, PlayerData.slashDamage);
 						}
 	
 						break;
@@ -213,7 +213,7 @@ public class OnDrawEvent : MonoBehaviour
                             {
 								playerVertical.GetComponent<Animator>().SetTrigger("Xspell");
 							}
-							HoverEnemy(location, 50);
+							HoverEnemy(location, PlayerData.xslashDamage);
 							PlayerData.xslashCooldown = PlayerData.xslashCooldownDefault;
 						}
 

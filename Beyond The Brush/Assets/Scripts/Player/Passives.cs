@@ -29,6 +29,11 @@ public class Passives : MonoBehaviour
         private bool ToArmsInUse = false;
     //-------------------||
 
+    //BattleThrist         ||
+    [Header("BattleThrist  Settings:")]
+        public int BattleThristHealingPercentage = 5;
+    //-------------------||
+
     private void Start()
     {
         initialMovementSpeed = PlayerData.movementSpeed;
@@ -99,6 +104,18 @@ public class Passives : MonoBehaviour
             else
             {
                 PlayerData.slashCooldown = PlayerData.slashCooldownDefault;
+            }
+        }
+    }
+
+    public void BattleThrist()
+    {
+        if (PlayerData.talentTreeData.node4 == true)
+        {
+            PlayerData.healthPoints += PlayerData.maxHealthPoints * BattleThristHealingPercentage / 100;
+            if (PlayerData.healthPoints > PlayerData.maxHealthPoints)
+            {
+                PlayerData.healthPoints = PlayerData.maxHealthPoints;
             }
         }
     }

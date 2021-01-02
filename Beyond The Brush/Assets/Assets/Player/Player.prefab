@@ -2145,12 +2145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103778f1af331c946baa6e8a92d67e1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashStrikeMovementSpeedIncrease: 10
-  flashStrikeTimer: 6
-  flashStrikeMaxStack: 1
+  FlashStrikeMovementSpeedIncrease: 10
+  FlashStrikeTimer: 6
+  FlashStrikeMaxStack: 1
   ToArmsReduceSlashTimer: 0.5
   ToArmsTimer: 6
   ToArmsMaxStack: 2
+  BattleThristHealingPercentage: 5
 --- !u!1 &5027356601506261891
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,9 +32,14 @@ public class PlayerData : MonoBehaviour
         static private float _sfxVolume = 0.3f;
 
         //local data
-        static private int _healthPoints = 1000;
-        static private int _maxHealthPoints = 1000;
+        static private int _healthPoints = 100;
+        static private int _maxHealthPoints = 100;
         static private float _movementSpeed = 4f;
+
+        //Spells Damage/Shield
+        static public int _slashDamage = 20;
+        static public int _xslashDamage = 50;
+        static public int _shieldDamageReduction = 50;
 
         //Cooldowns
         static public float slashCooldownDefault = 1.5f;
@@ -88,6 +93,11 @@ public class PlayerData : MonoBehaviour
     public static int healthPoints { get { return _healthPoints; } set { _healthPoints = value; } }
     public static int maxHealthPoints { get { return _maxHealthPoints; } set { _maxHealthPoints = value; } }
     public static float movementSpeed { get { return _movementSpeed; } set { _movementSpeed = value; } }
+
+    //Spells Damage/Shield
+    static public int slashDamage { get { return _slashDamage; } set { _slashDamage = value; } }
+    static public int xslashDamage { get { return _xslashDamage; } set { _xslashDamage = value; } }
+    static public int shieldDamageReduction { get { return _shieldDamageReduction; } set { _shieldDamageReduction = value; } }
 
     //Cooldowns
     public static float slashCooldown { get { return cooldowns._slashCooldown; } set { cooldowns._slashCooldown = value; } }

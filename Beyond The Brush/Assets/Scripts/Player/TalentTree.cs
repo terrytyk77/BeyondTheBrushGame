@@ -62,7 +62,7 @@ public static class TalentTree
 
     public static treeNode node4 = new treeNode(
         /*ID*/ "node4", /*ID*/ 
-        /*Description*/ "Executing an enemy with your Xspell recovers 20% of your HP.", /*Description*/ 
+        /*Description*/ "Executing an enemy with your Xspell recovers 5% of your max health.", /*Description*/ 
         /*Name*/ "Battle thirst", /*Name*/
         /*Price*/ 750 /*Price*/
     );
