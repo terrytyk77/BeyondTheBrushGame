@@ -39,10 +39,16 @@ public class OnDrawEvent : MonoBehaviour
 		public GameObject drawingCollider;
 		public GameObject playerVertical;
 		public GameObject playerHorizontal;
+
+		private Passives playerPassives;
 	//_________||
 
+	private void Start()
+    {
+		playerPassives = player.GetComponent<Passives>();
+	}
 
-	private void Update()
+    private void Update()
     {
 		PlayerData.resetCooldowns();
 	}
@@ -84,6 +90,7 @@ public class OnDrawEvent : MonoBehaviour
 
 			if (drawingZone.Overlaps(enemyHitZone))
             {
+				playerPassives.FlashStrike();
 				enemy.GetComponent<EnemyAI>().getDamaged(damage);
 			}
 		}
@@ -153,9 +160,8 @@ public class OnDrawEvent : MonoBehaviour
                     {
                         if (PlayerData.slashCooldown <= 0 && result.score.score >= 0.8f)
                         {
-								playerHorizontal.GetComponent<Animator>().SetTrigger("Slash");
-								playerVertical.GetComponent<Animator>().SetTrigger("Slash");
-
+							playerHorizontal.GetComponent<Animator>().SetTrigger("Slash");
+							playerVertical.GetComponent<Animator>().SetTrigger("Slash");
 							HoverEnemy(location, 20);
 							PlayerData.slashCooldown = PlayerData.slashCooldownDefault;
                         }
@@ -169,8 +175,8 @@ public class OnDrawEvent : MonoBehaviour
                             if (PlayerData.shieldCooldown <= 0 && result.score.score >= 0.7f)
                             {
 
-									playerHorizontal.GetComponent<Animator>().SetTrigger("Shield");
-									playerVertical.GetComponent<Animator>().SetTrigger("Shield");
+								playerHorizontal.GetComponent<Animator>().SetTrigger("Shield");
+								playerVertical.GetComponent<Animator>().SetTrigger("Shield");
 
 								PlayerData.shieldCooldown = PlayerData.shieldCooldownDefault;
 							}

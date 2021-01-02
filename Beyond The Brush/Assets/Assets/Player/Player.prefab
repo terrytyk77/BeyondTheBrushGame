@@ -2035,9 +2035,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8451316542478971317}
   - component: {fileID: 469717343997484022}
-  - component: {fileID: 654150683684790221}
   - component: {fileID: 1132573910610062741}
   - component: {fileID: 1409283872}
+  - component: {fileID: 654150683684790221}
+  - component: {fileID: 1881675380795830168}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2081,21 +2082,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &654150683684790221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5019700632870275483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd8ea5a54ff3cc4418b1ab23f198396d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSpeed: 4
-  playerVertical: {fileID: 7561730607355128393}
-  playerHorizontal: {fileID: 8869086325504228352}
 --- !u!61 &1132573910610062741
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2133,6 +2119,35 @@ SortingGroup:
   m_SortingLayerID: -1513248665
   m_SortingLayer: 2
   m_SortingOrder: 0
+--- !u!114 &654150683684790221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5019700632870275483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd8ea5a54ff3cc4418b1ab23f198396d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerVertical: {fileID: 7561730607355128393}
+  playerHorizontal: {fileID: 8869086325504228352}
+--- !u!114 &1881675380795830168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5019700632870275483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 103778f1af331c946baa6e8a92d67e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashStrikeMovementSpeedIncrease: 10
+  flashStrikeTimer: 6
+  flashStrikeMaxStack: 1
 --- !u!1 &5027356601506261891
 GameObject:
   m_ObjectHideFlags: 0

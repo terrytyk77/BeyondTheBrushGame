@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         playerBody = gameObject.GetComponent<Rigidbody2D>();
 
         //Player movement magnitude
-        int movementMagnitude = PlayerData.movementSpeed;
+        float movementMagnitude = PlayerData.movementSpeed;
 
         //New force
         Vector2 newForce = new Vector2(0, 0);

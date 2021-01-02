@@ -45,6 +45,12 @@ public class CameraBehavior : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //Update Camera Speed
+        if(cameraSpeed != PlayerData.movementSpeed)
+        {
+            cameraSpeed = PlayerData.movementSpeed;
+        }
+
         //Get the current main camera
         Camera mainC = Camera.main;
         Vector3 cameraPosition = mainC.GetComponent<Transform>().position;

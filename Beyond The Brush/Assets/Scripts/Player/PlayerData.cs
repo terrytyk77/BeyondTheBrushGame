@@ -21,7 +21,7 @@ public class PlayerData : MonoBehaviour
         static private string _username = "Offline Player";
         static private int _level = 1;
         static private int _exp = 0;
-        static private int _resources = 0;
+        static private int _resources = 20000;
         static private int _gold = 0;
         static private string _email;
 
@@ -34,7 +34,7 @@ public class PlayerData : MonoBehaviour
         //local data
         static private int _healthPoints = 1000;
         static private int _maxHealthPoints = 1000;
-        static private int _movementSpeed = 4;
+        static private float _movementSpeed = 4f;
 
         //Cooldowns
         static public float slashCooldownDefault = 0.5f;
@@ -87,7 +87,7 @@ public class PlayerData : MonoBehaviour
     //Get the local data
     public static int healthPoints { get { return _healthPoints; } set { _healthPoints = value; } }
     public static int maxHealthPoints { get { return _maxHealthPoints; } set { _maxHealthPoints = value; } }
-    public static int movementSpeed { get { return _movementSpeed; } set { _movementSpeed = value; } }
+    public static float movementSpeed { get { return _movementSpeed; } set { _movementSpeed = value; } }
 
     //Cooldowns
     public static float slashCooldown { get { return cooldowns._slashCooldown; } set { cooldowns._slashCooldown = value; } }
