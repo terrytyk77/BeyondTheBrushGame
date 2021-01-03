@@ -7,31 +7,38 @@ public class Passives : MonoBehaviour
     private float initialMovementSpeed;
     private float initialSlashDefaultCooldown;
 
-    //FlashStrike         ||
+    //FlashStrike        ||
     [Header("FlashStrike Settings:")]
-        public float FlashStrikeMovementSpeedIncrease = 10;
-        public float FlashStrikeTimer = 6f;
-        public int FlashStrikeMaxStack = 1;
+    public float FlashStrikeMovementSpeedIncrease = 10;
+    public float FlashStrikeTimer = 6f;
+    public int FlashStrikeMaxStack = 1;
     [Space(20)]
-        private float FlashStrikeTick = 0f;
-        private int FlashStrikeCurrentStack = 0;
-        private bool FlashStrikeInUse = false;
+    private float FlashStrikeTick = 0f;
+    private int FlashStrikeCurrentStack = 0;
+    private bool FlashStrikeInUse = false;
     //-------------------||
 
-    //FlashStrike         ||
+    //FlashStrike       ||
     [Header("ToArms Settings:")]
-        public float ToArmsReduceSlashTimer = 0.5f;
-        public float ToArmsTimer = 6f;
-        public int ToArmsMaxStack = 1;
+    public float ToArmsReduceSlashTimer = 0.5f;
+    public float ToArmsTimer = 6f;
+    public int ToArmsMaxStack = 1;
     [Space(20)]
-        private float ToArmsTick = 0f;
-        private int ToArmsCurrentStack = 0;
-        private bool ToArmsInUse = false;
+    private float ToArmsTick = 0f;
+    private int ToArmsCurrentStack = 0;
+    private bool ToArmsInUse = false;
     //-------------------||
 
-    //BattleThrist         ||
-    [Header("BattleThrist  Settings:")]
-        public int BattleThristHealingPercentage = 10;
+    //BattleThrist       ||
+    [Header("BattleThrist Settings:")]
+    public int BattleThristHealingPercentage = 10;
+    //-------------------||
+
+    //DemandForAction    ||
+    [Header("DemandForAction Settings:")]
+    public int DemandForActionConsecutiveHits = 2;
+    public float DemandForActionXSpellTimeReducion = 1f;
+    private int DemandForActionSlashCounter = 0;
     //-------------------||
 
     private void Start()
@@ -44,32 +51,32 @@ public class Passives : MonoBehaviour
     {
 
         //FlashStrike Timer and Resetter||
-            if (FlashStrikeTick < FlashStrikeTimer && FlashStrikeInUse == true)
-            {
-                FlashStrikeTick += Time.deltaTime;
-            }
-            else
-            {
-                PlayerData.movementSpeed = initialMovementSpeed;
-                FlashStrikeTick = 0f;
-                FlashStrikeCurrentStack = 0;
-                FlashStrikeInUse = false;
+        if (FlashStrikeTick < FlashStrikeTimer && FlashStrikeInUse == true)
+        {
+            FlashStrikeTick += Time.deltaTime;
+        }
+        else
+        {
+            PlayerData.movementSpeed = initialMovementSpeed;
+            FlashStrikeTick = 0f;
+            FlashStrikeCurrentStack = 0;
+            FlashStrikeInUse = false;
 
-            }
+        }
         //-----------------------------||
 
         //ToArms Timer and Resetter||
-            if (ToArmsTick < ToArmsTimer && ToArmsInUse == true)
-            {
-                ToArmsTick += Time.deltaTime;
-            }
-            else
-            {
-                PlayerData.slashCooldownDefault = initialSlashDefaultCooldown;
-                ToArmsTick = 0f;
-                ToArmsCurrentStack = 0;
-                ToArmsInUse = false;
-            }
+        if (ToArmsTick < ToArmsTimer && ToArmsInUse == true)
+        {
+            ToArmsTick += Time.deltaTime;
+        }
+        else
+        {
+            PlayerData.slashCooldownDefault = initialSlashDefaultCooldown;
+            ToArmsTick = 0f;
+            ToArmsCurrentStack = 0;
+            ToArmsInUse = false;
+        }
         //-----------------------------||
 
 
@@ -81,7 +88,7 @@ public class Passives : MonoBehaviour
         {
             FlashStrikeTick = 0f;
             FlashStrikeInUse = true;
-            if(FlashStrikeCurrentStack < FlashStrikeMaxStack)
+            if (FlashStrikeCurrentStack < FlashStrikeMaxStack)
             {
                 PlayerData.movementSpeed += initialMovementSpeed * FlashStrikeMovementSpeedIncrease / 100;
                 FlashStrikeCurrentStack++;
@@ -91,7 +98,7 @@ public class Passives : MonoBehaviour
 
     public void ToArms()
     {
-        if(PlayerData.talentTreeData.node1 == true)
+        if (PlayerData.talentTreeData.node1 == true)
         {
             ToArmsTick = 0f;
             ToArmsInUse = true;
@@ -117,6 +124,43 @@ public class Passives : MonoBehaviour
             {
                 PlayerData.healthPoints = PlayerData.maxHealthPoints;
             }
+        }
+    }
+
+    public void DemandForAction(int damage)
+    {
+        if (PlayerData.talentTreeData.node8 == true)
+        {
+            if (damage == PlayerData.slashDamage)
+            {
+                DemandForActionSlashCounter++;
+            }
+            else
+            {
+                DemandForActionSlashCounter = 0;
+            }
+
+            if (DemandForActionSlashCounter >= DemandForActionConsecutiveHits)
+            {
+                if (PlayerData.xslashCooldown > DemandForActionXSpellTimeReducion)
+                {
+                    PlayerData.xslashCooldown -= DemandForActionXSpellTimeReducion;
+                }
+                else
+                {
+                    PlayerData.xslashCooldown = 0;
+                }
+
+                DemandForActionSlashCounter = 0;
+            }
+        }
+    }
+
+    public void Overkill()
+    {
+        if (PlayerData.talentTreeData.node10 == true)
+        {
+            PlayerData.xslashCooldown = 0f;
         }
     }
 }

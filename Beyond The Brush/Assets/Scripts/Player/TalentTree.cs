@@ -90,7 +90,7 @@ public static class TalentTree
 
     public static treeNode node8 = new treeNode(
         /*ID*/ "node8", /*Name*/
-        /*Description*/ "Every time the player uses 2 consecutive basic attacks, reduce the cooldown of your Xspell by 0.5 seconds.", /*Description*/ 
+        /*Description*/ "Every time the player uses 2 consecutive basic attacks, reduce the cooldown of your Xspell by 1 seconds.", /*Description*/ 
         /*Name*/ "Demand for Action", /*Name*/
         /*Price*/ 1000 /*Price*/
     );

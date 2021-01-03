@@ -320,7 +320,7 @@ public class EnemyAI : MonoBehaviour
 
     public void getDamaged(float damage)
     {
-        if (currentHealth >= damage)
+        if (currentHealth > damage)
         {
             currentHealth -= damage;
             healthBar.GetComponent<Image>().fillAmount -= damage / maxHealth;
@@ -329,6 +329,7 @@ public class EnemyAI : MonoBehaviour
         {
             if(damage == PlayerData.xslashDamage)
             {
+                player.GetComponent<Passives>().Overkill();
                 player.GetComponent<Passives>().BattleThrist();
             }
             healthBar.GetComponent<Image>().fillAmount = 0;

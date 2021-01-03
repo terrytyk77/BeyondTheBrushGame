@@ -79,7 +79,16 @@ public class OnDrawEvent : MonoBehaviour
 		Vector2 worldSmallPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.sX, location.sY));
 		Vector2 worldBigPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.bX, location.bY));
 
-		if(enemies.Length != 0)
+		if (damage == PlayerData.slashDamage)
+		{
+			PlayerData.slashCooldown = PlayerData.slashCooldownDefault;
+		}
+		else if (damage == PlayerData.xslashDamage)
+		{
+			PlayerData.xslashCooldown = PlayerData.xslashCooldownDefault;
+		}
+
+		if (enemies.Length != 0)
         {
 			foreach (var enemy in enemies)
 			{
@@ -94,19 +103,11 @@ public class OnDrawEvent : MonoBehaviour
 				{
 					playerPassives.FlashStrike();
 					playerPassives.ToArms();
+					playerPassives.DemandForAction(damage);
 					enemy.GetComponent<EnemyAI>().getDamaged(damage);
                 }
-                else
-                {
-					PlayerData.slashCooldown = PlayerData.slashCooldownDefault;
-				}
 			}
 		}
-        else
-        {
-			PlayerData.slashCooldown = PlayerData.slashCooldownDefault;
-		}
-
 	}
 
 	public void SpawnObject(DrawingLocation location, GameObject prefab)
@@ -214,7 +215,6 @@ public class OnDrawEvent : MonoBehaviour
 								playerVertical.GetComponent<Animator>().SetTrigger("Xspell");
 							}
 							HoverEnemy(location, PlayerData.xslashDamage);
-							PlayerData.xslashCooldown = PlayerData.xslashCooldownDefault;
 						}
 
 						break;

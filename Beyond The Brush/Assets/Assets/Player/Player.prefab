@@ -2152,6 +2152,8 @@ MonoBehaviour:
   ToArmsTimer: 6
   ToArmsMaxStack: 2
   BattleThristHealingPercentage: 10
+  DemandForActionConsecutiveHits: 2
+  DemandForActionXSpellTimeReducion: 1
 --- !u!1 &5027356601506261891
 GameObject:
   m_ObjectHideFlags: 0

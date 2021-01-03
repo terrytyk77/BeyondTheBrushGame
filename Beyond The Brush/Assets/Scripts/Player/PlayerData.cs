@@ -43,7 +43,7 @@ public class PlayerData : MonoBehaviour
 
         //Cooldowns
         static public float slashCooldownDefault = 1.5f;
-        static public float xslashCooldownDefault = 5f;
+        static public float xslashCooldownDefault = 10f;
         static public float shieldCooldownDefault = 6f;
 
         private class cooldowsClass{
