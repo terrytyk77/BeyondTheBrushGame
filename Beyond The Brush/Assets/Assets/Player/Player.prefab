@@ -2170,6 +2170,10 @@ MonoBehaviour:
   DemandForActionXSpellTimeReducion: 1
   ShieldBubble: {fileID: 1180271067104221610}
   ShieldBlockMaxStack: 2
+  BubbleUpDamageBlock: 100
+  BubbleUpShieldColor:
+    serializedVersion: 2
+    rgba: 4289134076
 --- !u!1 &5027356601506261891
 GameObject:
   m_ObjectHideFlags: 0
@@ -4293,15 +4297,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5949509309009763061, guid: b19b5b6b2c91e1f419e3fdeedcd6450d, type: 3}
       propertyPath: m_Color.b
-      value: 0.8207547
+      value: 0.990566
       objectReference: {fileID: 0}
     - target: {fileID: 5949509309009763061, guid: b19b5b6b2c91e1f419e3fdeedcd6450d, type: 3}
       propertyPath: m_Color.g
-      value: 0.55528134
+      value: 0.8561359
       objectReference: {fileID: 0}
     - target: {fileID: 5949509309009763061, guid: b19b5b6b2c91e1f419e3fdeedcd6450d, type: 3}
       propertyPath: m_Color.r
-      value: 0.15098791
+      value: 0.6494749
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1172240097992926741, guid: b19b5b6b2c91e1f419e3fdeedcd6450d, type: 3}

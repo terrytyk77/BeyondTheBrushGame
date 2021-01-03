@@ -12,7 +12,6 @@ public class Passives : MonoBehaviour
         public float FlashStrikeMovementSpeedIncrease = 10;
         public float FlashStrikeTimer = 6f;
         public int FlashStrikeMaxStack = 1;
-    [Space(20)]
         private float FlashStrikeTick = 0f;
         private int FlashStrikeCurrentStack = 0;
         private bool FlashStrikeInUse = false;
@@ -23,7 +22,6 @@ public class Passives : MonoBehaviour
         public float ToArmsReduceSlashTimer = 0.5f;
         public float ToArmsTimer = 6f;
         public int ToArmsMaxStack = 1;
-    [Space(20)]
         private float ToArmsTick = 0f;
         private int ToArmsCurrentStack = 0;
         private bool ToArmsInUse = false;
@@ -32,7 +30,6 @@ public class Passives : MonoBehaviour
     //BattleThrist       ||
     [Header("BattleThrist Settings:")]
         public int BattleThristHealingPercentage = 10;
-    [Space(20)]
     //-------------------||
 
     //DemandForAction    ||
@@ -40,19 +37,18 @@ public class Passives : MonoBehaviour
         public int DemandForActionConsecutiveHits = 2;
         public float DemandForActionXSpellTimeReducion = 1f;
         private int DemandForActionSlashCounter = 0;
-    [Space(20)]
     //-------------------||
-
-    //Shield             ||
-    [Header("Shield Settings:")]
-        public GameObject ShieldBubble;
-    [Space(20)]
-    //-------------------||
-
 
     //ShieldBlock                  ||
-    [Header("Shield Settings:")]
+    [Header("ShieldBlock Settings:")]
+        public GameObject ShieldBubble;
         public int ShieldBlockMaxStack = 2;
+    //-----------------------------||
+
+    //BubbleUpS
+    [Header("BubbleUp Settings:")]
+        public int BubbleUpDamageBlock = 100;
+        public Color32 BubbleUpShieldColor;
     //-----------------------------||
 
     private void Start()
@@ -104,6 +100,7 @@ public class Passives : MonoBehaviour
         //-----------------------------||
 
         ShieldBlock();
+        BubbleUp();
     }
 
     public void FlashStrike()
@@ -193,6 +190,15 @@ public class Passives : MonoBehaviour
         if(PlayerData.talentTreeData.node3 == true)
         {
             PlayerData.shieldMaxStack = ShieldBlockMaxStack;
+        }
+    }
+
+    public void BubbleUp()
+    {
+        if(PlayerData.talentTreeData.node7 == true)
+        {
+            ShieldBubble.GetComponent<SpriteRenderer>().color = BubbleUpShieldColor;
+            PlayerData.shieldDamageReduction = BubbleUpDamageBlock;
         }
     }
 

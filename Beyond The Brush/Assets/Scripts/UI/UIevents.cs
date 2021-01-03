@@ -330,10 +330,10 @@ public class UIevents : MonoBehaviour
                 shieldSkillText = shieldSkillText + decimal.Round((decimal)PlayerData.shieldCooldown, 2);
             }
             cooldowns.shieldSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.shieldCooldown / PlayerData.shieldCooldownDefault);
-            //if (PlayerData.talentTreeData.node3 == true)
-           // {
+            if (PlayerData.talentTreeData.node3 == true)
+            {
                 cooldowns.shieldSkill.transform.Find("StackText").GetComponent<Text>().text = PlayerData.shieldCurrentStack.ToString();
-           // }
+            }
             cooldowns.shieldSkill.transform.Find("CooldownText").GetComponent<Text>().text = shieldSkillText;
         //________________||
 
