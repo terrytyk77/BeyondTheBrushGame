@@ -9,37 +9,51 @@ public class Passives : MonoBehaviour
 
     //FlashStrike        ||
     [Header("FlashStrike Settings:")]
-    public float FlashStrikeMovementSpeedIncrease = 10;
-    public float FlashStrikeTimer = 6f;
-    public int FlashStrikeMaxStack = 1;
+        public float FlashStrikeMovementSpeedIncrease = 10;
+        public float FlashStrikeTimer = 6f;
+        public int FlashStrikeMaxStack = 1;
     [Space(20)]
-    private float FlashStrikeTick = 0f;
-    private int FlashStrikeCurrentStack = 0;
-    private bool FlashStrikeInUse = false;
+        private float FlashStrikeTick = 0f;
+        private int FlashStrikeCurrentStack = 0;
+        private bool FlashStrikeInUse = false;
     //-------------------||
 
     //FlashStrike       ||
     [Header("ToArms Settings:")]
-    public float ToArmsReduceSlashTimer = 0.5f;
-    public float ToArmsTimer = 6f;
-    public int ToArmsMaxStack = 1;
+        public float ToArmsReduceSlashTimer = 0.5f;
+        public float ToArmsTimer = 6f;
+        public int ToArmsMaxStack = 1;
     [Space(20)]
-    private float ToArmsTick = 0f;
-    private int ToArmsCurrentStack = 0;
-    private bool ToArmsInUse = false;
+        private float ToArmsTick = 0f;
+        private int ToArmsCurrentStack = 0;
+        private bool ToArmsInUse = false;
     //-------------------||
 
     //BattleThrist       ||
     [Header("BattleThrist Settings:")]
-    public int BattleThristHealingPercentage = 10;
+        public int BattleThristHealingPercentage = 10;
+    [Space(20)]
     //-------------------||
 
     //DemandForAction    ||
     [Header("DemandForAction Settings:")]
-    public int DemandForActionConsecutiveHits = 2;
-    public float DemandForActionXSpellTimeReducion = 1f;
-    private int DemandForActionSlashCounter = 0;
+        public int DemandForActionConsecutiveHits = 2;
+        public float DemandForActionXSpellTimeReducion = 1f;
+        private int DemandForActionSlashCounter = 0;
+    [Space(20)]
     //-------------------||
+
+    //Shield             ||
+    [Header("Shield Settings:")]
+        public GameObject ShieldBubble;
+    [Space(20)]
+    //-------------------||
+
+
+    //ShieldBlock                  ||
+    [Header("Shield Settings:")]
+        public int ShieldBlockMaxStack = 2;
+    //-----------------------------||
 
     private void Start()
     {
@@ -61,7 +75,6 @@ public class Passives : MonoBehaviour
             FlashStrikeTick = 0f;
             FlashStrikeCurrentStack = 0;
             FlashStrikeInUse = false;
-
         }
         //-----------------------------||
 
@@ -79,7 +92,18 @@ public class Passives : MonoBehaviour
         }
         //-----------------------------||
 
+        //Shield                       ||
+        if (PlayerData.isShielded == true)
+        {
+            ShieldBubble.SetActive(true);
+        }
+        else
+        {
+            ShieldBubble.SetActive(false);
+        }
+        //-----------------------------||
 
+        ShieldBlock();
     }
 
     public void FlashStrike()
@@ -163,4 +187,14 @@ public class Passives : MonoBehaviour
             PlayerData.xslashCooldown = 0f;
         }
     }
+
+    public void ShieldBlock()
+    {
+        if(PlayerData.talentTreeData.node3 == true)
+        {
+            PlayerData.shieldMaxStack = ShieldBlockMaxStack;
+        }
+    }
+
+
 }

@@ -34,12 +34,4 @@ public class Projectile : MonoBehaviour
             Destroy(targetCreated);
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "DrawingCollider")
-        {
-            gameObject.GetComponentInParent<EnemyAI>().dealDamage();
-        }
-    }
 }

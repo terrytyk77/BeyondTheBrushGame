@@ -185,15 +185,22 @@ public class OnDrawEvent : MonoBehaviour
                     {
 						if (HoverPlayer(location))
                         {
-                            if (PlayerData.shieldCooldown <= 0 && result.score.score >= 0.7f)
+                            if (result.score.score >= 0.7f && PlayerData.shieldCurrentStack > 0)
                             {
-
 								playerHorizontal.GetComponent<Animator>().SetTrigger("Shield");
 								playerVertical.GetComponent<Animator>().SetTrigger("Shield");
-
-								PlayerData.shieldCooldown = PlayerData.shieldCooldownDefault;
+								if(PlayerData.shieldCurrentStack >= PlayerData.shieldMaxStack)
+                                {
+									PlayerData.shieldCooldown = PlayerData.shieldCooldownDefault;
+									PlayerData.shieldTimer = PlayerData.shieldTimerDefault;
+									PlayerData.shieldCurrentStack--;
+                                }
+                                else if(PlayerData.shieldCurrentStack < PlayerData.shieldMaxStack)
+                                {
+									PlayerData.shieldTimer = PlayerData.shieldTimerDefault;
+									PlayerData.shieldCurrentStack--;
+								}
 							}
-
 						}
                         else
                         {

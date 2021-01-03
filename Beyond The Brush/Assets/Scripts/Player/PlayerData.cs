@@ -40,17 +40,22 @@ public class PlayerData : MonoBehaviour
         static public int _slashDamage = 20;
         static public int _xslashDamage = 50;
         static public int _shieldDamageReduction = 50;
+        static public int _shieldCurrentStack = 1;
+        static public int _shieldMaxStack = 1;
+        static public bool _isShielded = false;
 
         //Cooldowns
         static public float slashCooldownDefault = 1.5f;
         static public float xslashCooldownDefault = 10f;
-        static public float shieldCooldownDefault = 6f;
+        static public float shieldCooldownDefault = 12f;
+        static public float shieldTimerDefault = 4f;
 
-        private class cooldowsClass{
+    private class cooldowsClass{
             public float _slashCooldown = 0;
             public float _xslashCooldown = 0;
             public float _shieldCooldown = 0;
-        }
+            public float _shieldTimer = 0;
+    }
 
         static private cooldowsClass cooldowns = new cooldowsClass();
 
@@ -98,13 +103,15 @@ public class PlayerData : MonoBehaviour
     static public int slashDamage { get { return _slashDamage; } set { _slashDamage = value; } }
     static public int xslashDamage { get { return _xslashDamage; } set { _xslashDamage = value; } }
     static public int shieldDamageReduction { get { return _shieldDamageReduction; } set { _shieldDamageReduction = value; } }
+    static public int shieldCurrentStack { get { return _shieldCurrentStack; } set { _shieldCurrentStack = value; } }
+    static public int shieldMaxStack { get { return _shieldMaxStack; } set { _shieldMaxStack = value; } }
+    static public bool isShielded { get { return _isShielded; } set { _isShielded = value; } }
 
     //Cooldowns
     public static float slashCooldown { get { return cooldowns._slashCooldown; } set { cooldowns._slashCooldown = value; } }
     public static float xslashCooldown { get { return cooldowns._xslashCooldown; } set { cooldowns._xslashCooldown = value; } }
     public static float shieldCooldown { get { return cooldowns._shieldCooldown; } set { cooldowns._shieldCooldown = value; } }
-
-
+    public static float shieldTimer { get { return cooldowns._shieldTimer; } set { cooldowns._shieldTimer = value; } }
 
     public static int getNeededExp()
     {
@@ -128,10 +135,32 @@ public class PlayerData : MonoBehaviour
             cooldowns._xslashCooldown = 0;
 
         //Shield
-        if (cooldowns._shieldCooldown > 0)
+        if (cooldowns._shieldCooldown > 0 && _shieldCurrentStack < _shieldMaxStack)
+        {
             cooldowns._shieldCooldown -= Time.deltaTime;
-        else
+        }
+        else if(_shieldCurrentStack < _shieldMaxStack && cooldowns._shieldCooldown <= 0)
+        {
+            _shieldCurrentStack++;
+            cooldowns._shieldCooldown = shieldCooldownDefault;
+        }
+        else if (_shieldCurrentStack >= _shieldMaxStack)
+        {
             cooldowns._shieldCooldown = 0;
+        }
+
+        //ShieldTimer
+        if (cooldowns._shieldTimer > 0)
+        {
+            _isShielded = true;
+            cooldowns._shieldTimer -= Time.deltaTime;
+        }
+        else
+        {
+            _isShielded = false;
+            cooldowns._shieldTimer = 0;
+        }
+
     }
 
     public static void addPlayerExp(int enemyExp)

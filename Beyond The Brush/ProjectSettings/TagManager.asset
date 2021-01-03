@@ -20,6 +20,7 @@ TagManager:
   - DeadEnemy
   - Projectile
   - Drawable
+  - MeleeDamage
   layers:
   - Default
   - TransparentFX

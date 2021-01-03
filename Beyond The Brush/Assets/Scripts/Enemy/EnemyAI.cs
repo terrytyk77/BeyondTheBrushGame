@@ -342,7 +342,16 @@ public class EnemyAI : MonoBehaviour
     {
         if(PlayerData.healthPoints >= damage)
         {
-            PlayerData.healthPoints -= damage;
+            if(PlayerData.isShielded == true)
+            {
+                PlayerData.healthPoints -= (damage - (damage * PlayerData.shieldDamageReduction / 100));
+                PlayerData.shieldTimer = 0f;
+                PlayerData.isShielded = false;
+            }
+            else
+            {
+                PlayerData.healthPoints -= damage;
+            }
         }
         else
         {
