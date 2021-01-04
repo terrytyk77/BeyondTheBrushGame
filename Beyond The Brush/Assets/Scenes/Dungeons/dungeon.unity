@@ -474,6 +474,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1881675380795830168, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
+      propertyPath: BubbleUpIconSlot
+      value: 
+      objectReference: {fileID: 3956660340777269612}
     - target: {fileID: 5019700632870275483, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1216,3 +1220,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+--- !u!1 &3956660340777269612 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3956660339934354536, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+  m_PrefabInstance: {fileID: 3956660340777269611}
+  m_PrefabAsset: {fileID: 0}
