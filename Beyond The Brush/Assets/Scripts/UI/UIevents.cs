@@ -58,13 +58,23 @@ public class UIevents : MonoBehaviour
         //Skills cooldowns
         public skillsCooldowns cooldowns;
 
-    //Bars
-    public healthbarClass healthbar;
+        //Bars
+        public healthbarClass healthbar;
         public expbarClass expBar;
 
         public GameObject levelText;
 
-    //Minimap||
+        //The profiles window
+        [System.Serializable]
+        public class profilesClass
+        {
+            public GameObject profilesDropDown;
+            public GameObject profilesWindow;
+        }
+
+        public profilesClass profiles = new profilesClass();
+
+        //Minimap||
 
             [System.Serializable]
             public class miniMapClass
@@ -189,7 +199,37 @@ public class UIevents : MonoBehaviour
         options.musicSlider.GetComponent<Slider>().value = PlayerData.musicVolume;
         options.sfxSlider.GetComponent<Slider>().value = PlayerData.sfxVolume;
 
+        if (PlayerData.windowmode)
+            options.dropdownWindow.GetComponent<DuloGames.UI.UISelectField>().SelectOption("Fullscreen");
+        else
+            options.dropdownWindow.GetComponent<DuloGames.UI.UISelectField>().SelectOption("Windowed");
+        
+        setupProfilesWindow();
         updateOptionsWindowInfo();
+    }
+
+
+    private void setupProfilesWindow()
+    {
+        DuloGames.UI.UISelectField profileDropdown = profiles.profilesDropDown.GetComponent<DuloGames.UI.UISelectField>();
+
+        //Empty the options
+        profileDropdown.ClearOptions();
+
+        //Add the empty profiles
+        profileDropdown.AddOption("Default 1");
+        profileDropdown.AddOption("Default 2");
+
+        //Select the default one
+        profileDropdown.SelectOption("Default 1");
+
+        //Add the items to the dropdown
+        foreach (accountInfoResponse.profilesData profile in PlayerData.playerProfiles)
+        {
+            profileDropdown.AddOption(profile.profile.name);
+        }
+
+
     }
 
     private void Update()
@@ -900,5 +940,9 @@ public class UIevents : MonoBehaviour
         }
     //___________________________||
 
+    public void closeProfilesWindow()
+    {
+        profiles.profilesWindow.SetActive(!profiles.profilesWindow.activeSelf);
+    }
 
 }

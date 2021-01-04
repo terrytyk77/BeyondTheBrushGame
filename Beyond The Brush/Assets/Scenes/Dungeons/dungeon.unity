@@ -410,6 +410,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Recognizer
       objectReference: {fileID: 0}
+    - target: {fileID: 2496172875764112581, guid: 70a88731372887e46bcea087aba02455, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3047032200241417566, guid: 70a88731372887e46bcea087aba02455, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 70a88731372887e46bcea087aba02455, type: 3}
@@ -767,7 +771,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1649138162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -938,6 +942,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 236372613, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 673385138, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1173,10 +1181,6 @@ PrefabInstance:
     - target: {fileID: 3956660341335235845, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3957292503466895589, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5245757321838936100, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: recognizer
