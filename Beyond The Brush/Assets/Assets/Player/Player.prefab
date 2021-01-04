@@ -2171,6 +2171,9 @@ MonoBehaviour:
   ShieldBubble: {fileID: 1180271067104221610}
   ShieldBlockMaxStack: 2
   BubbleUpDamageBlock: 100
+  ShieldDefaultIcon: {fileID: 21300000, guid: ef6898ff2fd02854e8e82f17e3b242f3, type: 3}
+  BubbleUpIcon: {fileID: 21300000, guid: 019d2fee806dde9429d071d52a54056b, type: 3}
+  BubbleUpIconSlot: {fileID: 0}
   BubbleUpShieldColor:
     serializedVersion: 2
     rgba: 4289134076
@@ -4297,15 +4300,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5949509309009763061, guid: b19b5b6b2c91e1f419e3fdeedcd6450d, type: 3}
       propertyPath: m_Color.b
-      value: 0.990566
+      value: 0.7176471
       objectReference: {fileID: 0}
     - target: {fileID: 5949509309009763061, guid: b19b5b6b2c91e1f419e3fdeedcd6450d, type: 3}
       propertyPath: m_Color.g
-      value: 0.8561359
+      value: 0.882353
       objectReference: {fileID: 0}
     - target: {fileID: 5949509309009763061, guid: b19b5b6b2c91e1f419e3fdeedcd6450d, type: 3}
       propertyPath: m_Color.r
-      value: 0.6494749
+      value: 0.5647059
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1172240097992926741, guid: b19b5b6b2c91e1f419e3fdeedcd6450d, type: 3}

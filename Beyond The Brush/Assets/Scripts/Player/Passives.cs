@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Passives : MonoBehaviour
 {
@@ -48,6 +49,9 @@ public class Passives : MonoBehaviour
     //BubbleUpS
     [Header("BubbleUp Settings:")]
         public int BubbleUpDamageBlock = 100;
+        public Sprite ShieldDefaultIcon;
+        public Sprite BubbleUpIcon;
+        public GameObject BubbleUpIconSlot;
         public Color32 BubbleUpShieldColor;
     //-----------------------------||
 
@@ -198,6 +202,7 @@ public class Passives : MonoBehaviour
         if(PlayerData.talentTreeData.node7 == true)
         {
             ShieldBubble.GetComponent<SpriteRenderer>().color = BubbleUpShieldColor;
+            BubbleUpIconSlot.GetComponent<Image>().sprite = BubbleUpIcon;
             PlayerData.shieldDamageReduction = BubbleUpDamageBlock;
         }
     }
