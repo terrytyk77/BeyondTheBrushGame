@@ -180,8 +180,6 @@ public class AccountServices : MonoBehaviour
 
             accountInfoResponse result2 = JsonUtility.FromJson<accountInfoResponse>(result);
 
-            Debug.Log(result2.profiles[0].front.Head);
-
             if (result2.status)
             {
                 //The login was accepted

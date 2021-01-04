@@ -203,8 +203,33 @@ public class UIevents : MonoBehaviour
             options.dropdownWindow.GetComponent<DuloGames.UI.UISelectField>().SelectOption("Fullscreen");
         else
             options.dropdownWindow.GetComponent<DuloGames.UI.UISelectField>().SelectOption("Windowed");
-
+        
+        setupProfilesWindow();
         updateOptionsWindowInfo();
+    }
+
+
+    private void setupProfilesWindow()
+    {
+        DuloGames.UI.UISelectField profileDropdown = profiles.profilesDropDown.GetComponent<DuloGames.UI.UISelectField>();
+
+        //Empty the options
+        profileDropdown.ClearOptions();
+
+        //Add the empty profiles
+        profileDropdown.AddOption("Default 1");
+        profileDropdown.AddOption("Default 2");
+
+        //Select the default one
+        profileDropdown.SelectOption("Default 1");
+
+        //Add the items to the dropdown
+        foreach (accountInfoResponse.profilesData profile in PlayerData.playerProfiles)
+        {
+            profileDropdown.AddOption(profile.profile.name);
+        }
+
+
     }
 
     private void Update()
