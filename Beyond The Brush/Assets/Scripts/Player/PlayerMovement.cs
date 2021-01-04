@@ -50,18 +50,16 @@ public class PlayerMovement : MonoBehaviour
             playerHorizontalPerspective();
             newForce.x = -movementMagnitude;
             HorVerSide = true;
-
             //Change the image side
-            playerHorizontal.transform.rotation = new Quaternion(0, 180, 0, 1);
+            transform.rotation = new Quaternion(0, 180, Quaternion.identity.z, 1);
         }
         else if (Input.GetKey("d") && !Input.GetKey("a"))
         {
             playerHorizontalPerspective();
             newForce.x = movementMagnitude;
             HorVerSide = true;
-
             //Change the image side
-            playerHorizontal.transform.rotation = new Quaternion(0, 0, 0, 1);
+            transform.rotation = new Quaternion(0, 0, Quaternion.identity.z, 1);
         }
         else
         {
