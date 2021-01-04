@@ -58,13 +58,23 @@ public class UIevents : MonoBehaviour
         //Skills cooldowns
         public skillsCooldowns cooldowns;
 
-    //Bars
-    public healthbarClass healthbar;
+        //Bars
+        public healthbarClass healthbar;
         public expbarClass expBar;
 
         public GameObject levelText;
 
-    //Minimap||
+        //The profiles window
+        [System.Serializable]
+        public class profilesClass
+        {
+            public GameObject profilesDropDown;
+            public GameObject profilesWindow;
+        }
+
+        public profilesClass profiles = new profilesClass();
+
+        //Minimap||
 
             [System.Serializable]
             public class miniMapClass
@@ -188,6 +198,11 @@ public class UIevents : MonoBehaviour
         //Options info
         options.musicSlider.GetComponent<Slider>().value = PlayerData.musicVolume;
         options.sfxSlider.GetComponent<Slider>().value = PlayerData.sfxVolume;
+
+        if (PlayerData.windowmode)
+            options.dropdownWindow.GetComponent<DuloGames.UI.UISelectField>().SelectOption("Fullscreen");
+        else
+            options.dropdownWindow.GetComponent<DuloGames.UI.UISelectField>().SelectOption("Windowed");
 
         updateOptionsWindowInfo();
     }
@@ -886,5 +901,9 @@ public class UIevents : MonoBehaviour
         }
     //___________________________||
 
+    public void closeProfilesWindow()
+    {
+        profiles.profilesWindow.SetActive(!profiles.profilesWindow.activeSelf);
+    }
 
 }
