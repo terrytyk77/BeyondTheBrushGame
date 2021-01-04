@@ -285,7 +285,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (PlayerData.healthPoints <= 0 ||  player == null)
         {
-            Debug.Log(player);
+            //Debug.Log(player);
             currentPath = null;
             currentState = State.Patrolling;
         }
@@ -340,23 +340,8 @@ public class EnemyAI : MonoBehaviour
 
     public void dealDamage()
     {
-        if(PlayerData.healthPoints >= damage)
-        {
-            if(PlayerData.isShielded == true)
-            {
-                PlayerData.healthPoints -= (damage - (damage * PlayerData.shieldDamageReduction / 100));
-                PlayerData.shieldTimer = 0f;
-                PlayerData.isShielded = false;
-            }
-            else
-            {
-                PlayerData.healthPoints -= damage;
-            }
-        }
-        else
-        {
-            PlayerData.healthPoints = 0;
-        }
+        //Send the damage request to the player
+        PlayerData.damagePlayer(damage);
     }
 
     private void ResetHP()

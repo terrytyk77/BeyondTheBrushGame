@@ -59,6 +59,13 @@ public class CurrentDungeonData : MonoBehaviour
         private List<GameObject> inactiveRooms = new List<GameObject>();
                
         private List<roomPos> map = new List<roomPos>();
+
+        //Counters||
+
+            public int amountOfChests = 0;
+            public int amountOfDeaths = 0;
+        //________||
+
     //_________||
 
     //Class to handle rooms position
@@ -76,7 +83,7 @@ public class CurrentDungeonData : MonoBehaviour
 
     }
 
-    private Dungeon.room getRoomViaCords(Vector2Int cords)
+    public Dungeon.room getRoomViaCords(Vector2Int cords)
     {
         Dungeon.room foundRoom = new Dungeon.room();
 

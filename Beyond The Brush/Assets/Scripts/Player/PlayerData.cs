@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class PlayerData : MonoBehaviour
@@ -161,6 +162,132 @@ public class PlayerData : MonoBehaviour
             cooldowns._shieldTimer = 0;
         }
 
+    }
+
+    public static void playerDied()
+    {
+        //Handle the player death
+        //Variables||
+
+            //players body
+            Rigidbody2D playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+
+            //dungeon data
+            CurrentDungeonData dungeonInfo = GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>();
+
+            //The interface
+            GameObject mainInterface = GameObject.FindGameObjectWithTag("mainUI");
+        //_________||
+
+        //Freeze the player movement
+        playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        //Play the death animation
+
+        //Respawn the player
+        void doLast()
+        {
+            //Make him able to move itself again
+            playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            //Reset his cooldowns
+            cooldowns._shieldCooldown = 0;
+            cooldowns._slashCooldown = 0;
+            cooldowns._xslashCooldown = 0;
+            cooldowns._shieldTimer = 0;
+
+            //Reset the room
+
+            void teleportPlayer(string doorName)
+            {
+                //Get the current room uwu
+                GameObject roomYoureIn = dungeonInfo.getRoomViaCords(dungeonInfo.currentRoom).roomPrefab;
+                Vector2 teleportPosition = roomYoureIn.transform.Find("TeleportLocations").Find(doorName).localPosition;
+
+                playerRB.position = teleportPosition;
+            }
+
+            //Teleport the player
+            if (dungeonInfo.nextRoomSide == "")
+                teleportPlayer("exit");
+            else
+                teleportPlayer(dungeonInfo.nextRoomSide);
+
+            //Add do the death counters
+            dungeonInfo.amountOfDeaths += 1;
+
+            //Reset his HP
+            _healthPoints = _maxHealthPoints;
+        }
+
+        //Make the screen go dark
+        instance.StartCoroutine(screenFade(mainInterface.transform.Find("ShadowOverlay").gameObject, doLast));
+
+
+
+    }
+
+    public static IEnumerator screenFade(GameObject darkOverlay, Action dolast)
+    {
+
+        float speed = .1f;
+
+        void addTransparency(float transparency)
+        {
+            //Get the default color of the image
+            Color defaultColor = darkOverlay.GetComponent<Image>().color;
+
+            darkOverlay.GetComponent<Image>().color = new Color(defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a += transparency);
+        }
+
+        //Fade in
+        while (darkOverlay.GetComponent<Image>().color.a < 1)
+        {
+            addTransparency(speed);
+            yield return new WaitForSeconds(.1f);
+        }
+
+        //Yield for a bit to end the death animation
+        yield return new WaitForSeconds(.5f);
+
+        //Play the function after the death loading
+        dolast();
+
+        //Fade in
+        while (darkOverlay.GetComponent<Image>().color.a > 0)
+        {
+            addTransparency(-speed);
+            yield return new WaitForSeconds(.1f);
+        }
+    }
+
+    public static void damagePlayer(int damage)
+    {
+
+        damage = damage * 3;
+
+        if (healthPoints >= damage)
+        {
+            if (isShielded == true)
+            {
+                healthPoints -= (damage - (damage * shieldDamageReduction / 100));
+                shieldTimer = 0f;
+                isShielded = false;
+            }
+            else
+            {
+                healthPoints -= damage;
+            }
+        }
+        else
+        {
+            healthPoints = 0;
+        }
+
+        if (healthPoints == 0)
+        {
+            playerDied();
+        }
     }
 
     public static void addPlayerExp(int enemyExp)
