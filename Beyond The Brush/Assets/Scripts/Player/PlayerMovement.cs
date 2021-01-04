@@ -67,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
         {
                 playerHorizontal.GetComponent<Animator>().SetBool("Moving", false);
                 playerVertical.GetComponent<Animator>().SetBool("Moving", false);
-
         }
 
         //Apply the force on the player's body
