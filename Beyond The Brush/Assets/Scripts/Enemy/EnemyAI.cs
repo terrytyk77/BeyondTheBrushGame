@@ -229,6 +229,12 @@ public class EnemyAI : MonoBehaviour
 
     private void getPath(Vector3 position)
     {
+        if (collisionTilemap == null)
+        {
+            collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
+            collisionTilemap = collisionObject.GetComponent<Tilemap>();
+        }
+
         TileBase tile = collisionTilemap.GetTile(collisionTilemap.WorldToCell(position));
         if (tile == null)
         {

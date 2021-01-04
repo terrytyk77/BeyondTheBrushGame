@@ -196,7 +196,55 @@ public class PlayerData : MonoBehaviour
             cooldowns._xslashCooldown = 0;
             cooldowns._shieldTimer = 0;
 
-            //Reset the room
+            //Reset the room||
+
+                //Find the current room instance
+                string roomName = dungeonInfo.getRoomViaCords(dungeonInfo.currentRoom).roomPrefab.name + dungeonInfo.currentRoom.x + dungeonInfo.currentRoom.y;
+                GameObject roomInstance = GameObject.Find(roomName);
+                
+                //If it finds the instance then respawn it
+                if (roomInstance && !dungeonInfo.getRoomViaCords(dungeonInfo.currentRoom).getCompleted())
+                {
+                    //Get the prefab version
+                    GameObject prefabVersion = dungeonInfo.getRoomViaCords(dungeonInfo.currentRoom).roomPrefab;
+
+                    //Disable the current one
+                    roomInstance.SetActive(false);
+
+                    //New room
+                    GameObject newVersion = Instantiate(roomInstance);
+
+                    List<GameObject> childsReference = new List<GameObject>();
+
+                    //Recreate the childs
+                    foreach(Transform child in newVersion.transform)
+                    {
+                        foreach (Transform child2 in roomInstance.transform)
+                        {
+                            if (child.name == child2.name)
+                            {
+                                GameObject newElement = Instantiate(child.gameObject);
+                                Destroy(child2.gameObject);
+                                newElement.name = child2.name;
+                                childsReference.Add(newElement);
+                                //newElement.transform.SetParent(roomInstance.transform);
+                            }
+                        }
+                    }
+
+                    //Finish the proccess
+                    Destroy(newVersion);
+
+                    foreach (GameObject childRef in childsReference)
+                    {
+                        childRef.transform.SetParent(roomInstance.transform);
+                    }
+
+                    roomInstance.SetActive(true);
+
+                }
+            //______________||
+
 
             void teleportPlayer(string doorName)
             {
@@ -218,6 +266,9 @@ public class PlayerData : MonoBehaviour
 
             //Reset his HP
             _healthPoints = _maxHealthPoints;
+
+            //Reset the camera
+            Camera.main.transform.position = new Vector3( playerRB.position.x, playerRB.position.y, Camera.main.transform.position.z);
         }
 
         //Make the screen go dark
@@ -263,8 +314,6 @@ public class PlayerData : MonoBehaviour
 
     public static void damagePlayer(int damage)
     {
-
-        damage = damage * 3;
 
         if (healthPoints >= damage)
         {
