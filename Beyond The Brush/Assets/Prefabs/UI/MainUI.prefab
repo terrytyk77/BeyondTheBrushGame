@@ -16363,6 +16363,8 @@ MonoBehaviour:
     slashSkill: {fileID: 6532107103901484439}
     XslashSkill: {fileID: 3956660340270726278}
     shieldSkill: {fileID: 3956660339842380628}
+    rockSkill: {fileID: 0}
+    boxSkill: {fileID: 0}
   healthbar:
     fill: {fileID: 6934849177100748210}
     text: {fileID: 6935237000447519340}

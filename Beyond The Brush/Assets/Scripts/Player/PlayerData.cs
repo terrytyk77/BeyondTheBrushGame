@@ -49,12 +49,18 @@ public class PlayerData : MonoBehaviour
         static public float slashCooldownDefault = 1.5f;
         static public float xslashCooldownDefault = 10f;
         static public float shieldCooldownDefault = 12f;
+        static public float boxSpawnCooldownDefault = 10f;
+        static public float rockSpawnCooldownDefault = 10f;
+    
         static public float shieldTimerDefault = 4f;
+        
 
     private class cooldowsClass{
             public float _slashCooldown = 0;
             public float _xslashCooldown = 0;
             public float _shieldCooldown = 0;
+            public float _rockCooldown = 0;
+            public float _boxCooldown = 0;
             public float _shieldTimer = 0;
     }
 
@@ -113,6 +119,8 @@ public class PlayerData : MonoBehaviour
     public static float xslashCooldown { get { return cooldowns._xslashCooldown; } set { cooldowns._xslashCooldown = value; } }
     public static float shieldCooldown { get { return cooldowns._shieldCooldown; } set { cooldowns._shieldCooldown = value; } }
     public static float shieldTimer { get { return cooldowns._shieldTimer; } set { cooldowns._shieldTimer = value; } }
+    public static float rockCooldown { get { return cooldowns._rockCooldown; } set { cooldowns._rockCooldown = value; } }
+    public static float boxCooldown { get { return cooldowns._boxCooldown; } set { cooldowns._boxCooldown = value; } }
 
     public static int getNeededExp()
     {
@@ -149,6 +157,18 @@ public class PlayerData : MonoBehaviour
         {
             cooldowns._shieldCooldown = 0;
         }
+
+        //Rock spawn
+        if (cooldowns._rockCooldown > 0)
+            cooldowns._rockCooldown -= Time.deltaTime;
+        else
+            cooldowns._rockCooldown = 0;
+
+        //Box spawn
+        if (cooldowns._boxCooldown > 0)
+            cooldowns._boxCooldown -= Time.deltaTime;
+        else
+            cooldowns._boxCooldown = 0;
 
         //ShieldTimer
         if (cooldowns._shieldTimer > 0)
@@ -227,7 +247,6 @@ public class PlayerData : MonoBehaviour
                                 Destroy(child2.gameObject);
                                 newElement.name = child2.name;
                                 childsReference.Add(newElement);
-                                //newElement.transform.SetParent(roomInstance.transform);
                             }
                         }
                     }

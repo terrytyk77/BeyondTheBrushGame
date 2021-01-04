@@ -33,6 +33,8 @@ public class UIevents : MonoBehaviour
             public GameObject slashSkill;
             public GameObject XslashSkill;
             public GameObject shieldSkill;
+            public GameObject rockSkill;
+            public GameObject boxSkill;
         }
 
         [System.Serializable]
@@ -335,6 +337,25 @@ public class UIevents : MonoBehaviour
                 cooldowns.shieldSkill.transform.Find("StackText").GetComponent<Text>().text = PlayerData.shieldCurrentStack.ToString();
             }
             cooldowns.shieldSkill.transform.Find("CooldownText").GetComponent<Text>().text = shieldSkillText;
+
+            //rock spawner
+            string rockSkillText = "";
+            if (PlayerData.rockCooldown > 0)
+            {
+                rockSkillText = rockSkillText + decimal.Round((decimal)PlayerData.rockCooldown, 2);
+            }
+            cooldowns.rockSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.rockCooldown / PlayerData.rockSpawnCooldownDefault);
+            cooldowns.rockSkill.transform.Find("CooldownText").GetComponent<Text>().text = rockSkillText;
+            
+            //box spawner
+            string boxSkillText = "";
+            if (PlayerData.boxCooldown > 0)
+            {
+                boxSkillText = boxSkillText + decimal.Round((decimal)PlayerData.boxCooldown, 2);
+            }
+            cooldowns.boxSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.boxCooldown / PlayerData.boxSpawnCooldownDefault);
+            cooldowns.boxSkill.transform.Find("CooldownText").GetComponent<Text>().text = boxSkillText;
+
         //________________||
 
 

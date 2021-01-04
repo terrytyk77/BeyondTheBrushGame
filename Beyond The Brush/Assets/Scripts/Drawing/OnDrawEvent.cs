@@ -208,8 +208,9 @@ public class OnDrawEvent : MonoBehaviour
 								}
 							}
 						}
-                        else
+                        else if(PlayerData.rockCooldown <= 0)
                         {
+							PlayerData.rockCooldown = PlayerData.rockSpawnCooldownDefault;
 							Debug.Log("Stone");
 							SpawnObject(location, stone);
 						}
@@ -234,8 +235,13 @@ public class OnDrawEvent : MonoBehaviour
 					}
 				case "Square":
 					{
-						Debug.Log("Box");
-						SpawnObject(location, box);
+                        if (PlayerData.boxCooldown <= 0)
+                        {
+							PlayerData.boxCooldown = PlayerData.boxSpawnCooldownDefault;
+							Debug.Log("Box");
+							SpawnObject(location, box);
+                        }
+
 						break;
 					}
 			}
