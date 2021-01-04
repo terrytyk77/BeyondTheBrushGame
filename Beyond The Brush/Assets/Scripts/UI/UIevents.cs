@@ -519,58 +519,72 @@ public class UIevents : MonoBehaviour
 
                 //Get the correct color
                 Color imageColor = new Color(1, 1, 1, 0);
+                //Outter Ring color
+                Color CircleColor = new Color(1, 1, 1, 1);
                 if (nodeInfo.Item1)
                 {
-                    imageColor = new Color(1, 1, 1, 0);
+                    CircleColor = new Color(0.96f, 0.13f, 0.06f, 1);
+                    imageColor = new Color32(1, 1, 1, 0);
                 }else if (nodeInfo.Item2)
                 {
-                    imageColor = new Color(54f / 255f, 243 / 255f, 0 / 255f, 40f / 255f);
+                    // 54f / 255f, 243 / 255f, 0 / 255f, 40f / 255f
+                    CircleColor = new Color(1, 1, 1, 1);
+                    imageColor = new Color(0, 0, 0, 0.6f);
                 }
                 else
                 {
-                    imageColor = new Color(0, 0, 0,  81f / 125f);
+                    CircleColor = new Color(1, 1, 1, 1);
+                    imageColor = new Color(0, 0, 0,  0.9f);
                 }
 
-                switch (i)
+            switch (i)
                 {
                     case 0:
-                    talentTreeData.nodes.node0.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                        talentTreeData.nodes.node0.GetComponent<Image>().color = CircleColor;
+                        talentTreeData.nodes.node0.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
                         break;
                     case 1:
+                        talentTreeData.nodes.node1.GetComponent<Image>().color = CircleColor;
                         talentTreeData.nodes.node1.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
                         break;
 
                     case 2:
+                        talentTreeData.nodes.node2.GetComponent<Image>().color = CircleColor;
                         talentTreeData.nodes.node2.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
                         break;
                     case 3:
-                        talentTreeData.nodes.node3.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
+                    talentTreeData.nodes.node3.GetComponent<Image>().color = CircleColor;
+                    talentTreeData.nodes.node3.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
                         break;
                     case 4:
+                        talentTreeData.nodes.node4.GetComponent<Image>().color = CircleColor;
                         talentTreeData.nodes.node4.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
                         break;
                     case 5:
+                        talentTreeData.nodes.node5.GetComponent<Image>().color = CircleColor;
                         talentTreeData.nodes.node5.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
                         break;
                     case 6:
+                        talentTreeData.nodes.node6.GetComponent<Image>().color = CircleColor;
                         talentTreeData.nodes.node6.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
                         break;
                     case 7:
+                        talentTreeData.nodes.node7.GetComponent<Image>().color = CircleColor;
                         talentTreeData.nodes.node7.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
                         break;
                     case 8:
+                        talentTreeData.nodes.node8.GetComponent<Image>().color = CircleColor;
                         talentTreeData.nodes.node8.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
                         break;
                     case 9:
+                        talentTreeData.nodes.node9.GetComponent<Image>().color = CircleColor;
                         talentTreeData.nodes.node9.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
                         break;
                     case 10:
+                        talentTreeData.nodes.node10.GetComponent<Image>().color = CircleColor;
                         talentTreeData.nodes.node10.transform.Find("Overlay").GetComponent<Image>().color = imageColor;
                         break;
-
                 }
-
-
             }
         }
 
