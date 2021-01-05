@@ -211,17 +211,21 @@ public class UIevents : MonoBehaviour
 
     private void setupProfilesWindow()
     {
+        //Variables||
+
+            string default1Name = "Default 1";
+            string default2Name = "Default 2";
+        //_________||
+
+        //Get the main componenet
         DuloGames.UI.UISelectField profileDropdown = profiles.profilesDropDown.GetComponent<DuloGames.UI.UISelectField>();
 
         //Empty the options
         profileDropdown.ClearOptions();
 
         //Add the empty profiles
-        profileDropdown.AddOption("Default 1");
-        profileDropdown.AddOption("Default 2");
-
-        //Select the default one
-        profileDropdown.SelectOption("Default 1");
+        profileDropdown.AddOption(default1Name);
+        profileDropdown.AddOption(default2Name);
 
         //Add the items to the dropdown
         foreach (accountInfoResponse.profilesData profile in PlayerData.playerProfiles)
@@ -229,7 +233,26 @@ public class UIevents : MonoBehaviour
             profileDropdown.AddOption(profile.profile.name);
         }
 
+        //Select the correct one
+        switch (PlayerData.currentProfile)
+        {
+            case 0:
+                profileDropdown.SelectOption(default1Name);
+                break;
 
+            case 1:
+                profileDropdown.SelectOption(default2Name);
+                break;
+            default:
+                profileDropdown.SelectOption(PlayerData.playerProfiles[PlayerData.currentProfile - 2].profile.name);
+                    break;
+        }
+
+    }
+
+    public void profilesListener(int indexValue, string profileName)
+    {
+        PlayerData.currentProfile = indexValue;
     }
 
     private void Update()

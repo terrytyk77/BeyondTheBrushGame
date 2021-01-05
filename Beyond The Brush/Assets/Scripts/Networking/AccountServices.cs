@@ -23,7 +23,7 @@ using UnityEngine.UI;
 
 
 
-                
+                public int currentProfile;
                 public bool windowMode = true;
                 public float musicVolume = 0.3f;
                 public float sfxVolume = 0.3f;

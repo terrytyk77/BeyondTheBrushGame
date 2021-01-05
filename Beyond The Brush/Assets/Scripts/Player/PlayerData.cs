@@ -89,9 +89,14 @@ public class PlayerData : MonoBehaviour
 
     //_________||
 
+
+    //Profiles related data
+    static private int _currentProfile = 0;
+
     static private List<accountInfoResponse.profilesData> _playerProfiles = new List<accountInfoResponse.profilesData>();
 
     public static List<accountInfoResponse.profilesData> playerProfiles { get { return _playerProfiles; } }
+    public static int currentProfile { get { return _currentProfile; } set { _currentProfile = value; } }
 
     //Get the database data
     public static string id {get{return _id;} set { _id = value; } }
@@ -393,6 +398,7 @@ public class PlayerData : MonoBehaviour
         data.stats.gold = _gold;
         data.stats.ressources = _resources;
         data.talentTree = _talentTreeData;
+        data.currentProfile = _currentProfile;
 
         return data;
     }
@@ -432,8 +438,9 @@ public class PlayerData : MonoBehaviour
     static public void SetPlayerData(accountInfoResponse json)
     {
 
+        if(json.body.currentProfile != null) { _currentProfile = (int)json.body.currentProfile; }
+
         if (json.profiles != null) { _playerProfiles = json.profiles; }
-    
         if (json.body._id != null){_id = json.body._id;}
         if (json.body.name != null){ _username = json.body.name;}
         if (json.body.email != null) { _email = json.body.email; }
@@ -486,6 +493,7 @@ public class PlayerData : MonoBehaviour
         _maxHealthPoints = 100;
         _talentTreeData = new talentTreeClass();
         _playerProfiles = new List<accountInfoResponse.profilesData>();
+        _currentProfile = 0;
     }
 
 }
