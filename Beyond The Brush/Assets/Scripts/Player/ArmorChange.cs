@@ -122,6 +122,32 @@ public class ArmorChange : MonoBehaviour
         //________________________||
     }
 
+    public void changeHorizontalDirection(bool direction)
+    {
+
+        //true is for going to the right
+        //false is for going to the left
+        if (direction)
+        {
+            //Go to the right
+            horizontalPlayer.transform.Find("Head").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
+            horizontalPlayer.transform.Find("Head").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+            horizontalPlayer.transform.Find("Body").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
+            horizontalPlayer.transform.Find("Body").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else
+        {
+            //Go to the left
+            horizontalPlayer.transform.Find("Head").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
+            horizontalPlayer.transform.Find("Head").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+            horizontalPlayer.transform.Find("Body").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
+            horizontalPlayer.transform.Find("Body").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
+        }
+
+    }
+
     public void changedVerticalDirection(bool direction, armorHolder armorSet)
     {
 
@@ -147,6 +173,17 @@ public class ArmorChange : MonoBehaviour
             //Boots
             verticalPlayer.transform.Find("Left Leg").Find("Boot").GetComponent<SpriteRenderer>().sprite = armorSet.back.left_shoe;
             verticalPlayer.transform.Find("Right Leg").Find("Boot").GetComponent<SpriteRenderer>().sprite = armorSet.back.right_shoe;
+
+            //Handle images showing||
+
+                //Display helmet images
+                verticalPlayer.transform.Find("Head").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = false;
+                verticalPlayer.transform.Find("Head").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
+                
+                //Display vest images
+                verticalPlayer.transform.Find("Body").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = false;
+                verticalPlayer.transform.Find("Body").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
+            //_____________________||
         }
         else
         {
@@ -169,6 +206,17 @@ public class ArmorChange : MonoBehaviour
             verticalPlayer.transform.Find("Left Leg").Find("Boot").GetComponent<SpriteRenderer>().sprite = armorSet.front.left_shoe;
             verticalPlayer.transform.Find("Right Leg").Find("Boot").GetComponent<SpriteRenderer>().sprite = armorSet.front.right_shoe;
 
+            //Handle images showing||
+
+                //Display helmet images
+                verticalPlayer.transform.Find("Head").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = true;
+                verticalPlayer.transform.Find("Head").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+                //Display vest images
+                verticalPlayer.transform.Find("Body").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = true;
+                verticalPlayer.transform.Find("Body").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
+            //_____________________||
+
         }
 
     }
@@ -188,33 +236,103 @@ public class ArmorChange : MonoBehaviour
            //Get the current profile
            currentProfile = PlayerData.playerProfiles[PlayerData.currentProfile - 2];
         }
-        
-        Texture2D textureHolder = new Texture2D(2, 2);
 
-        void changeDrawing(string bodyPart, string drawingName, string imageString)
+        List<Texture2D> textureHolders = new List<Texture2D>();
+
+        void changeDrawingVertical(string bodyPart, string drawingName, string imageString)
         {
 
             if (hasDrawing != null && imageString != null)
             {
+
+                //Add a new one
+                textureHolders.Add(new Texture2D(2 + textureHolders.Count, 2 + textureHolders.Count));
+                Texture2D textureHolder = textureHolders[textureHolders.Count - 1];
+
                 textureHolder.LoadImage(Convert.FromBase64String(imageString));
                 verticalPlayer.transform.Find(bodyPart).Find(drawingName).GetComponent<SpriteRenderer>().sprite = Sprite.Create(textureHolder, new Rect(0.0f, 0.0f, textureHolder.width, textureHolder.height), new Vector2(0.5f, 0.5f), 200f);
             }
             else
             {
-                
                 verticalPlayer.transform.Find(bodyPart).Find(drawingName).GetComponent<SpriteRenderer>().sprite = null;
             }
 
         }
 
-        //Set the helmet drawings||
+        void changeDrawingHorizontal(string bodyPart, string drawingName, string imageString)
+        {
 
-        //front
-        if (hasDrawing != null)
-            changeDrawing(bodyPart: "Head", drawingName: "FrontDrawing", imageString: currentProfile.front.Head);
-        else
-            changeDrawing(bodyPart: "Head", drawingName: "FrontDrawing", imageString: null);
-        //_______________________||
+            if (hasDrawing != null && imageString != null)
+            {
+
+                //Add a new one
+                textureHolders.Add(new Texture2D(1, 1));
+                Texture2D textureHolder = textureHolders[textureHolders.Count - 1];
+
+                textureHolder.LoadImage(Convert.FromBase64String(imageString));
+                horizontalPlayer.transform.Find(bodyPart).Find(drawingName).GetComponent<SpriteRenderer>().sprite = Sprite.Create(textureHolder, new Rect(0.0f, 0.0f, textureHolder.width, textureHolder.height), new Vector2(0.5f, 0.5f), 200f);
+            }
+            else
+            {
+                horizontalPlayer.transform.Find(bodyPart).Find(drawingName).GetComponent<SpriteRenderer>().sprite = null;
+            }
+
+        }
+
+            //Set the helmet drawings||
+
+
+                //back
+                if (hasDrawing != null)
+                    changeDrawingVertical(bodyPart: "Head", drawingName: "BackDrawing", imageString: currentProfile.back.Head);
+                else
+                    changeDrawingVertical(bodyPart: "Head", drawingName: "BackDrawing", imageString: null);
+
+                //front
+                if (hasDrawing != null)
+                    changeDrawingVertical(bodyPart: "Head", drawingName: "FrontDrawing", imageString: currentProfile.front.Head);
+                else
+                    changeDrawingVertical(bodyPart: "Head", drawingName: "FrontDrawing", imageString: null);
+
+                //right
+                if (hasDrawing != null)
+                    changeDrawingHorizontal(bodyPart: "Head", drawingName: "RightDrawing", imageString: currentProfile.right.Head);
+                else
+                    changeDrawingHorizontal(bodyPart: "Head", drawingName: "RightDrawing", imageString: null);
+
+                //left
+                if (hasDrawing != null)
+                    changeDrawingHorizontal(bodyPart: "Head", drawingName: "LeftDrawing", imageString: currentProfile.left.Head);
+                else
+                    changeDrawingHorizontal(bodyPart: "Head", drawingName: "LeftDrawing", imageString: null);
+            //_______________________||
+
+            //Set the vest drawings||
+
+                //front
+                if (hasDrawing != null)
+                    changeDrawingVertical(bodyPart: "Body", drawingName: "FrontDrawing", imageString: currentProfile.front.Chest);
+                else
+                    changeDrawingVertical(bodyPart: "Body", drawingName: "FrontDrawing", imageString: null);
+
+                //back
+                if (hasDrawing != null)
+                    changeDrawingVertical(bodyPart: "Body", drawingName: "BackDrawing", imageString: currentProfile.back.Chest);
+                else
+                    changeDrawingVertical(bodyPart: "Body", drawingName: "BackDrawing", imageString: null);
+
+                //right
+                if (hasDrawing != null)
+                    changeDrawingHorizontal(bodyPart: "Body", drawingName: "RightDrawing", imageString: currentProfile.right.Chest);
+                else
+                    changeDrawingHorizontal(bodyPart: "Body", drawingName: "RightDrawing", imageString: null);
+
+                //left
+                if (hasDrawing != null)
+                    changeDrawingHorizontal(bodyPart: "Body", drawingName: "LeftDrawing", imageString: currentProfile.left.Chest);
+                else
+                    changeDrawingHorizontal(bodyPart: "Body", drawingName: "LeftDrawing", imageString: null);
+        //_____________________||
 
 
     }
