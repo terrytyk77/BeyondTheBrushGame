@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
             HorVerSide = true;
             //Change the image side
             transform.rotation = new Quaternion(0, 180, Quaternion.identity.z, 1);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeHorizontalDirection(true);
         }
         else if (Input.GetKey("d") && !Input.GetKey("a"))
         {
@@ -65,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
             HorVerSide = true;
             //Change the image side
             transform.rotation = new Quaternion(0, 0, Quaternion.identity.z, 1);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeHorizontalDirection(false);
         }
         else
         {
