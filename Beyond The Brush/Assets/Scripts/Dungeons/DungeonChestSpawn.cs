@@ -11,6 +11,9 @@ public class DungeonChestSpawn : MonoBehaviour
     private Vector3 chestPosition;
 
     public GameObject WoodenChestPrefab;
+    public GameObject IronChestPrefab;
+
+    private int ChestTypeRandomizer;
 
     void Start()
     {
@@ -27,8 +30,20 @@ public class DungeonChestSpawn : MonoBehaviour
             //Get Position To Spawn Chest
             chestPosition = childrenChestSpawnPoint[chestRandomPosition].transform.position;
 
-            //Spawn Chest
-            spawnedChest = Instantiate(WoodenChestPrefab, chestPosition, Quaternion.identity);
+            //Type of Chest
+            ChestTypeRandomizer = Random.Range(1, 11);
+
+            //Spawn Chest 30% Iron 70% Wood!
+            if (ChestTypeRandomizer % 3 == 0)
+            {
+                spawnedChest = Instantiate(IronChestPrefab, chestPosition, Quaternion.identity);
+            }
+            else
+            {
+                spawnedChest = Instantiate(WoodenChestPrefab, chestPosition, Quaternion.identity);
+            }
+            
+            //Adjust Parent
             spawnedChest.transform.SetParent(transform);
         }
     }
