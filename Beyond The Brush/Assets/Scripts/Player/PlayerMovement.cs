@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
         public GameObject playerHorizontal;
         Rigidbody2D playerBody;
         bool HorVerSide = false;
+        public static bool verticalDirection = false; //False down, True up
     //_________||
 
 
@@ -37,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
             playerVerticalPerspective();
             newForce.y = movementMagnitude;
             HorVerSide = false;
+            verticalDirection = true;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(verticalDirection, ArmorChange.currentDefault);
 
         }
         else if (Input.GetKey("s") && !Input.GetKey("w"))
@@ -44,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
             playerVerticalPerspective();
             newForce.y = -movementMagnitude;
             HorVerSide = false;
+            verticalDirection = false;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(verticalDirection, ArmorChange.currentDefault);
         }
         else if (Input.GetKey("a") && !Input.GetKey("d"))
         {

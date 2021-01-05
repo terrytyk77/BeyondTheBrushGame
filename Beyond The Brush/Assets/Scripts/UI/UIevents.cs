@@ -253,6 +253,8 @@ public class UIevents : MonoBehaviour
     public void profilesListener(int indexValue, string profileName)
     {
         PlayerData.currentProfile = indexValue;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeDefaultArmor();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeArmorDrawing();
     }
 
     private void Update()

@@ -62,7 +62,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8697023186438815338}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7254126251822821028
 SpriteRenderer:
@@ -1011,7 +1011,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8697023186438815338}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &942614406688604696
 SpriteRenderer:
@@ -1361,7 +1361,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8697023186438815338}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4802781895390301521
 SpriteRenderer:
@@ -1528,6 +1528,88 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4022823776745710727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5907144729429863722}
+  - component: {fileID: 3062466663645806783}
+  m_Layer: 0
+  m_Name: FrontDrawing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5907144729429863722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4022823776745710727}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8697023186438815338}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &3062466663645806783
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4022823776745710727}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 8
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 5, y: 5}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 1
 --- !u!1 &4058763982952488861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2052,6 +2134,7 @@ GameObject:
   - component: {fileID: 1409283872}
   - component: {fileID: 654150683684790221}
   - component: {fileID: 1881675380795830168}
+  - component: {fileID: 1417011923446744537}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2177,6 +2260,82 @@ MonoBehaviour:
   BubbleUpShieldColor:
     serializedVersion: 2
     rgba: 4289134076
+--- !u!114 &1417011923446744537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5019700632870275483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e1520ee47dfa41ac6aec04981c02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  default1:
+    front:
+      hat: {fileID: 21300000, guid: b736dd992de3cc0459307e91e1bb37d8, type: 3}
+      body_clothes: {fileID: 21300000, guid: 407a0757d83dcaa4ab7bd4732ace0715, type: 3}
+      right_arm: {fileID: 21300000, guid: 1bf87ce2ab7f06a4584be3dc00c67dbf, type: 3}
+      left_arm: {fileID: 21300000, guid: 7c3af5048f50d6643820d5252b602e86, type: 3}
+      shield: {fileID: 21300000, guid: 0198ff65f2d56d64883ed643831886c1, type: 3}
+      right_shoe: {fileID: 21300000, guid: 4dd26916b7f13054bb89a401146b89c9, type: 3}
+      left_shoe: {fileID: 21300000, guid: c8e5552ef772d9b4b8b0eb22bb9a920b, type: 3}
+      sword: {fileID: 21300000, guid: 75698cc2037883e4fab2581e900f3443, type: 3}
+      hair: {fileID: 21300000, guid: 4bb695f5370ee404eb23510d8fd26668, type: 3}
+    side:
+      hat: {fileID: 21300000, guid: 2cfeac77290b01c4682a8fc475f908e7, type: 3}
+      body_clothes: {fileID: 21300000, guid: 0434e1468a77c974894b23ff8219e0e4, type: 3}
+      right_arm: {fileID: 21300000, guid: 92d6e0113ae10d545a7e7015ae850224, type: 3}
+      left_arm: {fileID: 21300000, guid: 92d6e0113ae10d545a7e7015ae850224, type: 3}
+      shield: {fileID: 21300000, guid: 420fdd4ae92de0d4a8ed1d23b1a9239d, type: 3}
+      right_shoe: {fileID: 21300000, guid: 6be295a18babc8942bae15783fb42ff5, type: 3}
+      left_shoe: {fileID: 21300000, guid: 4655cc09caec6dd4ea48917efdb4dde2, type: 3}
+      sword: {fileID: 21300000, guid: 15e5bce4f60418f4bacf20e06e7ca263, type: 3}
+      hair: {fileID: 0}
+    back:
+      hat: {fileID: 21300000, guid: ad9d092df46137a4b96887bc850d152b, type: 3}
+      body_clothes: {fileID: 21300000, guid: c9b94c269e9bdbb4dab34d8a277e31b7, type: 3}
+      right_arm: {fileID: 21300000, guid: 7cb0632c61cddb646b2e1c4822bc907d, type: 3}
+      left_arm: {fileID: 21300000, guid: 745a0e2ef184a9640833f5179c5c9120, type: 3}
+      shield: {fileID: 21300000, guid: ba709afcd169c59428b641168d3a7b9d, type: 3}
+      right_shoe: {fileID: 21300000, guid: 8432de22ea4ea0c43ad7d411aa6db28c, type: 3}
+      left_shoe: {fileID: 21300000, guid: 2e3b441f191e5e24a9c868db021fc55d, type: 3}
+      sword: {fileID: 21300000, guid: 23787816b874b05459236c248badc1d3, type: 3}
+      hair: {fileID: 21300000, guid: 08f2a8baa75cac0408ded3eca90d2f7e, type: 3}
+  default2:
+    front:
+      hat: {fileID: 21300000, guid: 3d457d60cfd420a4fa3d8d453a777087, type: 3}
+      body_clothes: {fileID: 21300000, guid: 6054bbd9a83a6ba4aa48ce4038ee79cb, type: 3}
+      right_arm: {fileID: 21300000, guid: 0c5d38c9c379b2d47a7f2b497fb18d79, type: 3}
+      left_arm: {fileID: 21300000, guid: adb6d3789a58799489fb017046e1a24f, type: 3}
+      shield: {fileID: 21300000, guid: 3b75e5304894a784388cdb24ab9e87f0, type: 3}
+      right_shoe: {fileID: 21300000, guid: b7bc441f2d189334a9007a2919338c40, type: 3}
+      left_shoe: {fileID: 21300000, guid: 29a471f8442b66647b5464345a5d241d, type: 3}
+      sword: {fileID: 21300000, guid: b07c0048f19441144a546f183ee0ac0f, type: 3}
+      hair: {fileID: 21300000, guid: f18be8aa3d3d616468f7599ec104492a, type: 3}
+    side:
+      hat: {fileID: 21300000, guid: e60555d0c77395046b40fa858a5a0f27, type: 3}
+      body_clothes: {fileID: 21300000, guid: 7579d2ced46a65b41a4f93fcf2329d08, type: 3}
+      right_arm: {fileID: 21300000, guid: 1d7049c5fc8b66449b709ffef8a13070, type: 3}
+      left_arm: {fileID: 21300000, guid: 1d7049c5fc8b66449b709ffef8a13070, type: 3}
+      shield: {fileID: 21300000, guid: c614b448a5963a848a01dc42baa76bfd, type: 3}
+      right_shoe: {fileID: 21300000, guid: b17b03d495f22384a9b58be76c613e0b, type: 3}
+      left_shoe: {fileID: 21300000, guid: 165236f3945b1e64ca107650c821c844, type: 3}
+      sword: {fileID: 21300000, guid: d701aa4ea0a8b0048a0febd33969415c, type: 3}
+      hair: {fileID: 0}
+    back:
+      hat: {fileID: 21300000, guid: 1d4fc945c675f1247ab5c1940eb5aa21, type: 3}
+      body_clothes: {fileID: 21300000, guid: bf81b10657c17d94fb7e8605da8b5df4, type: 3}
+      right_arm: {fileID: 21300000, guid: 865625b390be8bc42918db115a8f16df, type: 3}
+      left_arm: {fileID: 21300000, guid: dfd5301541fbda94a8cb12f95d7b3ff1, type: 3}
+      shield: {fileID: 21300000, guid: bb9407f0b9c29fe469d5bdd34f91559f, type: 3}
+      right_shoe: {fileID: 21300000, guid: e26087ecbf55db54c84c95706ac4a55e, type: 3}
+      left_shoe: {fileID: 21300000, guid: aa4fd787e0fa4e743bb5653ded56352b, type: 3}
+      sword: {fileID: 21300000, guid: 31da86cc3a5219842baa27fa1f255488, type: 3}
+      hair: {fileID: 21300000, guid: 608acb428d643dd418a7198a5b683d4b, type: 3}
+  horizontalPlayer: {fileID: 8869086325504228352}
+  verticalPlayer: {fileID: 7561730607355128393}
 --- !u!1 &5027356601506261891
 GameObject:
   m_ObjectHideFlags: 0
@@ -2614,6 +2773,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 5907144729429863722}
   - {fileID: 2936039064448685596}
   - {fileID: 8137229777867151967}
   - {fileID: 8837631915243791711}
@@ -3793,7 +3953,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8697023186438815338}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4448141099646758128
 SpriteRenderer:
