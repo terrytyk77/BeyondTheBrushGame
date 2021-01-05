@@ -35,9 +35,46 @@ using UnityEngine.UI;
                 public string password;
         }
 
+        [System.Serializable]
+        public class profilesData
+        {
+
+                [System.Serializable]
+                public class eachSideData
+                {
+                    public string Head;
+                    public string Gloves;
+                    public string Chest;
+                    public string Boots;
+                    public string Sword;
+                    public string Shield;
+                }
+
+                [System.Serializable]
+                public class presetClass
+                {
+                    public int name;
+                }
+
+                [System.Serializable]
+                public class profileName
+                {
+                    public string name;
+                }
+
+                public profileName profile;
+                public presetClass preset;
+                public eachSideData front;
+                public eachSideData right;
+                public eachSideData left;
+                public eachSideData back;
+        }
+
         public string result;
         public nestedData body;
+        public List<profilesData> profiles;
         public bool status;
+
 
     }
 public class AccountServices : MonoBehaviour
