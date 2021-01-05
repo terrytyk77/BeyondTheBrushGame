@@ -19,8 +19,9 @@ TagManager:
   - CollisionLayer
   - DeadEnemy
   - Projectile
-  - Drawable
   - MeleeDamage
+  - LightObject
+  - HeavyObject
   layers:
   - Default
   - TransparentFX
