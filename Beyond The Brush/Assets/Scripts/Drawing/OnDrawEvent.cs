@@ -75,9 +75,10 @@ public class OnDrawEvent : MonoBehaviour
 
 	public void HoverEnemy(DrawingLocation location, int damage)
     {
-		var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 		Vector2 worldSmallPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.sX, location.sY));
 		Vector2 worldBigPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.bX, location.bY));
+		Rect drawingZone = Rect.MinMaxRect(worldSmallPoint.x, worldSmallPoint.y, worldBigPoint.x, worldBigPoint.y);
 
 		if (damage == PlayerData.slashDamage)
 		{
@@ -90,22 +91,68 @@ public class OnDrawEvent : MonoBehaviour
 
 		if (enemies.Length != 0)
         {
-			foreach (var enemy in enemies)
+			foreach (GameObject enemy in enemies)
 			{
 				BoxCollider2D enemyCollider = enemy.GetComponent<BoxCollider2D>();
 				Vector2 enemyCorner = new Vector2(enemy.transform.position.x - (enemyCollider.size.x / 2 * enemy.transform.localScale.x), enemy.transform.position.y - (enemyCollider.size.y / 2 * enemy.transform.localScale.y));
-
-				Rect drawingZone = Rect.MinMaxRect(worldSmallPoint.x, worldSmallPoint.y, worldBigPoint.x, worldBigPoint.y);
 				Rect enemyHitZone = new Rect(enemyCorner.x, enemyCorner.y, enemyCollider.size.x * enemy.transform.localScale.x, enemyCollider.size.y * enemy.transform.localScale.y);
-
 
 				if (drawingZone.Overlaps(enemyHitZone))
 				{
-					playerPassives.FlashStrike();
-					playerPassives.ToArms();
-					playerPassives.DemandForAction(damage);
+					if(damage == PlayerData.slashDamage)
+                    {
+						playerPassives.FlashStrike();
+						playerPassives.ToArms();
+						playerPassives.DemandForAction(damage);
+					}
 					enemy.GetComponent<EnemyAI>().getDamaged(damage);
                 }
+			}
+		}
+	}
+
+	public void HoverObject(DrawingLocation location)
+    {
+		Vector2 worldSmallPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.sX, location.sY));
+		Vector2 worldBigPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.bX, location.bY));
+		Rect drawingZone = Rect.MinMaxRect(worldSmallPoint.x, worldSmallPoint.y, worldBigPoint.x, worldBigPoint.y);
+
+		GameObject[] LightObjects = GameObject.FindGameObjectsWithTag("LightObject");
+	
+		if (LightObjects.Length != 0)
+		{
+			foreach (GameObject lightObject in LightObjects)
+			{
+				BoxCollider2D lightObjectCollider = lightObject.GetComponent<BoxCollider2D>();
+				Vector2 lightObjectCorner = new Vector2(lightObject.transform.position.x - (lightObjectCollider.size.x / 2 * lightObject.transform.localScale.x), lightObject.transform.position.y - (lightObjectCollider.size.y / 2 * lightObject.transform.localScale.y));
+
+				
+				Rect lightObjectHitZone = new Rect(lightObjectCorner.x, lightObjectCorner.y, lightObjectCollider.size.x * lightObject.transform.localScale.x, lightObjectCollider.size.y * lightObject.transform.localScale.y);
+
+
+				if (drawingZone.Overlaps(lightObjectHitZone))
+				{
+					Destroy(lightObject);
+				}
+			}
+		}
+
+		if(PlayerData.talentTreeData.node2 == true)
+        {
+			GameObject[] HeavyObjects = GameObject.FindGameObjectsWithTag("HeavyObject");
+			if (HeavyObjects.Length != 0)
+			{
+				foreach (GameObject heavyObject in HeavyObjects)
+				{
+					BoxCollider2D heavyObjectCollider = heavyObject.GetComponent<BoxCollider2D>();
+					Vector2 heavyObjectCorner = new Vector2(heavyObject.transform.position.x - (heavyObjectCollider.size.x / 2 * heavyObject.transform.localScale.x), heavyObject.transform.position.y - (heavyObjectCollider.size.y / 2 * heavyObject.transform.localScale.y));
+					Rect heavyObjectHitZone = new Rect(heavyObjectCorner.x, heavyObjectCorner.y, heavyObjectCollider.size.x * heavyObject.transform.localScale.x, heavyObjectCollider.size.y * heavyObject.transform.localScale.y);
+
+					if (drawingZone.Overlaps(heavyObjectHitZone))
+					{
+						Destroy(heavyObject);
+					}
+				}
 			}
 		}
 	}
@@ -229,6 +276,7 @@ public class OnDrawEvent : MonoBehaviour
 								playerVertical.GetComponent<Animator>().SetTrigger("Xspell");
 							}
 							HoverEnemy(location, PlayerData.xslashDamage);
+							HoverObject(location);
 						}
 
 						break;

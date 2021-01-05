@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 612553772384894504}
   m_Layer: 0
   m_Name: Crate
-  m_TagString: Drawable
+  m_TagString: LightObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
