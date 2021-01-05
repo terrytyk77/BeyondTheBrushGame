@@ -254,6 +254,7 @@ public class UIevents : MonoBehaviour
     {
         PlayerData.currentProfile = indexValue;
         GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeDefaultArmor();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeArmorDrawing();
     }
 
     private void Update()

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ArmorChange : MonoBehaviour
 {
@@ -46,6 +47,7 @@ public class ArmorChange : MonoBehaviour
     {
         //Call the function to handle the player default armor
         changeDefaultArmor();
+        changeArmorDrawing();
     }
 
 
@@ -118,7 +120,6 @@ public class ArmorChange : MonoBehaviour
             verticalPlayer.transform.Find("Left Arm").Find("Armor").GetComponent<SpriteRenderer>().sprite = armorSet.front.left_arm;
             verticalPlayer.transform.Find("Right Arm").Find("Armor").GetComponent<SpriteRenderer>().sprite = armorSet.front.right_arm;
         //________________________||
-
     }
 
     public void changedVerticalDirection(bool direction, armorHolder armorSet)
@@ -169,6 +170,52 @@ public class ArmorChange : MonoBehaviour
             verticalPlayer.transform.Find("Right Leg").Find("Boot").GetComponent<SpriteRenderer>().sprite = armorSet.front.right_shoe;
 
         }
+
+    }
+
+    public void changeArmorDrawing()
+    {
+        //See weather there is a profile to load or not
+        bool? hasDrawing = true;
+
+        //Check if the profile is a default one
+        if (PlayerData.currentProfile < 2)
+            hasDrawing = null;
+
+        accountInfoResponse.profilesData currentProfile = new accountInfoResponse.profilesData();
+        if (hasDrawing != null)
+        {
+           //Get the current profile
+           currentProfile = PlayerData.playerProfiles[PlayerData.currentProfile - 2];
+        }
+        
+        Texture2D textureHolder = new Texture2D(2, 2);
+
+        void changeDrawing(string bodyPart, string drawingName, string imageString)
+        {
+
+            if (hasDrawing != null && imageString != null)
+            {
+                textureHolder.LoadImage(Convert.FromBase64String(imageString));
+                verticalPlayer.transform.Find(bodyPart).Find(drawingName).GetComponent<SpriteRenderer>().sprite = Sprite.Create(textureHolder, new Rect(0.0f, 0.0f, textureHolder.width, textureHolder.height), new Vector2(0.5f, 0.5f), 200f);
+            }
+            else
+            {
+                
+                verticalPlayer.transform.Find(bodyPart).Find(drawingName).GetComponent<SpriteRenderer>().sprite = null;
+            }
+
+        }
+
+        //Set the helmet drawings||
+
+        //front
+        if (hasDrawing != null)
+            changeDrawing(bodyPart: "Head", drawingName: "FrontDrawing", imageString: currentProfile.front.Head);
+        else
+            changeDrawing(bodyPart: "Head", drawingName: "FrontDrawing", imageString: null);
+        //_______________________||
+
 
     }
 
