@@ -42,15 +42,12 @@ public class LockedDoorTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Drawable")
+        if (collision.gameObject.name == ArrayPrefabs[randomSymbole])
         {
-            if (collision.gameObject.name == ArrayPrefabs[randomSymbole])
-            {
-                isEmpty++;
-                doorToOpen.GetComponent<LockedDoor>().DestroyDoor();
-                Trigger.sprite = TriggerIn;
-                Symbole.sprite = symboleIn;
-            }
+            isEmpty++;
+            doorToOpen.GetComponent<LockedDoor>().DestroyDoor();
+            Trigger.sprite = TriggerIn;
+            Symbole.sprite = symboleIn;
         }
     }
 

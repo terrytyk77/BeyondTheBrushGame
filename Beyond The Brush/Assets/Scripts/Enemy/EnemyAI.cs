@@ -280,11 +280,23 @@ public class EnemyAI : MonoBehaviour
 
     private void FindTarget()
     {
-        if ((Vector3.Distance(transform.position, player.transform.position) < aggroRange) && (Vector3.Distance(transform.position, player.transform.position) > attackRange) && PlayerData.healthPoints > 0)
+        if (enemyType == "Ranged")
         {
-            //Player within target Range!
-            currentState = State.Chassing;
+            if ((Vector3.Distance(transform.position, player.transform.position) < aggroRange) && (Vector3.Distance(transform.position, player.transform.position) > attackRange / 2) && PlayerData.healthPoints > 0)
+            {
+                //Player within target Range!
+                currentState = State.Chassing;
+            }
         }
+        else if (enemyType == "Melee")
+        {
+            if ((Vector3.Distance(transform.position, player.transform.position) < aggroRange) && (Vector3.Distance(transform.position, player.transform.position) > attackRange) && PlayerData.healthPoints > 0)
+            {
+                //Player within target Range!
+                currentState = State.Chassing;
+            }
+        }
+        
     }
     
     private void TargetDead()

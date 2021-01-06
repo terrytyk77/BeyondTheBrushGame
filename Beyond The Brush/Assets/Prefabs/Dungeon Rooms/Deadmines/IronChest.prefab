@@ -122,5 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40081eaf090e35f4bae6e6e76852b791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxCoinAmount: 1
+  MinCoinAmount: 3
+  MaxCoinAmount: 8
+  coinPrefab: {fileID: 5764398235068521353, guid: 1d35953945ae64d4288167e888208bd7, type: 3}
   InvisibleCollisionTile: {fileID: 11400000, guid: 630a0fed0c5c0194da75462c5363371f, type: 2}
