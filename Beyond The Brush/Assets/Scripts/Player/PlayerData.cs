@@ -138,6 +138,11 @@ public class PlayerData : MonoBehaviour
         return result;
     }
 
+    public static void addGold(int goldAmount)
+    {
+        gold += goldAmount;
+    }
+
     public static void resetCooldowns()
     {
         //Slash
@@ -369,16 +374,16 @@ public class PlayerData : MonoBehaviour
 
     public static void addPlayerExp(int enemyExp)
     {
-        int missingExp = getNeededExp() - PlayerData.exp;
+        int missingExp = getNeededExp() - exp;
         if (enemyExp >= missingExp)
         {
             int restExpToAddNextLevel = enemyExp  - missingExp;
-            PlayerData.level++;
-            PlayerData.exp = restExpToAddNextLevel;
+            level++;
+            exp = restExpToAddNextLevel;
         }
         else
         {
-            PlayerData.exp = PlayerData.exp + enemyExp;
+            exp = exp + enemyExp;
         }
     }
 
