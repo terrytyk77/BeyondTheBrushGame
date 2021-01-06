@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class Chest : MonoBehaviour
 {
     //Coins         ||
+        public int MinCoinAmount = 1;
         public int MaxCoinAmount = 1;
         private int CoinAmountRandomizer;
     //--------------||
@@ -41,5 +42,7 @@ public class Chest : MonoBehaviour
         {
             collisionTilemap.SetTile(collisionTile, null);
         }
+
+        //Coins
     }
 }
