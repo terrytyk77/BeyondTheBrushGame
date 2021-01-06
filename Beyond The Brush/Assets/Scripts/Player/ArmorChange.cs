@@ -130,20 +130,34 @@ public class ArmorChange : MonoBehaviour
         if (direction)
         {
             //Go to the right
+
+            //Head
             horizontalPlayer.transform.Find("Head").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
             horizontalPlayer.transform.Find("Head").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
 
+            //Body Clothes
             horizontalPlayer.transform.Find("Body").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
             horizontalPlayer.transform.Find("Body").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+            //Sword
+            horizontalPlayer.transform.Find("Right Arm").Find("Sword").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
+            horizontalPlayer.transform.Find("Right Arm").Find("Sword").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
         }
         else
         {
             //Go to the left
+
+            //Head
             horizontalPlayer.transform.Find("Head").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
             horizontalPlayer.transform.Find("Head").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
 
+            //Body Clothes
             horizontalPlayer.transform.Find("Body").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
             horizontalPlayer.transform.Find("Body").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+            //Sword
+            horizontalPlayer.transform.Find("Right Arm").Find("Sword").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
+            horizontalPlayer.transform.Find("Right Arm").Find("Sword").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
         }
 
     }
@@ -183,6 +197,10 @@ public class ArmorChange : MonoBehaviour
                 //Display vest images
                 verticalPlayer.transform.Find("Body").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = false;
                 verticalPlayer.transform.Find("Body").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+                //Display the sword images
+                verticalPlayer.transform.Find("Right Arm").Find("Sword").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = false;
+                verticalPlayer.transform.Find("Right Arm").Find("Sword").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
             //_____________________||
         }
         else
@@ -215,6 +233,10 @@ public class ArmorChange : MonoBehaviour
                 //Display vest images
                 verticalPlayer.transform.Find("Body").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = true;
                 verticalPlayer.transform.Find("Body").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+                //Display the sword images
+                verticalPlayer.transform.Find("Right Arm").Find("Sword").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = true;
+                verticalPlayer.transform.Find("Right Arm").Find("Sword").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
             //_____________________||
 
         }
@@ -259,6 +281,26 @@ public class ArmorChange : MonoBehaviour
 
         }
 
+        void changeDrawingVerticalNested(string bodyPart, string elementName,string drawingName, string imageString)
+        {
+
+            if (hasDrawing != null && imageString != null)
+            {
+
+                //Add a new one
+                textureHolders.Add(new Texture2D(2 + textureHolders.Count, 2 + textureHolders.Count));
+                Texture2D textureHolder = textureHolders[textureHolders.Count - 1];
+
+                textureHolder.LoadImage(Convert.FromBase64String(imageString));
+                verticalPlayer.transform.Find(bodyPart).Find(elementName).Find(drawingName).GetComponent<SpriteRenderer>().sprite = Sprite.Create(textureHolder, new Rect(0.0f, 0.0f, textureHolder.width, textureHolder.height), new Vector2(0.5f, 0.5f), 200f);
+            }
+            else
+            {
+                verticalPlayer.transform.Find(bodyPart).Find(elementName).Find(drawingName).GetComponent<SpriteRenderer>().sprite = null;
+            }
+
+        }
+
         void changeDrawingHorizontal(string bodyPart, string drawingName, string imageString)
         {
 
@@ -279,11 +321,31 @@ public class ArmorChange : MonoBehaviour
 
         }
 
-            //Set the helmet drawings||
+        void changeDrawingHorizontalNested(string bodyPart, string elementName,string drawingName, string imageString)
+        {
+
+            if (hasDrawing != null && imageString != null)
+            {
+
+                //Add a new one
+                textureHolders.Add(new Texture2D(1, 1));
+                Texture2D textureHolder = textureHolders[textureHolders.Count - 1];
+
+                textureHolder.LoadImage(Convert.FromBase64String(imageString));
+                horizontalPlayer.transform.Find(bodyPart).Find(elementName).Find(drawingName).GetComponent<SpriteRenderer>().sprite = Sprite.Create(textureHolder, new Rect(0.0f, 0.0f, textureHolder.width, textureHolder.height), new Vector2(0.5f, 0.5f), 200f);
+            }
+            else
+            {
+                horizontalPlayer.transform.Find(bodyPart).Find(elementName).Find(drawingName).GetComponent<SpriteRenderer>().sprite = null;
+            }
+
+        }
+
+        //Set the helmet drawings||
 
 
-                //back
-                if (hasDrawing != null)
+        //back
+        if (hasDrawing != null)
                     changeDrawingVertical(bodyPart: "Head", drawingName: "BackDrawing", imageString: currentProfile.back.Head);
                 else
                     changeDrawingVertical(bodyPart: "Head", drawingName: "BackDrawing", imageString: null);
@@ -332,6 +394,46 @@ public class ArmorChange : MonoBehaviour
                     changeDrawingHorizontal(bodyPart: "Body", drawingName: "LeftDrawing", imageString: currentProfile.left.Chest);
                 else
                     changeDrawingHorizontal(bodyPart: "Body", drawingName: "LeftDrawing", imageString: null);
+        //_____________________||
+
+        //Set the sword drawings||
+
+            //front
+            if (hasDrawing != null)
+                changeDrawingVerticalNested(bodyPart: "Right Arm", elementName: "Sword", drawingName: "FrontDrawing", imageString: currentProfile.front.Sword);
+            else
+                changeDrawingVerticalNested(bodyPart: "Right Arm", elementName: "Sword", drawingName: "FrontDrawing", imageString: null);
+
+            //back
+            if (hasDrawing != null)
+                changeDrawingVerticalNested(bodyPart: "Right Arm", elementName: "Sword", drawingName: "BackDrawing", imageString: currentProfile.back.Sword);
+            else
+                changeDrawingVerticalNested(bodyPart: "Right Arm", elementName: "Sword", drawingName: "BackDrawing", imageString: null);
+
+            //right
+            if (hasDrawing != null)
+                changeDrawingHorizontalNested(bodyPart: "Right Arm", elementName: "Sword", drawingName: "RightDrawing", imageString: currentProfile.right.Sword);
+            else
+                changeDrawingHorizontalNested(bodyPart: "Right Arm", elementName: "Sword", drawingName: "RightDrawing", imageString: null);
+
+            //left
+            if (hasDrawing != null)
+                changeDrawingHorizontalNested(bodyPart: "Right Arm", elementName: "Sword", drawingName: "LeftDrawing", imageString: currentProfile.left.Sword);
+            else
+                changeDrawingHorizontalNested(bodyPart: "Right Arm", elementName: "Sword", drawingName: "LeftDrawing", imageString: null);
+
+        //______________________||
+
+        //Set the shield drawings||
+
+        //_______________________||
+
+        //Set the boots drawings||
+
+        //______________________||
+
+        //Set the arms drawings||
+
         //_____________________||
 
 
