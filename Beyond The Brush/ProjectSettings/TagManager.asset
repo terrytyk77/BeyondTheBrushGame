@@ -22,6 +22,7 @@ TagManager:
   - MeleeDamage
   - LightObject
   - HeavyObject
+  - UIcamera
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - 
   - Post Processing
   - Collision
-  - 
+  - Player
   - 
   - 
   - 

@@ -105,6 +105,10 @@ public class CameraBehavior : MonoBehaviour
         }
 
 
+        //Set the player camera
+        GameObject.FindGameObjectWithTag("UIcamera").transform.localPosition = new Vector3(playerPosition.x, playerPosition.y, -10);
+
+
         /*
         if (cameraGoal != cameraPosition && playerOffLimits)
         {

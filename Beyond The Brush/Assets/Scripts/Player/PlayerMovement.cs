@@ -56,7 +56,8 @@ public class PlayerMovement : MonoBehaviour
             newForce.x = -movementMagnitude;
             HorVerSide = true;
             //Change the image side
-            transform.rotation = new Quaternion(0, 180, Quaternion.identity.z, 1);
+            //transform.rotation = new Quaternion(0, 180, Quaternion.identity.z, 1);
+            transform.localScale = new Vector3(-transform.localScale.y, transform.localScale.y, transform.localScale.z);
             GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeHorizontalDirection(true);
         }
         else if (Input.GetKey("d") && !Input.GetKey("a"))
@@ -65,7 +66,8 @@ public class PlayerMovement : MonoBehaviour
             newForce.x = movementMagnitude;
             HorVerSide = true;
             //Change the image side
-            transform.rotation = new Quaternion(0, 0, Quaternion.identity.z, 1);
+            //transform.rotation = new Quaternion(0, 0, Quaternion.identity.z, 1);
+            transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
             GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeHorizontalDirection(false);
         }
         else
