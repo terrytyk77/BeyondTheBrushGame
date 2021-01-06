@@ -12602,7 +12602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WoodenChestPrefab: {fileID: 136741975303840127, guid: 1075d5b83713b934fa45c914ab9b8847, type: 3}
-  InvisibleCollisionTile: {fileID: 11400000, guid: 630a0fed0c5c0194da75462c5363371f, type: 2}
+  IronChestPrefab: {fileID: 136741975303840127, guid: ede5e5bf6d1061c498c9cd8c38076e5f, type: 3}
 --- !u!1 &4977273281369522931
 GameObject:
   m_ObjectHideFlags: 0
