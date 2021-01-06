@@ -154,6 +154,10 @@ public class ArmorChange : MonoBehaviour
 
             horizontalPlayer.transform.Find("Left Leg").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
             horizontalPlayer.transform.Find("Right Leg").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+            //Display arms images
+            horizontalPlayer.transform.Find("Right Arm").Find("Armor").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
+            horizontalPlayer.transform.Find("Left Arm").Find("Armor").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
         }
         else
         {
@@ -181,6 +185,10 @@ public class ArmorChange : MonoBehaviour
 
             horizontalPlayer.transform.Find("Left Leg").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
             horizontalPlayer.transform.Find("Right Leg").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+            //Display arms images
+            horizontalPlayer.transform.Find("Right Arm").Find("Armor").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
+            horizontalPlayer.transform.Find("Left Arm").Find("Armor").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
         }
 
     }
@@ -235,6 +243,13 @@ public class ArmorChange : MonoBehaviour
 
                 verticalPlayer.transform.Find("Left Leg").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
                 verticalPlayer.transform.Find("Right Leg").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+                //Display arms images
+                verticalPlayer.transform.Find("Left Arm").Find("Armor").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = false;
+                verticalPlayer.transform.Find("Right Arm").Find("Armor").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+                verticalPlayer.transform.Find("Left Arm").Find("Armor").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
+                verticalPlayer.transform.Find("Right Arm").Find("Armor").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
             //_____________________||
         }
         else
@@ -282,6 +297,13 @@ public class ArmorChange : MonoBehaviour
 
                 verticalPlayer.transform.Find("Left Leg").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
                 verticalPlayer.transform.Find("Right Leg").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+                //Display arms images
+                verticalPlayer.transform.Find("Left Arm").Find("Armor").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = true;
+                verticalPlayer.transform.Find("Right Arm").Find("Armor").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+                verticalPlayer.transform.Find("Left Arm").Find("Armor").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
+                verticalPlayer.transform.Find("Right Arm").Find("Armor").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
             //_____________________||
 
         }
@@ -552,6 +574,46 @@ public class ArmorChange : MonoBehaviour
         //______________________||
 
         //Set the arms drawings||
+
+            //right arm
+
+            //front
+            if (hasDrawing != null)
+                changeDrawingVerticalNested(bodyPart: "Right Arm", elementName: "Armor", drawingName: "FrontDrawing", imageString: currentProfile.front.Gloves);
+            else
+                changeDrawingVerticalNested(bodyPart: "Right Arm", elementName: "Armor", drawingName: "FrontDrawing", imageString: null);
+
+            //back
+            if (hasDrawing != null)
+                changeDrawingVerticalNested(bodyPart: "Right Arm", elementName: "Armor", drawingName: "BackDrawing", imageString: currentProfile.back.Gloves);
+            else
+                changeDrawingVerticalNested(bodyPart: "Right Arm", elementName: "Armor", drawingName: "BackDrawing", imageString: null);
+
+            //right
+            if (hasDrawing != null)
+                changeDrawingHorizontalNested(bodyPart: "Right Arm", elementName: "Armor", drawingName: "RightDrawing", imageString: currentProfile.right.Gloves);
+            else
+                changeDrawingHorizontalNested(bodyPart: "Right Arm", elementName: "Armor", drawingName: "RightDrawing", imageString: null);
+
+            //left arm
+
+            //front
+            if (hasDrawing != null)
+                changeDrawingVerticalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "FrontDrawing", imageString: currentProfile.front.Gloves);
+            else
+                changeDrawingVerticalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "FrontDrawing", imageString: null);
+
+            //back
+            if (hasDrawing != null)
+                changeDrawingVerticalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "BackDrawing", imageString: currentProfile.back.Gloves);
+            else
+                changeDrawingVerticalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "BackDrawing", imageString: null);
+
+            //left
+            if (hasDrawing != null)
+                changeDrawingHorizontalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "LeftDrawing", imageString: currentProfile.left.Gloves);
+            else
+                changeDrawingHorizontalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "LeftDrawing", imageString: null);
 
         //_____________________||
 
