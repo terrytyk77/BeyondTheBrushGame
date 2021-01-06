@@ -132,7 +132,14 @@ public class OnDrawEvent : MonoBehaviour
 
 				if (drawingZone.Overlaps(lightObjectHitZone))
 				{
-					lightObject.GetComponent<Chest>().Destroy();
+					if (lightObject.GetComponent<Chest>() == null)
+					{
+						Destroy(lightObject);
+					}
+					else
+					{
+						lightObject.GetComponent<Chest>().DestroyChest();
+					}
 				}
 			}
 		}
@@ -150,7 +157,14 @@ public class OnDrawEvent : MonoBehaviour
 
 					if (drawingZone.Overlaps(heavyObjectHitZone))
 					{
-						heavyObject.GetComponent<Chest>().Destroy();
+                        if (heavyObject.GetComponent<Chest>() == null)
+                        {
+							Destroy(heavyObject);
+                        }
+                        else
+                        {
+							heavyObject.GetComponent<Chest>().DestroyChest();
+						}
 					}
 				}
 			}
