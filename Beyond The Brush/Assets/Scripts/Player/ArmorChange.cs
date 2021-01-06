@@ -104,6 +104,7 @@ public class ArmorChange : MonoBehaviour
 
             //shield
             horizontalPlayer.transform.Find("Left Arm").Find("Shield").GetComponent<SpriteRenderer>().sprite = armorSet.side.shield;
+            verticalPlayer.transform.Find("Left Arm").Find("Shield").GetComponent<SpriteRenderer>().sprite = armorSet.front.shield;
         //__________________||
 
         //Arms and feet||
@@ -142,6 +143,10 @@ public class ArmorChange : MonoBehaviour
             //Sword
             horizontalPlayer.transform.Find("Right Arm").Find("Sword").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
             horizontalPlayer.transform.Find("Right Arm").Find("Sword").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+            //Shield
+            horizontalPlayer.transform.Find("Left Arm").Find("Shield").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
+            horizontalPlayer.transform.Find("Left Arm").Find("Shield").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
         }
         else
         {
@@ -158,6 +163,10 @@ public class ArmorChange : MonoBehaviour
             //Sword
             horizontalPlayer.transform.Find("Right Arm").Find("Sword").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
             horizontalPlayer.transform.Find("Right Arm").Find("Sword").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+            //Shield
+            horizontalPlayer.transform.Find("Left Arm").Find("Shield").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
+            horizontalPlayer.transform.Find("Left Arm").Find("Shield").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
         }
 
     }
@@ -182,7 +191,7 @@ public class ArmorChange : MonoBehaviour
             verticalPlayer.transform.Find("Body").Find("Vest").GetComponent<SpriteRenderer>().sprite = armorSet.back.body_clothes;
 
             //shield
-            horizontalPlayer.transform.Find("Left Arm").Find("Shield").GetComponent<SpriteRenderer>().sprite = armorSet.back.shield;
+            verticalPlayer.transform.Find("Left Arm").Find("Shield").GetComponent<SpriteRenderer>().sprite = armorSet.back.shield;
 
             //Boots
             verticalPlayer.transform.Find("Left Leg").Find("Boot").GetComponent<SpriteRenderer>().sprite = armorSet.back.left_shoe;
@@ -201,6 +210,10 @@ public class ArmorChange : MonoBehaviour
                 //Display the sword images
                 verticalPlayer.transform.Find("Right Arm").Find("Sword").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = false;
                 verticalPlayer.transform.Find("Right Arm").Find("Sword").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+                //Display the shield images
+                verticalPlayer.transform.Find("Left Arm").Find("Shield").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = false;
+                verticalPlayer.transform.Find("Left Arm").Find("Shield").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
             //_____________________||
         }
         else
@@ -218,7 +231,7 @@ public class ArmorChange : MonoBehaviour
             verticalPlayer.transform.Find("Body").Find("Vest").GetComponent<SpriteRenderer>().sprite = armorSet.front.body_clothes;
 
             //shield
-            horizontalPlayer.transform.Find("Left Arm").Find("Shield").GetComponent<SpriteRenderer>().sprite = armorSet.front.shield;
+            verticalPlayer.transform.Find("Left Arm").Find("Shield").GetComponent<SpriteRenderer>().sprite = armorSet.front.shield;
 
             //Boots
             verticalPlayer.transform.Find("Left Leg").Find("Boot").GetComponent<SpriteRenderer>().sprite = armorSet.front.left_shoe;
@@ -237,6 +250,10 @@ public class ArmorChange : MonoBehaviour
                 //Display the sword images
                 verticalPlayer.transform.Find("Right Arm").Find("Sword").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = true;
                 verticalPlayer.transform.Find("Right Arm").Find("Sword").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+                //Display the shield images
+                verticalPlayer.transform.Find("Left Arm").Find("Shield").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = true;
+                verticalPlayer.transform.Find("Left Arm").Find("Shield").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
             //_____________________||
 
         }
@@ -426,6 +443,29 @@ public class ArmorChange : MonoBehaviour
 
         //Set the shield drawings||
 
+            //front
+            if (hasDrawing != null)
+                changeDrawingVerticalNested(bodyPart: "Left Arm", elementName: "Shield", drawingName: "FrontDrawing", imageString: currentProfile.front.Shield);
+            else
+                changeDrawingVerticalNested(bodyPart: "Left Arm", elementName: "Shield", drawingName: "FrontDrawing", imageString: null);
+
+            //back
+            if (hasDrawing != null)
+                changeDrawingVerticalNested(bodyPart: "Left Arm", elementName: "Shield", drawingName: "BackDrawing", imageString: currentProfile.back.Shield);
+            else
+                changeDrawingVerticalNested(bodyPart: "Left Arm", elementName: "Shield", drawingName: "BackDrawing", imageString: null);
+
+            //right
+            if (hasDrawing != null)
+                changeDrawingHorizontalNested(bodyPart: "Left Arm", elementName: "Shield", drawingName: "RightDrawing", imageString: currentProfile.right.Shield);
+            else
+                changeDrawingHorizontalNested(bodyPart: "Left Arm", elementName: "Shield", drawingName: "RightDrawing", imageString: null);
+
+            //left
+            if (hasDrawing != null)
+                changeDrawingHorizontalNested(bodyPart: "Left Arm", elementName: "Shield", drawingName: "LeftDrawing", imageString: currentProfile.left.Shield);
+            else
+                changeDrawingHorizontalNested(bodyPart: "Left Arm", elementName: "Shield", drawingName: "LeftDrawing", imageString: null);
         //_______________________||
 
         //Set the boots drawings||
