@@ -147,6 +147,13 @@ public class ArmorChange : MonoBehaviour
             //Shield
             horizontalPlayer.transform.Find("Left Arm").Find("Shield").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
             horizontalPlayer.transform.Find("Left Arm").Find("Shield").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+            //Display the shoes images
+            horizontalPlayer.transform.Find("Left Leg").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
+            horizontalPlayer.transform.Find("Right Leg").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+            horizontalPlayer.transform.Find("Left Leg").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
+            horizontalPlayer.transform.Find("Right Leg").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
         }
         else
         {
@@ -167,6 +174,13 @@ public class ArmorChange : MonoBehaviour
             //Shield
             horizontalPlayer.transform.Find("Left Arm").Find("Shield").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
             horizontalPlayer.transform.Find("Left Arm").Find("Shield").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+            //Display the shoes images
+            horizontalPlayer.transform.Find("Left Leg").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
+            horizontalPlayer.transform.Find("Right Leg").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+            horizontalPlayer.transform.Find("Left Leg").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
+            horizontalPlayer.transform.Find("Right Leg").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
         }
 
     }
@@ -214,6 +228,13 @@ public class ArmorChange : MonoBehaviour
                 //Display the shield images
                 verticalPlayer.transform.Find("Left Arm").Find("Shield").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = false;
                 verticalPlayer.transform.Find("Left Arm").Find("Shield").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+                //Display the shoes images
+                verticalPlayer.transform.Find("Left Leg").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = false;
+                verticalPlayer.transform.Find("Right Leg").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+                verticalPlayer.transform.Find("Left Leg").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
+                verticalPlayer.transform.Find("Right Leg").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = true;
             //_____________________||
         }
         else
@@ -254,6 +275,13 @@ public class ArmorChange : MonoBehaviour
                 //Display the shield images
                 verticalPlayer.transform.Find("Left Arm").Find("Shield").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = true;
                 verticalPlayer.transform.Find("Left Arm").Find("Shield").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+                //Display the shoes images
+                verticalPlayer.transform.Find("Left Leg").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = true;
+                verticalPlayer.transform.Find("Right Leg").Find("FrontDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+                verticalPlayer.transform.Find("Left Leg").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
+                verticalPlayer.transform.Find("Right Leg").Find("BackDrawing").GetComponent<SpriteRenderer>().enabled = false;
             //_____________________||
 
         }
@@ -470,6 +498,57 @@ public class ArmorChange : MonoBehaviour
 
         //Set the boots drawings||
 
+            //Right shoe
+
+            //front
+            if (hasDrawing != null)
+                changeDrawingVertical(bodyPart: "Right Leg", drawingName: "FrontDrawing", imageString: currentProfile.front.Boots);
+            else
+                changeDrawingVertical(bodyPart: "Right Leg", drawingName: "FrontDrawing", imageString: null);
+
+            //back
+            if (hasDrawing != null)
+                changeDrawingVertical(bodyPart: "Right Leg", drawingName: "BackDrawing", imageString: currentProfile.back.Boots);
+            else
+                changeDrawingVertical(bodyPart: "Right Leg", drawingName: "BackDrawing", imageString: null);
+
+            //right
+            if (hasDrawing != null)
+                changeDrawingHorizontal(bodyPart: "Right Leg", drawingName: "RightDrawing", imageString: currentProfile.right.Boots);
+            else
+                changeDrawingHorizontal(bodyPart: "Right Leg", drawingName: "RightDrawing", imageString: null);
+
+            //left
+            if (hasDrawing != null)
+                changeDrawingHorizontal(bodyPart: "Right Leg", drawingName: "LeftDrawing", imageString: currentProfile.left.Boots);
+            else
+                changeDrawingHorizontal(bodyPart: "Right Leg", drawingName: "LeftDrawing", imageString: null);
+
+            //Left shoe
+
+            //front
+            if (hasDrawing != null)
+                changeDrawingVertical(bodyPart: "Left Leg", drawingName: "FrontDrawing", imageString: currentProfile.front.Boots);
+            else
+                changeDrawingVertical(bodyPart: "Left Leg", drawingName: "FrontDrawing", imageString: null);
+
+            //back
+            if (hasDrawing != null)
+                changeDrawingVertical(bodyPart: "Left Leg", drawingName: "BackDrawing", imageString: currentProfile.back.Boots);
+            else
+                changeDrawingVertical(bodyPart: "Left Leg", drawingName: "BackDrawing", imageString: null);
+
+            //right
+            if (hasDrawing != null)
+                changeDrawingHorizontal(bodyPart: "Left Leg", drawingName: "RightDrawing", imageString: currentProfile.right.Boots);
+            else
+                changeDrawingHorizontal(bodyPart: "Left Leg", drawingName: "RightDrawing", imageString: null);
+
+            //left
+            if (hasDrawing != null)
+                changeDrawingHorizontal(bodyPart: "Left Leg", drawingName: "LeftDrawing", imageString: currentProfile.left.Boots);
+            else
+                changeDrawingHorizontal(bodyPart: "Left Leg", drawingName: "LeftDrawing", imageString: null);
         //______________________||
 
         //Set the arms drawings||
