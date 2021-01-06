@@ -227,6 +227,7 @@ public class OnDrawEvent : MonoBehaviour
                     {
                         if (PlayerData.slashCooldown <= 0 && result.score.score >= 0.8f)
                         {
+
 							playerHorizontal.GetComponent<Animator>().SetTrigger("Slash");
 							playerVertical.GetComponent<Animator>().SetTrigger("Slash");
 							HoverEnemy(location, PlayerData.slashDamage);
