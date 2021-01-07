@@ -63,6 +63,11 @@ public class Chest : MonoBehaviour
         }
 
         //Coins
+        if (spawnedObject == null)
+        {
+            spawnedObject = GameObject.Find("SpawnedObjects");
+        }
+
         for (int i = 0; i < CoinAmountRandomizer; i++)
         {
             //Make the Coins Spawn Inside the Tile

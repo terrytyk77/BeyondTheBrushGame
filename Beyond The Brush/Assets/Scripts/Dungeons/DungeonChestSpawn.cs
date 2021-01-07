@@ -17,7 +17,7 @@ public class DungeonChestSpawn : MonoBehaviour
 
     private int ChestTypeRandomizer;
 
-    private GameObject EnemyParent;
+    private GameObject[] EnemyParent;
 
     void Start()
     {
@@ -56,14 +56,12 @@ public class DungeonChestSpawn : MonoBehaviour
     void Update()
     {
         //Checks If Room Is Completed!
-        EnemyParent = GameObject.Find("Enemies");
+        EnemyParent = GameObject.FindGameObjectsWithTag("Enemy");
         chestParent = GameObject.Find("Chests");
 
-        if (EnemyParent.transform.childCount == 0 && chestParent.transform.childCount == 0)
+        if (EnemyParent.Length == 0 && chestParent.transform.childCount == 0)
         {
-            CurrentDungeonData currentData = GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>();
-            currentData.getRoomViaCords(currentData.currentRoom).setCompleted(true);
-            currentData.updateMap();
+            GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().CompletedRoom();
         }
     }
 }
