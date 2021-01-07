@@ -242,40 +242,28 @@ public class PlayerData : MonoBehaviour
                     //Get the prefab version
                     GameObject prefabVersion = dungeonInfo.getRoomViaCords(dungeonInfo.currentRoom).roomPrefab;
 
-                    //Disable the current one
-                    roomInstance.SetActive(false);
-
-                    //New room
-                    GameObject newVersion = Instantiate(roomInstance);
-
-                    List<GameObject> childsReference = new List<GameObject>();
-
-                    //Recreate the childs
-                    foreach(Transform child in newVersion.transform)
+                    if (dungeonInfo.currentRoom == Vector2Int.zero)
                     {
-                        foreach (Transform child2 in roomInstance.transform)
+                        prefabVersion = dungeonInfo.currentDungeon.startingRoom;
+                    }
+                    else
+                    {
+                        //Get the correct room prefab
+                        foreach(Dungeon.room room in dungeonInfo.currentDungeon.rooms)
                         {
-                            if (child.name == child2.name)
+                            if (room.roomName == dungeonInfo.getRoomViaCords(dungeonInfo.currentRoom).roomName)
                             {
-                                GameObject newElement = Instantiate(child.gameObject);
-                                Destroy(child2.gameObject);
-                                newElement.name = child2.name;
-                                childsReference.Add(newElement);
+                                Debug.Log("Found room");
+                                prefabVersion = room.roomPrefab;
+                                break;
                             }
                         }
                     }
-
-                    //Finish the proccess
-                    Destroy(newVersion);
-
-                    foreach (GameObject childRef in childsReference)
-                    {
-                        childRef.transform.SetParent(roomInstance.transform);
-                    }
-
-                    roomInstance.SetActive(true);
-
-                }
+                    //Create the new room and replace for the other one
+                    GameObject newVersion = Instantiate(prefabVersion);
+                    newVersion.name = roomName;
+                    Destroy(roomInstance);
+            }
             //______________||
 
 
