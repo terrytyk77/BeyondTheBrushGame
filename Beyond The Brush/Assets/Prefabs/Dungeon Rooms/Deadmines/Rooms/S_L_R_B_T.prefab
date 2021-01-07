@@ -1686,6 +1686,37 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!1 &5939365455632237946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4661386781086148358}
+  m_Layer: 0
+  m_Name: Chests
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4661386781086148358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5939365455632237946}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 715758232382743817}
+  m_Father: {fileID: 2091311561404501488}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6239933216432336880
 GameObject:
   m_ObjectHideFlags: 0
@@ -6454,7 +6485,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2091311561404501488}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8099805570150246376
 GameObject:
@@ -10931,8 +10962,8 @@ Transform:
   - {fileID: 3772195399662619705}
   - {fileID: 4496030526145851704}
   - {fileID: 3237515065434238497}
+  - {fileID: 4661386781086148358}
   - {fileID: 5209069402080744140}
-  - {fileID: 715758232382743817}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11215,7 +11246,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2091311561404501488}
+    m_TransformParent: {fileID: 4661386781086148358}
     m_Modifications:
     - target: {fileID: 136741975303840127, guid: 1075d5b83713b934fa45c914ab9b8847, type: 3}
       propertyPath: m_Name
@@ -11223,7 +11254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7603832116115880943, guid: 1075d5b83713b934fa45c914ab9b8847, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7603832116115880943, guid: 1075d5b83713b934fa45c914ab9b8847, type: 3}
       propertyPath: m_LocalPosition.x

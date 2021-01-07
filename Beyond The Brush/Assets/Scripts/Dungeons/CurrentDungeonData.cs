@@ -543,8 +543,6 @@ public class CurrentDungeonData : MonoBehaviour
 
                         Dungeon.room startingRoomObject = new Dungeon.room("Starting Room", dungeon.startingRoom, new Dungeon.room.sides(true, false, false, false));
                         
-                        startingRoomObject.setCompleted(true);
-
                         CreateNewRoom(0, 0, startingRoomObject);
 
                         List<Dungeon.room> acceptedRooms = new List<Dungeon.room>();
@@ -747,7 +745,6 @@ public class CurrentDungeonData : MonoBehaviour
         GameObject dungeonAPI = GameObject.FindGameObjectWithTag("sceneAPI");
         if (dungeonAPI != null)
         {
-
             //Change the second argument when needed
             getCorrectDungeon(dungeonsList, sceneTeleport.dungeonName);
             SpawnPlayer();
@@ -770,11 +767,6 @@ public class CurrentDungeonData : MonoBehaviour
         }
 
     }
-
-
-
-
-
 
 
     //Variables for the loading screen||
