@@ -253,7 +253,6 @@ public class PlayerData : MonoBehaviour
                         {
                             if (room.roomName == dungeonInfo.getRoomViaCords(dungeonInfo.currentRoom).roomName)
                             {
-                                Debug.Log("Found room");
                                 prefabVersion = room.roomPrefab;
                                 break;
                             }
