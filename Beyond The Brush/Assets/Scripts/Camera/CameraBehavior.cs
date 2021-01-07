@@ -107,23 +107,5 @@ public class CameraBehavior : MonoBehaviour
 
         //Set the player camera
         GameObject.FindGameObjectWithTag("UIcamera").transform.localPosition = new Vector3(playerPosition.x, playerPosition.y, -10);
-
-
-        /*
-        if (cameraGoal != cameraPosition && playerOffLimits)
-        {
-            //Camera input
-            decimal cameraOffsetInput = decimal.Round( (decimal)(cameraSpeed * Time.fixedDeltaTime) , 2);
-
-            //Set the camera goal
-            Camera.main.GetComponent<Transform>().position = Vector3.MoveTowards(cameraPosition, cameraGoal, (float)cameraOffsetInput);
-
-        }
-        */
-
-
-
-
-
     }
 }

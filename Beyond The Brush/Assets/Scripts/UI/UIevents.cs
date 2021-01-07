@@ -70,6 +70,7 @@ public class UIevents : MonoBehaviour
         {
             public GameObject profilesDropDown;
             public GameObject profilesWindow;
+            public GameObject profileName;
         }
 
         public profilesClass profiles = new profilesClass();
@@ -237,13 +238,16 @@ public class UIevents : MonoBehaviour
         switch (PlayerData.currentProfile)
         {
             case 0:
+                profiles.profileName.GetComponent<Text>().text = default1Name;
                 profileDropdown.SelectOption(default1Name);
                 break;
 
             case 1:
+                profiles.profileName.GetComponent<Text>().text = default2Name;
                 profileDropdown.SelectOption(default2Name);
                 break;
             default:
+                profiles.profileName.GetComponent<Text>().text = PlayerData.playerProfiles[PlayerData.currentProfile - 2].profile.name;
                 profileDropdown.SelectOption(PlayerData.playerProfiles[PlayerData.currentProfile - 2].profile.name);
                     break;
         }
@@ -253,12 +257,21 @@ public class UIevents : MonoBehaviour
     public void profilesListener(int indexValue, string profileName)
     {
         PlayerData.currentProfile = indexValue;
+        profiles.profileName.GetComponent<Text>().text = profileName;
         GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeDefaultArmor();
         GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeArmorDrawing();
     }
 
     private void Update()
     {
+
+        if (profiles.profilesWindow.activeSelf)
+        {
+            Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.localPosition;
+            //Set the player camera
+            GameObject.FindGameObjectWithTag("UIcamera").transform.localPosition = new Vector3(playerPosition.x, playerPosition.y, -10);
+        }
+
         //Listen to the keyboard keys||
             
             //minimap
