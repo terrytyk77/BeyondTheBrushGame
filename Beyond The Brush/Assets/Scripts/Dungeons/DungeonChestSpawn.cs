@@ -63,6 +63,7 @@ public class DungeonChestSpawn : MonoBehaviour
         {
             CurrentDungeonData currentData = GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>();
             currentData.getRoomViaCords(currentData.currentRoom).setCompleted(true);
+            currentData.updateMap();
         }
     }
 }
