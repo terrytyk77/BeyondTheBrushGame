@@ -59,10 +59,10 @@ public class OnDrawEvent : MonoBehaviour
 		BoxCollider2D playerCollider = drawingCollider.GetComponent<BoxCollider2D>();
 
 		if (
-			(worldPos.x < player.transform.position.x + (playerCollider.size.x / 2) * player.transform.localScale.x) &&
-			(worldPos.x > player.transform.position.x - (playerCollider.size.x / 2) * player.transform.localScale.x) &&
-			(worldPos.y < player.transform.position.y + (playerCollider.size.y / 2 + playerCollider.offset.y) * player.transform.localScale.y) &&
-			(worldPos.y > player.transform.position.y - (playerCollider.size.y / 2 + playerCollider.offset.y) * player.transform.localScale.y))
+			(worldPos.x < player.transform.position.x + (playerCollider.size.x / 2) * Mathf.Abs(player.transform.localScale.x)) &&
+			(worldPos.x > player.transform.position.x - (playerCollider.size.x / 2) * Mathf.Abs(player.transform.localScale.x)) &&
+			(worldPos.y < player.transform.position.y + (playerCollider.size.y / 2 + playerCollider.offset.y) * Mathf.Abs(player.transform.localScale.y)) &&
+			(worldPos.y > player.transform.position.y - (playerCollider.size.y / 2 + playerCollider.offset.y) * Mathf.Abs(player.transform.localScale.y)))
 		{
 			return true;
 		}
@@ -70,7 +70,6 @@ public class OnDrawEvent : MonoBehaviour
 		{
 			return false;
 		}
-
 	}
 
 	public void HoverEnemy(DrawingLocation location, int damage)
