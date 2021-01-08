@@ -35,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey("w") && !Input.GetKey("s"))
         {
+            PlayerData.playerDirection = 0;
+
             playerVerticalPerspective();
             newForce.y = movementMagnitude;
             HorVerSide = false;
@@ -45,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKey("s") && !Input.GetKey("w"))
         {
+            PlayerData.playerDirection = 1;
+
             playerVerticalPerspective();
             newForce.y = -movementMagnitude;
             HorVerSide = false;
@@ -54,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKey("a") && !Input.GetKey("d"))
         {
+            PlayerData.playerDirection = 2;
+
             playerHorizontalPerspective();
             newForce.x = -movementMagnitude;
             HorVerSide = true;
@@ -63,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKey("d") && !Input.GetKey("a"))
         {
+            PlayerData.playerDirection = 3;
+
             playerHorizontalPerspective();
             newForce.x = movementMagnitude;
             HorVerSide = true;
