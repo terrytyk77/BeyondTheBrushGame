@@ -85,8 +85,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Apply the force on the player's body
-        playerBody.velocity = newForce;
 
+        playerBody.velocity = newForce;
+        playerVertical.GetComponent<Animator>().SetInteger("Direction", PlayerData.playerDirection);
     }
 
     private void playerVerticalPerspective()

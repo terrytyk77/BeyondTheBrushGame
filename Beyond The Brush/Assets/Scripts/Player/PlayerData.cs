@@ -208,10 +208,17 @@ public class PlayerData : MonoBehaviour
     public static void playerDied()
     {
         //Handle the player death
-        //Variables||
+            //Variables||
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject playerVertical = player.transform.Find("DrawingCollider").transform.Find("Vertical").gameObject;
+            GameObject playerHorizontal = player.transform.Find("DrawingCollider").transform.Find("Horizontal").gameObject;
+
+            //Animation
+            playerVertical.GetComponent<Animator>().SetTrigger("Dead");
+            playerHorizontal.GetComponent<Animator>().SetTrigger("Dead");
 
             //players body
-            Rigidbody2D playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+            Rigidbody2D playerRB = player.GetComponent<Rigidbody2D>();
 
             //dungeon data
             CurrentDungeonData dungeonInfo = GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>();
@@ -229,6 +236,7 @@ public class PlayerData : MonoBehaviour
         void doLast()
         {
             //Make him able to move itself again
+            
             playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             //Reset his cooldowns
