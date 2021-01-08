@@ -90,6 +90,13 @@ public class PlayerData : MonoBehaviour
     //_________||
 
 
+    //Player direction
+    // 0 -> facing up
+    // 1 -> facing down
+    // 2 -> facing to the left
+    // 3 -> facing to the right
+    public static int playerDirection = 1;
+
     //Profiles related data
     static private int _currentProfile = 0;
 
