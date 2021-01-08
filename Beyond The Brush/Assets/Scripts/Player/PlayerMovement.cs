@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
             newForce.y = movementMagnitude;
             HorVerSide = false;
             verticalDirection = true;
-            transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
+            transform.rotation = new Quaternion(0, 0, Quaternion.identity.z, 1);
             GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(verticalDirection, ArmorChange.currentDefault);
 
         }
@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
             newForce.y = -movementMagnitude;
             HorVerSide = false;
             verticalDirection = false;
-            transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
+            transform.rotation = new Quaternion(0, 0, Quaternion.identity.z, 1);
             GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(verticalDirection, ArmorChange.currentDefault);
         }
         else if (Input.GetKey("a") && !Input.GetKey("d"))
@@ -58,8 +58,7 @@ public class PlayerMovement : MonoBehaviour
             newForce.x = -movementMagnitude;
             HorVerSide = true;
             //Change the image side
-            //transform.rotation = new Quaternion(0, 180, Quaternion.identity.z, 1);
-            transform.localScale = new Vector3(-transform.localScale.y, transform.localScale.y, transform.localScale.z);
+            transform.rotation = new Quaternion(0, 180, Quaternion.identity.z, 1);
             GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeHorizontalDirection(true);
         }
         else if (Input.GetKey("d") && !Input.GetKey("a"))
@@ -68,8 +67,7 @@ public class PlayerMovement : MonoBehaviour
             newForce.x = movementMagnitude;
             HorVerSide = true;
             //Change the image side
-            //transform.rotation = new Quaternion(0, 0, Quaternion.identity.z, 1);
-            transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
+            transform.rotation = new Quaternion(0, 0, Quaternion.identity.z, 1);
             GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeHorizontalDirection(false);
         }
         else
