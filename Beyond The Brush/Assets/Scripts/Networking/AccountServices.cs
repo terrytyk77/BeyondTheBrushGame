@@ -17,7 +17,7 @@ using UnityEngine.UI;
                 {
                     public int level;
                     public int exp;
-                    public int ressources;
+                    public int resources;
                     public int gold;
                 }
 

@@ -388,7 +388,7 @@ public class PlayerData : MonoBehaviour
         data.stats.level = _level;
         data.stats.exp = _exp;
         data.stats.gold = _gold;
-        data.stats.ressources = _resources;
+        data.stats.resources = _resources;
         data.talentTree = _talentTreeData;
         data.currentProfile = _currentProfile;
 
@@ -461,7 +461,7 @@ public class PlayerData : MonoBehaviour
         Screen.fullScreen = _windowmode;
 
         _exp = json.body.stats.exp;
-        _resources = json.body.stats.ressources;
+        _resources = json.body.stats.resources;
         _gold = json.body.stats.gold;
 
         //Calculate the max health

@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
             newForce.y = movementMagnitude;
             HorVerSide = false;
             verticalDirection = true;
+            transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
             GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(verticalDirection, ArmorChange.currentDefault);
 
         }
@@ -48,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
             newForce.y = -movementMagnitude;
             HorVerSide = false;
             verticalDirection = false;
+            transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
             GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(verticalDirection, ArmorChange.currentDefault);
         }
         else if (Input.GetKey("a") && !Input.GetKey("d"))
