@@ -270,11 +270,14 @@ public class OnDrawEvent : MonoBehaviour
 								}
 							}
 						}
-                        else if(PlayerData.rockCooldown <= 0)
+                        else 
                         {
-							PlayerData.rockCooldown = PlayerData.rockSpawnCooldownDefault;
-							Debug.Log("Stone");
-							SpawnObject(location, stone);
+							if (PlayerData.rockCooldown <= 0)
+                            {
+								PlayerData.rockCooldown = PlayerData.rockSpawnCooldownDefault;
+								Debug.Log("Stone");
+								SpawnObject(location, stone);
+							}
 						}
 						break;
 					}
@@ -298,7 +301,7 @@ public class OnDrawEvent : MonoBehaviour
 					}
 				case "Square":
 					{
-                        if (PlayerData.boxCooldown <= 0)
+                        if (PlayerData.boxCooldown <= 0 && !HoverPlayer(location))
                         {
 							PlayerData.boxCooldown = PlayerData.boxSpawnCooldownDefault;
 							Debug.Log("Box");

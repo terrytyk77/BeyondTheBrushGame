@@ -130,7 +130,7 @@ public class ArmorChange : MonoBehaviour
         //false is for going to the left
         if (direction)
         {
-            //Go to the right
+            //Go to the left
 
             //Head
             horizontalPlayer.transform.Find("Head").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
@@ -157,11 +157,14 @@ public class ArmorChange : MonoBehaviour
 
             //Display arms images
             horizontalPlayer.transform.Find("Right Arm").Find("Armor").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
+            horizontalPlayer.transform.Find("Left Arm").Find("Armor").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = false;
+
+            horizontalPlayer.transform.Find("Right Arm").Find("Armor").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
             horizontalPlayer.transform.Find("Left Arm").Find("Armor").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = true;
         }
         else
         {
-            //Go to the left
+            //Go to the right
 
             //Head
             horizontalPlayer.transform.Find("Head").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
@@ -188,6 +191,9 @@ public class ArmorChange : MonoBehaviour
 
             //Display arms images
             horizontalPlayer.transform.Find("Right Arm").Find("Armor").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
+            horizontalPlayer.transform.Find("Left Arm").Find("Armor").Find("RightDrawing").GetComponent<SpriteRenderer>().enabled = true;
+
+            horizontalPlayer.transform.Find("Right Arm").Find("Armor").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
             horizontalPlayer.transform.Find("Left Arm").Find("Armor").Find("LeftDrawing").GetComponent<SpriteRenderer>().enabled = false;
         }
 
@@ -595,6 +601,12 @@ public class ArmorChange : MonoBehaviour
             else
                 changeDrawingHorizontalNested(bodyPart: "Right Arm", elementName: "Armor", drawingName: "RightDrawing", imageString: null);
 
+            //left
+            if (hasDrawing != null)
+                changeDrawingHorizontalNested(bodyPart: "Right Arm", elementName: "Armor", drawingName: "LeftDrawing", imageString: currentProfile.left.Gloves);
+            else
+                changeDrawingHorizontalNested(bodyPart: "Right Arm", elementName: "Armor", drawingName: "LeftDrawing", imageString: null);
+
             //left arm
 
             //front
@@ -608,12 +620,17 @@ public class ArmorChange : MonoBehaviour
                 changeDrawingVerticalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "BackDrawing", imageString: currentProfile.back.Gloves);
             else
                 changeDrawingVerticalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "BackDrawing", imageString: null);
+            //right
+            if (hasDrawing != null)
+                changeDrawingHorizontalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "RightDrawing", imageString: currentProfile.right.Gloves);
+            else
+                changeDrawingHorizontalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "RightDrawing", imageString: null);
 
             //left
             if (hasDrawing != null)
-                changeDrawingHorizontalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "LeftDrawing", imageString: currentProfile.left.Gloves);
-            else
-                changeDrawingHorizontalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "LeftDrawing", imageString: null);
+                    changeDrawingHorizontalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "LeftDrawing", imageString: currentProfile.left.Gloves);
+                else
+                    changeDrawingHorizontalNested(bodyPart: "Left Arm", elementName: "Armor", drawingName: "LeftDrawing", imageString: null);
 
         //_____________________||
 
