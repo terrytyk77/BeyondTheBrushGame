@@ -942,11 +942,15 @@ public class UIevents : MonoBehaviour
 
                                 //Player is logged in
                                 //request for a save
+
+
+
                                 accountInfoResponse.nestedData playerInfo = PlayerData.savePlayerData();
-                                PlayerData.savePlayerDataRequest(playerInfo, () =>
-                                {
+                                StartCoroutine(PlayerData.savePlayerDataRequest(playerInfo, ()=> { 
+                                
                                     Destroy(loadingScreen);
-                                });
+
+                                }));
                             }
 
                         });
