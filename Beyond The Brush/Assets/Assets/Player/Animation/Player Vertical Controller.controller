@@ -359,7 +359,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Xspell
+  - m_Name: XspellFront
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -384,6 +384,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Dead
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: XspellBack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -522,11 +528,8 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Xspell
+    m_ConditionEvent: XspellFront
     m_EventTreshold: 0
-  - m_ConditionMode: 6
-    m_ConditionEvent: Direction
-    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1176627189992222984}
   m_Solo: 0
@@ -791,10 +794,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Xspell
-    m_EventTreshold: 0
-  - m_ConditionMode: 6
-    m_ConditionEvent: Direction
+    m_ConditionEvent: XspellBack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3326309710399796586}

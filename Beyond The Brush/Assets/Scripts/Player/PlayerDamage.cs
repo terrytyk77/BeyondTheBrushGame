@@ -9,6 +9,11 @@ public class PlayerDamage : MonoBehaviour
         if (collision.tag == "Projectile" || collision.tag == "MeleeDamage")
         {
             collision.gameObject.GetComponentInParent<EnemyAI>().dealDamage();
+
+            if(collision.tag == "Projectile")
+            {
+                collision.gameObject.GetComponent<Projectile>().DestroyProjectile();
+            }
         }
     }
 }

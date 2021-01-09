@@ -284,14 +284,30 @@ public class OnDrawEvent : MonoBehaviour
 					{
 						if (PlayerData.xslashCooldown <= 0)
 						{
-                            if (playerHorizontal.transform.localScale.x == 1)
+                            switch (PlayerData.playerDirection)
                             {
-								playerHorizontal.GetComponent<Animator>().SetTrigger("Xspell");
-							}
-                            else if(playerVertical.transform.localScale.x == 1)
-                            {
-								playerVertical.GetComponent<Animator>().SetTrigger("Xspell");
-							}
+								case 0:
+                                    {
+										playerVertical.GetComponent<Animator>().SetTrigger("XspellBack");
+										break;
+									}
+								case 1:
+                                    {
+										playerVertical.GetComponent<Animator>().SetTrigger("XspellFront");
+										break;
+                                    }
+								case 2:
+                                    {
+										playerHorizontal.GetComponent<Animator>().SetTrigger("Xspell");
+										break;
+                                    }
+								case 3:
+                                    {
+										playerHorizontal.GetComponent<Animator>().SetTrigger("Xspell");
+										break;
+                                    }
+                            }
+	
 							HoverEnemy(location, PlayerData.xslashDamage);
 							HoverObject(location);
 						}

@@ -30,6 +30,18 @@ public class Projectile : MonoBehaviour
 
         if(Vector3.Distance(transform.position, destination) < autoDestroyDistance)
         {
+            if(gameObject != null)
+            {
+                Destroy(gameObject);
+                Destroy(targetCreated);
+            }
+        }
+    }
+
+    public void DestroyProjectile()
+    {
+        if (gameObject != null)
+        {
             Destroy(gameObject);
             Destroy(targetCreated);
         }
