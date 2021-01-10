@@ -22,6 +22,7 @@ public class Chest : MonoBehaviour
         private Tilemap collisionTilemap;
 
         private Vector3Int collisionTile;
+        private Vector3 startingPosition;
 
         Vector3 HalfTile;
     //--------------||
@@ -30,24 +31,30 @@ public class Chest : MonoBehaviour
 
     void Start()
     {
+        startingPosition = gameObject.transform.position;
         //Collisions
-        collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
-        collisionTilemap = collisionObject.GetComponent<Tilemap>();
-        HalfTile = new Vector3(collisionTilemap.cellSize.x / 2, collisionTilemap.cellSize.y / 2, 0);
-        coinCollider = coinPrefab.GetComponent<CircleCollider2D>();
+        if (collisionTilemap != null)
+        {
+            collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
+            collisionTilemap = collisionObject.GetComponent<Tilemap>();
 
-        //Parent GameObject
-        spawnedObject = GameObject.Find("SpawnedObjects");
+            HalfTile = new Vector3(collisionTilemap.cellSize.x / 2, collisionTilemap.cellSize.y / 2, 0);
 
-        //To Place The Chest Pixel Accurate With the Tilemap
-        transform.position = collisionTilemap.CellToWorld(collisionTilemap.WorldToCell(transform.position)) + HalfTile;
+            coinCollider = coinPrefab.GetComponent<CircleCollider2D>();
 
-        //Set Invisible Collision Tile Behind Chest
-        collisionTile = collisionTilemap.WorldToCell(transform.position);
-        collisionTilemap.SetTile(collisionTile, InvisibleCollisionTile);
+            //Parent GameObject
+            spawnedObject = GameObject.Find("SpawnedObjects");
 
-        //Set Amount of Coins In Chest
-        CoinAmountRandomizer = Random.Range(MinCoinAmount, MaxCoinAmount + 1);
+            //To Place The Chest Pixel Accurate With the Tilemap
+            transform.position = collisionTilemap.CellToWorld(collisionTilemap.WorldToCell(startingPosition)) + HalfTile;
+
+            //Set Invisible Collision Tile Behind Chest
+            collisionTile = collisionTilemap.WorldToCell(transform.position);
+            collisionTilemap.SetTile(collisionTile, InvisibleCollisionTile);
+
+            //Set Amount of Coins In Chest
+            CoinAmountRandomizer = Random.Range(MinCoinAmount, MaxCoinAmount + 1);
+        }
     }
 
     public void DestroyChest()
@@ -59,6 +66,8 @@ public class Chest : MonoBehaviour
         
         if (collisionTilemap != null)
         {
+            collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
+            collisionTilemap = collisionObject.GetComponent<Tilemap>();
             collisionTilemap.SetTile(collisionTile, null);
         }
 

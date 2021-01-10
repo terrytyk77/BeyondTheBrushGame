@@ -23,7 +23,12 @@ public class LockedDoor : MonoBehaviour
 
     public void DestroyDoor()
     {
-        collisionTilemap.SetTile(collisionTile, null);
+        if(collisionTilemap != null)
+        {
+            collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
+            collisionTilemap = collisionObject.GetComponent<Tilemap>();
+            collisionTilemap.SetTile(collisionTile, null);
+        }
         gameObject.SetActive(false);
     }
 

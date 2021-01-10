@@ -6,6 +6,7 @@ public class DungeonChestSpawn : MonoBehaviour
 {
     private GameObject chestSpawnPoint;
     private GameObject chestParent;
+    private GameObject ChestParent;
 
     private Transform[] childrenChestSpawnPoint;
     private GameObject spawnedChest;
@@ -21,9 +22,12 @@ public class DungeonChestSpawn : MonoBehaviour
 
     void Start()
     {
-        chestSpawnPoint = GameObject.Find("ChestSpawnPoint");
+        
+        
         chestParent = GameObject.Find("Chests");
+        chestSpawnPoint = GameObject.Find("ChestSpawnPoint");
 
+       
         if (chestSpawnPoint != null)
         {
             //Initialize child Array
@@ -47,9 +51,10 @@ public class DungeonChestSpawn : MonoBehaviour
             {
                 spawnedChest = Instantiate(WoodenChestPrefab, chestPosition, Quaternion.identity);
             }
-            
+
             //Adjust Parent
             spawnedChest.transform.SetParent(chestParent.transform);
+
         }
     }
 
@@ -57,7 +62,7 @@ public class DungeonChestSpawn : MonoBehaviour
     {
         //Checks If Room Is Completed!
         EnemyParent = GameObject.FindGameObjectsWithTag("Enemy");
-        chestParent = GameObject.Find("Chests");
+        ChestParent = GameObject.Find("Chests");
 
         if (EnemyParent.Length == 0 && chestParent.transform.childCount == 0)
         {

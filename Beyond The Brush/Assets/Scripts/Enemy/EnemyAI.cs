@@ -267,7 +267,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 else
                 {
-                    currentPath = null;
+                    currentPath = null; 
                 }
             }
         }
