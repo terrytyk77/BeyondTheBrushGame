@@ -34,7 +34,10 @@ public class LockedDoor : MonoBehaviour
 
     public void CreateDoor()
     {
-        collisionTilemap.SetTile(collisionTile, doorTile);
+        if (collisionTilemap != null)
+        {
+            collisionTilemap.SetTile(collisionTile, doorTile);
+        }
         gameObject.SetActive(true);
     }
 }
