@@ -58,13 +58,28 @@ public class DungeonChestSpawn : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        //Checks If Room Is Completed!
-        EnemyParent = GameObject.FindGameObjectsWithTag("Enemy");
-        ChestParent = GameObject.Find("Chests");
+        //The counters
+        int chestCounter = 0;
+        int enemyCounter = 0;
 
-        if (EnemyParent.Length == 0 && chestParent.transform.childCount == 0)
+        //Loop the chests
+        foreach(Transform child in gameObject.transform.Find("Chests"))
+        {
+            chestCounter++;
+        }
+
+        foreach (Transform child in gameObject.transform.Find("Enemies"))
+        {
+            if (child.tag == "Enemy")
+            {
+                enemyCounter++;
+            }
+        }
+
+
+        if (enemyCounter == 0 && chestCounter == 0)
         {
             GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().CompletedRoom();
         }
