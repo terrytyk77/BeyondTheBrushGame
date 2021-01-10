@@ -492,7 +492,7 @@ public class PlayerData : MonoBehaviour
         _username = "Offline Player";
         _level = 1;
         _exp = 0;
-        _resources = 0;
+        _resources = 20000;
         _gold = 0;
         _email = "";
         _movementSpeed = 4;
