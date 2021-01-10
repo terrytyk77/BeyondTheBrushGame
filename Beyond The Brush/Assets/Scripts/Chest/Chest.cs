@@ -58,12 +58,7 @@ public class Chest : MonoBehaviour
     }
 
     public void DestroyChest()
-    {
-        if (gameObject != null) 
-        {
-            Destroy(gameObject);
-        }
-        
+    {        
         if (collisionTilemap != null)
         {
             collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
@@ -74,19 +69,34 @@ public class Chest : MonoBehaviour
         //Coins
         if (spawnedObject == null)
         {
-            spawnedObject = GameObject.Find("SpawnedObjects");
+            spawnedObject = gameObject.transform.parent.parent.Find("SpawnedObjects").gameObject;
+        }
+
+        if (CoinAmountRandomizer == 0)
+        {
+            CoinAmountRandomizer = Random.Range(MinCoinAmount, MaxCoinAmount + 1);
+        }
+
+        if (coinCollider == null)
+        {
+            coinCollider = coinPrefab.GetComponent<CircleCollider2D>();
         }
 
         for (int i = 0; i < CoinAmountRandomizer; i++)
         {
             //Make the Coins Spawn Inside the Tile
-            Vector3 CoinPosition = transform.position + new Vector3(
+            Vector3 CoinPosition = startingPosition + new Vector3(
                 Random.Range(-HalfTile.x + coinCollider.radius / 2 * coinPrefab.transform.localScale.x, HalfTile.x - coinCollider.radius / 2 * coinPrefab.transform.localScale.x),
                 Random.Range(-HalfTile.y + coinCollider.radius / 2 * coinPrefab.transform.localScale.y, HalfTile.y - coinCollider.radius / 2 * coinPrefab.transform.localScale.y),
                 0);
 
             coinSpawned = Instantiate(coinPrefab, CoinPosition, Quaternion.identity);
             coinSpawned.transform.SetParent(spawnedObject.transform);
+        }
+
+        if (gameObject != null)
+        {
+            Destroy(gameObject);
         }
     }
 }

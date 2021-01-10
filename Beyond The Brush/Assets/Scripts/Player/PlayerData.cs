@@ -250,7 +250,8 @@ public class PlayerData : MonoBehaviour
                 //Find the current room instance
                 string roomName = dungeonInfo.getRoomViaCords(dungeonInfo.currentRoom).roomPrefab.name + dungeonInfo.currentRoom.x + dungeonInfo.currentRoom.y;
                 GameObject roomInstance = GameObject.Find(roomName);
-                
+                GameObject chestsInstance = roomInstance.transform.Find("Chests").gameObject;    
+
                 //If it finds the instance then respawn it
                 if (roomInstance && !dungeonInfo.getRoomViaCords(dungeonInfo.currentRoom).getCompleted())
                 {
@@ -273,9 +274,20 @@ public class PlayerData : MonoBehaviour
                             }
                         }
                     }
+
                     //Create the new room and replace for the other one
                     GameObject newVersion = Instantiate(prefabVersion);
+                    newVersion.SetActive(false);
                     newVersion.name = roomName;
+                    GameObject newerRoomChests = newVersion.transform.Find("Chests").gameObject;
+
+                    if (chestsInstance != null && newerRoomChests != null)
+                    {
+                        Destroy(newerRoomChests);
+                        chestsInstance.transform.SetParent(newVersion.transform);
+                    }
+
+                    newVersion.SetActive(true);
                     Destroy(roomInstance);
             }
             //______________||
