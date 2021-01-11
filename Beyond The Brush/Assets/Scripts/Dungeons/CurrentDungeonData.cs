@@ -172,6 +172,10 @@ public class CurrentDungeonData : MonoBehaviour
                 break;
         }
 
+        //Update discord presence
+        DiscordPresence.PresenceManager.instance.presence.state = "Room: " + "["+ currentRoom.x+ ", "+ currentRoom .y+ "]";
+        DiscordPresence.PresenceManager.UpdatePresence(null);
+
         //Destroy all the current existing dungeon rooms
         foreach (GameObject room in GameObject.FindGameObjectsWithTag("dungeonRoom"))
         {

@@ -44,14 +44,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   presence:
-    state: On Main Menu
-    details: Currently playing beyond the brush
+    state: 
+    details: 'Currently playing on: Main Menu'
     startTimestamp: 0
     endTimestamp: 0
     largeImageKey: big
-    largeImageText: big image
+    largeImageText: Available on Itch.io
     smallImageKey: 
-    smallImageText: small image
+    smallImageText: In dungeon
     partyId: 
     partySize: 0
     partyMax: 0

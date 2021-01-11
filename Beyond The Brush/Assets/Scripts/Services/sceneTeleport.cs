@@ -21,25 +21,32 @@ public class sceneTeleport : MonoBehaviour
 
         string currentPlace = "";
 
+        //Disable the aditional dungeon data
+        DiscordPresence.PresenceManager.instance.presence.state = null;
+        DiscordPresence.PresenceManager.instance.presence.smallImageKey = null;
+
         //Update discord presence correctly
         switch (sceneNum)
         {
             case 0:
-                currentPlace = "On Main Menu";
+                currentPlace = "Currently playing on: Main Menu";
                 break;
 
             case 1:
-                currentPlace = "On the village";
+                currentPlace = "Currently playing on: Village";
                 break;
 
             case 2:
-                currentPlace = "On a dungeon";
+                
+                currentPlace = "Currently playing on: " + dungeonName;
+                DiscordPresence.PresenceManager.instance.presence.smallImageKey = "door";
+                DiscordPresence.PresenceManager.instance.presence.state = "Room: [0, 0]";
                 break;
 
         }
 
         //Update request
-        DiscordPresence.PresenceManager.instance.presence.state = currentPlace;
+        DiscordPresence.PresenceManager.instance.presence.details = currentPlace;
         DiscordPresence.PresenceManager.UpdatePresence(null);
 
         instance.StartCoroutine("LoadAsync", sceneNum);
