@@ -32,16 +32,6 @@ namespace DiscordPresence
 
         public static PresenceManager instance;
 
-        /*public void OnClick()
-        {
-            Debug.Log("Discord: on click!");
-            clickCounter++;
-
-            presence.details = string.Format("Button clicked {0} times", clickCounter);
-
-            DiscordRpc.UpdatePresence(presence);
-        }*/
-
         public void RequestRespondYes()
         {
             DiscordRpc.Respond(joinRequest.userId, DiscordRpc.Reply.Yes);
@@ -99,9 +89,14 @@ namespace DiscordPresence
         #endregion
 
         #region Monobehaviour Callbacks
+
+        private int currentTimeTick;
+
         // Singleton
         void Awake()
         {
+            currentTimeTick = (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
+
             if (instance == null)
             {
                 instance = this;
@@ -152,7 +147,7 @@ namespace DiscordPresence
         {
             instance.presence.details = detail ?? instance.presence.details;
             instance.presence.state = state ?? instance.presence.state;
-            instance.presence.startTimestamp = (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds ;//DateTime.UtcNow.Ticks;//DateTime.Now.Hour; //(start == -1) ? instance.presence.startTimestamp : start;
+            instance.presence.startTimestamp = instance.currentTimeTick;//DateTime.UtcNow.Ticks;//DateTime.Now.Hour; //(start == -1) ? instance.presence.startTimestamp : start;
             instance.presence.endTimestamp = 0;//(end == -1) ? instance.presence.endTimestamp : end;   
             instance.presence.largeImageKey = largeKey ?? instance.presence.largeImageKey;
             instance.presence.largeImageText = largeText ?? instance.presence.largeImageText;
@@ -164,7 +159,7 @@ namespace DiscordPresence
             instance.presence.matchSecret = match ?? instance.presence.matchSecret;
             instance.presence.joinSecret = join ?? instance.presence.joinSecret;
             instance.presence.spectateSecret = spectate ?? instance.presence.spectateSecret;
-            //instance.presence.presence.instance =
+
             DiscordRpc.UpdatePresence(instance.presence);
         }
 

@@ -18,6 +18,30 @@ public class sceneTeleport : MonoBehaviour
 
     static public void start(int sceneNum)
     {
+
+        string currentPlace = "";
+
+        //Update discord presence correctly
+        switch (sceneNum)
+        {
+            case 0:
+                currentPlace = "On Main Menu";
+                break;
+
+            case 1:
+                currentPlace = "On the village";
+                break;
+
+            case 2:
+                currentPlace = "On a dungeon";
+                break;
+
+        }
+
+        //Update request
+        DiscordPresence.PresenceManager.instance.presence.state = currentPlace;
+        DiscordPresence.PresenceManager.UpdatePresence(null);
+
         instance.StartCoroutine("LoadAsync", sceneNum);
     }
 

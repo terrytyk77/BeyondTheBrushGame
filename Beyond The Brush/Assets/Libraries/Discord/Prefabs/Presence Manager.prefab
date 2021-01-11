@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   presence:
-    state: 
+    state: On Main Menu
     details: Currently playing beyond the brush
     startTimestamp: 0
     endTimestamp: 0
