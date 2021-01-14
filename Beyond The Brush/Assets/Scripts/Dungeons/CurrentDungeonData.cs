@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -130,14 +131,94 @@ public class CurrentDungeonData : MonoBehaviour
 
     }
 
+    void continueFunction()
+    {
+        Debug.Log("hi!");
+    }
+    private void setupCompletedReward()
+    {
+        //Handle player movemenet||
+        //_______________________||
+
+        float currentTimeScale = Time.timeScale;                                                             //Store the current time
+
+        Time.timeScale = 1;                                                                                  //Set the time scale to normal value
+
+        //Handle the rewards window show up||
+        DungeonResultWindow.window.GetComponent<RectTransform>().localPosition = new Vector3(0, 900, 0);    //Window position off the screen
+        DungeonResultWindow.window.SetActive(true);                                                         //Enable the window
+
+        //Handle the buttons listeners
+        Button LeaveDungeonBTN = DungeonResultWindow.cancelButton.GetComponent<Button>();                   //Get the button component of the leave
+        Button ContinueDungeonBTN = DungeonResultWindow.acceptButton.GetComponent<Button>();                //Get the button component of the continue
+
+        LeaveDungeonBTN.onClick.RemoveAllListeners();       //Clear the listeners
+        ContinueDungeonBTN.onClick.RemoveAllListeners();    //Clear the listeners
+
+        void leaveFunction()
+        {
+            Time.timeScale = currentTimeScale;              //Reset back to the time it had
+            sceneTeleport.start(1);                         //Teleport back to the village
+        }
+
+        /*
+        void continueFunction()
+        {
+            Time.timeScale = currentTimeScale;              //Reset back to the time it had
+            ContinueDungeonBTN.interactable = false;        //Make the continue button non interactable
+            LeaveDungeonBTN.interactable = false;           //Make the leave button non interectable
+            DungeonResultWindow.window.SetActive(false);    //Close the window
+        }
+        */
+
+        LeaveDungeonBTN.onClick.AddListener(leaveFunction);         //Add the leave method to the listener
+        ContinueDungeonBTN.onClick.AddListener(continueFunction);   //Add the continue method to the listener
+
+        //Declare coroutines for the buttons
+        IEnumerator cancelButtonEffect()
+        {
+            int waitTime = 3; //The amount of seconds to enable the button
+
+            DungeonResultWindow.cancelButton.transform.Find("Text").GetComponent<Text>().text = waitTime.ToString();        //Set the starting text
+
+            while (waitTime > 0)
+            {
+                yield return new WaitForSeconds(1);                                                                         //Force code yield
+                waitTime--;                                                                                                 //Subtract to the counter
+                DungeonResultWindow.cancelButton.transform.Find("Text").GetComponent<Text>().text = waitTime.ToString();    //Update to the current time number
+            }
+
+            //The wait time already ended
+            DungeonResultWindow.cancelButton.transform.Find("Text").GetComponent<Text>().text = "Leave";                    //Change the label to "leave"
+            LeaveDungeonBTN.interactable = true;                                                                            //Make the button interectable for the player
+
+            yield return null; //Break the coroutine
+        }
+
+        ContinueDungeonBTN.interactable = true;     //Make the continue button interectable
+        StartCoroutine(cancelButtonEffect());       //Start the cancel button countdown
+    }
 
     public void CompletedRoom()
     {
-        //Get the current room
-        Dungeon.room RoomWeAreIn = getRoomViaCords(currentRoom);
-        RoomWeAreIn.setCompleted(true);
-        updateMap();
+        Dungeon.room RoomWeAreIn = getRoomViaCords(currentRoom);    //Get the current room
+        if (RoomWeAreIn.getCompleted())
+            return;
+
+        //Calculate the rewards window info||
+
+            //some math here xd
+
+            setupCompletedReward(); //Handle the rewards window info
+        //_________________________________||
+
+        
+        RoomWeAreIn.setCompleted(true);                             //Change the current room completion status
+        updateMap();                                                //Update the minimap
     }
+
+
+
 
     public void changeNextRoom(string roomSide)
     {
