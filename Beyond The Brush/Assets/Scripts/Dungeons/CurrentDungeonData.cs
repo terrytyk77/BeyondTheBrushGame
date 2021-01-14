@@ -9,6 +9,22 @@ public class CurrentDungeonData : MonoBehaviour
     //Variables||
 
     //UI elements||
+
+            //Handle the dungeon rewards||
+
+            [System.Serializable]
+            public class dungeonResult
+            {
+                public GameObject window;
+                public GameObject textLabel;
+                public GameObject acceptButton;
+                public GameObject cancelButton;
+            }
+
+            public dungeonResult DungeonResultWindow = new dungeonResult(); 
+            //__________________________||
+
+
             [System.Serializable]
             public class uiElements
             {

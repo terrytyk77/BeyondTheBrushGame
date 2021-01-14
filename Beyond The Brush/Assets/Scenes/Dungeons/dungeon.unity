@@ -1369,6 +1369,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c303e521ceb754da25fbf34f0dbf40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DungeonResultWindow:
+    window: {fileID: 0}
+    textLabel: {fileID: 0}
+    acceptButton: {fileID: 0}
+    cancelButton: {fileID: 0}
   UIelements:
     miniMap:
       textElement: {fileID: 990105419}
@@ -1454,6 +1459,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1324267508, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 532946091051969981, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3887779257190319949, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
@@ -1693,6 +1702,30 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6466683890111962313, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7598720324005578821, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7598720324005578821, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7598720324005578821, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419081059286326066, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419081059286326066, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8419081059286326066, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
