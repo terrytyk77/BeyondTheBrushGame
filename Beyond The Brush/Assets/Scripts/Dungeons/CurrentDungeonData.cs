@@ -131,10 +131,6 @@ public class CurrentDungeonData : MonoBehaviour
 
     }
 
-    void continueFunction()
-    {
-        Debug.Log("hi!");
-    }
     private void setupCompletedReward()
     {
         //Handle player movemenet||
@@ -161,7 +157,7 @@ public class CurrentDungeonData : MonoBehaviour
             sceneTeleport.start(1);                         //Teleport back to the village
         }
 
-        /*
+
         void continueFunction()
         {
             Time.timeScale = currentTimeScale;              //Reset back to the time it had
@@ -169,10 +165,10 @@ public class CurrentDungeonData : MonoBehaviour
             LeaveDungeonBTN.interactable = false;           //Make the leave button non interectable
             DungeonResultWindow.window.SetActive(false);    //Close the window
         }
-        */
-
+      
         LeaveDungeonBTN.onClick.AddListener(leaveFunction);         //Add the leave method to the listener
         ContinueDungeonBTN.onClick.AddListener(continueFunction);   //Add the continue method to the listener
+
 
         //Declare coroutines for the buttons
         IEnumerator cancelButtonEffect()
@@ -270,8 +266,8 @@ public class CurrentDungeonData : MonoBehaviour
         }
 
         //Update discord presence
-        DiscordPresence.PresenceManager.instance.presence.state = "Room: " + "["+ currentRoom.x+ ", "+ currentRoom .y+ "]";
-        DiscordPresence.PresenceManager.UpdatePresence(null);
+        if(DiscordPresence.PresenceManager.instance != null) DiscordPresence.PresenceManager.instance.presence.state = "Room: " + "["+ currentRoom.x+ ", "+ currentRoom .y+ "]";
+        if (DiscordPresence.PresenceManager.instance != null) DiscordPresence.PresenceManager.UpdatePresence(null);
 
         //Destroy all the current existing dungeon rooms
         foreach (GameObject room in GameObject.FindGameObjectsWithTag("dungeonRoom"))

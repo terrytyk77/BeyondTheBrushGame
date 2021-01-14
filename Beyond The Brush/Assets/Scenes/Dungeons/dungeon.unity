@@ -1437,13 +1437,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061095752}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb932c371661f9b439cd8f862791904e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   windowMoveSpeed: 25
-  thisWindow: {fileID: 2061095752}
+  currentWindowPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &3956660340777269611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1497,7 +1497,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 532946091051969981, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3305032884609222388, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3887779257190319949, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1741,6 +1745,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6466683890111962313, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862613810496406484, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7598720324005578821, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}

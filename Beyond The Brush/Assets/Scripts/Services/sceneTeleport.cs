@@ -22,8 +22,8 @@ public class sceneTeleport : MonoBehaviour
         string currentPlace = "";
 
         //Disable the aditional dungeon data
-        DiscordPresence.PresenceManager.instance.presence.state = null;
-        DiscordPresence.PresenceManager.instance.presence.smallImageKey = null;
+        if (DiscordPresence.PresenceManager.instance != null) DiscordPresence.PresenceManager.instance.presence.state = null;
+        if (DiscordPresence.PresenceManager.instance != null) DiscordPresence.PresenceManager.instance.presence.smallImageKey = null;
 
         //Update discord presence correctly
         switch (sceneNum)
@@ -39,15 +39,15 @@ public class sceneTeleport : MonoBehaviour
             case 2:
                 
                 currentPlace = "Currently playing on: " + dungeonName;
-                DiscordPresence.PresenceManager.instance.presence.smallImageKey = "door";
-                DiscordPresence.PresenceManager.instance.presence.state = "Room: [0, 0]";
+                if (DiscordPresence.PresenceManager.instance != null) DiscordPresence.PresenceManager.instance.presence.smallImageKey = "door";
+                if (DiscordPresence.PresenceManager.instance != null) DiscordPresence.PresenceManager.instance.presence.state = "Room: [0, 0]";
                 break;
 
         }
 
         //Update request
-        DiscordPresence.PresenceManager.instance.presence.details = currentPlace;
-        DiscordPresence.PresenceManager.UpdatePresence(null);
+        if (DiscordPresence.PresenceManager.instance != null) DiscordPresence.PresenceManager.instance.presence.details = currentPlace;
+        if (DiscordPresence.PresenceManager.instance != null) DiscordPresence.PresenceManager.UpdatePresence(null);
 
         instance.StartCoroutine("LoadAsync", sceneNum);
     }
