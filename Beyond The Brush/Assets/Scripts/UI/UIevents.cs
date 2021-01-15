@@ -389,7 +389,7 @@ public class UIevents : MonoBehaviour
         string slashSkillText = "";
             if (PlayerData.slashCooldown > 0 && PlayerData.slashCooldown < 1)
             {
-                slashSkillText = slashSkillText + decimal.Round((decimal)PlayerData.slashCooldown, 2);
+                slashSkillText = slashSkillText + decimal.Round((decimal)PlayerData.slashCooldown, 1);
             }else if(PlayerData.slashCooldown > 0){
                 slashSkillText = slashSkillText +  Mathf.RoundToInt(PlayerData.slashCooldown);
             }
@@ -401,7 +401,7 @@ public class UIevents : MonoBehaviour
             string xslashSkillText = "";
             if (PlayerData.xslashCooldown > 0 && PlayerData.xslashCooldown < 1)
             {
-                xslashSkillText = xslashSkillText + decimal.Round((decimal)PlayerData.xslashCooldown, 2);
+                xslashSkillText = xslashSkillText + decimal.Round((decimal)PlayerData.xslashCooldown, 1);
             }else if(PlayerData.xslashCooldown > 0){
                 xslashSkillText = xslashSkillText +  Mathf.RoundToInt(PlayerData.xslashCooldown);
             }
@@ -412,7 +412,7 @@ public class UIevents : MonoBehaviour
             string shieldSkillText = "";
             if (PlayerData.shieldCooldown > 0 && PlayerData.shieldCooldown < 1)
             {
-                shieldSkillText = shieldSkillText + decimal.Round((decimal)PlayerData.shieldCooldown, 2);
+                shieldSkillText = shieldSkillText + decimal.Round((decimal)PlayerData.shieldCooldown, 1);
             }else if(PlayerData.shieldCooldown > 0){
                 shieldSkillText = shieldSkillText +  Mathf.RoundToInt(PlayerData.shieldCooldown);
             }
@@ -429,7 +429,7 @@ public class UIevents : MonoBehaviour
             string rockSkillText = "";
             if (PlayerData.rockCooldown > 0 && PlayerData.rockCooldown < 1)
             {
-                rockSkillText = rockSkillText + decimal.Round((decimal)PlayerData.rockCooldown, 2);
+                rockSkillText = rockSkillText + decimal.Round((decimal)PlayerData.rockCooldown, 1);
             }else if(PlayerData.rockCooldown > 0){
                 rockSkillText = rockSkillText +  Mathf.RoundToInt(PlayerData.rockCooldown);
             }
@@ -441,7 +441,7 @@ public class UIevents : MonoBehaviour
             string boxSkillText = "";
             if (PlayerData.boxCooldown > 0 && PlayerData.boxCooldown < 1)
             {
-                boxSkillText = boxSkillText + decimal.Round((decimal)PlayerData.boxCooldown, 2);
+                boxSkillText = boxSkillText + decimal.Round((decimal)PlayerData.boxCooldown, 1);
             }else if(PlayerData.boxCooldown > 0){
                 boxSkillText = boxSkillText +  Mathf.RoundToInt(PlayerData.boxCooldown);
             }

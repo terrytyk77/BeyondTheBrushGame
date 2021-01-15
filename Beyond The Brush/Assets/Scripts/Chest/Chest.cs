@@ -69,6 +69,7 @@ public class Chest : MonoBehaviour
         //Coins
         if (spawnedObject == null)
         {
+            GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().amountOfChests++;
             spawnedObject = gameObject.transform.parent.parent.Find("SpawnedObjects").gameObject;
         }
 
