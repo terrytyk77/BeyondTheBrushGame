@@ -164,6 +164,7 @@ public class CurrentDungeonData : MonoBehaviour
 
         void leaveFunction()
         {
+            DontDestroyOnLoad(gameObject);                  //Preserve the current dungeon data
             Time.timeScale = currentTimeScale;              //Reset back to the time it had
             sceneTeleport.start(1);                         //Teleport back to the village
         }
@@ -398,7 +399,7 @@ public class CurrentDungeonData : MonoBehaviour
                 break;
 
             case "exit":
-                DontDestroyOnLoad(gameObject);
+                DontDestroyOnLoad(gameObject);                                              //Avoid destroying this object to use as reference for the other side teleport
                 sceneTeleport.start(mainVillageID);                                         //If the door equals to exit then take him to the village
                 break;
 
