@@ -33,52 +33,42 @@ public class Chest : MonoBehaviour
     {
         startingPosition = gameObject.transform.position;
         //Collisions
-        if (collisionTilemap != null)
-        {
-            collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
-            collisionTilemap = collisionObject.GetComponent<Tilemap>();
+        collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
+        collisionTilemap = collisionObject.GetComponent<Tilemap>();
+        HalfTile = new Vector3(collisionTilemap.cellSize.x / 2, collisionTilemap.cellSize.y / 2, 0);
 
-            HalfTile = new Vector3(collisionTilemap.cellSize.x / 2, collisionTilemap.cellSize.y / 2, 0);
+        coinCollider = coinPrefab.GetComponent<CircleCollider2D>();
 
-            coinCollider = coinPrefab.GetComponent<CircleCollider2D>();
+        //Parent GameObject
+        spawnedObject = GameObject.Find("SpawnedObjects");
 
-            //Parent GameObject
-            spawnedObject = GameObject.Find("SpawnedObjects");
+        //To Place The Chest Pixel Accurate With the Tilemap
+        transform.position = collisionTilemap.CellToWorld(collisionTilemap.WorldToCell(startingPosition)) + HalfTile;
 
-            //To Place The Chest Pixel Accurate With the Tilemap
-            transform.position = collisionTilemap.CellToWorld(collisionTilemap.WorldToCell(startingPosition)) + HalfTile;
+        //Set Invisible Collision Tile Behind Chest
+        collisionTile = collisionTilemap.WorldToCell(transform.position);
+        collisionTilemap.SetTile(collisionTile, InvisibleCollisionTile);
 
-            //Set Invisible Collision Tile Behind Chest
-            collisionTile = collisionTilemap.WorldToCell(transform.position);
-            collisionTilemap.SetTile(collisionTile, InvisibleCollisionTile);
-
-            //Set Amount of Coins In Chest
-            CoinAmountRandomizer = Random.Range(MinCoinAmount, MaxCoinAmount + 1);
-        }
+        //Set Amount of Coins In Chest
+        CoinAmountRandomizer = Random.Range(MinCoinAmount, MaxCoinAmount + 1);
     }
 
     public void DestroyChest()
     {        
-        if (collisionTilemap != null)
+        if (collisionTilemap == null)
         {
             collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
             collisionTilemap = collisionObject.GetComponent<Tilemap>();
-            collisionTilemap.SetTile(collisionTile, null);
         }
 
         //Coins
-        if (spawnedObject == null)
+        if (!spawnedObject)
         {
             GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().amountOfChests++;
             spawnedObject = gameObject.transform.parent.parent.Find("SpawnedObjects").gameObject;
         }
 
-        if (CoinAmountRandomizer == 0)
-        {
-            CoinAmountRandomizer = Random.Range(MinCoinAmount, MaxCoinAmount + 1);
-        }
-
-        if (coinCollider == null)
+        if (!coinCollider)
         {
             coinCollider = coinPrefab.GetComponent<CircleCollider2D>();
         }
@@ -95,9 +85,10 @@ public class Chest : MonoBehaviour
             coinSpawned.transform.SetParent(spawnedObject.transform);
         }
 
-        if (gameObject != null)
+        if (gameObject)
         {
             Destroy(gameObject);
+            collisionTilemap.SetTile(collisionTile, null);
         }
     }
 }

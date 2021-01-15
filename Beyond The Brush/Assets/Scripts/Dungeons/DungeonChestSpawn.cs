@@ -22,13 +22,10 @@ public class DungeonChestSpawn : MonoBehaviour
 
     void Start()
     {
-        
-        
         chestParent = GameObject.Find("Chests");
         chestSpawnPoint = GameObject.Find("ChestSpawnPoint");
 
-       
-        if (chestSpawnPoint != null)
+        if (chestSpawnPoint)
         {
             //Initialize child Array
             childrenChestSpawnPoint = chestSpawnPoint.GetComponentsInChildren<Transform>();
@@ -54,7 +51,6 @@ public class DungeonChestSpawn : MonoBehaviour
 
             //Adjust Parent
             spawnedChest.transform.SetParent(chestParent.transform);
-
         }
     }
 
