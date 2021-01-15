@@ -385,6 +385,9 @@ public class EnemyAI : MonoBehaviour
         //State to Dead
         currentState = State.Diying;
 
+        //Adjusting Sorting Layer
+        gameObject.GetComponent<SortingGroup>().sortingOrder = -10;
+
         //Runing Death Animation
         Animator.SetTrigger("Diying");
 
@@ -393,9 +396,6 @@ public class EnemyAI : MonoBehaviour
 
         //Remove Box Collider
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
-
-        //Adjusting Sorting Layer
-        gameObject.GetComponent<SortingGroup>().sortingOrder = -10;
         
         //Grant Exp to the Player
         PlayerData.addPlayerExp(experience);
