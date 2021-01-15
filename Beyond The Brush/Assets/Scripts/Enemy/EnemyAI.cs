@@ -444,19 +444,39 @@ public class EnemyAI : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-
-        if (currentPath != null)
+        if(gameObject.tag != "DeadEnemy")
         {
-            for (int i = 0; i < currentPath.Count; i++)
-            {
-                if (i + 1 < currentPath.Count)
-                    if (currentPath[i] != null)
-                        Gizmos.DrawLine(currentPath[i] + HalfTile, currentPath[i + 1] + HalfTile);
-            }
-        }
+            Gizmos.color = Color.green;
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, aggroRange);
+            if (currentPath != null)
+            {
+                for (int i = 0; i < currentPath.Count; i++)
+                {
+                    if (i + 1 < currentPath.Count)
+                        if (currentPath[i] != null)
+                            Gizmos.DrawLine(currentPath[i] + HalfTile, currentPath[i + 1] + HalfTile);
+                }
+            }
+
+
+            //Radius For Detecting Player
+            Gizmos.color = Color.red;
+            float theta = 0;
+            float x = aggroRange * Mathf.Cos(theta);
+            float y = aggroRange * Mathf.Sin(theta);
+            Vector3 pos = transform.position + new Vector3(x, y, 0);
+            Vector3 newPos = pos;
+            Vector3 lastPos = pos;
+            for (theta = 0.1f; theta < Mathf.PI * 2; theta += 0.1f)
+            {
+                x = aggroRange * Mathf.Cos(theta);
+                y = aggroRange * Mathf.Sin(theta);
+                newPos = transform.position + new Vector3(x, y, 0);
+                Gizmos.DrawLine(pos, newPos);
+                pos = newPos;
+            }
+            Gizmos.DrawLine(pos, lastPos);
+            //Gizmos.DrawWireSphere(transform.position, aggroRange);
+        }
     }
 }
