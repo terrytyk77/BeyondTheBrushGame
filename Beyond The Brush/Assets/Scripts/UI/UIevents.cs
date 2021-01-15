@@ -387,50 +387,65 @@ public class UIevents : MonoBehaviour
 
         //slash
         string slashSkillText = "";
-            if (PlayerData.slashCooldown > 0)
+            if (PlayerData.slashCooldown > 0 && PlayerData.slashCooldown < 1)
             {
                 slashSkillText = slashSkillText + decimal.Round((decimal)PlayerData.slashCooldown, 2);
+            }else if(PlayerData.slashCooldown > 0){
+                slashSkillText = slashSkillText +  Mathf.RoundToInt(PlayerData.slashCooldown);
             }
+
             cooldowns.slashSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.slashCooldown/PlayerData.slashCooldownDefault);
             cooldowns.slashSkill.transform.Find("CooldownText").GetComponent<Text>().text = slashSkillText;
 
             //xslash
             string xslashSkillText = "";
-            if (PlayerData.xslashCooldown > 0)
+            if (PlayerData.xslashCooldown > 0 && PlayerData.xslashCooldown < 1)
             {
                 xslashSkillText = xslashSkillText + decimal.Round((decimal)PlayerData.xslashCooldown, 2);
+            }else if(PlayerData.xslashCooldown > 0){
+                xslashSkillText = xslashSkillText +  Mathf.RoundToInt(PlayerData.xslashCooldown);
             }
             cooldowns.XslashSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.xslashCooldown / PlayerData.xslashCooldownDefault);
             cooldowns.XslashSkill.transform.Find("CooldownText").GetComponent<Text>().text = xslashSkillText;
 
             //shield
             string shieldSkillText = "";
-            if (PlayerData.shieldCooldown > 0)
+            if (PlayerData.shieldCooldown > 0 && PlayerData.shieldCooldown < 1)
             {
                 shieldSkillText = shieldSkillText + decimal.Round((decimal)PlayerData.shieldCooldown, 2);
+            }else if(PlayerData.shieldCooldown > 0){
+                shieldSkillText = shieldSkillText +  Mathf.RoundToInt(PlayerData.shieldCooldown);
             }
+
             cooldowns.shieldSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.shieldCooldown / PlayerData.shieldCooldownDefault);
             if (PlayerData.talentTreeData.node3 == true)
             {
                 cooldowns.shieldSkill.transform.Find("StackText").GetComponent<Text>().text = PlayerData.shieldCurrentStack.ToString();
             }
+
             cooldowns.shieldSkill.transform.Find("CooldownText").GetComponent<Text>().text = shieldSkillText;
 
             //rock spawner
             string rockSkillText = "";
-            if (PlayerData.rockCooldown > 0)
+            if (PlayerData.rockCooldown > 0 && PlayerData.rockCooldown < 1)
             {
                 rockSkillText = rockSkillText + decimal.Round((decimal)PlayerData.rockCooldown, 2);
+            }else if(PlayerData.rockCooldown > 0){
+                rockSkillText = rockSkillText +  Mathf.RoundToInt(PlayerData.rockCooldown);
             }
+
             cooldowns.rockSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.rockCooldown / PlayerData.rockSpawnCooldownDefault);
             cooldowns.rockSkill.transform.Find("CooldownText").GetComponent<Text>().text = rockSkillText;
             
             //box spawner
             string boxSkillText = "";
-            if (PlayerData.boxCooldown > 0)
+            if (PlayerData.boxCooldown > 0 && PlayerData.boxCooldown < 1)
             {
                 boxSkillText = boxSkillText + decimal.Round((decimal)PlayerData.boxCooldown, 2);
+            }else if(PlayerData.boxCooldown > 0){
+                boxSkillText = boxSkillText +  Mathf.RoundToInt(PlayerData.boxCooldown);
             }
+
             cooldowns.boxSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.boxCooldown / PlayerData.boxSpawnCooldownDefault);
             cooldowns.boxSkill.transform.Find("CooldownText").GetComponent<Text>().text = boxSkillText;
 
