@@ -7,138 +7,151 @@ using UnityEngine.UI;
 
 public class CurrentDungeonData : MonoBehaviour
 {
+    //All the script classes||
+
+        [System.Serializable]
+        public class dungeonResult              //class holder for the dungeon rewards window
+        {
+            public GameObject window;           //holds the main frame of the window
+            public GameObject textLabel;        //holds the display text label
+            public GameObject acceptButton;     //holds the accept button (continue the dungeon)
+            public GameObject cancelButton;     //holds the cancel button (leave the dungeon)
+        }
+        //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\\
+        //||||||||||||||||||||||||||||||||||||||||||||||||||| This is a class breaker|||||||||||||||||||||||||||||||||||||||||||||||||||
+        //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||//
+        [System.Serializable]
+        public class uiElements                 //class holder for UI elements - holds minimap and its counters
+        {
+            [System.Serializable]
+            public class minimap                //class holder for the minimap box
+            {
+
+                public GameObject textElement;  //Holds the minimap text label
+                public GameObject mask;         //Holds the mask that overlays the map
+                public GameObject roomPrefab;   //Holds the room prefab that is used on the minimap to describe each room
+
+                public Color completedRoom;     //Holds the color used for completed rooms on the minimap
+                public Color uncompletedRoom;   //Holds the color for uncompleted rooms on the minimap
+                public Color unexploredRoom;    //Holds the color for unexplored rooms on the minimap
+
+
+            }
+
+            public minimap miniMap = new minimap(); //Creates the variable holder of the minimap
+
+        }
+        //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\\
+        //||||||||||||||||||||||||||||||||||||||||||||||||||| This is a class breaker|||||||||||||||||||||||||||||||||||||||||||||||||||
+        //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||//
+        class roomPos                                           //Holds the room positions class
+        {
+            public Vector2Int position = new Vector2Int();      //Stores the room position in vector2 format
+            public Dungeon.room room;                           //Stores the room itself
+
+            public roomPos(int x, int y, Dungeon.room room2)    //Enter method of the class
+            {
+                position.x = x;
+                position.y = y;
+                room = room2;
+            }
+
+        }
+    //______________________||
+
+    //Class holder variables||
+
+        public dungeonResult DungeonResultWindow = new dungeonResult(); //Holds the result window class
+        public uiElements UIelements = new uiElements();                //Holds the UI elements (minimap + counters) class
+    //______________________||
+
     //Variables||
 
-    //UI elements||
-
-            //Handle the dungeon rewards||
-
-            [System.Serializable]
-            public class dungeonResult
-            {
-                public GameObject window;
-                public GameObject textLabel;
-                public GameObject acceptButton;
-                public GameObject cancelButton;
-            }
-
-            public dungeonResult DungeonResultWindow = new dungeonResult(); 
-            //__________________________||
-
-
-            [System.Serializable]
-            public class uiElements
-            {
-                [System.Serializable]
-                public class minimap{
-
-                    public GameObject textElement;
-                    public GameObject mask;
-                    public GameObject roomPrefab;
-
-                    public Color completedRoom;
-                    public Color uncompletedRoom;
-                    public Color unexploredRoom;
-
-
-                }
-
-                public minimap miniMap = new minimap();
-
-            }
-
-            public uiElements UIelements = new uiElements();
-        //___________||
+        //Data that won't change middle runtime
+        public int mainVillageID = 1;       //Holds the village scene number
+        public GameObject dungeonsData;     //Holds the list of all dungeons that exist (extracted from the dungeon API)
         
+        public GameObject background;       //Loading screen background
+        public GameObject loadingScreen;    //Loading screen window 
+        public GameObject loadingBar;       //Loading screen loading bar
 
-        //Main village id number
-        public int mainVillageID = 1;
+        //Data that will change once during runtime
+        public Dungeon currentDungeon;      //Holds the current dungeon object
+        private GameObject startingRoom;    //Holds the starting room of the dungeon prefab
+        private Rigidbody2D playerRB;       //Holds the player rigid body
 
-        //Dungeons List
-        public GameObject dungeonsData;
+        //Data that might change during runtime
+        public Vector2Int currentRoom;                                      //Holds the players current room cords
+        public string nextRoomSide;                                         //The opposite door to the last one that the player took
+        private List<GameObject> inactiveRooms = new List<GameObject>();    //Stores innactive rooms (rooms on which the player is not present)
+        private List<roomPos> map = new List<roomPos>();                    //Stores the rooms already used on the minimap to avoid duplicates
 
-        //Starting room
-        private GameObject startingRoom;
-
-        //The current room coordinates
-        public Vector2Int currentRoom;
-
-        //The next room teleport point
-        public string nextRoomSide;
-
-        //The player
-        Rigidbody2D playerRB;
-
-        //Current played dungeon
-        public Dungeon currentDungeon;
-
-        //Store inactive rooms
-        private List<GameObject> inactiveRooms = new List<GameObject>();
-               
-        private List<roomPos> map = new List<roomPos>();
-
-        //Counters||
-
-            public int amountOfChests = 0;
-            public int amountOfDeaths = 0;
-        //________||
-
+        //Counters
+        public int amountOfChests = 0;                                      //Keeps track of the amount of time that the player has died
+        public int amountOfDeaths = 0;                                      //Keeps track of the amount of deaths that the player has
     //_________||
 
-    //Class to handle rooms position
-    class roomPos
-    {
-        public Vector2Int position = new Vector2Int();
-        public Dungeon.room room;
 
-        public roomPos(int x, int y, Dungeon.room room2)
+
+    /*      Unity life cycle methods    */
+        private void Start()                                                                    //This method gets called at the start of the dungeon
         {
-            position.x = x;
-            position.y = y;
-            room = room2;
-        }
-
-    }
-
-    public Dungeon.room getRoomViaCords(Vector2Int cords)
-    {
-        Dungeon.room foundRoom = new Dungeon.room();
-
-        bool foundAroom = false;
-
-        //Loop through all the dungeon rooms that exist
-        foreach (roomPos room in map)
-        {
-
-            if (room.position == cords)
+            List<Dungeon> dungeonsList = dungeonsData.GetComponent<DungeonsAPI>().dungeons;     //Get the list of dungeons
+            playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();  //Get the player rigid body
+            GameObject dungeonAPI = GameObject.FindGameObjectWithTag("sceneAPI");               //Get the dungeon API (holds the dungeon we want to generate)
+            if (dungeonAPI != null)                                                             //Check if there is a dungeon to spawn
             {
-                foundRoom = room.room;
-                foundAroom = true;
-                return room.room;
+                getCorrectDungeon(dungeonsList, sceneTeleport.dungeonName);                     //Ask for the starting area to be generated
+                Destroy(dungeonAPI);                                                            //Avoid duplicates of the dungeon API
             }
+            else                                                                                //It couldn't find any dungeon request
+                getCorrectDungeon(dungeonsList, "Deadmines");                                   //Go with the default and load "Deadmines"
+
+            SpawnPlayer();                                                                      //Spawn the player on the starting area
+            updateMap();                                                                        //Ask for a dungeon update
         }
 
-        if (!foundAroom)
+    /*                                  */
+
+    
+
+
+    //Code below holds all the methods used on the dungeon algorithm||
+
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // Method: Get room via cords
+    /////
+    // Desc: Grabs on a vector and returns the corresponding room with equal coordinates
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    public Dungeon.room getRoomViaCords(Vector2Int cords)   //Gets a room via cords
+    {
+        Dungeon.room foundRoom = new Dungeon.room();        //Create an empty room
+
+        foreach (roomPos room in map)                       //Loop through all the dungeon rooms that exist
         {
-            foundRoom.roomPrefab = null;
-            return foundRoom;
-        }
-        else
-        {
-            return foundRoom;
+            if (room.position == cords)                     //Check if the room has the same cords
+                return room.room;                           //if it does then return the room
         }
 
-
+        foundRoom.roomPrefab = null;                        //If it doesn't find the room then empty the new one
+        return foundRoom;                                   //and send it bacck to the player
     }
 
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // Method: Set completed reward
+    /////
+    // Desc: Displays the reward window to the player with all its animations and functionalities such as the dungeon leave
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     private void setupCompletedReward()
     {
         //Handle player movemenet||
+
+            playerRB.constraints = RigidbodyConstraints2D.FreezeAll;                                        //Freeze the player
         //_______________________||
 
-        float currentTimeScale = Time.timeScale;                                                             //Store the current time
+        float currentTimeScale = Time.timeScale;                                                            //Store the current time
 
-        Time.timeScale = 1;                                                                                  //Set the time scale to normal value
+        Time.timeScale = 1;                                                                                 //Set the time scale to normal value
 
         //Handle the rewards window show up||
         DungeonResultWindow.window.GetComponent<RectTransform>().localPosition = new Vector3(0, 900, 0);    //Window position off the screen
@@ -160,10 +173,12 @@ public class CurrentDungeonData : MonoBehaviour
 
         void continueFunction()
         {
-            Time.timeScale = currentTimeScale;              //Reset back to the time it had
-            ContinueDungeonBTN.interactable = false;        //Make the continue button non interactable
-            LeaveDungeonBTN.interactable = false;           //Make the leave button non interectable
-            DungeonResultWindow.window.SetActive(false);    //Close the window
+            Time.timeScale = currentTimeScale;                              //Reset back to the time it had
+            DungeonResultWindow.window.SetActive(false);                    //Close the window
+            playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;   //Unfreeze the player
+            this.StopCoroutine(cancelButtonEffect());                       //Stop the cancel button coroutine
+            ContinueDungeonBTN.interactable = false;                        //Make the continue button non interactable
+            LeaveDungeonBTN.interactable = false;                           //Make the leave button non interectable
         }
       
         LeaveDungeonBTN.onClick.AddListener(leaveFunction);         //Add the leave method to the listener
@@ -195,11 +210,16 @@ public class CurrentDungeonData : MonoBehaviour
         StartCoroutine(cancelButtonEffect());       //Start the cancel button countdown
     }
 
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // Method: Completed room
+    /////
+    // Desc: Checks if the player already completed a room and if yes handle the room rewards + animations and feedback
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     public void CompletedRoom()
     {
         Dungeon.room RoomWeAreIn = getRoomViaCords(currentRoom);    //Get the current room
-        if (RoomWeAreIn.getCompleted())
-            return;
+        if (RoomWeAreIn.getCompleted())                             //Check if this room has already been completed
+            return;                                                 //If this room has already been completed then stop the rest of the code from running
 
         //Calculate the rewards window info||
 
@@ -215,97 +235,81 @@ public class CurrentDungeonData : MonoBehaviour
 
 
 
-
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // Method: Change next room
+    /////
+    // Desc: Handle the change between rooms: update active room, current player position and camera
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     public void changeNextRoom(string roomSide)
     {
-        //Same a cloned version of the current room
-        GameObject CurrentRoomReference;
-        
-        //Get the current active room
-        foreach(GameObject child in GameObject.FindGameObjectsWithTag("dungeonRoom"))
-        {
-            if (child.activeSelf)
-            {
-                CurrentRoomReference = child;
-            }
-        }
-        
-        //string LocalPath = "Assets/Dungeons/CurrentRooms/" + getRoomViaCords(currentRoom).roomPrefab.name + currentRoom.x + currentRoom.y + ".prefab";
-        //getRoomViaCords(currentRoom).roomPrefab = PrefabUtility.SaveAsPrefabAssetAndConnect(CurrentRoomReference, LocalPath, InteractionMode.AutomatedAction);
+        GameObject CurrentRoomReference = GameObject.FindGameObjectWithTag("dungeonRoom");  //A reference to the players current room
 
-        //Calculate on which side from the next room should the player be spawned in
-        switch (roomSide)
+
+        switch (roomSide)                                                                   //Calculate on which side from the next room should the player be spawned in
         {
             case "right":
-                nextRoomSide = "left";
+                nextRoomSide = "left";                                                      //Right -> Left
                 currentRoom.x++;
                 break;
 
             case "left":
-                nextRoomSide = "right";
+                nextRoomSide = "right";                                                     //Left -> Right
                 currentRoom.x--;
                 break;
 
             case "top":
-                nextRoomSide = "bottom";
+                nextRoomSide = "bottom";                                                    //Top -> Bottom
                 currentRoom.y++;
                 break;
 
             case "bottom":
-                nextRoomSide = "top";
+                nextRoomSide = "top";                                                       //Bottom -> Top
                 currentRoom.y--;
                 break;
 
             case "exit":
-                sceneTeleport.start(mainVillageID);
+                sceneTeleport.start(mainVillageID);                                         //If the door equals to exit then take him to the village
                 break;
 
             default:
-                nextRoomSide = null;
+                nextRoomSide = null;                                                        //Just in case it can't tell what the door is
                 break;
         }
 
         //Update discord presence
-        if(DiscordPresence.PresenceManager.instance != null) DiscordPresence.PresenceManager.instance.presence.state = "Room: " + "["+ currentRoom.x+ ", "+ currentRoom .y+ "]";
-        if (DiscordPresence.PresenceManager.instance != null) DiscordPresence.PresenceManager.UpdatePresence(null);
-
-        //Destroy all the current existing dungeon rooms
-        foreach (GameObject room in GameObject.FindGameObjectsWithTag("dungeonRoom"))
+        if (DiscordPresence.PresenceManager.instance != null)                                                                       //Check if the player is using discord
         {
-            if (room.activeSelf)
-            {
-                room.SetActive(false);
-                inactiveRooms.Add(room);
-            }
-            //Destroy(room);
+            DiscordPresence.PresenceManager.instance.presence.state = "Room: " + "[" + currentRoom.x + ", " + currentRoom.y + "]";  //Update his room status
+            DiscordPresence.PresenceManager.UpdatePresence(null);                                                                   //Send a discord update request
         }
 
-        //Gets the room
-        Dungeon.room roomToCreate = getRoomViaCords(currentRoom);
+        inactiveRooms.Add(CurrentRoomReference);    //Add the current active room to the inactive list
+        CurrentRoomReference.SetActive(false);      //Turn the current room into an inactive room
 
-        //Check if the next rooms already exist and if not create them
-        createNextRooms(currentRoom);
 
-        if (roomToCreate.roomPrefab != null)
+        Dungeon.room roomToCreate = getRoomViaCords(currentRoom);       //Gets the room that will be activated
+        createNextRooms(currentRoom);                                   //Create all conected rooms if possible
+
+        if (roomToCreate.roomPrefab != null)                            //Make sure if the room has a prefab to be used
         {
-            //Check if it was already spawned, if not spawn it!
-            bool roomWasSpawned = false;
+            
+            bool roomWasSpawned = false;                                //Check if it was already spawned, if not spawn it!
 
-            for (int index = 0; index < inactiveRooms.Count; index++)
+            for (int index = 0; index < inactiveRooms.Count; index++)   //Loop through the inactive rooms and remove the room from there
             {
                 GameObject room = inactiveRooms[index];
                 if (room != null && room.name == roomToCreate.roomPrefab.name + currentRoom.x + currentRoom.y)
                 {
-                    roomWasSpawned = true;
-                    room.SetActive(true);
-                    inactiveRooms.Remove(room);
+                    roomWasSpawned = true;      //Hold on the result to the variable
+                    room.SetActive(true);       //Make the room active
+                    inactiveRooms.Remove(room); //Remove the room from the list
+                    break;                      //No point to continue the loop
                 }
             }
 
-            if (!roomWasSpawned)
+            if (!roomWasSpawned)    //If the room didn't exist in the inactive list (a room that has never been generated)     
             {
-                //Then create a new instance
-                //Spawn the next room into the map
+                //Spawn the room and change its name
                 GameObject roomThatDidntExist = Instantiate(roomToCreate.roomPrefab, roomToCreate.roomPrefab.transform.position, Quaternion.identity);
                 roomThatDidntExist.name = roomToCreate.roomPrefab.name + currentRoom.x + currentRoom.y;
             }
@@ -313,54 +317,53 @@ public class CurrentDungeonData : MonoBehaviour
 
         }
 
-
         //Teleport the player to the correct side
-        foreach (Transform child in roomToCreate.roomPrefab.transform)
+        foreach (Transform child in roomToCreate.roomPrefab.transform)  //Loop through all the teleport locations of the room
         {
-            if (child.gameObject.name == "TeleportLocations")
+            if (child.gameObject.name == "TeleportLocations")           //Filter correct game object
             {
                 foreach(Transform child2 in child)
                 {
-                    if (child2.gameObject.name == nextRoomSide)
+                    if (child2.gameObject.name == nextRoomSide)         //Filter the correct room side
                     {
-                        playerRB.position = child2.position;
+                        playerRB.position = child2.position;            //Change the player position to the spawn point
 
                         //Reset the camera position
-                        Camera.main.transform.position = new Vector3(child2.position.x, child2.position.y, Camera.main.transform.position.z);
+                        Camera.main.transform.position = new Vector3(   //Change the camera position to match the players
+                                                                    child2.position.x, 
+                                                                    child2.position.y, 
+                                                                    Camera.main.transform.position.z);
                     }
                 }
             }
         }
 
-        //Change the explored state
-        foreach (CurrentDungeonData.roomPos mappyroommy in map)
+        foreach (CurrentDungeonData.roomPos mappyroommy in map) //Loop through the minimap list
         {
-            if (currentRoom == mappyroommy.position)
+            if (currentRoom == mappyroommy.position)            //If the room position equals to the players current room
             {
-                mappyroommy.room.setExplored(true);
+                mappyroommy.room.setExplored(true);             //then turn the explored element into true
+                break;
             }
         }
 
-        //Update the UI
-        updateMap();
-
+        updateMap();                                            //update the minimap to match to the players new position
     }
 
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // Method: Create rooms 
+    /////
+    // Desc: Creates the rooms (if needed) connected to the one you just moved into
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     private void createNextRooms(Vector2Int roomLocation)
     {
-
         void addNewRoom(string hasOposingSide)
         {
-
-            //Check if the next shape can be created
-            //Store possible sides
-            List<Dungeon.room> possibleSides = new List<Dungeon.room>();
-            List<Dungeon.room> possibleSidesFiltered = new List<Dungeon.room>();
-
-            Vector2Int newRoomDirection = roomLocation;
-
-            //Get direction of the new room
-            switch (hasOposingSide)
+            List<Dungeon.room> possibleSides = new List<Dungeon.room>();        //Stores all possible rooms (with a door that connects)
+            List<Dungeon.room> possibleSidesFiltered = new List<Dungeon.room>();//Filtered version of the the previous list to account for problems
+            Vector2Int newRoomDirection = roomLocation;                         //Holder for this new room position
+            
+            switch (hasOposingSide)                                             //Get direction of the new room
             {
                 case "top":
                     newRoomDirection.y++;
@@ -378,13 +381,11 @@ public class CurrentDungeonData : MonoBehaviour
                     newRoomDirection.x--;
                     break;
             }
-
-            //loop through all possible rooms
-            for(int i = 0; i < currentDungeon.rooms.Count; i++)
+            
+            for(int i = 0; i < currentDungeon.rooms.Count; i++) //loop through all possible rooms
             {
-                Dungeon.room room = currentDungeon.rooms[i];
-
-                bool hasTheSide = false;
+                Dungeon.room room = currentDungeon.rooms[i];    //Get room instance
+                bool hasTheSide = false;                        //Holder to check if the rooms can connect with each other
 
                 switch (hasOposingSide)
                 {
@@ -405,388 +406,261 @@ public class CurrentDungeonData : MonoBehaviour
                         break;
                 }
 
-                if (hasTheSide)
-                {
-
-                    //If the room has an opposing side then add to the list
-                    possibleSides.Add(room);
-                }
+                if (hasTheSide)                 //Check if the room has an opposing side
+                    possibleSides.Add(room);    //If it does then add it to the possible sides list
             }
 
-            //ADD THE FILTER||
+            List<Dungeon.room> toBeRemovedRooms = new List<Dungeon.room>(); //A list of rooms that will need to be removed
 
-            List<Dungeon.room> toBeRemovedRooms = new List<Dungeon.room>();
-
-            //Loop through the list of rooms that u have
-            for (int i = 0; i < possibleSides.Count; i++)
+            for (int i = 0; i < possibleSides.Count; i++)                   //Loop through the list of rooms that u have
             {
-                //Checks each side of the room to see if something should be removed or not
+                Dungeon.room room = possibleSides[i];                       //Get the instance of the room
 
-                Dungeon.room room = possibleSides[i];
+                Dungeon.room nextHallBottom = getRoomViaCords((newRoomDirection + Vector2Int.down));    //Room at the bottom
+                Dungeon.room nextHallTop = getRoomViaCords((newRoomDirection + Vector2Int.up));         //Room at the top
+                Dungeon.room nextHallRight = getRoomViaCords((newRoomDirection + Vector2Int.right));    //Room at the right
+                Dungeon.room nextHallLeft = getRoomViaCords((newRoomDirection + Vector2Int.left));      //Room at the left
 
-                //Bottom room
-                Vector2Int nextHallPositionBottom = (newRoomDirection + Vector2Int.down);
-                Dungeon.room nextHallBottom = getRoomViaCords(nextHallPositionBottom);
-
-                //Top room
-                Vector2Int nextHallPositionTop = (newRoomDirection + Vector2Int.up);
-                Dungeon.room nextHallTop = getRoomViaCords(nextHallPositionTop);
-
-                //Right room
-                Vector2Int nextHallPositionRight = (newRoomDirection + Vector2Int.right);
-                Dungeon.room nextHallRight = getRoomViaCords(nextHallPositionRight);
-
-                //Left room
-                Vector2Int nextHallPositionLeft = (newRoomDirection + Vector2Int.left);
-                Dungeon.room nextHallLeft = getRoomViaCords(nextHallPositionLeft);
-
-                //Check if there is a room in each of this sides
-                if(nextHallBottom.roomPrefab != null) {
-                    //There is a room at its bottom
-                    bool HasConection = nextHallBottom.roomSides.top;
-
-                    if (HasConection && !room.roomSides.bottom || !HasConection && room.roomSides.bottom)
+                //Check if there is a room in each of this sides||
+                if(nextHallBottom.roomPrefab != null) 
+                {
+                    bool HasConection = nextHallBottom.roomSides.top;                                       //Connection Holder
+                    if (HasConection && !room.roomSides.bottom || !HasConection && room.roomSides.bottom)   //If it passes this filter then they can't connect
                     {
-
-                        //They cannot connect
-                        toBeRemovedRooms.Add(room);
-                        continue;
+                        toBeRemovedRooms.Add(room);                                                         //Add the room to the ones that need to be removed
+                        continue;                                                                           //Reduce loop over work
                     }
                 }
 
                 if (nextHallTop.roomPrefab != null)
                 {
-                    //There is a room at its top
-                    bool HasConection = nextHallTop.roomSides.bottom;
-
-                    if (HasConection && !room.roomSides.top || !HasConection && room.roomSides.top)
+                    bool HasConection = nextHallTop.roomSides.bottom;                                       //Connection Holder
+                    if (HasConection && !room.roomSides.top || !HasConection && room.roomSides.top)         //If it passes this filter then they can't connect
                     {
-
-                        //They cannot connect
-                        toBeRemovedRooms.Add(room);
-                        continue;
+                        toBeRemovedRooms.Add(room);                                                         //Add the room to the ones that need to be removed
+                        continue;                                                                           //Reduce loop over work
                     }
                 }
 
                 if (nextHallRight.roomPrefab != null)
                 {
-                    //There is a room at its right
-                    bool HasConection = nextHallRight.roomSides.left;
-
-                    if (HasConection && !room.roomSides.right || !HasConection && room.roomSides.right)
+                    bool HasConection = nextHallRight.roomSides.left;                                       //Connection Holder
+                    if (HasConection && !room.roomSides.right || !HasConection && room.roomSides.right)     //If it passes this filter then they can't connect
                     {
-
-                        //They cannot connect
-                        toBeRemovedRooms.Add(room);
-                        continue;
+                        toBeRemovedRooms.Add(room);                                                         //Add the room to the ones that need to be removed
+                        continue;                                                                           //Reduce loop over work
                     }
                 }
 
                 if (nextHallLeft.roomPrefab != null)
                 {
-                    //There is a room at its left
-                    bool HasConection = nextHallLeft.roomSides.right;
-
-                    if (HasConection && !room.roomSides.left || !HasConection && room.roomSides.left)
+                    bool HasConection = nextHallLeft.roomSides.right;                                       //Connection Holder
+                    if (HasConection && !room.roomSides.left || !HasConection && room.roomSides.left)       //If it passes this filter then they can't connect
                     {
-                        //They cannot connect
-                        toBeRemovedRooms.Add(room);
-                        continue;
+                        toBeRemovedRooms.Add(room);                                                         //Add the room to the ones that need to be removed
+                        continue;                                                                           //Reduce loop over work
                     }
                 }
 
 
             }
 
-            //Remove the rooms that are extra
-            for (int i = 0; i < toBeRemovedRooms.Count; i++)
+            for (int i = 0; i < toBeRemovedRooms.Count; i++)    //Loop through rooms that need to be removed
             {
-                possibleSides.Remove(toBeRemovedRooms[i]);
+                possibleSides.Remove(toBeRemovedRooms[i]);      //Remove them from the possible rooms via value
             }
 
-            //this means there are rooms that are not just one sided
-            //it means we can remove the one sided rooms to avoid dead ends
-            if (possibleSides.Count > 1)
+            if (possibleSides.Count > 1)                        //Check if it is possible to generate a non dead end way
             {
-
-                foreach(Dungeon.room filteredRoom2 in possibleSides)
+                foreach(Dungeon.room filteredRoom2 in possibleSides)    //Loop through possible sides list
                 {
-                    int sidesCounter = 0;
-                    if (filteredRoom2.roomSides.top)
-                    {
-                        sidesCounter++;
-                    }
-                    if (filteredRoom2.roomSides.bottom)
-                    {
-                        sidesCounter++;
-                    }
-                    if (filteredRoom2.roomSides.left)
-                    {
-                        sidesCounter++;
-                    }
-                    if (filteredRoom2.roomSides.right)
-                    {
-                        sidesCounter++;
-                    }
+                    int sidesCounter = 0;                               //Holder to count the amount of sides each room has
 
-                    if (sidesCounter > 1)
-                    {
-                        possibleSidesFiltered.Add(filteredRoom2);
-                    }
+                    if (filteredRoom2.roomSides.top)
+                        sidesCounter++;
+                    if (filteredRoom2.roomSides.bottom)
+                        sidesCounter++;
+                    if (filteredRoom2.roomSides.left)
+                        sidesCounter++;
+                    if (filteredRoom2.roomSides.right)
+                        sidesCounter++;
+
+                    if (sidesCounter > 1)                                               //If the room has more than 1 door then it isn't a dead end
+                        possibleSidesFiltered.Add(filteredRoom2);                       //Add the non dead end to the new list
                 }
 
-                //Add the new room
-                int chooseRandomRoom = Random.Range(0, possibleSidesFiltered.Count);
-                CreateNewRoom(newRoomDirection.x, newRoomDirection.y, possibleSidesFiltered[chooseRandomRoom]);
+                int chooseRandomRoom = Random.Range(0, possibleSidesFiltered.Count);    //Generate a random number 
+                CreateNewRoom(newRoomDirection.x, newRoomDirection.y, possibleSidesFiltered[chooseRandomRoom]); //Create the new room
             }
-            else
+            else                                                                                                //If the code goes through here it means it will need to generate a dead end
             {
-                //Add the new room
-                int chooseRandomRoom = Random.Range(0, possibleSides.Count);
-                CreateNewRoom(newRoomDirection.x, newRoomDirection.y, possibleSides[chooseRandomRoom]);
+                int chooseRandomRoom = Random.Range(0, possibleSides.Count);                                    //Generate a random number
+                CreateNewRoom(newRoomDirection.x, newRoomDirection.y, possibleSides[chooseRandomRoom]);         //Add the dead end to the map
             }
             //______________||
 
         }
 
+        Dungeon.room receivedRoom = getRoomViaCords(roomLocation);                                              //Get your current room
+        Dungeon.room.sides receivedSides = receivedRoom.roomSides;                                              //Get current room sides
 
-
-        //Get the room you're in
-        Dungeon.room receivedRoom = getRoomViaCords(roomLocation);
-
-        //Get the sides avalible
-        Dungeon.room.sides receivedSides = receivedRoom.roomSides;
-
-        if (receivedSides.top)
+        if (receivedSides.top)                                                                                  //Check if this room has a topside
         {
-            //Has topside
-            Vector2Int nextRoomPos = new Vector2Int(roomLocation.x, roomLocation.y + 1);
-            Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);
+            Vector2Int nextRoomPos = new Vector2Int(roomLocation.x, roomLocation.y + 1);                        //Get the next room position
+            Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);                                        //Get the next room element
             
-            if (nextRoomElement.roomPrefab == null)
-            {
-                //The room still did not exist
-                addNewRoom("top");
-            }
-
+            if (nextRoomElement.roomPrefab == null)                                                             //Check if there is a room at the top
+                addNewRoom("top");                                                                              //If there isn't then request for one
         }
+
         if (receivedSides.bottom)
         {
-            //Has bottomside
-            Vector2Int nextRoomPos = new Vector2Int(roomLocation.x, roomLocation.y - 1);
-            Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);
+            Vector2Int nextRoomPos = new Vector2Int(roomLocation.x, roomLocation.y - 1);                        //Get the next room position
+            Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);                                        //Get the next room element
 
-            if (nextRoomElement.roomPrefab == null)
-            {
-                addNewRoom("bottom");
-            }
-
+            if (nextRoomElement.roomPrefab == null)                                                             //Check if there is a room at the bottom
+                addNewRoom("bottom");                                                                           //If there isn't then request for one
         }
         if (receivedSides.left)
         {
-            //Has left side
-            Vector2Int nextRoomPos = new Vector2Int(roomLocation.x - 1, roomLocation.y);
-            Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);
+            Vector2Int nextRoomPos = new Vector2Int(roomLocation.x - 1, roomLocation.y);                        //Get the next room position
+            Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);                                        //Get the next room element
 
-            if (nextRoomElement.roomPrefab == null)
-            {
-                addNewRoom("left");
-            }
-
-        }
+            if (nextRoomElement.roomPrefab == null)                                                             //Check if there is a room at the left
+                addNewRoom("left");                                                                             //If there isn't then request for one
+        }   
         if (receivedSides.right)
         {
-            //Has right side
-            Vector2Int nextRoomPos = new Vector2Int(roomLocation.x + 1, roomLocation.y);
-            Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);
+            Vector2Int nextRoomPos = new Vector2Int(roomLocation.x + 1, roomLocation.y);                        //Get the next room position
+            Dungeon.room nextRoomElement = getRoomViaCords(nextRoomPos);                                        //Get the next room element
 
-            if (nextRoomElement.roomPrefab == null)
-            {
-                addNewRoom("right");
-            }
-
+            if (nextRoomElement.roomPrefab == null)                                                             //Check if there is a room at the right
+                addNewRoom("right");                                                                            //If there isn't then request for one
         }
 
 
     }
 
-
-
-
-
-
-
-
-
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // Method: Get correct dungeon
+    /////
+    // Desc: Gets the dungeon that is gonna be used as the current one
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     private void getCorrectDungeon(List<Dungeon> theList, string wantedResult)
     {
-        //Check if the list is empty
-        if (theList.Count > 0)
+                    
+        foreach(Dungeon dungeon in theList)                 //Loop through all the dungeons on the API
         {
-            //Loop through all the dungeons
-            foreach(Dungeon dungeon in theList)
+            if (dungeon.DungeonName == wantedResult)        //Check if the dungeon name matches the wanted one
             {
-                if (dungeon.DungeonName == wantedResult)
-                {
-                    currentDungeon = dungeon;
-
-                    //Spawn the starting room
-                    startingRoom = Instantiate(dungeon.startingRoom, Vector2.zero, Quaternion.identity);
-                    startingRoom.name = dungeon.startingRoom.name + "00";
-
-                    //ADD STARTING ROOM TO MAP||
-
-                    //Add the starting room
-
-                        Dungeon.room startingRoomObject = new Dungeon.room("Starting Room", dungeon.startingRoom, new Dungeon.room.sides(true, false, false, false));
+                currentDungeon = dungeon;                   //Changed the current dungeon holder to the found one
+                
+                //Add the starting room 
+                startingRoom = Instantiate(dungeon.startingRoom, Vector2.zero, Quaternion.identity);    //Spawn the starting room
+                startingRoom.name = dungeon.startingRoom.name + "00";                                   //Changed the starting room name
+                Dungeon.room startingRoomObject = new Dungeon.room(                                     //Create a starting room class element
+                                                "Starting Room",                                        //Sets the starting room name
+                                                dungeon.startingRoom,                                   //Sets the starting room prefab
+                                                new Dungeon.room.sides(                                 //Sets the starting room direction
+                                                dungeon.startingRoomSides.top, 
+                                                dungeon.startingRoomSides.right, 
+                                                dungeon.startingRoomSides.left, 
+                                                dungeon.startingRoomSides.bottom));    
                         
-                        CreateNewRoom(0, 0, startingRoomObject);
+                    CreateNewRoom(0, 0, startingRoomObject);                                            //Creates the starting room at the minimap
 
-                        List<Dungeon.room> acceptedRooms = new List<Dungeon.room>();
+                    //Add the room connected to the starting room
+                    List<Dungeon.room> acceptedRooms = new List<Dungeon.room>();    //Create a filter list for the connected room
 
-                        //Add the following room
-                        foreach (Dungeon.room room in currentDungeon.rooms)
-                        {
+                    foreach (Dungeon.room room in currentDungeon.rooms)             //Loop through all the existing rooms of that new dungeon
+                    {
 
-                            int roomAmountOfSides = 0;
+                        int roomAmountOfSides = 0;                                  //Hold the amount of sides that this room has
                             
-                            //Check if the room has a bottom dooor
-                            if (room.roomSides.bottom)
-                            {
-                                roomAmountOfSides++;
-                                
-                            }
-                            if (room.roomSides.top)
-                            {
-                                roomAmountOfSides++;
-                            }
-                            if (room.roomSides.right)
-                            {
-                                roomAmountOfSides++;
-                            }
-                            if (room.roomSides.left)
-                            {
-                                roomAmountOfSides++;
-                            }
+                        if (room.roomSides.bottom)
+                            roomAmountOfSides++;
+                        if (room.roomSides.top)
+                            roomAmountOfSides++;
+                        if (room.roomSides.right)
+                            roomAmountOfSides++;
+                        if (room.roomSides.left)
+                            roomAmountOfSides++;
 
-                            if (roomAmountOfSides > 1 && room.roomSides.bottom)
-                            {
-                                acceptedRooms.Add(room);
-                            }
+                        if (roomAmountOfSides > 1 && room.roomSides.bottom)        //If the room has more than 1 side (avoid one way rooms) then add to the filter list
+                            acceptedRooms.Add(room);
                             
-                        }
+                    }
 
-                        int chooseRandom = Random.Range(0, acceptedRooms.Count);
+                    int chooseRandom = Random.Range(0, acceptedRooms.Count);       //Generate a random integer
 
-                    CreateNewRoom(0, 1, acceptedRooms[chooseRandom]);
-                    //________________________||
+                    CreateNewRoom(0, 1, acceptedRooms[chooseRandom]);              //Randomly choose from the filtered list one room
+                    currentRoom = new Vector2Int(0, 0);                            //Set the current room cords
 
-
-                    //Set the current coordinates
-                    currentRoom = new Vector2Int(0, 0);
-
-                    return;
-                }
+                return;                                                            //Reset the whole function
             }
         }
-        else
-        {
-            Debug.Log("No dungeons found");
-        }
-
     }
 
-
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // Method: Update the minimap
+    /////
+    // Desc: Updates the rooms that are displayed by the minimap
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     public void updateMap()
     {
-
-        //Change the minimap text
-        UIelements.miniMap.textElement.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;
-
-        //Get the room size
-        int roomSize = (int)UIelements.miniMap.roomPrefab.GetComponent<RectTransform>().sizeDelta.x;
-
-
-        //Redo the minimap colors 
-        foreach (Transform child in UIelements.miniMap.mask.transform)
+        UIelements.miniMap.textElement.GetComponent<Text>().text = "Current room: " + currentRoom.x + "," + currentRoom.y;  //Change the text label of the minimap
+        int roomSize = (int)UIelements.miniMap.roomPrefab.GetComponent<RectTransform>().sizeDelta.x;                        //Get the room icon prefab size
+ 
+        foreach (Transform child in UIelements.miniMap.mask.transform)                                                      //Loop through minimap rooms
         {
-            //The room position
-            Vector2Int childRoomPos = new Vector2Int((int)child.localPosition.x / roomSize, (int)child.localPosition.y / roomSize);
+            Vector2Int childRoomPos = new Vector2Int(                       //The room position
+                                    (int)child.localPosition.x / roomSize, 
+                                    (int)child.localPosition.y / roomSize); 
+            Dungeon.room minimapRoom = getRoomViaCords(childRoomPos);       //Get a reference to the actual room
+            Transform playerElement = child.Find("player");                 //Get the player pointer
 
-            //Get the room
-            Dungeon.room minimapRoom = getRoomViaCords(childRoomPos);
-
-            //Get the player pointer
-            Transform playerElement = child.Find("player");
-
-            //Found the correct room
-            if (childRoomPos == currentRoom)
-            {
-
-                //Also show the player marker
-                playerElement.gameObject.SetActive(true);
-            }
+            if (childRoomPos == currentRoom)                                //Check if the minimap room == to the real room
+                playerElement.gameObject.SetActive(true);                   //If yes enable the player pointer
             else
-            {
-                //Disable the player marker just in case
-                playerElement.gameObject.SetActive(false);
-            }
-
-            //Change the room color to the correct one
-            if (minimapRoom.getCompleted())
+                playerElement.gameObject.SetActive(false);                  //If no then disable the player pointer
+            
+            //handle room color
+            if (minimapRoom.getCompleted())                                //If the room has already been completed
                 child.GetComponent<Image>().color = UIelements.miniMap.completedRoom;
-            else if (minimapRoom.getExplored())
+            else if (minimapRoom.getExplored())                            //If the room has already been explored 
                 child.GetComponent<Image>().color = UIelements.miniMap.uncompletedRoom;
-            else
+            else                                                           //If the room hasn't been completed nor explored
                 child.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
 
 
         }
 
-        //Repositionate the map
+        //Repositionate the map just to make sure that it is always centered
         UIelements.miniMap.mask.transform.localPosition = 
             new Vector2(-currentRoom.x  * (roomSize * UIelements.miniMap.mask.transform.localScale.x), 
             -currentRoom.y * (roomSize * UIelements.miniMap.mask.transform.localScale.y));
-
     }
 
-
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // Method: Create minimap room
+    /////
+    // Desc: Create a new room prefab on the minimap
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     private void CreateNewRoom(int x, int y, Dungeon.room room)
     {
+        int roomSize = (int)UIelements.miniMap.roomPrefab.GetComponent<RectTransform>().sizeDelta.x;//Get the room prefab size
+        GameObject newRoom = Instantiate(UIelements.miniMap.roomPrefab);                            //Create the room element
+        newRoom.transform.SetParent(UIelements.miniMap.mask.transform);                             //Change the room parent into the minimap
+        newRoom.GetComponent<RectTransform>().localScale = new Vector2(1, 1);                       //Set the room size
+        newRoom.transform.localPosition = new Vector2(x * roomSize, y * roomSize);                  //Put at correct position inside of the minimap
 
-        //Maybe attach this to the map???
+        newRoom.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;                    //Set its color to an unexplored room
+        room.setExplored(false);                                                                    //The room has not been explored
 
-        //Add to the minimap||
+        if (new Vector2Int(x, y) == Vector2Int.zero)                                                //Check if it is the entrance room
+            newRoom.transform.Find("entrance").gameObject.SetActive(true);                          //If yes then enable the entrance icon
 
-                int roomSize = (int)UIelements.miniMap.roomPrefab.GetComponent<RectTransform>().sizeDelta.x;
-
-                //Create the element on the room
-                GameObject newRoom = Instantiate(UIelements.miniMap.roomPrefab);
-
-                //Change it's nesting position
-                newRoom.transform.SetParent(UIelements.miniMap.mask.transform);
-                newRoom.GetComponent<RectTransform>().localScale = new Vector2(1, 1);
-
-                //Put at correct position
-                newRoom.transform.localPosition = new Vector2(x * roomSize, y * roomSize);
-
-
-            //Set correct color
-            if (room.getCompleted())
-                newRoom.GetComponent<Image>().color = UIelements.miniMap.completedRoom;
-            else
-                newRoom.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
-
-            //If it is the entrance room
-            if (new Vector2Int(x, y) == Vector2Int.zero)
-            {
-                Transform entranceElement = newRoom.transform.Find("entrance");
-                entranceElement.gameObject.SetActive(true);
-            }
-
-
-        //Change door displaying
-        foreach (Transform door in newRoom.transform)
+        foreach (Transform door in newRoom.transform)                                               //Show the doors that should be displayed
                 {
                     if (door.gameObject.name == "top")
                         door.gameObject.SetActive(room.roomSides.top);
@@ -798,88 +672,33 @@ public class CurrentDungeonData : MonoBehaviour
                         door.gameObject.SetActive(room.roomSides.left);
                 }
 
-
-        //__________________||
-
-        //The room cannot be explored
-        room.setExplored(false);
-
-        //Add to the list
-        map.Add(new roomPos(x, y, 
-            new Dungeon.room(room.roomName, room.roomPrefab, room.roomSides, room.getCompleted(), false)));
+        //Add to the list of minimap rooms
+        map.Add(new roomPos(x, y, new Dungeon.room(room.roomName, room.roomPrefab, room.roomSides, room.getCompleted(), false)));
     }
 
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // Method: Spawn the player
+    /////
+    // Desc: Spawns the player when he joins the dungeon instance
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     private void SpawnPlayer()
     {
-        foreach (Transform child in startingRoom.transform)
+        foreach (Transform child in startingRoom.transform) //Loop through the starting area childs
         {
-            if(child.gameObject.name == "TeleportLocations")
+            if(child.gameObject.name == "TeleportLocations")    //Filter the correct child
             {
-                foreach (Transform location in child)
+                foreach (Transform location in child)           //Loop through all possible teleportation points
                 {
-                    if (location.gameObject.name == "exit")
+                    if (location.gameObject.name == "exit")     //Check if the child is the exit
                     {
-                        playerRB.position = location.position;
-
-                        //Reset the camera position
-                        Camera.main.transform.position = new Vector3(location.position.x, location.position.y, Camera.main.transform.position.z);
+                        playerRB.position = location.position;  //Move the player to this teleport point
+                        Camera.main.transform.position = new Vector3(location.position.x, location.position.y, Camera.main.transform.position.z); //Fix the camera
+                        break;
                     }
                 }
+                break;
             }
         }
 
-    }
-
-    private void Start()
-    {
-
-        //Get the list of dungeons
-        List<Dungeon> dungeonsList = dungeonsData.GetComponent<DungeonsAPI>().dungeons;
-
-        //Get the player body
-        playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
-
-        GameObject dungeonAPI = GameObject.FindGameObjectWithTag("sceneAPI");
-        if (dungeonAPI != null)
-        {
-            //Change the second argument when needed
-            getCorrectDungeon(dungeonsList, sceneTeleport.dungeonName);
-            SpawnPlayer();
-
-            //Avoid duplicates
-            Destroy(dungeonAPI);
-
-            //Update the minimap
-            updateMap();
-        }
-        else
-        {
-            //deadmines is the current default dungeon
-            //Change the second argument when needed
-            getCorrectDungeon(dungeonsList, "Deadmines");
-            SpawnPlayer();
-
-            //Update the minimap
-            updateMap();
-        }
-
-    }
-
-
-    //Variables for the loading screen||
-
-        public GameObject background;
-        public GameObject loadingScreen;
-        public GameObject loadingBar;
-    //________________________________||
-
-    public void callMapLoad() {
-
-        //Save the object for the next scene
-        DontDestroyOnLoad(gameObject);
-
-        sceneTeleport.start(1);
-
-        //StartCoroutine("LoadMainMap", 1);
     }
 }
