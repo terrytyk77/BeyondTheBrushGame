@@ -292,7 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dungeons:
   - DungeonName: Deadmines
-    baseReward: 100
+    baseReward: 20
     startingRoom: {fileID: 2396211081100954182, guid: dc4a06818b4eb64468fbcc9f297a7994, type: 3}
     startingRoomSides:
       top: 1
@@ -1710,11 +1710,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 332132419, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -13.999878
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 499475845, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25.999878
+      value: -26
       objectReference: {fileID: 0}
     - target: {fileID: 673385138, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1758,19 +1758,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1515838009, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25.999878
+      value: -26
       objectReference: {fileID: 0}
     - target: {fileID: 1982510028, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -13.999878
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 2059747737, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25.999878
+      value: -26
       objectReference: {fileID: 0}
     - target: {fileID: 2081431753, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -13.999878
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 3887779257190319949, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchorMax.y

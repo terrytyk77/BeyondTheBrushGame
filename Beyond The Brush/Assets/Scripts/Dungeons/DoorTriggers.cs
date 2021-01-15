@@ -6,6 +6,11 @@ using UnityEngine;
 public class DoorTriggers : MonoBehaviour
 {
 
+    //Variables||
+        
+        private bool exitDebounce = true;
+    //_________||
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -64,12 +69,13 @@ public class DoorTriggers : MonoBehaviour
 
                     playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-                    if (gameObject.name == "exit")
+                    if (gameObject.name == "exit" && exitDebounce)
                     {
+                        exitDebounce = false;
                         playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
-                        sceneTeleport.start(1);
+                        dungeonData.GetComponent<CurrentDungeonData>().changeNextRoom(objectName);
                     }
-                    else
+                    else if(gameObject.name != "exit")
                     {
                         dungeonData.GetComponent<CurrentDungeonData>().changeNextRoom(objectName);
                     }

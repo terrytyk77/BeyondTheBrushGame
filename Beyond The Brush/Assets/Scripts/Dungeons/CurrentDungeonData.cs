@@ -164,6 +164,7 @@ public class CurrentDungeonData : MonoBehaviour
 
         void leaveFunction()
         {
+            DontDestroyOnLoad(gameObject);                  //Preserve the current dungeon data
             Time.timeScale = currentTimeScale;              //Reset back to the time it had
             sceneTeleport.start(1);                         //Teleport back to the village
         }
@@ -341,17 +342,21 @@ public class CurrentDungeonData : MonoBehaviour
         //Calculate the rewards window info||
 
             //some math here xd
-            int totalAmountOfResources = 300;
+            int totalAmountOfResources = currentDungeon.baseReward;
             int amountOfCompletedRooms = 1;
 
-            foreach(roomPos room  in map)
+            foreach(roomPos room  in map)                               //Loop through the rooms
             {
-                if (room.room.getCompleted()) amountOfCompletedRooms++;
+                if (room.room.getCompleted()) amountOfCompletedRooms++; //Add to the holder all completed rooms
             }
 
-            Debug.Log("Deaths: " + amountOfDeaths);
-    
-            setupCompletedReward(totalAmountOfResources, amountOfCompletedRooms); //Handle the rewards window info
+            if(amountOfCompletedRooms % 3 == 0)
+            {
+                totalAmountOfResources = totalAmountOfResources + (int)(0.2f * ( (float)amountOfChests * 5f - (float)amountOfDeaths * 3f + (float)amountOfCompletedRooms * 5f) );
+                PlayerData.resources += totalAmountOfResources;                         //Add the amount of player resources
+                setupCompletedReward(totalAmountOfResources, amountOfCompletedRooms);   //Handle the rewards window info
+            }
+
         //_________________________________||
 
         
@@ -394,6 +399,7 @@ public class CurrentDungeonData : MonoBehaviour
                 break;
 
             case "exit":
+                DontDestroyOnLoad(gameObject);                                              //Avoid destroying this object to use as reference for the other side teleport
                 sceneTeleport.start(mainVillageID);                                         //If the door equals to exit then take him to the village
                 break;
 
