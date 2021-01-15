@@ -647,7 +647,7 @@ public class CurrentDungeonData : MonoBehaviour
     // Desc: Create a new room prefab on the minimap
     //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     private void CreateNewRoom(int x, int y, Dungeon.room room)
-    {
+        {
         int roomSize = (int)UIelements.miniMap.roomPrefab.GetComponent<RectTransform>().sizeDelta.x;//Get the room prefab size
         GameObject newRoom = Instantiate(UIelements.miniMap.roomPrefab);                            //Create the room element
         newRoom.transform.SetParent(UIelements.miniMap.mask.transform);                             //Change the room parent into the minimap
