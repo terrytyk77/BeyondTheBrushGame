@@ -95,6 +95,7 @@ public class Dungeon
 
         public string DungeonName;                  //The dungeons name
         public int baseReward;                      //The base reward of the rooms
+        public AudioClip mainMusic;                 //The base music of the dungeon
         public GameObject startingRoom;             //The starting room prefab
         public StartingSides startingRoomSides;     //The starting sides of the starting room
         public List<room> rooms = new List<room>(); //The list of rooms of the layout

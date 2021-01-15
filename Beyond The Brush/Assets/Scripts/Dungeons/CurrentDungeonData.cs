@@ -105,6 +105,12 @@ public class CurrentDungeonData : MonoBehaviour
             else                                                                                //It couldn't find any dungeon request
                 getCorrectDungeon(dungeonsList, "Deadmines");                                   //Go with the default and load "Deadmines"
 
+            if(currentDungeon.mainMusic != null){
+                
+                AudioSource mainMusic = Camera.main.transform.Find("MainMusic").GetComponent<AudioSource>();
+                mainMusic.clip = currentDungeon.mainMusic;
+                mainMusic.Play();
+            }
             SpawnPlayer();                                                                      //Spawn the player on the starting area
             updateMap();                                                                        //Ask for a dungeon update
         }
