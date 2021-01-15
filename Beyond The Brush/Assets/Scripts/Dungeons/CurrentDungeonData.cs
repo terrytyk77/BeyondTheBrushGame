@@ -140,7 +140,7 @@ public class CurrentDungeonData : MonoBehaviour
     /////
     // Desc: Displays the reward window to the player with all its animations and functionalities such as the dungeon leave
     //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    private void setupCompletedReward()
+    private void setupCompletedReward(int resourcesAmount, int completedRooms)
     {
         //Handle player movemenet||
 
@@ -175,6 +175,7 @@ public class CurrentDungeonData : MonoBehaviour
             DungeonResultWindow.window.SetActive(false);                    //Close the window
             playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;   //Unfreeze the player
             this.StopCoroutine(cancelButtonEffect());                       //Stop the cancel button coroutine
+            this.StopCoroutine(writeDungeonResult());                       //Stop the counting coroutine
             ContinueDungeonBTN.interactable = false;                        //Make the continue button non interactable
             LeaveDungeonBTN.interactable = false;                           //Make the leave button non interectable
         }
@@ -182,6 +183,123 @@ public class CurrentDungeonData : MonoBehaviour
         LeaveDungeonBTN.onClick.AddListener(leaveFunction);         //Add the leave method to the listener
         ContinueDungeonBTN.onClick.AddListener(continueFunction);   //Add the continue method to the listener
         LeaveDungeonBTN.interactable = false;                       //Make sure this button is not interectable
+
+        IEnumerator writeDungeonResult()
+        {
+            //Hold the phrases texts
+            string completeMessage = "";
+            string message1 = "Found Chests: ";
+            string message2 = "Amount of deaths: ";
+            string message3 = "Completed rooms: ";
+            string message4 = "Total reward: ";
+            string message5 = " resources";
+
+            string message1Built = "";
+            string message2Built = "";
+            string message3Built = "";
+            string message4Built = "";
+            string message5Built = "";
+
+            //Count timers
+            int chestsHolder = -1;
+            int deathsHolder = -1;
+            int roomsCompletedHolder = -1;
+            int resourcesHolder = -1;
+
+            //Add the first section
+            while(message1Built.Length < message1.Length)
+            {
+                //Add to the message
+                message1Built = message1Built + message1[message1Built.Length];             //Gets the next letter from the main message
+                completeMessage = message1Built;                                            //Update the over all message
+                DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage;  //Update the text label data
+                yield return new WaitForSeconds(0.05f);                                     //Wait between characters
+            }
+
+            //Calculate the amount of chests
+            while(chestsHolder < amountOfChests){
+
+                chestsHolder++;
+                DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + "<color=#cedb1a>" + chestsHolder + "</color>";
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            completeMessage = completeMessage + "<color=#cedb1a>" + chestsHolder + "</color>\n";  //Add the yellow color to the text
+
+            //Add the second section
+            while (message2Built.Length < message2.Length)
+            {
+                //Add to the message
+                message2Built = message2Built + message2[message2Built.Length];                             //Gets the next letter from the main message
+                DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + message2Built;  //Update the text label data
+                yield return new WaitForSeconds(0.05f);                                                     //Wait between characters
+            }
+
+            completeMessage = completeMessage + message2Built;
+
+            //Calculate the amount of deaths
+            while (deathsHolder < amountOfDeaths)
+            {
+                deathsHolder++;
+                DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + "<color=#9e0e1d>" + deathsHolder + "</color>";
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            completeMessage = completeMessage + "<color=#9e0e1d>" + deathsHolder + "</color>\n";  //Add the red color to the text
+
+            //Add the third section
+            while (message3Built.Length < message3.Length)
+            {
+                //Add to the message
+                message3Built = message3Built + message3[message3Built.Length];                             //Gets the next letter from the main message
+                DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + message3Built;  //Update the text label data
+                yield return new WaitForSeconds(0.05f);                                                     //Wait between characters
+            }
+
+            completeMessage = completeMessage + message3Built;
+
+            //Calculate the amount of completed rooms
+            while (roomsCompletedHolder < completedRooms)
+            {
+                roomsCompletedHolder++;
+                DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + "<color=#45ba06>" + roomsCompletedHolder + "</color>";
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            completeMessage = completeMessage + "<color=#45ba06>" + roomsCompletedHolder + "</color>\n\n";  //Add the green color to the text
+
+            //Add the fourth section
+            while (message4Built.Length < message4.Length)
+            {
+                //Add to the message
+                message4Built = message4Built + message4[message4Built.Length];                             //Gets the next letter from the main message
+                DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + "<size=25><b>" + message4Built+ "</b></size>";  //Update the text label data
+                yield return new WaitForSeconds(0.05f);                                                     //Wait between characters
+            }
+
+            completeMessage = completeMessage + "<size=25><b>" + message4Built+ "</b></size>";
+
+            //Calculate the amount of resources
+            while (resourcesHolder < resourcesAmount)
+            {
+                resourcesHolder++;
+                DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + "<size=25><b><color=#eeff00>" + resourcesHolder + "</color></b></size>";
+                yield return new WaitForSeconds(0.005f);
+            }
+
+            completeMessage = completeMessage + "<size=25><b><color=#eeff00>" + resourcesHolder + "</color></b></size>";  //Add the golden color to the text
+
+            //Add the fifth section
+            while (message5Built.Length < message5.Length)
+            {
+                //Add to the message
+                message5Built = message5Built + message5[message5Built.Length];                             //Gets the next letter from the main message
+                DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + "<size=25><b>" + message5Built + "</b></size>";  //Update the text label data
+                yield return new WaitForSeconds(0.05f);                                                     //Wait between characters
+            }
+
+            yield return null;
+        }
 
         //Declare coroutines for the buttons
         IEnumerator cancelButtonEffect()
@@ -204,8 +322,9 @@ public class CurrentDungeonData : MonoBehaviour
             yield return null; //Break the coroutine
         }
 
-        ContinueDungeonBTN.interactable = true;     //Make the continue button interectable
-        StartCoroutine(cancelButtonEffect());       //Start the cancel button countdown
+        ContinueDungeonBTN.interactable = true;         //Make the continue button interectable
+        StartCoroutine(writeDungeonResult());           //Make the coroutine that handles the dungeon display info
+        StartCoroutine(cancelButtonEffect());           //Start the cancel button countdown
     }
 
     //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -222,8 +341,17 @@ public class CurrentDungeonData : MonoBehaviour
         //Calculate the rewards window info||
 
             //some math here xd
+            int totalAmountOfResources = 300;
+            int amountOfCompletedRooms = 1;
 
-            setupCompletedReward(); //Handle the rewards window info
+            foreach(roomPos room  in map)
+            {
+                if (room.room.getCompleted()) amountOfCompletedRooms++;
+            }
+
+            Debug.Log("Deaths: " + amountOfDeaths);
+    
+            setupCompletedReward(totalAmountOfResources, amountOfCompletedRooms); //Handle the rewards window info
         //_________________________________||
 
         
