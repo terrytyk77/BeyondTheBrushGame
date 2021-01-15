@@ -181,7 +181,7 @@ public class CurrentDungeonData : MonoBehaviour
       
         LeaveDungeonBTN.onClick.AddListener(leaveFunction);         //Add the leave method to the listener
         ContinueDungeonBTN.onClick.AddListener(continueFunction);   //Add the continue method to the listener
-
+        LeaveDungeonBTN.interactable = false;                       //Make sure this button is not interectable
 
         //Declare coroutines for the buttons
         IEnumerator cancelButtonEffect()
@@ -199,7 +199,7 @@ public class CurrentDungeonData : MonoBehaviour
 
             //The wait time already ended
             DungeonResultWindow.cancelButton.transform.Find("Text").GetComponent<Text>().text = "Leave";                    //Change the label to "leave"
-            LeaveDungeonBTN.interactable = true;                                                                            //Make the button interectable for the player
+            LeaveDungeonBTN.interactable = true;                                                                            //Make the button interectable for the player         
 
             yield return null; //Break the coroutine
         }
