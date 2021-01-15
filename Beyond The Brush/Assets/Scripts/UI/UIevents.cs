@@ -10,7 +10,6 @@ public class UIevents : MonoBehaviour
 
         //room
         public GameObject roomPrefab;
-
         private Vector2Int currentRoom;
 
         [System.Serializable]
@@ -158,8 +157,16 @@ public class UIevents : MonoBehaviour
 
     //_________||
 
+    //Sound||
+
+        UIsfx soundEffect;
+    //_____||
+
     private void Start()
     {
+        //Add the audio instance
+        soundEffect = gameObject.GetComponent<UIsfx>();
+
         //Add the listeners for the talent tree
         talentTreeData.nodes.node0.GetComponent<Button>().onClick.AddListener(delegate{ selectNode(0, talentTreeData.nodes.node0);});
         talentTreeData.nodes.node1.GetComponent<Button>().onClick.AddListener(delegate { selectNode(1, talentTreeData.nodes.node1); });
@@ -203,6 +210,7 @@ public class UIevents : MonoBehaviour
         //Set the audio
         Camera.main.transform.Find("MainMusic").GetComponent<AudioSource>().volume = PlayerData.musicVolume;
         Camera.main.transform.Find("SFX").GetComponent<AudioSource>().volume = PlayerData.sfxVolume;
+        Camera.main.transform.Find("UISFX").GetComponent<AudioSource>().volume = PlayerData.sfxVolume;
 
         if (PlayerData.windowmode)
             options.dropdownWindow.GetComponent<DuloGames.UI.UISelectField>().SelectOption("Fullscreen");
@@ -260,6 +268,8 @@ public class UIevents : MonoBehaviour
 
     public void profilesListener(int indexValue, string profileName)
     {
+
+
         PlayerData.currentProfile = indexValue;
         profiles.profileName.GetComponent<Text>().text = profileName;
         GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeDefaultArmor();
@@ -343,6 +353,7 @@ public class UIevents : MonoBehaviour
         {
             PlayerData.sfxVolume = options.sfxSlider.GetComponent<Slider>().value;
             Camera.main.transform.Find("SFX").GetComponent<AudioSource>().volume = PlayerData.sfxVolume;
+            Camera.main.transform.Find("UISFX").GetComponent<AudioSource>().volume = PlayerData.sfxVolume;
         }
 
         public void dropDownChanged(int valeu, string option)
@@ -361,12 +372,16 @@ public class UIevents : MonoBehaviour
 
         public void OnOptions()
         {
+            soundEffect.playClick();    //Clicking sound effect
+
             //Just enable the options menu
             options.optionsWindow.SetActive(!options.optionsWindow.activeSelf);
         }
 
         public void closeOption()
         {
+            soundEffect.playClick();    //Clicking sound effect
+
             options.optionsWindow.SetActive(!options.optionsWindow.activeSelf);
         }
 
@@ -483,6 +498,8 @@ public class UIevents : MonoBehaviour
 
     public void OnResume()
     {
+        soundEffect.playClick();    //Clicking sound effect
+
         //Resum the game by closing the window
 
         //Set the time back to normal
@@ -494,7 +511,7 @@ public class UIevents : MonoBehaviour
 
     public void OnLogout()
     {
-
+        soundEffect.playClick();    //Clicking sound effect
 
 
         //Save data
@@ -541,6 +558,8 @@ public class UIevents : MonoBehaviour
 
     public void OnExit()
     {
+        soundEffect.playClick();    //Clicking sound effect
+
         //Save data
         if (PlayerData.id != null)
         {
@@ -588,6 +607,7 @@ public class UIevents : MonoBehaviour
 
         public void openTalentTree()
         {
+            soundEffect.playClick();    //Clicking sound effect
             talentTreeData.talentTreeWindow.SetActive(!talentTreeData.talentTreeWindow.activeSelf);
         }
 
@@ -676,6 +696,8 @@ public class UIevents : MonoBehaviour
 
         void selectNode(int nodeNum, GameObject nodeElement)
         {
+
+            soundEffect.playClick();    //Clicking sound effect
 
             //Store the current object for later manipulation
             currentNodeObject = nodeElement;
@@ -878,6 +900,8 @@ public class UIevents : MonoBehaviour
 
         public void unlockNode()
         {
+            soundEffect.playClick();    //Clicking sound effect
+
             if (currentNode != "")
             {
                 //Current node object
@@ -896,6 +920,8 @@ public class UIevents : MonoBehaviour
 
                         //Set the listener for the purchase service
                         talentTreeData.confirmationWindow.transform.Find("Button Group").Find("Accept").GetComponent<Button>().onClick.AddListener(() => {
+
+                            soundEffect.playClick();    //Clicking sound effect
 
                             //Stop future listeners
                             talentTreeData.confirmationWindow.transform.Find("Button Group").Find("Accept").GetComponent<Button>().onClick.RemoveAllListeners();
@@ -986,6 +1012,9 @@ public class UIevents : MonoBehaviour
 
                     //Set the listener for the closing button of the window
                     talentTreeData.confirmationWindow.transform.Find("Button Group").Find("Cancel").GetComponent<Button>().onClick.AddListener(() => {
+
+                        soundEffect.playClick();    //Clicking sound effect
+
                         //Reset the listener to avoid overload
                         talentTreeData.confirmationWindow.transform.Find("Button Group").Find("Cancel").GetComponent<Button>().onClick.RemoveAllListeners();
                         talentTreeData.confirmationWindow.SetActive(false);
@@ -1005,6 +1034,7 @@ public class UIevents : MonoBehaviour
 
     public void closeProfilesWindow()
     {
+        soundEffect.playClick();    //Clicking sound effect
         profiles.profilesWindow.SetActive(!profiles.profilesWindow.activeSelf);
     }
 
