@@ -168,7 +168,7 @@ MonoBehaviour:
     baseReward: 100
     startingRoom: {fileID: 2396211081100954182, guid: dc4a06818b4eb64468fbcc9f297a7994, type: 3}
     startingRoomSides:
-      top: 0
+      top: 1
       right: 0
       left: 0
       bottom: 0
