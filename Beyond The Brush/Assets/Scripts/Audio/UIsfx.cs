@@ -12,7 +12,7 @@ public class UIsfx : MonoBehaviour
     {
         AudioSource UIelement = Camera.main.transform.Find("UISFX").GetComponent<AudioSource>();
         UIelement.clip = clickSFX;
-        UIelement.time = 0.255f;
+        UIelement.time = 0.15f;
         UIelement.Play();
     }
 }

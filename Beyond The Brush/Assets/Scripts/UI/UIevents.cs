@@ -295,6 +295,11 @@ public class UIevents : MonoBehaviour
             //main menu
             if (Input.GetKeyDown(mainMenuKey)) { if (!escapeKeyDebounce) { escapeKeyDebounce = true; if (!mainMenu.mainWindow.activeSelf) { Time.timeScale = 0; } else { Time.timeScale = 1; options.optionsWindow.SetActive(false); } mainMenu.mainWindow.SetActive(!mainMenu.mainWindow.activeSelf); } }
             if (Input.GetKeyUp(mainMenuKey)) { if (escapeKeyDebounce) { escapeKeyDebounce = false; } }
+
+            //Open UI windows
+            if(Input.GetKeyDown(KeyCode.P)){ closeProfilesWindow(); }   //Profiles window
+            if(Input.GetKeyDown(KeyCode.O)){ OnOptions(); }             //Options window
+            if(Input.GetKeyDown(KeyCode.I)){ openTalentTree(); }        //Talent tree window
         //___________________________||
 
         //Minimap||
@@ -373,18 +378,11 @@ public class UIevents : MonoBehaviour
         public void OnOptions()
         {
             soundEffect.playClick();    //Clicking sound effect
-
+            profiles.profilesWindow.SetActive(false);           //Close the profiles window
+            talentTreeData.talentTreeWindow.SetActive(false);   //Close the talent tree
             //Just enable the options menu
             options.optionsWindow.SetActive(!options.optionsWindow.activeSelf);
         }
-
-        public void closeOption()
-        {
-            soundEffect.playClick();    //Clicking sound effect
-
-            options.optionsWindow.SetActive(!options.optionsWindow.activeSelf);
-        }
-
     //______________||
 
 
@@ -608,6 +606,8 @@ public class UIevents : MonoBehaviour
         public void openTalentTree()
         {
             soundEffect.playClick();    //Clicking sound effect
+            profiles.profilesWindow.SetActive(false);           //Close the profiles window
+            options.optionsWindow.SetActive(false);             //Close the options
             talentTreeData.talentTreeWindow.SetActive(!talentTreeData.talentTreeWindow.activeSelf);
         }
 
@@ -1035,6 +1035,8 @@ public class UIevents : MonoBehaviour
     public void closeProfilesWindow()
     {
         soundEffect.playClick();    //Clicking sound effect
+        talentTreeData.talentTreeWindow.SetActive(false);   //Close the talent tree
+        options.optionsWindow.SetActive(false);             //Close the options
         profiles.profilesWindow.SetActive(!profiles.profilesWindow.activeSelf);
     }
 

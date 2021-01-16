@@ -2542,7 +2542,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 30, y: -13.999756}
+  m_AnchoredPosition: {x: 30, y: -13.999512}
   m_SizeDelta: {x: 1198, y: 564}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &332132421
@@ -3575,7 +3575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -25.999756}
+  m_AnchoredPosition: {x: 0, y: -25.999512}
   m_SizeDelta: {x: 6, y: -38}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &499475847
@@ -7255,7 +7255,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3956660341335235844}
         m_TargetAssemblyTypeName: UIevents, Assembly-CSharp
-        m_MethodName: closeOption
+        m_MethodName: OnOptions
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11511,7 +11511,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -25.999756}
+  m_AnchoredPosition: {x: 0, y: -25.999512}
   m_SizeDelta: {x: 6, y: -38}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1515838011
@@ -14992,7 +14992,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 30, y: -13.999756}
+  m_AnchoredPosition: {x: 30, y: -13.999512}
   m_SizeDelta: {x: 1198, y: 564}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &1982510030
@@ -15337,7 +15337,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -25.999756}
+  m_AnchoredPosition: {x: 0, y: -25.999512}
   m_SizeDelta: {x: 6, y: -38}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &2059747739
@@ -15544,7 +15544,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 30, y: -13.999756}
+  m_AnchoredPosition: {x: 30, y: -13.999512}
   m_SizeDelta: {x: 1198, y: 564}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &2081431755
@@ -20979,7 +20979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a5be7f0e4983941ba21b7f6cc56774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickSFX: {fileID: 8300000, guid: c5a6f94e92370114491c529e0aca0709, type: 3}
+  clickSFX: {fileID: 8300000, guid: 80bebad35f0b13647bd2c9372fd3a870, type: 3}
 --- !u!1 &3957556324716999561
 GameObject:
   m_ObjectHideFlags: 0
