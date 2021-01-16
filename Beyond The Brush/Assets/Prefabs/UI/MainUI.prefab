@@ -21251,6 +21251,7 @@ MonoBehaviour:
   villageMinimap:
     camera: {fileID: 0}
     slider: {fileID: 0}
+    mapWindow: {fileID: 0}
   options:
     optionsWindow: {fileID: 2044715873}
     dataText: {fileID: 199456743}

@@ -91,6 +91,7 @@ public class UIevents : MonoBehaviour
             public class villageMinimapClass{
                 public GameObject camera;
                 public GameObject slider;
+                public GameObject mapWindow;
                 
             }
 
@@ -382,6 +383,11 @@ public class UIevents : MonoBehaviour
         GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeArmorDrawing();
     }
 
+    public void closeVillageMap(){
+        soundEffect.playClick();
+        villageMinimap.mapWindow.SetActive(false);
+    }
+
     private void Update()
     {
 
@@ -395,7 +401,20 @@ public class UIevents : MonoBehaviour
         //Listen to the keyboard keys||
             
             //minimap
-            if (Input.GetKeyDown(minimap.minimapKey)){ if (!minimapOpened) { alreadyChangeMinimap = false; } minimapOpened = true; }
+            if (Input.GetKeyDown(minimap.minimapKey)){
+                if(villageMinimap.mapWindow != null){ 
+                    soundEffect.playClick();                                //Play click sound effect
+                    if(!villageMinimap.mapWindow.activeSelf){
+                        profiles.profilesWindow.SetActive(false);           //Close the profiles window
+                        talentTreeData.talentTreeWindow.SetActive(false);   //Close the talent tree
+                        options.optionsWindow.SetActive(false);             //Close the options
+                    }
+                    villageMinimap.mapWindow.SetActive(!villageMinimap.mapWindow.activeSelf);
+                }
+
+                
+                if (!minimapOpened) { alreadyChangeMinimap = false; } minimapOpened = true; 
+            }
             if (Input.GetKeyUp(minimap.minimapKey)) minimapOpened = alreadyChangeMinimap = false;
             
             //main menu
