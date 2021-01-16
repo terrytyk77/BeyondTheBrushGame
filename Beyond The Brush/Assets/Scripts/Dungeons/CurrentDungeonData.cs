@@ -77,6 +77,7 @@ public class CurrentDungeonData : MonoBehaviour
         public Dungeon currentDungeon;      //Holds the current dungeon object
         private GameObject startingRoom;    //Holds the starting room of the dungeon prefab
         private Rigidbody2D playerRB;       //Holds the player rigid body
+        private UIsfx UIsoundEffect;          //Holds the sound effects callbacks
 
         //Data that might change during runtime
         public Vector2Int currentRoom;                                      //Holds the players current room cords
@@ -94,6 +95,7 @@ public class CurrentDungeonData : MonoBehaviour
     /*      Unity life cycle methods    */
         private void Start()                                                                    //This method gets called at the start of the dungeon
         {
+            UIsoundEffect = GameObject.FindGameObjectWithTag("mainUI").GetComponent<UIsfx>();   //Get the UI library for the sound effects
             List<Dungeon> dungeonsList = dungeonsData.GetComponent<DungeonsAPI>().dungeons;     //Get the list of dungeons
             playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();  //Get the player rigid body
             GameObject dungeonAPI = GameObject.FindGameObjectWithTag("sceneAPI");               //Get the dungeon API (holds the dungeon we want to generate)
@@ -170,6 +172,7 @@ public class CurrentDungeonData : MonoBehaviour
 
         void leaveFunction()
         {
+            UIsoundEffect.playClick();                      //Play a click sound effect
             DontDestroyOnLoad(gameObject);                  //Preserve the current dungeon data
             Time.timeScale = currentTimeScale;              //Reset back to the time it had
             sceneTeleport.start(1);                         //Teleport back to the village
@@ -178,6 +181,7 @@ public class CurrentDungeonData : MonoBehaviour
 
         void continueFunction()
         {
+            UIsoundEffect.playClick();                                      //Play a click sound effect
             Time.timeScale = currentTimeScale;                              //Reset back to the time it had
             DungeonResultWindow.window.SetActive(false);                    //Close the window
             playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;   //Unfreeze the player
@@ -216,6 +220,7 @@ public class CurrentDungeonData : MonoBehaviour
             //Add the first section
             while(message1Built.Length < message1.Length)
             {
+                UIsoundEffect.playType();                                                   //Plays the typing sound effect per character
                 //Add to the message
                 message1Built = message1Built + message1[message1Built.Length];             //Gets the next letter from the main message
                 completeMessage = message1Built;                                            //Update the over all message
@@ -226,6 +231,7 @@ public class CurrentDungeonData : MonoBehaviour
             //Calculate the amount of chests
             while(chestsHolder < amountOfChests){
 
+                UIsoundEffect.playType();                                                   //Plays the typing sound effect per character
                 chestsHolder++;
                 DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + "<color=#cedb1a>" + chestsHolder + "</color>";
                 yield return new WaitForSeconds(0.1f);
@@ -236,6 +242,7 @@ public class CurrentDungeonData : MonoBehaviour
             //Add the second section
             while (message2Built.Length < message2.Length)
             {
+                UIsoundEffect.playType();                                                   //Plays the typing sound effect per character
                 //Add to the message
                 message2Built = message2Built + message2[message2Built.Length];                             //Gets the next letter from the main message
                 DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + message2Built;  //Update the text label data
@@ -247,6 +254,7 @@ public class CurrentDungeonData : MonoBehaviour
             //Calculate the amount of deaths
             while (deathsHolder < amountOfDeaths)
             {
+                UIsoundEffect.playType();                                                   //Plays the typing sound effect per character
                 deathsHolder++;
                 DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + "<color=#9e0e1d>" + deathsHolder + "</color>";
                 yield return new WaitForSeconds(0.1f);
@@ -257,6 +265,7 @@ public class CurrentDungeonData : MonoBehaviour
             //Add the third section
             while (message3Built.Length < message3.Length)
             {
+                UIsoundEffect.playType();                                                   //Plays the typing sound effect per character
                 //Add to the message
                 message3Built = message3Built + message3[message3Built.Length];                             //Gets the next letter from the main message
                 DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + message3Built;  //Update the text label data
@@ -268,6 +277,7 @@ public class CurrentDungeonData : MonoBehaviour
             //Calculate the amount of completed rooms
             while (roomsCompletedHolder < completedRooms)
             {
+                UIsoundEffect.playType();                                                   //Plays the typing sound effect per character
                 roomsCompletedHolder++;
                 DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + "<color=#45ba06>" + roomsCompletedHolder + "</color>";
                 yield return new WaitForSeconds(0.1f);
@@ -278,6 +288,7 @@ public class CurrentDungeonData : MonoBehaviour
             //Add the fourth section
             while (message4Built.Length < message4.Length)
             {
+                UIsoundEffect.playType();                                                   //Plays the typing sound effect per character
                 //Add to the message
                 message4Built = message4Built + message4[message4Built.Length];                             //Gets the next letter from the main message
                 DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + "<size=25><b>" + message4Built+ "</b></size>";  //Update the text label data
@@ -289,6 +300,7 @@ public class CurrentDungeonData : MonoBehaviour
             //Calculate the amount of resources
             while (resourcesHolder < resourcesAmount)
             {
+                UIsoundEffect.playType();                                                   //Plays the typing sound effect per character
                 resourcesHolder++;
                 DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + "<size=25><b><color=#eeff00>" + resourcesHolder + "</color></b></size>";
                 yield return new WaitForSeconds(0.005f);
@@ -299,6 +311,7 @@ public class CurrentDungeonData : MonoBehaviour
             //Add the fifth section
             while (message5Built.Length < message5.Length)
             {
+                UIsoundEffect.playType();                                                   //Plays the typing sound effect per character
                 //Add to the message
                 message5Built = message5Built + message5[message5Built.Length];                             //Gets the next letter from the main message
                 DungeonResultWindow.textLabel.GetComponent<Text>().text = completeMessage + "<size=25><b>" + message5Built + "</b></size>";  //Update the text label data

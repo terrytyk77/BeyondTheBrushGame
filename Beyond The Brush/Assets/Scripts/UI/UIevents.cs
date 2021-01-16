@@ -221,6 +221,97 @@ public class UIevents : MonoBehaviour
         updateOptionsWindowInfo();
     }
 
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // Method: User level up
+    /////
+    // Desc: Called when the user levels up in order to display the current info
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    public void userLevelUp(){
+
+        gameObject.transform.Find("NotificationLevel").Find("Level Cont").Find("Level Group").GetComponent<HorizontalLayoutGroup>().enabled = true;
+        gameObject.transform.Find("NotificationLevel").Find("Level Cont").Find("Level Group").GetComponent<HorizontalLayoutGroup>().enabled = false;
+        soundEffect.levelUP();                                  //Plays the level up sound effect
+        this.StartCoroutine(levelUPWindow(PlayerData.level));   //Play the level up animation
+    }
+
+    IEnumerator levelUPWindow(int oldLevel){
+
+        //Variables||
+        
+            float fadeSpeed = .05f; //The speed on which the window fades in and out
+            int amountOfBounces = 5;
+            CanvasGroup mainWindow = gameObject.transform.Find("NotificationLevel").GetComponent<CanvasGroup>();
+            GameObject levelNUM = gameObject.transform.Find("NotificationLevel").Find("Level Cont").Find("Level Group").Find("Level Text").gameObject;
+            float storedNumberPos = levelNUM.transform.localPosition.x;
+        //_________||
+
+        levelNUM.GetComponent<Text>().text = oldLevel.ToString();        //Change the current level number of the window
+
+        //Fade the window in
+        while (mainWindow.alpha < 1)                //Check if wheater the window is or is not fully transparent
+        {
+            mainWindow.alpha += fadeSpeed;          //Remove transparency from the window
+            yield return new WaitForSeconds(.05f);   //Yield for a certain amount of time
+        }
+
+
+        //Push the number up
+        while(levelNUM.transform.localPosition.y < 30){
+
+            levelNUM.transform.localPosition = new Vector2(levelNUM.transform.localPosition.x, levelNUM.transform.localPosition.y + 3.2f);
+            yield return new WaitForSeconds(.05f); 
+        }
+
+        int bounceCounter = 0;
+        while(bounceCounter < amountOfBounces){
+
+            //Move to the right
+            while(levelNUM.transform.localPosition.x - storedNumberPos < 6){
+                levelNUM.transform.localPosition = new Vector2(levelNUM.transform.localPosition.x + 2.75f, levelNUM.transform.localPosition.y);
+                yield return new WaitForSeconds(.025f);
+            }
+
+            //Move to the left
+            while (levelNUM.transform.localPosition.x - storedNumberPos > 0)
+            {
+                levelNUM.transform.localPosition = new Vector2(levelNUM.transform.localPosition.x - 2.75f, levelNUM.transform.localPosition.y);
+                yield return new WaitForSeconds(.025f);
+            }
+
+            bounceCounter++;
+        }
+
+        levelNUM.transform.localPosition = new Vector2(storedNumberPos, levelNUM.transform.localPosition.y);
+
+        yield return new WaitForSeconds(.2f);   //Maybe add like a shake here
+
+        //Push the number down
+        while (levelNUM.transform.localPosition.y > 0)
+        {
+
+            levelNUM.transform.localPosition = new Vector2(levelNUM.transform.localPosition.x, levelNUM.transform.localPosition.y - 12.8f);
+            yield return new WaitForSeconds(.05f);
+        }
+
+        levelNUM.transform.localPosition = new Vector2(levelNUM.transform.localPosition.x, 0);
+
+        soundEffect.bling();
+
+        levelNUM.GetComponent<Text>().text = (oldLevel + 1).ToString();
+
+        yield return new WaitForSeconds(2);         //For how long the window should be displayed for the player
+
+
+        //Fade the window out
+        while (mainWindow.alpha > 0)                //Check if wheater the window still has some transparency
+        {
+            mainWindow.alpha -= fadeSpeed;          //Remove transparency from the window
+            yield return new WaitForSeconds(.05f);   //Yield for a certain amount of time
+        }
+
+
+        yield return null;
+    }
 
     private void setupProfilesWindow()
     {

@@ -388,9 +388,15 @@ public class PlayerData : MonoBehaviour
 
     public static void addPlayerExp(int enemyExp)
     {
+        enemyExp = enemyExp * 5;
+
         int missingExp = getNeededExp() - exp;
         if (enemyExp >= missingExp)
         {
+            //Call the UI level up
+            GameObject.FindGameObjectWithTag("mainUI").GetComponent<UIevents>().userLevelUp();
+
+            //The player just leveled up :0
             int restExpToAddNextLevel = enemyExp  - missingExp;
             level++;
             exp = restExpToAddNextLevel;
