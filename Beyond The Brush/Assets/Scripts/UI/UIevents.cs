@@ -87,6 +87,15 @@ public class UIevents : MonoBehaviour
 
             public miniMapClass minimap = new miniMapClass();
 
+            [System.Serializable]
+            public class villageMinimapClass{
+                public GameObject camera;
+                public GameObject slider;
+                
+            }
+
+            public villageMinimapClass villageMinimap = new villageMinimapClass();
+
             private Vector2 defaultMinimapPosition;
             private Vector2 defaultMinimapScale;
             private bool minimapOpened = false;
@@ -311,6 +320,12 @@ public class UIevents : MonoBehaviour
 
 
         yield return null;
+    }
+
+    public void changeVillageZoom(){
+        float defaultValue = 40f;
+        float currentValue = villageMinimap.slider.GetComponent<Slider>().value * 2f;
+        villageMinimap.camera.GetComponent<Camera>().orthographicSize = defaultValue - (currentValue * 3f);
     }
 
     private void setupProfilesWindow()

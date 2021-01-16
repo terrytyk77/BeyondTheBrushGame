@@ -37,7 +37,7 @@ public class UIsfx : MonoBehaviour
     public void bling(){
         AudioSource UIelement = Camera.main.transform.Find("UISFX").GetComponent<AudioSource>();
         UIelement.clip = blingSFX;
-        UIelement.time = 0.2f;
+        UIelement.time = 0.15f;
         UIelement.Play();
     }
 }

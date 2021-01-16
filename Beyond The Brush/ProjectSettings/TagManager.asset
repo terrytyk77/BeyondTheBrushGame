@@ -23,6 +23,7 @@ TagManager:
   - LightObject
   - HeavyObject
   - UIcamera
+  - minimapCamera
   layers:
   - Default
   - TransparentFX

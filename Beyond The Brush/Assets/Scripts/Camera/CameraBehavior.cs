@@ -104,8 +104,8 @@ public class CameraBehavior : MonoBehaviour
             Camera.main.GetComponent<Transform>().position = Vector3.MoveTowards(cameraPosition, cameraGoal, (float)cameraOffsetInput);
         }
 
-
         //Set the player camera
         GameObject.FindGameObjectWithTag("UIcamera").transform.localPosition = new Vector3(playerPosition.x, playerPosition.y, -10);
+        GameObject.FindGameObjectWithTag("minimapCamera").transform.localPosition = new Vector3(playerPosition.x, playerPosition.y, -10);
     }
 }
