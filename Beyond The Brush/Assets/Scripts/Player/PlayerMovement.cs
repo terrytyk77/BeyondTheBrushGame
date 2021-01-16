@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     //Variables||
         public GameObject playerVertical;
         public GameObject playerHorizontal;
+        public GameObject playerOverlay;
         Rigidbody2D playerBody;
         bool HorVerSide = false;
         public static bool verticalDirection = false; //False down, True up
@@ -84,8 +85,12 @@ public class PlayerMovement : MonoBehaviour
                 playerVertical.GetComponent<Animator>().SetBool("Moving", false);
         }
 
-        //Apply the force on the player's body
+        if(playerOverlay)
+        {
+            playerOverlay.transform.localPosition = new Vector2(playerBody.position.x, playerBody.position.y);
+        }
 
+        //Apply the force on the player's body
         playerBody.velocity = newForce;
         playerVertical.GetComponent<Animator>().SetInteger("Direction", PlayerData.playerDirection);
     }
