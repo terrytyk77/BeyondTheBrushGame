@@ -12,7 +12,6 @@ public class bigMap : MonoBehaviour, IPointerDownHandler, IScrollHandler
         private float maxMapSize = 5f;
         private float miniumMapSize = 1f;
 
-        private Vector2 mapAbsolutePositionOnStart;
         private Vector2 mapAbsoluteSize;
         private Vector3 storeClickPosition;
         private Vector2 mapPositionOnClick;
@@ -20,7 +19,6 @@ public class bigMap : MonoBehaviour, IPointerDownHandler, IScrollHandler
 
     private void Start()
     {
-        mapAbsolutePositionOnStart = gameObject.GetComponent<RectTransform>().position;
         updateMapSize();
     }
 
@@ -84,7 +82,7 @@ public class bigMap : MonoBehaviour, IPointerDownHandler, IScrollHandler
 
         if (Input.mouseScrollDelta.y < 0){
             //Scrolling down
-            Vector2 newMapScale = new Vector2(mapRect.localScale.x - 0.1f, mapRect.localScale.y - 0.1f);
+            Vector2 newMapScale = new Vector2(mapRect.localScale.x - 0.2f, mapRect.localScale.y - 0.2f);
 
             if (newMapScale.x < miniumMapSize)
                 mapRect.localScale = new Vector2(miniumMapSize, miniumMapSize);
@@ -101,9 +99,6 @@ public class bigMap : MonoBehaviour, IPointerDownHandler, IScrollHandler
             float percentageX = (100 * mapRect.anchoredPosition.x) / -mapAbsoluteSize.x;
             float percentageY = (100 * mapRect.anchoredPosition.y) / -mapAbsoluteSize.y;
 
-            float mousePercentageX = (100 * Input.mousePosition.x) / (gameObject.transform.position.x + gameObject.GetComponent<RectTransform>().sizeDelta.x * 0.7f);
-            float mousePercentageY = (100 * Input.mousePosition.x) / (gameObject.transform.position.x + gameObject.GetComponent<RectTransform>().sizeDelta.x * 0.7f);
-
             updateMapSize();
 
             Vector2 newPos = new Vector2((percentageX * -mapAbsoluteSize.x)/100, (percentageY * -mapAbsoluteSize.y) / 100);
@@ -113,33 +108,21 @@ public class bigMap : MonoBehaviour, IPointerDownHandler, IScrollHandler
         }
         else if(Input.mouseScrollDelta.y > 0){
             //Scrolling up
-            Vector2 newMapScale = new Vector2(mapRect.localScale.x + 0.1f, mapRect.localScale.y + 0.1f);
+            Vector2 newMapScale = new Vector2(mapRect.localScale.x + 0.2f, mapRect.localScale.y + 0.2f);
 
             if (newMapScale.x > maxMapSize)
                 mapRect.localScale = new Vector2(maxMapSize, maxMapSize);
             else
                 mapRect.localScale = newMapScale;
-            //Debug.Log("Mouse pos:" + (Input.mousePosition.x - mapRect.position.x));
 
-            //Debug.Log(mapRect.anchoredPosition.x);
-
-            float percentageX = (100 * mapRect.anchoredPosition.y) / -mapAbsoluteSize.x;
+            float percentageX = (100 * mapRect.anchoredPosition.x) / -mapAbsoluteSize.x;
             float percentageY = (100 * mapRect.anchoredPosition.y) / -mapAbsoluteSize.y;
 
-            float mousePercentageX = (100 * Input.mousePosition.x - gameObject.transform.parent.position.x) /(gameObject.transform.parent.position.x + gameObject.transform.parent.GetComponent<RectTransform>().sizeDelta.x/2 * 0.7f) ;
-            float mousePercentageY = (100 * Input.mousePosition.y) / (gameObject.transform.parent.position.y + gameObject.transform.parent.GetComponent<RectTransform>().sizeDelta.y/2 * 0.7f);
-
             updateMapSize();
-
-            float newPosX = (percentageX * -mapAbsoluteSize.x) / 100;
-            float newPosY = (percentageY * -mapAbsoluteSize.y) / 100;
-
-            float newDisplacementX = (mousePercentageX * gameObject.GetComponent<RectTransform>().sizeDelta.x) / 100f;
 
             Vector2 newPos = new Vector2((percentageX * -mapAbsoluteSize.x) / 100, (percentageY * -mapAbsoluteSize.y) / 100);
             mapRect.anchoredPosition = newPos;
 
-            updateMapLocaiton(mapRect.anchoredPosition);
         }
 
     }
