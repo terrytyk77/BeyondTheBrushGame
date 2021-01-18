@@ -104,7 +104,7 @@ public class OnDrawEvent : MonoBehaviour
 						playerPassives.ToArms();
 						playerPassives.DemandForAction(damage);
 					}
-					enemy.GetComponent<EnemyAI>().getDamaged(damage * 10);
+					enemy.GetComponent<EnemyAI>().getDamaged(damage);
                 }
 			}
 		}

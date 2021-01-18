@@ -150,8 +150,24 @@ public class PlayerData : MonoBehaviour
         gold += goldAmount;
     }
 
+    private static float storeTime = 0f;
+    private static float lastTimeHeTookDamage = 0f;
     public static void resetCooldowns()
     {
+        //Heal the player over time
+        if((int)storeTime < (int)(storeTime + Time.deltaTime) && _healthPoints < _maxHealthPoints && playerInCombat())
+        {
+            int amountToHeal = (int)((float)_maxHealthPoints / 12f);
+            if (_healthPoints + amountToHeal > _maxHealthPoints)
+                _healthPoints = _maxHealthPoints;
+            else
+                _healthPoints += amountToHeal;
+        }
+
+        //Regen players hp
+        storeTime += Time.deltaTime;
+        
+
         //Slash
         if (cooldowns._slashCooldown > 0)
             cooldowns._slashCooldown -= Time.deltaTime;
@@ -205,6 +221,9 @@ public class PlayerData : MonoBehaviour
 
     }
 
+    static public bool playerInCombat(){
+        return (storeTime - lastTimeHeTookDamage > 10);
+    }
     public static void playerDied()
     {
         //Handle the player death
@@ -362,6 +381,8 @@ public class PlayerData : MonoBehaviour
     public static void damagePlayer(int damage)
     {
 
+        lastTimeHeTookDamage = storeTime;   //Store the last time he took damage
+
         if (healthPoints >= damage)
         {
             if (isShielded == true)
@@ -388,18 +409,20 @@ public class PlayerData : MonoBehaviour
 
     public static void addPlayerExp(int enemyExp)
     {
-        enemyExp = enemyExp * 5;
-
         int missingExp = getNeededExp() - exp;
+
         if (enemyExp >= missingExp)
         {
             //Call the UI level up
             GameObject.FindGameObjectWithTag("mainUI").GetComponent<UIevents>().userLevelUp();
 
             //The player just leveled up :0
-            int restExpToAddNextLevel = enemyExp  - missingExp;
-            level++;
-            exp = restExpToAddNextLevel;
+            int restExpToAddNextLevel = enemyExp  - missingExp; //Caculate his new exp amount
+            level++;                                            //Level him up
+            exp = restExpToAddNextLevel;                        //Set his exp to the correct amount
+
+            _maxHealthPoints = calculateMaxHealth();            //Update players max health
+            _healthPoints = _maxHealthPoints;                   //Heal the player
         }
         else
         {
@@ -498,10 +521,14 @@ public class PlayerData : MonoBehaviour
         _gold = json.body.stats.gold;
 
         //Calculate the max health
-        _maxHealthPoints = 100;
+        _maxHealthPoints = calculateMaxHealth();
 
         //Reset the player hp
         _healthPoints = _maxHealthPoints;
+    }
+
+    private static int calculateMaxHealth(){
+        return 100 + (_level * 8);
     }
 
     static public void ResetPlayerData()
