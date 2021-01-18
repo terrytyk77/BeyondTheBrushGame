@@ -157,7 +157,7 @@ public class PlayerData : MonoBehaviour
         //Heal the player over time
         if((int)storeTime < (int)(storeTime + Time.deltaTime) && _healthPoints < _maxHealthPoints && playerInCombat())
         {
-            int amountToHeal = (int)((float)_maxHealthPoints / 12f);
+            int amountToHeal = (int)((float)_maxHealthPoints / 42f);
             if (_healthPoints + amountToHeal > _maxHealthPoints)
                 _healthPoints = _maxHealthPoints;
             else
