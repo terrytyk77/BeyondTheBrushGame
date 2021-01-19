@@ -261,20 +261,34 @@ MonoBehaviour:
   - DungeonName: FrostCave
     baseReward: 100
     mainMusic: {fileID: 0}
-    startingRoom: {fileID: 0}
+    startingRoom: {fileID: 2396211081100954182, guid: 25b6b2e1aacfc2b4db9e9766980cdb57, type: 3}
     startingRoomSides:
-      top: 0
+      top: 1
       right: 0
       left: 0
       bottom: 0
     rooms:
-    - roomName: Room1
-      roomPrefab: {fileID: 0}
+    - roomName: S_T_R
+      roomPrefab: {fileID: 7473712639118375697, guid: 4d14fcab8c7628f438e89a128851f272, type: 3}
       roomSides:
-        top: 0
-        right: 0
+        top: 1
+        right: 1
         left: 0
         bottom: 0
+    - roomName: S_T_L
+      roomPrefab: {fileID: 1453838577358837002, guid: 742619d094eec844596883310384204f, type: 3}
+      roomSides:
+        top: 1
+        right: 0
+        left: 1
+        bottom: 0
+    - roomName: S_B_R
+      roomPrefab: {fileID: 6237614746277708275, guid: 3f58dc264c4e1a3478067d74522dd198, type: 3}
+      roomSides:
+        top: 0
+        right: 1
+        left: 0
+        bottom: 1
     - roomName: 
       roomPrefab: {fileID: 0}
       roomSides:
