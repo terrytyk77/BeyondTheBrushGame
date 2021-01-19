@@ -866,8 +866,8 @@ MonoBehaviour:
   damage: 10
   maxHealth: 90
   experience: 20
-  walkingMovementSpeed: 3
-  fleeingMovementSpeed: 6
+  walkingMovementSpeed: 2
+  fleeingMovementSpeed: 4
   aggroRange: 5
   chaseRange: 10
   attackRange: 1
