@@ -68,13 +68,10 @@ public class sceneTeleport : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
-
-
         loadingBar.SetActive(true);
 
         //Just wait
         yield return new WaitForSeconds(.5f);
-
 
         //Start actually loading the new scene
         AsyncOperation opereration = SceneManager.LoadSceneAsync(sceneNum);

@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeons:
-  - DungeonName: Deadmines
+  - DungeonName: DeadMines
     baseReward: 20
     mainMusic: {fileID: 8300000, guid: 76e8e766434bfde43a5f8ef1889ec6ac, type: 3}
     startingRoom: {fileID: 2396211081100954182, guid: dc4a06818b4eb64468fbcc9f297a7994, type: 3}
@@ -258,7 +258,7 @@ MonoBehaviour:
         right: 0
         left: 0
         bottom: 1
-  - DungeonName: Castle
+  - DungeonName: FrostCave
     baseReward: 100
     mainMusic: {fileID: 0}
     startingRoom: {fileID: 0}

@@ -105,10 +105,9 @@ public class CurrentDungeonData : MonoBehaviour
                 Destroy(dungeonAPI);                                                            //Avoid duplicates of the dungeon API
             }
             else                                                                                //It couldn't find any dungeon request
-                getCorrectDungeon(dungeonsList, "Deadmines");                                   //Go with the default and load "Deadmines"
+                getCorrectDungeon(dungeonsList, "DeadMines");                                   //Go with the default and load "Deadmines"
 
             if(currentDungeon.mainMusic != null){
-                
                 AudioSource mainMusic = Camera.main.transform.Find("MainMusic").GetComponent<AudioSource>();
                 mainMusic.clip = currentDungeon.mainMusic;
                 mainMusic.Play();

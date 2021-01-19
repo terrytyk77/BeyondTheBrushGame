@@ -29,6 +29,4 @@ public class DungeonTeleportation : MonoBehaviour
                 sceneTeleport.start(2);
         }
     }
-
-
 }
