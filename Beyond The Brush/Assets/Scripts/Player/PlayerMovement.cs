@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
         Rigidbody2D playerBody;
         bool HorVerSide = false;
         public static bool verticalDirection = false; //False down, True up
+
+        public GameObject joystick; 
     //_________||
 
 
@@ -25,6 +27,40 @@ public class PlayerMovement : MonoBehaviour
     // Fixed update is called 50 times per frame
     void FixedUpdate()
     {
+
+        //Joystick direction||
+
+            bool goingUp = false;
+            bool goingDown = false;
+            bool goingRight = false;
+            bool goingLeft = false;
+        //__________________||
+
+        DuloGames.UI.UIJoystick joystickComp = joystick.GetComponent<DuloGames.UI.UIJoystick>();
+        if (joystickComp != null)
+        {
+            Vector2 axis = joystickComp.JoystickAxis;
+
+            //-0.8X   0.5Y >
+
+            //Going up
+            if (axis.y >= 0 && axis.x <= 0.75f && axis.x >= -0.75f)
+                goingUp = true;
+
+            //Going down
+            if (axis.y < 0 && axis.x < 0.75f && axis.x > -0.75f)
+                goingDown = true;
+
+            //Going left
+            if (axis.x <= 0 && axis.y <= 0.75f && axis.y >= -0.75f)
+                goingLeft = true;
+
+            //Going right
+            if (axis.x > 0 && axis.y < 0.75f && axis.y > -0.75f)
+                goingRight = true;
+
+        }
+
         //Get the player rigid body component
         playerBody = gameObject.GetComponent<Rigidbody2D>();
 
@@ -34,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         //New force
         Vector2 newForce = new Vector2(0, 0);
 
-        if (Input.GetKey("w") && !Input.GetKey("s"))
+        if ((Input.GetKey("w") && !Input.GetKey("s")) || goingUp)
         {
             PlayerData.playerDirection = 0;
 
@@ -46,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
             GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(verticalDirection, ArmorChange.currentDefault);
 
         }
-        else if (Input.GetKey("s") && !Input.GetKey("w"))
+        else if ((Input.GetKey("s") && !Input.GetKey("w")) || goingDown)
         {
             PlayerData.playerDirection = 1;
 
@@ -57,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
             GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(verticalDirection, ArmorChange.currentDefault);
         }
-        else if (Input.GetKey("a") && !Input.GetKey("d"))
+        else if ((Input.GetKey("a") && !Input.GetKey("d")) || goingLeft)
         {
             PlayerData.playerDirection = 2;
 
@@ -68,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(-transform.localScale.y, transform.localScale.y, transform.localScale.z);
             GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeHorizontalDirection(true);
         }
-        else if (Input.GetKey("d") && !Input.GetKey("a"))
+        else if ((Input.GetKey("d") && !Input.GetKey("a")) || goingRight)
         {
             PlayerData.playerDirection = 3;
 
