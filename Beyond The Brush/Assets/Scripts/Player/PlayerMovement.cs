@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
             //-0.8X   0.5Y >
 
             //Going up
-            if (axis.y >= 0 && axis.x <= 0.75f && axis.x >= -0.75f)
+            if (axis.y > 0 && axis.x <= 0.75f && axis.x >= -0.75f)
                 goingUp = true;
 
             //Going down
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
                 goingDown = true;
 
             //Going left
-            if (axis.x <= 0 && axis.y <= 0.75f && axis.y >= -0.75f)
+            if (axis.x < 0 && axis.y <= 0.75f && axis.y >= -0.75f)
                 goingLeft = true;
 
             //Going right
