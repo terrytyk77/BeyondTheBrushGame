@@ -323,11 +323,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: Ranged
-  damage: 20
+  damage: 15
   maxHealth: 70
   experience: 15
   walkingMovementSpeed: 1.5
-  fleeingMovementSpeed: 4
+  fleeingMovementSpeed: 2.5
   aggroRange: 8
   chaseRange: 15
   attackRange: 5
@@ -607,7 +607,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Wraith
+  m_Text: Shadow Wraith
 --- !u!114 &3507597975919103152
 MonoBehaviour:
   m_ObjectHideFlags: 0

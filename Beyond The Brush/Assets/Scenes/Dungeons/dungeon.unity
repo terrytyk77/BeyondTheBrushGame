@@ -289,69 +289,69 @@ MonoBehaviour:
         right: 1
         left: 0
         bottom: 1
-    - roomName: 
-      roomPrefab: {fileID: 0}
+    - roomName: S_B_L
+      roomPrefab: {fileID: 3576828904705030896, guid: e8a6cc442c9e21e46b0af3d816fde232, type: 3}
+      roomSides:
+        top: 0
+        right: 0
+        left: 1
+        bottom: 1
+    - roomName: S_T_B
+      roomPrefab: {fileID: 6533494916160585158, guid: 12fbad136742e514ab8156e126ae371b, type: 3}
+      roomSides:
+        top: 1
+        right: 0
+        left: 0
+        bottom: 1
+    - roomName: S_L_R
+      roomPrefab: {fileID: 6054465890873528849, guid: cf043e081d2a66044a7b9822b9ee4a30, type: 3}
+      roomSides:
+        top: 0
+        right: 1
+        left: 1
+        bottom: 0
+    - roomName: S_L_R_B
+      roomPrefab: {fileID: 903704026328974840, guid: 372d9d5f6779ba84d8c21b63e67177a4, type: 3}
+      roomSides:
+        top: 0
+        right: 1
+        left: 1
+        bottom: 1
+    - roomName: S_L_R_B_T
+      roomPrefab: {fileID: 9044917288269851389, guid: 4ff5783b54419c546aa22492eafa1283, type: 3}
+      roomSides:
+        top: 1
+        right: 1
+        left: 1
+        bottom: 1
+    - roomName: S_R
+      roomPrefab: {fileID: 1695067745534084126, guid: 0f0c15148e1ad684fbf729486a366790, type: 3}
+      roomSides:
+        top: 0
+        right: 1
+        left: 0
+        bottom: 0
+    - roomName: S_L
+      roomPrefab: {fileID: 3958058499961428590, guid: ee3ac87288b806d4eaf8628b98ce081a, type: 3}
+      roomSides:
+        top: 0
+        right: 0
+        left: 1
+        bottom: 0
+    - roomName: S_T
+      roomPrefab: {fileID: 1187944150668524305, guid: 977057dc1ef2155498e6110465928319, type: 3}
+      roomSides:
+        top: 1
+        right: 0
+        left: 0
+        bottom: 0
+    - roomName: S_B
+      roomPrefab: {fileID: 7637210221371106590, guid: 8d84bcb7e9a1b144ca0826407b3f3ce7, type: 3}
       roomSides:
         top: 0
         right: 0
         left: 0
-        bottom: 0
-    - roomName: 
-      roomPrefab: {fileID: 0}
-      roomSides:
-        top: 0
-        right: 0
-        left: 0
-        bottom: 0
-    - roomName: 
-      roomPrefab: {fileID: 0}
-      roomSides:
-        top: 0
-        right: 0
-        left: 0
-        bottom: 0
-    - roomName: 
-      roomPrefab: {fileID: 0}
-      roomSides:
-        top: 0
-        right: 0
-        left: 0
-        bottom: 0
-    - roomName: 
-      roomPrefab: {fileID: 0}
-      roomSides:
-        top: 0
-        right: 0
-        left: 0
-        bottom: 0
-    - roomName: 
-      roomPrefab: {fileID: 0}
-      roomSides:
-        top: 0
-        right: 0
-        left: 0
-        bottom: 0
-    - roomName: 
-      roomPrefab: {fileID: 0}
-      roomSides:
-        top: 0
-        right: 0
-        left: 0
-        bottom: 0
-    - roomName: 
-      roomPrefab: {fileID: 0}
-      roomSides:
-        top: 0
-        right: 0
-        left: 0
-        bottom: 0
-    - roomName: 
-      roomPrefab: {fileID: 0}
-      roomSides:
-        top: 0
-        right: 0
-        left: 0
-        bottom: 0
+        bottom: 1
 --- !u!4 &359513368
 Transform:
   m_ObjectHideFlags: 0
