@@ -36,9 +36,10 @@ public class PlayerMovement : MonoBehaviour
             bool goingLeft = false;
         //__________________||
 
-        DuloGames.UI.UIJoystick joystickComp = joystick.GetComponent<DuloGames.UI.UIJoystick>();
-        if (joystickComp != null)
+        if (joystick)
         {
+            DuloGames.UI.UIJoystick joystickComp = joystick.GetComponent<DuloGames.UI.UIJoystick>();
+
             Vector2 axis = joystickComp.JoystickAxis;
 
             //-0.8X   0.5Y >
