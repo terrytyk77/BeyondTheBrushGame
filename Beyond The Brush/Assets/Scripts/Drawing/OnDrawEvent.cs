@@ -58,26 +58,16 @@ public class OnDrawEvent : MonoBehaviour
 		Vector2 worldPos = Camera.main.ScreenToWorldPoint(location.middle);
         Vector2 worldSmallPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.sX, location.sY));
         Vector2 worldBigPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.bX, location.bY));
-
-        BoxCollider2D playerCollider = drawingCollider.GetComponent<BoxCollider2D>();
+		
+		BoxCollider2D playerCollider = drawingCollider.GetComponent<BoxCollider2D>();
         Vector2 playerPos = player.transform.position;
-        Vector2 playerSize = new Vector2( (playerCollider.size.x / 2) * Mathf.Abs(player.transform.localScale.x) , (playerCollider.size.y / 2 + playerCollider.offset.y) * Mathf.Abs(player.transform.localScale.y));
+        Vector2 playerSize = new Vector2(playerCollider.size.x * Mathf.Abs(player.transform.localScale.x) , (playerCollider.size.y + playerCollider.offset.y) * Mathf.Abs(player.transform.localScale.y));
 
+		Rect drawingZone = Rect.MinMaxRect(worldSmallPoint.x, worldSmallPoint.y, worldBigPoint.x, worldBigPoint.y);
+		Rect playerHitZone = Rect.MinMaxRect(playerPos.x - playerSize.x/2, playerPos.y - playerSize.y / 2, playerPos.x + playerSize.x / 2, playerPos.y + playerSize.y / 2);
 
-        return
-            (worldPos.x < player.transform.position.x + (playerCollider.size.x / 2) * Mathf.Abs(player.transform.localScale.x)) &&
-            (worldPos.x > player.transform.position.x - (playerCollider.size.x / 2) * Mathf.Abs(player.transform.localScale.x)) &&
-            (worldPos.y < player.transform.position.y + (playerCollider.size.y / 2 + playerCollider.offset.y) * Mathf.Abs(player.transform.localScale.y)) &&
-            (worldPos.y > player.transform.position.y - (playerCollider.size.y / 2 + playerCollider.offset.y) * Mathf.Abs(player.transform.localScale.y));
-
-
-        
-        //return (
-
-          //  (worldSmallPoint.x > playerPos.x  - playerSize.x && worldSmallPoint.x < playerPos.x + playerSize.x)/*x*/ && ((worldSmallPoint.y > playerPos.y - playerSize.y && worldSmallPoint.y < playerPos.y + playerSize.y) || (worldBigPoint.y > playerPos.y - playerSize.y && worldBigPoint.y < playerPos.y + playerSize.y)) /*y*/  || //Left border
-            //(worldBigPoint.x > playerPos.x - playerSize.x && worldBigPoint.x < playerPos.x + playerSize.x)/*x*/ && ((worldSmallPoint.y > playerPos.y - playerSize.y && worldSmallPoint.y < playerPos.y + playerSize.y) || (worldBigPoint.y > playerPos.y - playerSize.y && worldBigPoint.y < playerPos.y + playerSize.y))/*y*/       //Red border
-        //);
-        
+		return
+			drawingZone.Overlaps(playerHitZone);
 
 	}
 
@@ -282,7 +272,6 @@ public class OnDrawEvent : MonoBehaviour
 							if (PlayerData.rockCooldown <= 0)
                             {
 								PlayerData.rockCooldown = PlayerData.rockSpawnCooldownDefault;
-								Debug.Log("Stone");
 								SpawnObject(location, stone);
 							}
 						}
@@ -327,7 +316,6 @@ public class OnDrawEvent : MonoBehaviour
                         if (PlayerData.boxCooldown <= 0 && !HoverPlayer(location))
                         {
 							PlayerData.boxCooldown = PlayerData.boxSpawnCooldownDefault;
-							Debug.Log("Box");
 							SpawnObject(location, box);
                         }
 
@@ -335,11 +323,6 @@ public class OnDrawEvent : MonoBehaviour
 					}
 			}
 		}
-        else
-        {
-			Debug.Log("Doesn't know the shape");
-        }
-
 	}
 }
 
