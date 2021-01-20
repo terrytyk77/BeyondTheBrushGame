@@ -41,24 +41,32 @@ public class PlayerMovement : MonoBehaviour
             DuloGames.UI.UIJoystick joystickComp = joystick.GetComponent<DuloGames.UI.UIJoystick>();
 
             Vector2 axis = joystickComp.JoystickAxis;
-
+            float angle = Mathf.Atan2(axis.y, axis.x);
+            angle = Mathf.Rad2Deg * angle;
             //-0.8X   0.5Y >
 
             //Going up
-            if (axis.y > 0 && axis.x <= 0.75f && axis.x >= -0.75f)
+            if (angle > 45 && angle < 135)
                 goingUp = true;
 
             //Going down
-            if (axis.y < 0 && axis.x < 0.75f && axis.x > -0.75f)
+            if (angle > -135 && angle < -45)
                 goingDown = true;
 
             //Going left
-            if (axis.x < 0 && axis.y <= 0.75f && axis.y >= -0.75f)
+            if ((angle > 135 && angle < 180) || (angle > -180 && angle < -135) )
                 goingLeft = true;
 
             //Going right
-            if (axis.x > 0 && axis.y < 0.75f && axis.y > -0.75f)
+            if (angle < 45 && angle > -45)
                 goingRight = true;
+
+            if(axis.x == 0 && axis.y == 0){
+                goingUp = false;
+                goingDown = false;
+                goingRight = false;
+                goingLeft = false;
+            }
 
         }
 

@@ -101,6 +101,7 @@ public class CurrentDungeonData : MonoBehaviour
             GameObject dungeonAPI = GameObject.FindGameObjectWithTag("sceneAPI");               //Get the dungeon API (holds the dungeon we want to generate)
             if (sceneTeleport.dungeonName != "" && sceneTeleport.dungeonName != null)                                                             //Check if there is a dungeon to spawn
             {
+            Debug.Log(sceneTeleport.dungeonName);
                 getCorrectDungeon(dungeonsList, sceneTeleport.dungeonName);                     //Ask for the starting area to be generated
                 Destroy(dungeonAPI);                                                            //Avoid duplicates of the dungeon API
             }
