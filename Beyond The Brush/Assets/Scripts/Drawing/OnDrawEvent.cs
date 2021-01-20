@@ -56,20 +56,29 @@ public class OnDrawEvent : MonoBehaviour
     public bool HoverPlayer(DrawingLocation location)
 	{
 		Vector2 worldPos = Camera.main.ScreenToWorldPoint(location.middle);
-		BoxCollider2D playerCollider = drawingCollider.GetComponent<BoxCollider2D>();
+        Vector2 worldSmallPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.sX, location.sY));
+        Vector2 worldBigPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.bX, location.bY));
 
-		if (
-			(worldPos.x < player.transform.position.x + (playerCollider.size.x / 2) * Mathf.Abs(player.transform.localScale.x)) &&
-			(worldPos.x > player.transform.position.x - (playerCollider.size.x / 2) * Mathf.Abs(player.transform.localScale.x)) &&
-			(worldPos.y < player.transform.position.y + (playerCollider.size.y / 2 + playerCollider.offset.y) * Mathf.Abs(player.transform.localScale.y)) &&
-			(worldPos.y > player.transform.position.y - (playerCollider.size.y / 2 + playerCollider.offset.y) * Mathf.Abs(player.transform.localScale.y)))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+        BoxCollider2D playerCollider = drawingCollider.GetComponent<BoxCollider2D>();
+        Vector2 playerPos = player.transform.position;
+        Vector2 playerSize = new Vector2( (playerCollider.size.x / 2) * Mathf.Abs(player.transform.localScale.x) , (playerCollider.size.y / 2 + playerCollider.offset.y) * Mathf.Abs(player.transform.localScale.y));
+
+
+        return
+            (worldPos.x < player.transform.position.x + (playerCollider.size.x / 2) * Mathf.Abs(player.transform.localScale.x)) &&
+            (worldPos.x > player.transform.position.x - (playerCollider.size.x / 2) * Mathf.Abs(player.transform.localScale.x)) &&
+            (worldPos.y < player.transform.position.y + (playerCollider.size.y / 2 + playerCollider.offset.y) * Mathf.Abs(player.transform.localScale.y)) &&
+            (worldPos.y > player.transform.position.y - (playerCollider.size.y / 2 + playerCollider.offset.y) * Mathf.Abs(player.transform.localScale.y));
+
+
+        
+        //return (
+
+          //  (worldSmallPoint.x > playerPos.x  - playerSize.x && worldSmallPoint.x < playerPos.x + playerSize.x)/*x*/ && ((worldSmallPoint.y > playerPos.y - playerSize.y && worldSmallPoint.y < playerPos.y + playerSize.y) || (worldBigPoint.y > playerPos.y - playerSize.y && worldBigPoint.y < playerPos.y + playerSize.y)) /*y*/  || //Left border
+            //(worldBigPoint.x > playerPos.x - playerSize.x && worldBigPoint.x < playerPos.x + playerSize.x)/*x*/ && ((worldSmallPoint.y > playerPos.y - playerSize.y && worldSmallPoint.y < playerPos.y + playerSize.y) || (worldBigPoint.y > playerPos.y - playerSize.y && worldBigPoint.y < playerPos.y + playerSize.y))/*y*/       //Red border
+        //);
+        
+
 	}
 
 	public void HoverEnemy(DrawingLocation location, int damage)
@@ -232,7 +241,6 @@ public class OnDrawEvent : MonoBehaviour
 		{
 			UILineRenderer lineData = line.gameObject.GetComponent<UILineRenderer>();
 			DrawingLocation location = GetDrawingMiddle(lineData);
-
 
 			switch (result.gesture.id)
 			{
