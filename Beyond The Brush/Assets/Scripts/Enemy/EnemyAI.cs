@@ -79,7 +79,7 @@ public class EnemyAI : MonoBehaviour
     {
         collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
         collisionTilemap = collisionObject.GetComponent<Tilemap>();
-        HalfTile = new Vector3(collisionTilemap.cellSize.x / 2, collisionTilemap.cellSize.y / 2, 0);
+        HalfTile = new Vector3(collisionTilemap.cellSize.x / 2, collisionTilemap.cellSize.y / 1.25f, 0);
 
         currentDestination = collisionTilemap.CellToWorld(collisionTilemap.WorldToCell(transform.position));
         pathfinding = new Pathfinding();
@@ -137,13 +137,13 @@ public class EnemyAI : MonoBehaviour
                         // Move to Player If Not in Range for Attack
                         if (currentPath == null)
                         {
-                            getPath(player.transform.position);
+                            getPath(player.transform.position - new Vector3(0, player.GetComponent<BoxCollider2D>().size.y/2 * player.transform.localScale.y, 0));
                         }
                         else
                         {
                             if(pathIndex >= 2)
                             {
-                                getPath(player.transform.position);
+                                getPath(player.transform.position - new Vector3(0, player.GetComponent<BoxCollider2D>().size.y / 2 * player.transform.localScale.y, 0));
                             }
                             MoveTo();
                         }
