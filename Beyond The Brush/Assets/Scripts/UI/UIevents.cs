@@ -385,7 +385,7 @@ public class UIevents : MonoBehaviour
 
     public void closeVillageMap(){
         soundEffect.playClick();
-        villageMinimap.mapWindow.SetActive(false);
+        villageMinimap.mapWindow.SetActive(!villageMinimap.mapWindow.activeSelf);
     }
 
     private void Update()
