@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public class RegionalSystem : MonoBehaviour
 {
+    //Camera Effects||
+
+        public GameObject snow;
+        public GameObject rain;
+        public GameObject raysOfLight;
+    //______________||
+
     //Variables||
 
         public string currentArea = ""; //Holds the last region ID
@@ -16,11 +23,13 @@ public class RegionalSystem : MonoBehaviour
         {
             public string name;         //Holds the name of the region
             public AudioClip music;     //Holds the music of the region 
+            public GameObject effect;   //Holds the effect of the region
 
-            public regionData(string n, AudioClip m)    //Constructor for the class
+            public regionData(string n, AudioClip m, GameObject e)    //Constructor for the class
             {
                 name = n;   
                 music = m;
+                effect = e;
             }
         }
 
@@ -37,7 +46,7 @@ public class RegionalSystem : MonoBehaviour
             {
                 {
                 "dmF", //ID
-                new regionData("Deadmines Forest"/*Name*/, musicLib.deadMinesMusic /*Music*/)
+                new regionData("Deadmines Forest"/*Name*/, musicLib.deadMinesMusic /*Music*/, rain /*effect*/)
                 },
             };
         }
@@ -50,6 +59,16 @@ public class RegionalSystem : MonoBehaviour
 
         StartCoroutine(textAnimation(changedAreaData.name));                    //Call the UI text animation
 
+        //Set the effects
+        foreach(KeyValuePair<string, regionData> uwuArea in regionsInfo){
+            if (uwuArea.Value == changedAreaData)
+                uwuArea.Value.effect.SetActive(true);
+            else
+                uwuArea.Value.effect.SetActive(false);
+
+        }
+
+        //Set the music
         audioElement.GetComponent<AudioSource>().Stop();
         audioElement.GetComponent<AudioSource>().clip = changedAreaData.music;  //Change the music file from the thing
         audioElement.GetComponent<AudioSource>().Play();
