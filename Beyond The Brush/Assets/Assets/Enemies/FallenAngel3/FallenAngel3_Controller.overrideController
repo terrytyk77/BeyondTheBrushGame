@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FallenAngel3_Controller
+  m_Controller: {fileID: 9100000, guid: c8b1c6f5d28685b4bb7dc323e17f1f6c, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e91ee9e4140d7a047b3bea77da6c4946, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c1f7f39b5be802540b222142f2ad9ea8, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2cc0b75fa49e4364d91b5da56838f06f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 330d82ac856748c478c4d897b40bcedb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f3c5afd1994d3c848be04e9a963eb71a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5336cf3c513e374438c4a4bd39269bbb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 17903188814c3e74e8b670540f5a975c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8f52930b3450ba14f9774d772e98fe90, type: 2}
