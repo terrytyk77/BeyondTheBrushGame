@@ -505,6 +505,7 @@ public class UIevents : MonoBehaviour
             soundEffect.playClick();    //Clicking sound effect
             profiles.profilesWindow.SetActive(false);           //Close the profiles window
             talentTreeData.talentTreeWindow.SetActive(false);   //Close the talent tree
+            villageMinimap.mapWindow.SetActive(false);          //Close the map
             //Just enable the options menu
             options.optionsWindow.SetActive(!options.optionsWindow.activeSelf);
         }
@@ -733,6 +734,7 @@ public class UIevents : MonoBehaviour
             soundEffect.playClick();    //Clicking sound effect
             profiles.profilesWindow.SetActive(false);           //Close the profiles window
             options.optionsWindow.SetActive(false);             //Close the options
+            villageMinimap.mapWindow.SetActive(false);          //Close the map
             talentTreeData.talentTreeWindow.SetActive(!talentTreeData.talentTreeWindow.activeSelf);
         }
 
@@ -1162,6 +1164,7 @@ public class UIevents : MonoBehaviour
         soundEffect.playClick();    //Clicking sound effect
         talentTreeData.talentTreeWindow.SetActive(false);   //Close the talent tree
         options.optionsWindow.SetActive(false);             //Close the options
+        villageMinimap.mapWindow.SetActive(false);          //Close the map
         profiles.profilesWindow.SetActive(!profiles.profilesWindow.activeSelf);
     }
 
