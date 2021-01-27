@@ -48,6 +48,50 @@ public class RegionalSystem : MonoBehaviour
                 "dmF", //ID
                 new regionData("Deadmines Forest"/*Name*/, musicLib.deadMinesMusic /*Music*/, rain /*effect*/)
                 },
+                {
+                "route1", //ID
+                new regionData("Route 1"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                },
+                {
+                "village", //ID
+                new regionData("Village"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                },
+                {
+                "route2", //ID
+                new regionData("Route 2"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                },
+                {
+                "route3", //ID
+                new regionData("Route 3"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                },
+                {
+                "lake", //ID
+                new regionData("Lake"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                },
+                {
+                "castle", //ID
+                new regionData("Castle Entrance"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                },
+                {
+                "route4", //ID
+                new regionData("Route 4"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                },
+                {
+                "frostForest", //ID
+                new regionData("Frost Forest"/*Name*/, musicLib.deadMinesMusic /*Music*/, snow /*effect*/)
+                },
+                {
+                "frostDungeon", //ID
+                new regionData("Frost Dungeon"/*Name*/, musicLib.deadMinesMusic /*Music*/, snow /*effect*/)
+                },
+                {
+                "coast", //ID
+                new regionData("Coast side"/*Name*/, musicLib.deadMinesMusic /*Music*/, rain /*effect*/)
+                },
+                {
+                "route5", //ID
+                new regionData("Route 5"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                },
             };
         }
 
@@ -63,15 +107,17 @@ public class RegionalSystem : MonoBehaviour
         foreach(KeyValuePair<string, regionData> uwuArea in regionsInfo){
             if (uwuArea.Value == changedAreaData)
                 uwuArea.Value.effect.SetActive(true);
-            else
+            else if(uwuArea.Value.effect != changedAreaData.effect)
                 uwuArea.Value.effect.SetActive(false);
 
         }
 
         //Set the music
-        audioElement.GetComponent<AudioSource>().Stop();
-        audioElement.GetComponent<AudioSource>().clip = changedAreaData.music;  //Change the music file from the thing
-        audioElement.GetComponent<AudioSource>().Play();
+        if(audioElement.GetComponent<AudioSource>().clip != changedAreaData.music){
+            audioElement.GetComponent<AudioSource>().Stop();
+            audioElement.GetComponent<AudioSource>().clip = changedAreaData.music;  //Change the music file from the thing
+            audioElement.GetComponent<AudioSource>().Play();
+        }
     }
 
     private IEnumerator textAnimation(string locationName){

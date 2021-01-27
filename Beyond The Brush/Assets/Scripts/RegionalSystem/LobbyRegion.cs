@@ -11,7 +11,7 @@ public class LobbyRegion : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (gameObject.name != regionalSystem.currentArea){ 
+        if (gameObject.name != regionalSystem.currentArea && collision.gameObject.CompareTag("Player")){ 
             regionalSystem.currentArea = gameObject.name;
             regionalSystem.changedArea();
         }
