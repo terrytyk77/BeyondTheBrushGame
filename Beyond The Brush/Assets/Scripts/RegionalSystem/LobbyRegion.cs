@@ -9,7 +9,7 @@ public class LobbyRegion : MonoBehaviour
         RegionalSystem regionalSystem;
     //_________||
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (gameObject.name != regionalSystem.currentArea && collision.gameObject.CompareTag("Player")){ 
             regionalSystem.currentArea = gameObject.name;

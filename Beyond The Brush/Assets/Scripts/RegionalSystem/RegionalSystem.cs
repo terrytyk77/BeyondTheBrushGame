@@ -14,7 +14,7 @@ public class RegionalSystem : MonoBehaviour
 
     //Variables||
 
-        public string currentArea = ""; //Holds the last region ID
+        public string currentArea = "dmF"; //Holds the last region ID
         public GameObject audioElement; //Holds the audio gameobject
         private MusicPlayer musicLib;   //Holds the library of music
 
@@ -50,54 +50,58 @@ public class RegionalSystem : MonoBehaviour
                 },
                 {
                 "route1", //ID
-                new regionData("Route 1"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                new regionData("Route 1"/*Name*/, musicLib.forestMusic /*Music*/, raysOfLight /*effect*/)
                 },
                 {
                 "village", //ID
-                new regionData("Village"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                new regionData("Village"/*Name*/, musicLib.villageMusic /*Music*/, raysOfLight /*effect*/)
                 },
                 {
                 "route2", //ID
-                new regionData("Route 2"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                new regionData("Route 2"/*Name*/, musicLib.forestMusic /*Music*/, raysOfLight /*effect*/)
                 },
                 {
                 "route3", //ID
-                new regionData("Route 3"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                new regionData("Route 3"/*Name*/, musicLib.forestMusic /*Music*/, raysOfLight /*effect*/)
                 },
                 {
                 "lake", //ID
-                new regionData("Lake"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                new regionData("Lake"/*Name*/, musicLib.forestMusic /*Music*/, raysOfLight /*effect*/)
                 },
                 {
                 "castle", //ID
-                new regionData("Castle Entrance"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                new regionData("Castle Entrance"/*Name*/, musicLib.forestMusic /*Music*/, raysOfLight /*effect*/)
                 },
                 {
                 "route4", //ID
-                new regionData("Route 4"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                new regionData("Route 4"/*Name*/, musicLib.forestMusic /*Music*/, raysOfLight /*effect*/)
                 },
                 {
                 "frostForest", //ID
-                new regionData("Frost Forest"/*Name*/, musicLib.deadMinesMusic /*Music*/, snow /*effect*/)
+                new regionData("Frost Forest"/*Name*/, musicLib.frostForestMusic /*Music*/, snow /*effect*/)
                 },
                 {
                 "frostDungeon", //ID
-                new regionData("Frost Dungeon"/*Name*/, musicLib.deadMinesMusic /*Music*/, snow /*effect*/)
+                new regionData("Frost Dungeon"/*Name*/, musicLib.frostDungeonMusic /*Music*/, snow /*effect*/)
                 },
                 {
                 "coast", //ID
-                new regionData("Coast side"/*Name*/, musicLib.deadMinesMusic /*Music*/, rain /*effect*/)
+                new regionData("Coast side"/*Name*/, musicLib.coastMusic /*Music*/, rain /*effect*/)
                 },
                 {
                 "route5", //ID
-                new regionData("Route 5"/*Name*/, musicLib.deadMinesMusic /*Music*/, raysOfLight /*effect*/)
+                new regionData("Route 5"/*Name*/, musicLib.forestMusic /*Music*/, raysOfLight /*effect*/)
                 },
             };
+
+            changedArea();
         }
 
     //_________||
 
     public void changedArea(){
+
+        StopAllCoroutines();                                    //Cancel the coroutines
 
         regionData changedAreaData = regionsInfo[currentArea];  //Get the data from the new area
 
@@ -123,6 +127,7 @@ public class RegionalSystem : MonoBehaviour
     private IEnumerator textAnimation(string locationName){
 
         Text notificationText = gameObject.transform.Find("NewAreaNotification").GetComponent<Text>();  //Get the text component
+        notificationText.color = new Color(notificationText.color.r, notificationText.color.g, notificationText.color.b, 0);
         notificationText.text = locationName;   //Set the location name
 
         while (notificationText.color.a < 1){   //Lower transparency until fully visible

@@ -13,7 +13,7 @@ public class CameraBehavior : MonoBehaviour
 
         //player
         private float cameraPercentageLimit = 0.2f;
-        private float cameraSpeed = 4f;
+        private float cameraSpeed = 3.4f;
 
     //_________||
 
@@ -45,6 +45,7 @@ public class CameraBehavior : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
         //Update Camera Speed
         if(cameraSpeed != PlayerData.movementSpeed)
         {

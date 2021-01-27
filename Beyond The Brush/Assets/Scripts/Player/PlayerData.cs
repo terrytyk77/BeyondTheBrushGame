@@ -35,7 +35,7 @@ public class PlayerData : MonoBehaviour
         //local data
         static private int _healthPoints = 100;
         static private int _maxHealthPoints = 100;
-        static private float _movementSpeed = 3.4f;
+        static private float _movementSpeed = 3.5f;
 
         //Spells Damage/Shield
         static public int _slashDamage = 20;

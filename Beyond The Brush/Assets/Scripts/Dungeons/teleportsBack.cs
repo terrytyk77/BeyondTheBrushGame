@@ -40,7 +40,11 @@ public class teleportsBack : MonoBehaviour
             //Get rid of the game object as it is no longer used
             Destroy(dungeonData);
 
-        }        
+        }else{
+            Vector2 spawningArea = gameObject.transform.Find("Start").position;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().MovePosition(spawningArea);
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().position = new Vector3(spawningArea.x, spawningArea.y, gameObject.transform.position.z);
+        }   
     }
 
 }
