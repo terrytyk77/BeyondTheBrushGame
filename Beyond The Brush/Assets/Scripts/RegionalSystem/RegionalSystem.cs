@@ -7,9 +7,13 @@ public class RegionalSystem : MonoBehaviour
 {
     //Camera Effects||
 
+        [Header("Special effects")]
         public GameObject snow;
         public GameObject rain;
         public GameObject raysOfLight;
+        
+        [Header("Elements")]
+        public GameObject minimapText;
     //______________||
 
     //Variables||
@@ -82,7 +86,7 @@ public class RegionalSystem : MonoBehaviour
                 },
                 {
                 "frostDungeon", //ID
-                new regionData("Frost Dungeon"/*Name*/, musicLib.frostDungeonMusic /*Music*/, snow /*effect*/)
+                new regionData("Frost Dungeon Entrance"/*Name*/, musicLib.frostDungeonMusic /*Music*/, snow /*effect*/)
                 },
                 {
                 "coast", //ID
@@ -104,6 +108,8 @@ public class RegionalSystem : MonoBehaviour
         StopAllCoroutines();                                    //Cancel the coroutines
 
         regionData changedAreaData = regionsInfo[currentArea];  //Get the data from the new area
+
+        minimapText.GetComponent<Text>().text = changedAreaData.name;    //Update region name
 
         StartCoroutine(textAnimation(changedAreaData.name));                    //Call the UI text animation
 

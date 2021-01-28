@@ -29,6 +29,21 @@ public class teleportsBack : MonoBehaviour
                     //check if the player exists
                     if(player != null)
                     {
+                        string regionName = "";
+
+                        //Check on which region is the outside of the dungeon
+                        switch(dungeonName.ToLower())
+                        {
+                            case "deadmines":
+                                regionName = "dmF";
+                                break;
+                            case "frostcave":
+                                regionName = "frostDungeon";
+                                break;
+                        }
+
+                        GameObject.FindGameObjectWithTag("mainUI").GetComponent<RegionalSystem>().currentArea = regionName;
+                        GameObject.FindGameObjectWithTag("mainUI").GetComponent<RegionalSystem>().changedArea();
 
                         //teleports the player to the correct location
                         player.GetComponent<Transform>().position = new Vector2(location.position.x, location.position.y);
@@ -41,9 +56,9 @@ public class teleportsBack : MonoBehaviour
             Destroy(dungeonData);
 
         }else{
-            Vector2 spawningArea = gameObject.transform.Find("Start").position;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().MovePosition(spawningArea);
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().position = new Vector3(spawningArea.x, spawningArea.y, gameObject.transform.position.z);
+            Vector2 spawningArea = gameObject.transform.Find("spawnPoint").GetComponent<Transform>().position;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position = new Vector3(spawningArea.x, spawningArea.y, 0);
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>().position = new Vector3(spawningArea.x, spawningArea.y, -10);
         }   
     }
 
