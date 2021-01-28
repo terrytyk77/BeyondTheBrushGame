@@ -106,6 +106,7 @@ public class CameraBehavior : MonoBehaviour
         }
 
         //Set the player camera
+        if(GameObject.FindGameObjectWithTag("UIcamera"))
         GameObject.FindGameObjectWithTag("UIcamera").transform.localPosition = new Vector3(playerPosition.x, playerPosition.y, -10);
         GameObject minimapCamera = GameObject.FindGameObjectWithTag("minimapCamera");
         if(minimapCamera)
