@@ -88,12 +88,13 @@ public class CurrentDungeonData : MonoBehaviour
         //Counters
         public int amountOfChests = 0;                                      //Keeps track of the amount of time that the player has died
         public int amountOfDeaths = 0;                                      //Keeps track of the amount of deaths that the player has
-    //_________||
+        public int amountOfCompletedRooms = 0;                              //Keeps track of the amount of completed rooms that the player has
+        //_________||
 
 
 
     /*      Unity life cycle methods    */
-        private void Start()                                                                    //This method gets called at the start of the dungeon
+    private void Start()                                                                    //This method gets called at the start of the dungeon
         {
             UIsoundEffect = GameObject.FindGameObjectWithTag("mainUI").GetComponent<UIsfx>();   //Get the UI library for the sound effects
             List<Dungeon> dungeonsList = dungeonsData.GetComponent<DungeonsAPI>().dungeons;     //Get the list of dungeons
@@ -358,16 +359,14 @@ public class CurrentDungeonData : MonoBehaviour
         if (RoomWeAreIn.getCompleted())                             //Check if this room has already been completed
             return;                                                 //If this room has already been completed then stop the rest of the code from running
 
+        amountOfCompletedRooms++;                                   //Augment the counter of completed rooms
+        RoomWeAreIn.setCompleted(true);                             //Change the current room completion status
+        updateMap();                                                //Update the minimap
+
         //Calculate the rewards window info||
 
-            //some math here xd
-            int totalAmountOfResources = currentDungeon.baseReward;
-            int amountOfCompletedRooms = 1;
-
-            foreach(roomPos room  in map)                               //Loop through the rooms
-            {
-                if (room.room.getCompleted()) amountOfCompletedRooms++; //Add to the holder all completed rooms
-            }
+        //some math here xd
+        int totalAmountOfResources = currentDungeon.baseReward;
 
             if(amountOfCompletedRooms % 3 == 0)
             {
@@ -375,12 +374,7 @@ public class CurrentDungeonData : MonoBehaviour
                 PlayerData.resources += totalAmountOfResources;                         //Add the amount of player resources
                 setupCompletedReward(totalAmountOfResources, amountOfCompletedRooms);   //Handle the rewards window info
             }
-
         //_________________________________||
-
-        
-        RoomWeAreIn.setCompleted(true);                             //Change the current room completion status
-        updateMap();                                                //Update the minimap
     }
 
 
@@ -613,7 +607,6 @@ public class CurrentDungeonData : MonoBehaviour
                     }
                 }
 
-
             }
 
             for (int i = 0; i < toBeRemovedRooms.Count; i++)    //Loop through rooms that need to be removed
@@ -688,7 +681,6 @@ public class CurrentDungeonData : MonoBehaviour
             if (nextRoomElement.roomPrefab == null)                                                             //Check if there is a room at the right
                 addNewRoom("right");                                                                            //If there isn't then request for one
         }
-
 
     }
 

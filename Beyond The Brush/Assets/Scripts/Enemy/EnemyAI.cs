@@ -10,7 +10,8 @@ public class EnemyAI : MonoBehaviour
     //Stats       ||
     [Header("Enemy Stats")]
         public string enemyType;
-        public int damage;
+        public float damage;
+        public int level;
         public float maxHealth;
         public int experience;
         public float walkingMovementSpeed;
@@ -28,6 +29,7 @@ public class EnemyAI : MonoBehaviour
 
     //Image         ||
         public GameObject healthBar;
+        public Transform levelText;
         public GameObject enemyProjectile;
     //--------------||
 
@@ -77,6 +79,9 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Set Stats Depending on Level
+        setStats();
+
         collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
         collisionTilemap = collisionObject.GetComponent<Tilemap>();
         HalfTile = new Vector3(collisionTilemap.cellSize.x / 2, collisionTilemap.cellSize.y / 1.25f, 0);
@@ -96,6 +101,7 @@ public class EnemyAI : MonoBehaviour
     {
         //Get Player Position
         player = GameObject.FindGameObjectWithTag("Player");
+
         GetEnemyDirection();
 
         //State Machine
@@ -359,7 +365,7 @@ public class EnemyAI : MonoBehaviour
     public void dealDamage()
     {
         //Send the damage request to the player
-        PlayerData.damagePlayer(damage);
+        PlayerData.damagePlayer((int)Mathf.Ceil(damage));
     }
 
     private void ResetHP()
@@ -440,6 +446,25 @@ public class EnemyAI : MonoBehaviour
         transform.position = startingPosition;
         currentPath = null;
         currentState = State.Patrolling;
+    }
+
+    public void setStats()
+    {
+        float incrementEveryLevel = 0.1f;
+        int amountOfRoomsCompleted = GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().amountOfCompletedRooms;
+
+        //Augment level every 3 room completed
+        level += (int)amountOfRoomsCompleted / 3;
+
+        //Change Level Text
+        levelText.GetComponent<Text>().text = level.ToString();
+
+        //Calculate Stats per level
+        for(int i = 0; i < level - 1; i++)
+        {
+            damage += damage * incrementEveryLevel;
+            maxHealth += maxHealth * incrementEveryLevel;
+        }
     }
 
     private void OnDrawGizmos()

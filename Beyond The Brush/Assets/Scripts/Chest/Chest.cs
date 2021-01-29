@@ -61,10 +61,8 @@ public class Chest : MonoBehaviour
             collisionTilemap = collisionObject.GetComponent<Tilemap>();
         }
 
-        //Coins
         if (!spawnedObject)
         {
-            GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().amountOfChests++;
             spawnedObject = gameObject.transform.parent.parent.Find("SpawnedObjects").gameObject;
         }
 
@@ -87,6 +85,7 @@ public class Chest : MonoBehaviour
 
         if (gameObject)
         {
+            GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().amountOfChests++;
             Destroy(gameObject);
             collisionTilemap.SetTile(collisionTile, null);
         }

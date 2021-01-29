@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 7173066085680047717}
   - component: {fileID: 7170978052404063911}
   m_Layer: 5
-  m_Name: Text
+  m_Name: LevelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -667,7 +667,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2
+  m_Text: 3
 --- !u!114 &7170978052404063911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -921,6 +921,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: Melee
   damage: 15
+  level: 3
   maxHealth: 110
   experience: 25
   walkingMovementSpeed: 2.5
@@ -931,4 +932,5 @@ MonoBehaviour:
   minPatrolRange: 2
   maxPatrolRange: 6
   healthBar: {fileID: 7067867995377011219}
+  levelText: {fileID: 6991896332156728089}
   enemyProjectile: {fileID: 0}

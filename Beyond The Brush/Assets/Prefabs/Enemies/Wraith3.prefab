@@ -324,6 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: Ranged
   damage: 15
+  level: 1
   maxHealth: 70
   experience: 15
   walkingMovementSpeed: 1.5
@@ -334,6 +335,7 @@ MonoBehaviour:
   minPatrolRange: 1
   maxPatrolRange: 3
   healthBar: {fileID: 4939915628599338985}
+  levelText: {fileID: 2776559167887529778}
   enemyProjectile: {fileID: 9122027484780612759, guid: 83084d98402bd5a4f9cd08132ea3c784, type: 3}
 --- !u!95 &2774145579693850849
 Animator:
@@ -636,7 +638,7 @@ GameObject:
   - component: {fileID: 6579988858790899358}
   - component: {fileID: 4271358284211183711}
   m_Layer: 5
-  m_Name: Text
+  m_Name: LevelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
