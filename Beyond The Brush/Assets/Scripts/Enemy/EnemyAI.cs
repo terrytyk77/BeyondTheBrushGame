@@ -103,6 +103,7 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         GetEnemyDirection();
+        LayeringUpdate();
 
         //State Machine
         switch (currentState)
@@ -422,6 +423,18 @@ public class EnemyAI : MonoBehaviour
     {
         GameObject projectile = Instantiate(enemyProjectile, spawnPosition, Quaternion.identity);
         projectile.transform.SetParent(transform);
+    }
+
+    private void LayeringUpdate()
+    {
+        if(gameObject.transform.position.y > player.transform.position.y)
+        {
+            gameObject.GetComponent<SortingGroup>().sortingOrder = -10;
+        }
+        else
+        {
+            gameObject.GetComponent<SortingGroup>().sortingOrder = 10;
+        }
     }
 
     private void Fire()
