@@ -103,6 +103,7 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         GetEnemyDirection();
+        LayeringUpdate();
 
         //State Machine
         switch (currentState)
@@ -401,7 +402,7 @@ public class EnemyAI : MonoBehaviour
          gameObject.transform.Find("Canvas").gameObject.SetActive(false);
 
         //Remove Box Collider
-        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        gameObject.transform.Find("ActualHitBox").GetComponent<BoxCollider2D>().enabled = false;
         
         //Grant Exp to the Player
         PlayerData.addPlayerExp(experience);
@@ -422,6 +423,21 @@ public class EnemyAI : MonoBehaviour
     {
         GameObject projectile = Instantiate(enemyProjectile, spawnPosition, Quaternion.identity);
         projectile.transform.SetParent(transform);
+    }
+
+    private void LayeringUpdate()
+    {
+        if(currentHealth > 0)
+        {
+            if (gameObject.transform.position.y > player.transform.position.y)
+            {
+                gameObject.GetComponent<SortingGroup>().sortingOrder = -10;
+            }
+            else
+            {
+                gameObject.GetComponent<SortingGroup>().sortingOrder = 10;
+            }
+        }
     }
 
     private void Fire()
