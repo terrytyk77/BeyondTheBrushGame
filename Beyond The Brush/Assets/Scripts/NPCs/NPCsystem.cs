@@ -5,21 +5,40 @@ using UnityEngine;
 
 public class NPCsystem : MonoBehaviour
 {
+    //Dialog structure||
+
+        [System.Serializable]
+        public class dialogShape{
+
+            public string message;
+        }
+    //________________||
+
     //Variables||
 
         private bool isInRange = false;             //Weather the player is in range or not
         private GameObject interectionDisplay;      //Stored reference of the NPC canvas
-        private float requiredHoldTime = 2f;        //Amount of time required to open the chat
+        private float requiredHoldTime = 1.2f;      //Amount of time required to open the chat
         private float currentHold = 0f;             //The current amount of holding that was given
         private KeyCode interectionKey = KeyCode.E; //The key that is used to activate the interection
         private bool showingDialog = false;         //Weather the chat has already been open or not
         private float maximiumSize = 1.2f;          //Maximium Size of the circle on hold
+        private GameObject dialogBox;               //Holds the dialog box for the NPCs
     //_________||
+
+    //Editable variables||
+
+        [Header("npcs details")]
+        public string name = "";
+        public string startingMessage = "";
+        public List<dialogShape> dialogMessages;
+    //__________________||
 
     private void Start()
     {
-        interectionDisplay = gameObject.transform.Find("Canvas").gameObject;    //Store the canvas element
-        interectionDisplay.SetActive(false);                                    //Hide it from the player
+        interectionDisplay = gameObject.transform.Find("Canvas").gameObject;                            //Store the canvas element
+        interectionDisplay.SetActive(false);                                                            //Hide it from the player
+        dialogBox = GameObject.FindGameObjectWithTag("mainUI").transform.Find("DialogBox").gameObject;  //Store the dialog box
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -101,9 +120,31 @@ public class NPCsystem : MonoBehaviour
     }
 
     private void openDialog(){
-        Debug.Log("A dialog was open");
+        dialogBox.transform.Find("NamePlate").GetComponent<Image>().fillAmount = 0; //Reset the name plate fill
+        dialogBox.transform.Find("MainFrame").GetComponent<Image>().fillAmount = 0; //Reset the main frame fill
+        dialogBox.GetComponent<CanvasGroup>().alpha = 1;                            //Turn the box visible
+        dialogBox.transform.Find("NamePlate").Find("npcName").GetComponent<Text>().text = "";
+        dialogBox.transform.Find("MainFrame").Find("npcMessage").GetComponent<Text>().text = "";
+        StartCoroutine(paintDialog());                                              //Start the painting animation
     }
 
+    private IEnumerator paintDialog(){                                                  //Dynamacly draw the dialog box
+
+        Image mainPlate = dialogBox.transform.Find("MainFrame").GetComponent<Image>();  //Hold the main frame image
+        Image namePlate = dialogBox.transform.Find("NamePlate").GetComponent<Image>();  //Hold the name place image
+
+        while (mainPlate.fillAmount < 1){                                               //Check if the fill has already complete
+            mainPlate.fillAmount += 0.02f;                                              //Add more fill into the image
+            yield return new WaitForSeconds(0.005f);                                    //Wait for x amount of time
+        }
+
+        while(namePlate.fillAmount < 1){                                                //Check if the fill has already complete
+            namePlate.fillAmount += 0.02f;                                              //Add more fill into the image
+            yield return new WaitForSeconds(0.005f);                                    //Wait for x amount of time
+        }
+
+        yield return null;                                                              //End the coroutine
+    }
 
     private IEnumerator popCircle(bool direction){
 
