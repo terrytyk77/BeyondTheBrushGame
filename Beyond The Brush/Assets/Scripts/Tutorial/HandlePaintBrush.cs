@@ -47,8 +47,6 @@ public class HandlePaintBrush : MonoBehaviour
                 circleDots.Add(dot);
             }
         //________________||
-
-        drawBox();
     }
 
     public void stopDrawing(){

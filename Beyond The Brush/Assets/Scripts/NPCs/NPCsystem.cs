@@ -22,7 +22,7 @@ public class NPCsystem : MonoBehaviour
     //Handle events||
 
         public delegate void EndedConversation(string id);
-        public static event EndedConversation convEnded;
+        public static event EndedConversation convChanged;
     //_____________||
 
     //Variables||
@@ -209,16 +209,18 @@ public class NPCsystem : MonoBehaviour
             StartCoroutine(writeMessage(startingMessage));  //Start the chat
         }else if(currentMessage < dialogMessages.Count)
         {
+
+            if (convChanged != null && dialogMessages.Count > 0 && currentMessage != 0)
+                convChanged(dialogMessages[currentMessage-1].id);                   //Trigger the event
             StartCoroutine(writeMessage(dialogMessages[currentMessage].message));  //Start the chat
         }else{
+            if (convChanged != null && dialogMessages.Count > 0)
+                convChanged(dialogMessages[dialogMessages.Count - 1].id);                        //Trigger the event
             conversationEnded();                                                    //Reset everything
         }
-
     }
 
     private void conversationEnded(){
-        if(convEnded != null && dialogMessages.Count > 0)
-            convEnded(dialogMessages[dialogMessages.Count - 1].id);                        //Trigger the event
         showingDialog = false;                      //Tell the code that the dialog is no longer being shown
         waitingForUserInput = false;                //No longer listening to user input
         currentMessage = -1;                        //Reset the current message index
