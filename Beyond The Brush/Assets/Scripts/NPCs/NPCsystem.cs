@@ -14,6 +14,12 @@ public class NPCsystem : MonoBehaviour
         }
     //________________||
 
+    //Handle events||
+
+        public delegate void EndedConversation(string name);
+        public static event EndedConversation convEnded;
+    //_____________||
+
     //Variables||
 
         private bool isInRange = false;             //Weather the player is in range or not
@@ -73,8 +79,7 @@ public class NPCsystem : MonoBehaviour
     {
 
         if(Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
-        {    //The user pressed any key
-            Debug.Log("Got input");
+        {    
             if(waitingForUserInput)
             {
                 Image markerComponent = dialogBox.transform.Find("Marker").GetComponent<Image>();
@@ -203,6 +208,8 @@ public class NPCsystem : MonoBehaviour
     }
 
     private void conversationEnded(){
+        if(convEnded != null)
+            convEnded(name);                        //Trigger the event
         showingDialog = false;                      //Tell the code that the dialog is no longer being shown
         waitingForUserInput = false;                //No longer listening to user input
         currentMessage = -1;                        //Reset the current message index
