@@ -555,17 +555,31 @@ public class UIevents : MonoBehaviour
 
             //shield
             string shieldSkillText = "";
-            if (PlayerData.shieldCooldown > 0 && PlayerData.shieldCooldown < 1)
-            {
-                shieldSkillText = shieldSkillText + decimal.Round((decimal)PlayerData.shieldCooldown, 1);
-            }else if(PlayerData.shieldCooldown > 0){
-                shieldSkillText = shieldSkillText +  Mathf.RoundToInt(PlayerData.shieldCooldown);
-            }
+            if(PlayerData.shieldCurrentStack < 1) {
+                if (PlayerData.shieldCooldown > 0 && PlayerData.shieldCooldown < 1)
+                {
+                    shieldSkillText = shieldSkillText + decimal.Round((decimal)PlayerData.shieldCooldown, 1);
+                }else if(PlayerData.shieldCooldown > 0){
+                    shieldSkillText = shieldSkillText +  Mathf.RoundToInt(PlayerData.shieldCooldown);
+                }
 
-            cooldowns.shieldSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.shieldCooldown / PlayerData.shieldCooldownDefault);
-            if (PlayerData.talentTreeData.node3 == true)
+                cooldowns.shieldSkill.transform.Find("Cooldown").GetComponent<Image>().color = new Color(0f,0f,0f,0.7f);
+                cooldowns.shieldSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.shieldCooldown / PlayerData.shieldCooldownDefault);
+                
+                if (PlayerData.talentTreeData.node3 == true)
+                {
+                    cooldowns.shieldSkill.transform.Find("StackText").GetComponent<Text>().text = "";
+                }
+            }
+            else
             {
-                cooldowns.shieldSkill.transform.Find("StackText").GetComponent<Text>().text = PlayerData.shieldCurrentStack.ToString();
+                cooldowns.shieldSkill.transform.Find("Cooldown").GetComponent<Image>().color = new Color(0f, 0f, 0f, 0.25f);
+                cooldowns.shieldSkill.transform.Find("Cooldown").GetComponent<Image>().fillAmount = (PlayerData.shieldCooldown / PlayerData.shieldCooldownDefault);
+                
+                if (PlayerData.talentTreeData.node3 == true)
+                {
+                    cooldowns.shieldSkill.transform.Find("StackText").GetComponent<Text>().text = PlayerData.shieldCurrentStack.ToString();
+                }
             }
 
             cooldowns.shieldSkill.transform.Find("CooldownText").GetComponent<Text>().text = shieldSkillText;
