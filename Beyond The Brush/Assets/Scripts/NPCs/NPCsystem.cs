@@ -24,6 +24,11 @@ public class NPCsystem : MonoBehaviour
         private bool showingDialog = false;         //Weather the chat has already been open or not
         private float maximiumSize = 1.2f;          //Maximium Size of the circle on hold
         private GameObject dialogBox;               //Holds the dialog box for the NPCs
+
+        private bool waitingForUserInput = false;   //It's waiting for the user to press something
+        private int currentMessage = -1;            //The current NPC message that we're on
+
+        private Vector2 markerStartingPos;          //Store the starting position of the marker
     //_________||
 
     //Editable variables||
@@ -39,6 +44,7 @@ public class NPCsystem : MonoBehaviour
         interectionDisplay = gameObject.transform.Find("Canvas").gameObject;                            //Store the canvas element
         interectionDisplay.SetActive(false);                                                            //Hide it from the player
         dialogBox = GameObject.FindGameObjectWithTag("mainUI").transform.Find("DialogBox").gameObject;  //Store the dialog box
+        markerStartingPos = dialogBox.transform.Find("Marker").transform.localPosition;                 //Store the marker position
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -63,12 +69,26 @@ public class NPCsystem : MonoBehaviour
     }
 
 
-    private void FixedUpdate()
+    private void Update()
     {
+
+        if(Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        {    //The user pressed any key
+            Debug.Log("Got input");
+            if(waitingForUserInput)
+            {
+                Image markerComponent = dialogBox.transform.Find("Marker").GetComponent<Image>();
+                markerComponent.color = new Color(255, 255, 255, 0);
+                currentMessage++;                           //Move to the next index
+                StopAllCoroutines();                        //Reset the coroutines to stop the text
+                handleConversation();                       //Continue the conversation if possible
+            }
+        }
+
         Transform circleElement = interectionDisplay.transform.Find("Circle");              //Get the circle element
 
         if (isInRange && Input.GetKey(interectionKey)){
-            if(currentHold + Time.fixedDeltaTime >= requiredHoldTime && !showingDialog)   //Check if the user already holded for enough time
+            if(currentHold + Time.deltaTime >= requiredHoldTime && !showingDialog)   //Check if the user already holded for enough time
             {
                 currentHold = requiredHoldTime; //Fix the time display
                 showingDialog = true;           //Tell the holder that the dialog is currently open
@@ -79,7 +99,7 @@ public class NPCsystem : MonoBehaviour
                 StopAllCoroutines();                                                    //Stop all animations
                 circleElement.rotation *= Quaternion.Euler(0, 0, 0.5f);                 //Add rotation to the circle
                 circleElement.Find("Text").rotation *= Quaternion.Euler(0, 0, -0.5f);   //Negate this rotation on the text
-                currentHold += Time.fixedDeltaTime;                                     //Add the holding amount of time
+                currentHold += Time.deltaTime;                                     //Add the holding amount of time
                 float amountToAdd = (currentHold * (maximiumSize - 1)) / requiredHoldTime;
 
                 if (circleElement.localScale.x < maximiumSize)
@@ -94,7 +114,7 @@ public class NPCsystem : MonoBehaviour
         {
             if(currentHold > 0)
             {
-                currentHold -= Time.fixedDeltaTime;
+                currentHold -= Time.deltaTime;
                 float amountToAdd = (currentHold * (maximiumSize - 1)) / requiredHoldTime;
                 circleElement.rotation *= Quaternion.Euler(0, 0, -0.5f);                 //Add rotation to the circle
                 circleElement.Find("Text").rotation *= Quaternion.Euler(0, 0, +0.5f);   //Negate this rotation on the text
@@ -120,6 +140,10 @@ public class NPCsystem : MonoBehaviour
     }
 
     private void openDialog(){
+        GameObject.FindGameObjectWithTag("Player")
+                  .GetComponent<Rigidbody2D>()
+                  .constraints = RigidbodyConstraints2D.FreezeAll;                  //Freeze the player as he speaks to the NPC
+
         dialogBox.transform.Find("NamePlate").GetComponent<Image>().fillAmount = 0; //Reset the name plate fill
         dialogBox.transform.Find("MainFrame").GetComponent<Image>().fillAmount = 0; //Reset the main frame fill
         dialogBox.GetComponent<CanvasGroup>().alpha = 1;                            //Turn the box visible
@@ -143,7 +167,103 @@ public class NPCsystem : MonoBehaviour
             yield return new WaitForSeconds(0.005f);                                    //Wait for x amount of time
         }
 
+
+        StartCoroutine(writeNameplate());                                               //Write the name of the NPC
         yield return null;                                                              //End the coroutine
+    }
+
+    private IEnumerator writeNameplate(){
+        Text npcName = dialogBox.transform.Find("NamePlate")        //Get the text componenet of the nameplate
+                                          .Find("npcName")
+                                          .GetComponent<Text>();
+
+        while(npcName.text.Length < name.Length){                   //Check if the text is already complete or not
+            npcName.text += name[npcName.text.Length];              //Add a letter to the text
+            yield return new WaitForSeconds(0.075f);                //yield for x amount of time
+        }
+
+        handleConversation();                                       //Handle the following conversation
+
+        yield return null;
+    }
+
+    private void handleConversation(){
+
+        if(currentMessage == -1)
+        {
+            waitingForUserInput = true;                     //The code can now expect user input
+            StartCoroutine(writeMessage(startingMessage));  //Start the chat
+        }else if(currentMessage < dialogMessages.Count)
+        {
+            StartCoroutine(writeMessage(dialogMessages[currentMessage].message));  //Start the chat
+        }else{
+            conversationEnded();                                                    //Reset everything
+        }
+
+    }
+
+    private void conversationEnded(){
+        showingDialog = false;                      //Tell the code that the dialog is no longer being shown
+        waitingForUserInput = false;                //No longer listening to user input
+        currentMessage = -1;                        //Reset the current message index
+        GameObject.FindGameObjectWithTag("Player")  //Unfreeze the player
+          .GetComponent<Rigidbody2D>()
+          .constraints = RigidbodyConstraints2D.FreezeRotation;
+        StartCoroutine(dialogFadeAway());           //Make the dialog go away
+    }
+
+    IEnumerator dialogFadeAway(){
+        CanvasGroup boxCanvas = dialogBox.GetComponent<CanvasGroup>();
+
+        while(boxCanvas.alpha > 0){
+            boxCanvas.alpha -= 0.075f;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        yield return null;
+    }
+
+    private IEnumerator writeMessage(string message){
+
+        Text npcMessage = dialogBox.transform.Find("MainFrame")     //Get the text component of the NPC message
+                                     .Find("npcMessage")
+                                     .GetComponent<Text>();
+
+        npcMessage.text = "";                                       //Reset the text message
+
+        while(npcMessage.text.Length < message.Length){
+            npcMessage.text += message[npcMessage.text.Length];     //Add a character to the message
+            yield return new WaitForSeconds(0.025f);                //Yield for x amount of time
+        }
+
+        StartCoroutine(markerMovement());                           //Start the market movement
+        yield return null;
+    }
+
+    private IEnumerator markerMovement(){
+
+        Image markerComponent = dialogBox.transform.Find("Marker").GetComponent<Image>();
+        markerComponent.color = new Color(255, 255, 255, 255);
+        bool direction = false; //False for down, true for up
+
+        while(true){
+            if(direction){
+                markerComponent.transform.localPosition += new Vector3(0, 0.375f, 0);
+                if (markerComponent.transform.localPosition.y > markerStartingPos.y + 6)
+                    direction = false;
+
+                yield return new WaitForSeconds(0.025f);
+            }
+            else{
+                markerComponent.transform.localPosition -= new Vector3(0, 0.375f, 0);
+
+                if (markerComponent.transform.localPosition.y < markerStartingPos.y - 6)
+                    direction = true;
+
+                yield return new WaitForSeconds(0.025f);
+            }
+        }
+
     }
 
     private IEnumerator popCircle(bool direction){
