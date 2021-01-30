@@ -14,7 +14,7 @@ public class DrawingLocation{
 
 	public Vector2 middle;
 
-	public DrawingLocation(float biggerX, float smallerX, float biggerY, float smallerY)
+    public DrawingLocation(float biggerX, float smallerX, float biggerY, float smallerY)
 	{
 		//Set the points
 		sX = smallerX;
@@ -30,9 +30,12 @@ public class DrawingLocation{
 
 public class OnDrawEvent : MonoBehaviour
 {
-	//Variables||
+    public delegate void DrawnShape(string id);
+    public static event DrawnShape shapeDrawn;
 
-		public GameObject line;
+    //Variables||
+
+    public GameObject line;
 		public GameObject box;
 		public GameObject stone;
 		public GameObject player;
@@ -238,8 +241,10 @@ public class OnDrawEvent : MonoBehaviour
                     {
                         if (PlayerData.slashCooldown <= 0 && result.score.score >= 0.8f)
                         {
+                            if(shapeDrawn != null)
+                                shapeDrawn(result.gesture.id);
 
-							playerHorizontal.GetComponent<Animator>().SetTrigger("Slash");
+                            playerHorizontal.GetComponent<Animator>().SetTrigger("Slash");
 							playerVertical.GetComponent<Animator>().SetTrigger("Slash");
 							HoverEnemy(location, PlayerData.slashDamage);
 						}
@@ -252,7 +257,10 @@ public class OnDrawEvent : MonoBehaviour
                         {
                             if (result.score.score >= 0.7f && PlayerData.shieldCurrentStack > 0)
                             {
-								playerHorizontal.GetComponent<Animator>().SetTrigger("Shield");
+                                if (shapeDrawn != null)
+                                    shapeDrawn("shield");
+
+                                playerHorizontal.GetComponent<Animator>().SetTrigger("Shield");
 								playerVertical.GetComponent<Animator>().SetTrigger("Shield");
 								if(PlayerData.shieldCurrentStack >= PlayerData.shieldMaxStack)
                                 {
@@ -271,7 +279,10 @@ public class OnDrawEvent : MonoBehaviour
                         {
 							if (PlayerData.rockCooldown <= 0)
                             {
-								PlayerData.rockCooldown = PlayerData.rockSpawnCooldownDefault;
+                                if (shapeDrawn != null)
+                                    shapeDrawn("rock");
+
+                                PlayerData.rockCooldown = PlayerData.rockSpawnCooldownDefault;
 								SpawnObject(location, stone);
 							}
 						}
@@ -281,6 +292,8 @@ public class OnDrawEvent : MonoBehaviour
 					{
 						if (PlayerData.xslashCooldown <= 0)
 						{
+                            if (shapeDrawn != null)
+                                shapeDrawn(result.gesture.id);
                             switch (PlayerData.playerDirection)
                             {
 								case 0:
@@ -315,7 +328,9 @@ public class OnDrawEvent : MonoBehaviour
 					{
                         if (PlayerData.boxCooldown <= 0 && !HoverPlayer(location))
                         {
-							PlayerData.boxCooldown = PlayerData.boxSpawnCooldownDefault;
+                            if (shapeDrawn != null)
+                                shapeDrawn(result.gesture.id);
+                            PlayerData.boxCooldown = PlayerData.boxSpawnCooldownDefault;
 							SpawnObject(location, box);
                         }
 

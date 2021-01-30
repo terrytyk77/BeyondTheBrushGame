@@ -51,6 +51,7 @@ public class TutorialSystem : MonoBehaviour
         playerRB = GameObject.FindGameObjectWithTag("Player")
                              .GetComponent<Rigidbody2D>();              //Get the player rigidbody
         NPCsystem.convChanged += whatToDo;                              //Add the function into the listeners
+        OnDrawEvent.shapeDrawn += drawnShape;                           //Add the function into the drawing listener
         npcSystem = mainNPC.GetComponent<NPCsystem>();                  //Get the NPC component
 
         canvasBrush = tutorialCanvas.transform.parent.GetComponent<HandlePaintBrush>();  //Store the canvas of the brush
@@ -75,6 +76,9 @@ public class TutorialSystem : MonoBehaviour
         npcSystem.StartNPCdialog();
     }
 
+    private void drawnShape(string id){
+        Debug.Log(id);
+    }
     private void whatToDo(string id){
         switch(id){
             case "a":
