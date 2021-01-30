@@ -9,14 +9,19 @@ public class NPCsystem : MonoBehaviour
 
         [System.Serializable]
         public class dialogShape{
-
+            public string id;
             public string message;
+
+            public dialogShape(string i, string m){
+                id = i;
+                message = m;
+            }
         }
     //________________||
 
     //Handle events||
 
-        public delegate void EndedConversation(string name);
+        public delegate void EndedConversation(string id);
         public static event EndedConversation convEnded;
     //_____________||
 
@@ -45,7 +50,7 @@ public class NPCsystem : MonoBehaviour
         public List<dialogShape> dialogMessages;
     //__________________||
 
-    private void Start()
+    private void Awake()
     {
         interectionDisplay = gameObject.transform.Find("Canvas").gameObject;                            //Store the canvas element
         interectionDisplay.SetActive(false);                                                            //Hide it from the player
@@ -95,9 +100,7 @@ public class NPCsystem : MonoBehaviour
         if (isInRange && Input.GetKey(interectionKey)){
             if(currentHold + Time.deltaTime >= requiredHoldTime && !showingDialog)   //Check if the user already holded for enough time
             {
-                currentHold = requiredHoldTime; //Fix the time display
-                showingDialog = true;           //Tell the holder that the dialog is currently open
-                openDialog();                   //Open the dialog method
+                StartNPCdialog();
             }
             else if(currentHold < requiredHoldTime)
             {
@@ -142,6 +145,12 @@ public class NPCsystem : MonoBehaviour
         }
 
         circleElement.GetComponent<Image>().fillAmount = currentHold / requiredHoldTime;  //Change the circle fill
+    }
+
+    public void StartNPCdialog(){
+        currentHold = requiredHoldTime; //Fix the time display
+        showingDialog = true;           //Tell the holder that the dialog is currently open
+        openDialog();                   //Open the dialog method
     }
 
     private void openDialog(){
@@ -208,8 +217,8 @@ public class NPCsystem : MonoBehaviour
     }
 
     private void conversationEnded(){
-        if(convEnded != null)
-            convEnded(name);                        //Trigger the event
+        if(convEnded != null && dialogMessages.Count > 0)
+            convEnded(dialogMessages[dialogMessages.Count - 1].id);                        //Trigger the event
         showingDialog = false;                      //Tell the code that the dialog is no longer being shown
         waitingForUserInput = false;                //No longer listening to user input
         currentMessage = -1;                        //Reset the current message index
