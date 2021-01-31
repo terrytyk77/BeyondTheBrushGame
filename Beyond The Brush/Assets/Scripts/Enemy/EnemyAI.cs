@@ -9,28 +9,28 @@ public class EnemyAI : MonoBehaviour
 {
     //Stats       ||
     [Header("Enemy Stats")]
-        public string enemyType;
-        public float damage;
-        public int level;
-        public float maxHealth;
-        public int experience;
-        public float walkingMovementSpeed;
-        public float fleeingMovementSpeed;
+    public string enemyType;
+    public float damage;
+    public int level;
+    public float maxHealth;
+    public int experience;
+    public float walkingMovementSpeed;
+    public float fleeingMovementSpeed;
     //--------------||
 
     //Ranges        ||
     [Header("Enemy Ranges")]
-        public float aggroRange;
-        public float chaseRange;
-        public float attackRange;
-        public float minPatrolRange;
-        public float maxPatrolRange;
+    public float aggroRange;
+    public float chaseRange;
+    public float attackRange;
+    public float minPatrolRange;
+    public float maxPatrolRange;
     //--------------||
 
     //Image         ||
-        public GameObject healthBar;
-        public Transform levelText;
-        public GameObject enemyProjectile;
+    public GameObject healthBar;
+    public Transform levelText;
+    public GameObject enemyProjectile;
     //--------------||
 
     //Enemy State   ||
@@ -76,11 +76,14 @@ public class EnemyAI : MonoBehaviour
     private bool attackEnded;
     private bool castEnded;
 
+    public float getHealth { get { return currentHealth; } }
+
     // Start is called before the first frame update
     void Start()
     {
         //Set Stats Depending on Level
-        setStats();
+        if(GameObject.FindGameObjectWithTag("proceduralData"))
+            setStats();
 
         collisionObject = GameObject.FindGameObjectWithTag("CollisionLayer");
         collisionTilemap = collisionObject.GetComponent<Tilemap>();
