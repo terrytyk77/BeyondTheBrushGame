@@ -18,7 +18,7 @@ public class TutorialSystem : MonoBehaviour
 
     //Tutorial stages||
 
-        private int currentStage = 0;       //Stores the current tutorial stage
+        private int currentStage = 11;       //Stores the current tutorial stage
 
         //For stage 1
         private bool alreadMoved = false;   //Check if the player already moved
@@ -32,8 +32,8 @@ public class TutorialSystem : MonoBehaviour
         private bool drawnHorizontal = false;
         private bool drawnXspell = false;
         private bool drawnShield = false;
-        private bool drawnRock = false;
-        private bool drawnCrate = false;
+        private bool drawnRock = true;
+        private bool drawnCrate = true;
     //_______________||
 
     //Hold all the new messages||
@@ -43,6 +43,7 @@ public class TutorialSystem : MonoBehaviour
         private List<NPCsystem.dialogShape> stage5Dialog = new List<NPCsystem.dialogShape>();
         private List<NPCsystem.dialogShape> stage8Dialog = new List<NPCsystem.dialogShape>();
         private List<NPCsystem.dialogShape> stage10Dialog = new List<NPCsystem.dialogShape>();
+        private List<NPCsystem.dialogShape> stage12Dialog = new List<NPCsystem.dialogShape>();
     //_________________________||
 
     //Stages info||
@@ -59,6 +60,7 @@ public class TutorialSystem : MonoBehaviour
      *Stage 9 -> forces the player to do the shield
      *Stage 10 -> talks to the player about object spawning
      *Stage 11 -> forces the player to spawn a rock and a crate
+     *Stage 12 -> Ended the drawing, now the player will fight against a mob
     */
     //___________||
 
@@ -110,9 +112,15 @@ public class TutorialSystem : MonoBehaviour
             stage10Dialog.Add(new NPCsystem.dialogShape("", "pressure plates always have a drawing on top of them. This drawing is either a circle or a square..."));
             stage10Dialog.Add(new NPCsystem.dialogShape("", "in case they have a circle then you'll need to spawn a rock, if they have a square on the other hand you'll need a crate..."));
             stage10Dialog.Add(new NPCsystem.dialogShape("drawObjects", "before we continue let's spawn both a rock and a crate!"));
+
+            //Stage 12
+            stage12Dialog.Add(new NPCsystem.dialogShape("cameraShake", "..."));
+            stage12Dialog.Add(new NPCsystem.dialogShape("moveCamera", "what was that?"));
+            stage12Dialog.Add(new NPCsystem.dialogShape("", "a wave of enemies!"));
+            stage12Dialog.Add(new NPCsystem.dialogShape("killEnemies", "this is a great opportunity for you to test your new skills!"));
         //_________________||
 
-        npcSystem.StartNPCdialog();
+        //npcSystem.StartNPCdialog();
     }
 
     private void drawnShape(string id){
@@ -271,7 +279,9 @@ public class TutorialSystem : MonoBehaviour
         //Stage 11
         if(currentStage == 11 && drawnCrate && drawnRock){
             currentStage = 12;
-            Debug.Log("Ended all the drawing");
+            npcSystem.startingMessage = "Alright. That's enough drawing...";
+            npcSystem.dialogMessages = stage12Dialog;
+            npcSystem.StartNPCdialog();
         }
 
     }
