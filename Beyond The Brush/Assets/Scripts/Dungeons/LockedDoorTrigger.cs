@@ -37,14 +37,12 @@ public class LockedDoorTrigger : MonoBehaviour
         //Initial State
         Trigger.sprite = TriggerOut;
         Symbole.sprite = symboleOut;
-        isEmpty = 0;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == ArrayPrefabs[randomSymbole])
         {
-            isEmpty++;
             doorToOpen.GetComponent<LockedDoor>().DestroyDoor();
             Trigger.sprite = TriggerIn;
             Symbole.sprite = symboleIn;
@@ -55,14 +53,8 @@ public class LockedDoorTrigger : MonoBehaviour
     {
         if (collision.gameObject.name == ArrayPrefabs[randomSymbole])
         {
-            isEmpty--;
-            if (isEmpty == 0)
-            {
-                doorToOpen.GetComponent<LockedDoor>().CreateDoor();
-                gameObject.GetComponent<SpriteRenderer>().sprite = TriggerOut;
-                Trigger.sprite = TriggerOut;
-                Symbole.sprite = symboleOut;
-            }
+            Trigger.sprite = TriggerOut;
+            Symbole.sprite = symboleOut;
         }
     }
 }

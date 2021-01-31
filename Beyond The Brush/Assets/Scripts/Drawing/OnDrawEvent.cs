@@ -173,17 +173,18 @@ public class OnDrawEvent : MonoBehaviour
 	}
 
 	public void SpawnObject(DrawingLocation location, GameObject prefab)
-    {
+	{
 		GameObject newObject;
 		GameObject SpawnedObjectParent = GameObject.Find("SpawnedObjects");
-		
+
 		Vector2 worldPos = Camera.main.ScreenToWorldPoint(location.middle);
 		newObject = Instantiate(prefab, worldPos, Quaternion.identity);
 
 		//Storing The Spawbed Objects in the Spawned Parent Object that exist in each room
 		newObject.transform.SetParent(SpawnedObjectParent.transform);
+		newObject.AddComponent<ObjectDespawn>();
 	}
-
+	
 	public DrawingLocation GetDrawingMiddle(UILineRenderer lineData)
     {
 		//Check the position of the drawing
