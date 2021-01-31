@@ -27,12 +27,18 @@ public class TutorialSystem : MonoBehaviour
 
         //For stage 3
         private bool alreadyReachedNPC = false; //Stores weather the camera has already reached the NPC or not
+
+        //For stage 5
+        private bool drawnHorizontal = false;
+        private bool drawnXspell = false;
     //_______________||
 
     //Hold all the new messages||
 
         private List<NPCsystem.dialogShape> stage1Dialog = new List<NPCsystem.dialogShape>();
         private List<NPCsystem.dialogShape> stage2Dialog = new List<NPCsystem.dialogShape>();
+        private List<NPCsystem.dialogShape> stage5Dialog = new List<NPCsystem.dialogShape>();
+        private List<NPCsystem.dialogShape> stage8Dialog = new List<NPCsystem.dialogShape>();
     //_________________________||
 
     //Stages info||
@@ -42,7 +48,13 @@ public class TutorialSystem : MonoBehaviour
      *Stage 2 -> Talk about NPCS
      *Stage 3 -> Move camera to NPC
      *Stage 4 -> ended showin where the npc is, now the player needs to interect with him and displays the horizontal line
-     *Stage 5 -> forces the player to drawn an horizontal line
+     *Stage 5 -> forces the player to draw an horizontal line
+     *Stage 6 -> Talks to the player about the xspell
+     *Stage 7 -> forces the player to draw the xspell
+     *Stage 8 -> talks to the player about the shield
+     *Stage 9 -> forces the player to do the shield
+     *Stage 10 -> talks to the player about object spawning
+     *Stage 11 -> forces the player to spawn a rock and a crate
     */
     //___________||
 
@@ -71,13 +83,40 @@ public class TutorialSystem : MonoBehaviour
             stage2Dialog.Add(new NPCsystem.dialogShape("", "You cast it by drawing a horizontal line over the enemies..."));
             stage2Dialog.Add(new NPCsystem.dialogShape("", "all your skills have cooldowns that are displayed at the bottom of the screen. Remember to keep track of them as you play!"));
             stage2Dialog.Add(new NPCsystem.dialogShape("drawHorizontal", "either way, it's a way more fun to learn by trying so let's give it a try. Draw a horizontal line"));
+
+            //Stage 6
+            stage5Dialog.Add(new NPCsystem.dialogShape("showXspell", "Now for the next spell..."));
+            stage5Dialog.Add(new NPCsystem.dialogShape("", "this is the xspell! You cast it by drawing an X with a single stroke..."));
+            stage5Dialog.Add(new NPCsystem.dialogShape("", "it works exactly the same way as the basic slash with the difference that it also breaks objects and chests!"));
+            stage5Dialog.Add(new NPCsystem.dialogShape("drawX", "Let's give it a try! Draw an X"));
+
+            //Stage 8
+            stage8Dialog.Add(new NPCsystem.dialogShape("showCircle", "the player can shield himself by drawing a circle above itself!"));
+            stage8Dialog.Add(new NPCsystem.dialogShape("", "however you need to be careful as this shape is also used to spawn objects..."));
+            stage8Dialog.Add(new NPCsystem.dialogShape("", "while the player has his shield on he will take reduced damage from the next attack that hits him..."));
+            stage8Dialog.Add(new NPCsystem.dialogShape("drawShield", "let's give it a try!"));
         //_________________||
 
         npcSystem.StartNPCdialog();
     }
 
     private void drawnShape(string id){
-        Debug.Log(id);
+        if(currentStage == 5 && id == "Horizontal"){
+            currentStage = 6;
+            drawnHorizontal = true;
+            npcSystem.dialogMessages = stage5Dialog;
+            npcSystem.startingMessage = "Good job! This is an extremely spammable ability that you'll use quite often as you progress.";
+            npcSystem.StartNPCdialog();
+        }
+
+        if (currentStage == 7 && id == "Xspell")
+        {
+            drawnXspell = true;
+            currentStage = 8;
+            npcSystem.dialogMessages = stage8Dialog;
+            npcSystem.startingMessage = "You're good at this! Now we'll be going for the defensive part...";
+            npcSystem.StartNPCdialog();
+        }
     }
     private void whatToDo(string id){
         switch(id){
@@ -99,6 +138,32 @@ public class TutorialSystem : MonoBehaviour
             case "drawHorizontal":
 
                 currentStage = 5;
+                canvasBrush.stopDrawing();       //Stop drawing on the canvas
+                tutorialCanvas.SetActive(false); //Displays the canvas
+                break;
+
+            case "showXspell":
+
+                tutorialCanvas.SetActive(true); //Displays the canvas
+                canvasBrush.drawXspell();       //Stop drawing on the canvas
+                break;
+
+            case "drawX":
+
+                currentStage = 7;
+                canvasBrush.stopDrawing();       //Stop drawing on the canvas
+                tutorialCanvas.SetActive(false); //Displays the canvas
+                break;
+                
+            case "showCircle":
+
+                tutorialCanvas.SetActive(true); //Displays the canvas
+                canvasBrush.drawCircle();       //Stop drawing on the canvas
+                break;
+
+            case "drawShield":
+
+                currentStage = 9;
                 canvasBrush.stopDrawing();       //Stop drawing on the canvas
                 tutorialCanvas.SetActive(false); //Displays the canvas
                 break;
