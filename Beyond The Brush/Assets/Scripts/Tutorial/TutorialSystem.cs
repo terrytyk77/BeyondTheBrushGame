@@ -31,6 +31,9 @@ public class TutorialSystem : MonoBehaviour
         //For stage 5
         private bool drawnHorizontal = false;
         private bool drawnXspell = false;
+        private bool drawnShield = false;
+        private bool drawnRock = false;
+        private bool drawnCrate = false;
     //_______________||
 
     //Hold all the new messages||
@@ -39,6 +42,7 @@ public class TutorialSystem : MonoBehaviour
         private List<NPCsystem.dialogShape> stage2Dialog = new List<NPCsystem.dialogShape>();
         private List<NPCsystem.dialogShape> stage5Dialog = new List<NPCsystem.dialogShape>();
         private List<NPCsystem.dialogShape> stage8Dialog = new List<NPCsystem.dialogShape>();
+        private List<NPCsystem.dialogShape> stage10Dialog = new List<NPCsystem.dialogShape>();
     //_________________________||
 
     //Stages info||
@@ -86,7 +90,7 @@ public class TutorialSystem : MonoBehaviour
 
             //Stage 6
             stage5Dialog.Add(new NPCsystem.dialogShape("showXspell", "Now for the next spell..."));
-            stage5Dialog.Add(new NPCsystem.dialogShape("", "this is the xspell! You cast it by drawing an X with a single stroke..."));
+            stage5Dialog.Add(new NPCsystem.dialogShape("", "this is the xspell! You cast it by drawing an X in a single stroke..."));
             stage5Dialog.Add(new NPCsystem.dialogShape("", "it works exactly the same way as the basic slash with the difference that it also breaks objects and chests!"));
             stage5Dialog.Add(new NPCsystem.dialogShape("drawX", "Let's give it a try! Draw an X"));
 
@@ -95,6 +99,17 @@ public class TutorialSystem : MonoBehaviour
             stage8Dialog.Add(new NPCsystem.dialogShape("", "however you need to be careful as this shape is also used to spawn objects..."));
             stage8Dialog.Add(new NPCsystem.dialogShape("", "while the player has his shield on he will take reduced damage from the next attack that hits him..."));
             stage8Dialog.Add(new NPCsystem.dialogShape("drawShield", "let's give it a try!"));
+
+            //Stage 10
+            stage10Dialog.Add(new NPCsystem.dialogShape("", "that wraps out the combat system..."));
+            stage10Dialog.Add(new NPCsystem.dialogShape("", "there are only 2 more things that you need to learn about the drawings..."));
+            stage10Dialog.Add(new NPCsystem.dialogShape("showSquare", "as you might have already noticed, you can spawn a rock by drawing the circle outside of the player..."));
+            stage10Dialog.Add(new NPCsystem.dialogShape("", "you can also draw an open square in order to spawn a create..."));
+            stage10Dialog.Add(new NPCsystem.dialogShape("", "you might be wondering on why would we need to spawn these objects..."));
+            stage10Dialog.Add(new NPCsystem.dialogShape("", "sometimes you'll encounter these <gate doors>. They can be opened by spawning an object on top of a pressure plate..."));
+            stage10Dialog.Add(new NPCsystem.dialogShape("", "pressure plates always have a drawing on top of them. This drawing is either a circle or a square..."));
+            stage10Dialog.Add(new NPCsystem.dialogShape("", "in case they have a circle then you'll need to spawn a rock, if they have a square on the other hand you'll need a crate..."));
+            stage10Dialog.Add(new NPCsystem.dialogShape("drawObjects", "before we continue let's spawn both a rock and a crate!"));
         //_________________||
 
         npcSystem.StartNPCdialog();
@@ -116,6 +131,25 @@ public class TutorialSystem : MonoBehaviour
             npcSystem.dialogMessages = stage8Dialog;
             npcSystem.startingMessage = "You're good at this! Now we'll be going for the defensive part...";
             npcSystem.StartNPCdialog();
+        }
+
+        if(currentStage == 9 && id == "shield"){
+            drawnShield = true;
+            currentStage = 10;
+            npcSystem.dialogMessages = stage10Dialog;
+            npcSystem.startingMessage = "There you go!";
+            npcSystem.StartNPCdialog();
+        }
+
+        if (currentStage == 11)
+        { 
+            if(id == "rock"){
+                drawnRock = true;
+            }
+            if(id == "Square")
+            {
+                drawnCrate = true;
+            }
         }
     }
     private void whatToDo(string id){
@@ -160,10 +194,23 @@ public class TutorialSystem : MonoBehaviour
                 tutorialCanvas.SetActive(true); //Displays the canvas
                 canvasBrush.drawCircle();       //Stop drawing on the canvas
                 break;
-
+                
             case "drawShield":
 
                 currentStage = 9;
+                canvasBrush.stopDrawing();       //Stop drawing on the canvas
+                tutorialCanvas.SetActive(false); //Displays the canvas
+                break;
+                
+            case "showSquare":
+
+                tutorialCanvas.SetActive(true); //Displays the canvas
+                canvasBrush.drawBox();          //Stop drawing on the canvas
+                break;
+
+            case "drawObjects":
+
+                currentStage = 11;
                 canvasBrush.stopDrawing();       //Stop drawing on the canvas
                 tutorialCanvas.SetActive(false); //Displays the canvas
                 break;
@@ -221,9 +268,10 @@ public class TutorialSystem : MonoBehaviour
 
         }
 
-        //Stage 5-> horizontal drawing
-        if(currentStage == 5){
-
+        //Stage 11
+        if(currentStage == 11 && drawnCrate && drawnRock){
+            currentStage = 12;
+            Debug.Log("Ended all the drawing");
         }
 
     }
