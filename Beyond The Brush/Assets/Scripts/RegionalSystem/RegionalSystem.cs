@@ -43,6 +43,7 @@ public class RegionalSystem : MonoBehaviour
 
         private void Start()
         {
+            if(audioElement)
             musicLib = audioElement.GetComponent<MusicPlayer>();
 
             //Setup 
