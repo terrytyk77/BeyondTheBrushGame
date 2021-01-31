@@ -97,7 +97,7 @@ public static class TalentTree
 
     public static treeNode node9 = new treeNode(
         /*ID*/ "node9", /*ID*/ 
-        /*Description*/ "Reduce debuffs on the player by 25% [Passive]", /*Description*/
+        /*Description*/ "Reduce debuffs on the player by 25% [Passive].", /*Description*/
         /*Name*/ "Tough Skin", /*Name*/
         /*Price*/ 1000 /*Price*/
     );
