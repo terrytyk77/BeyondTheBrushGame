@@ -492,7 +492,7 @@ public class TutorialSystem : MonoBehaviour
         if (currentStage == 20)
         {
             Transform cameraData = Camera.main.gameObject.GetComponent<Transform>();
-            if (Vector2.Distance(cameraData.position, playerRB.position) < 0.2f)
+            if (Vector2.Distance(cameraData.position, playerRB.position) < 2f)
             {
                 currentStage = 21;
                 Camera.main.gameObject.GetComponent<CameraBehavior>().enabled = true;

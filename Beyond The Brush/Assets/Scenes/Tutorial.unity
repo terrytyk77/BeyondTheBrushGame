@@ -4708,7 +4708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c33431aaa67a46479f71dbd1ab7db00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Matheus
+  name: Miguel Soares
   startingMessage: Hi and welcome to Beyond The Brush, today we'll be learning the
     basics of the game. Tap the screen or press space to continue...
   dialogMessages:
