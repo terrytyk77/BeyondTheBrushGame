@@ -25,6 +25,7 @@ public class PlayerData : MonoBehaviour
         static private int _resources = 20000;
         static private int _gold = 0;
         static private string _email;
+        static private bool _tutorial = false;
 
 
         //options database data
@@ -116,6 +117,8 @@ public class PlayerData : MonoBehaviour
     public static float musicVolume { get { return _musicVolume; } set { _musicVolume = value; } }
     public static float sfxVolume { get { return _sfxVolume; } set { _sfxVolume = value; } }
     public static bool windowmode { get { return _windowmode; } set { _windowmode = value; } }
+
+    public static bool tutorial { get { return _tutorial; } set{ _tutorial = value; } }
 
     //Get the local data
     public static int healthPoints { get { return _healthPoints; } set { _healthPoints = value; } }
@@ -546,6 +549,7 @@ public class PlayerData : MonoBehaviour
         _talentTreeData = new talentTreeClass();
         _playerProfiles = new List<accountInfoResponse.profilesData>();
         _currentProfile = 0;
+        _tutorial = false;
     }
 
 }

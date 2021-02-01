@@ -43,6 +43,9 @@ public class sceneTeleport : MonoBehaviour
                 if (DiscordPresence.PresenceManager.instance != null) DiscordPresence.PresenceManager.instance.presence.state = "Room: [0, 0]";
                 break;
 
+            case 3:
+                currentPlace = "Currently playing on: Tutorial";
+                break;
         }
 
         //Update request

@@ -18,7 +18,7 @@ public class TutorialSystem : MonoBehaviour
 
     //Tutorial stages||
 
-        private int currentStage = 11;       //Stores the current tutorial stage
+        private int currentStage = 1;       //Stores the current tutorial stage
 
         //For stage 1
         private bool alreadMoved = false;   //Check if the player already moved
@@ -32,14 +32,32 @@ public class TutorialSystem : MonoBehaviour
         private bool drawnHorizontal = false;
         private bool drawnXspell = false;
         private bool drawnShield = false;
-        private bool drawnRock = true;  //false
-        private bool drawnCrate = true; //false
+        private bool drawnRock = false;  //false
+        private bool drawnCrate = false; //false
 
         //For stage 13
         public GameObject point1;
         public GameObject enemiesSwarm;
 
-     
+        //For stage 15
+        public GameObject healthBarArrow;
+        public GameObject minimapArrow;
+        public GameObject talentTreeArrow;
+        public GameObject expbarArrow;
+
+        //For stage 16
+        public GameObject bigmapWindow;
+
+        //For stage 17
+        public GameObject skullIcon;
+        public GameObject skullArrow;
+
+        //For stage 18
+        public GameObject point2;
+
+        //For stage 19
+        private float amountOfTime19;
+        public GameObject invisibleWall;
     //_______________||
 
     //Hold all the new messages||
@@ -51,6 +69,7 @@ public class TutorialSystem : MonoBehaviour
         private List<NPCsystem.dialogShape> stage10Dialog = new List<NPCsystem.dialogShape>();
         private List<NPCsystem.dialogShape> stage12Dialog = new List<NPCsystem.dialogShape>();
         private List<NPCsystem.dialogShape> stage15Dialog = new List<NPCsystem.dialogShape>();
+        private List<NPCsystem.dialogShape> stage17Dialog = new List<NPCsystem.dialogShape>();
     //_________________________||
 
     //Stages info||
@@ -71,6 +90,12 @@ public class TutorialSystem : MonoBehaviour
      *Stage 13 -> Spawn the enemy
      *Stage 14 -> The player has to kill the enemies
      *Stage 15 -> You just killed all the enemies, talk about the UI now 
+     *Stage 16 -> wait for minimap click
+     *Stage 17 -> explain dungeons entrance
+     *Stage 18 -> Move the camera to the bushes
+     *Stage 19 -> Wait for a few second and then move to the player
+     *Stage 20 -> move the camera back to the player
+     *Stage 21 -> It ended! :D
     */
     //___________||
 
@@ -133,11 +158,22 @@ public class TutorialSystem : MonoBehaviour
 
             //stage 15
             stage15Dialog.Add(new NPCsystem.dialogShape("", "Thank you for your help " + PlayerData.username + "!"));
-            stage15Dialog.Add(new NPCsystem.dialogShape("", "There's just a few more things that we need to talk about. One of them is your UI!"));
-            stage15Dialog.Add(new NPCsystem.dialogShape("healthbar", "at the top left you can find your health bar, it displays your current amount of health points..."));
+            stage15Dialog.Add(new NPCsystem.dialogShape("healthbar", "There's just a few more things that we need to talk about. One of them is your UI!"));
+            stage15Dialog.Add(new NPCsystem.dialogShape("", "at the top left you can find your health bar, it displays your current amount of health points..."));
+            stage15Dialog.Add(new NPCsystem.dialogShape("expbar", "once it reaches zero you die. If you haven't killed all the enemies then the ones that are dead will respawn..."));
+            stage15Dialog.Add(new NPCsystem.dialogShape("", "this is the exp bar, it fills itself as you kill enemies..."));
+            stage15Dialog.Add(new NPCsystem.dialogShape("talentTree", "once it reaches 100% you'll level up. Leveling up increases your max hp and damage dealt to enemies..."));
+            stage15Dialog.Add(new NPCsystem.dialogShape("", "you can open your talent tree by clicking the book button..."));
+            stage15Dialog.Add(new NPCsystem.dialogShape("minimap", "you can upgrade your own abilities thru it..."));
+            stage15Dialog.Add(new NPCsystem.dialogShape("", "last but not least this is your minimap. You can use it to locate yourself..."));
+            stage15Dialog.Add(new NPCsystem.dialogShape("bigmap", "you can also click it in order to open a big map!"));
+
+            //stage 17
+            stage17Dialog.Add(new NPCsystem.dialogShape("", "they resemble dungeon entrances. These dungeons is where you grind and progress thru the game..."));
+            stage17Dialog.Add(new NPCsystem.dialogShape("endTutorial", "and that is pretty much it! Thank you for playing the tutorial and feel free to move into the next region..."));
         //_________________||
 
-        //npcSystem.StartNPCdialog();
+        npcSystem.StartNPCdialog();
     }
 
     private void drawnShape(string id){
@@ -260,11 +296,43 @@ public class TutorialSystem : MonoBehaviour
                 Camera.main.gameObject.transform.position = point1.transform.position;
                 
                 break;
-
+                
             case "killEnemies":
                 Camera.main.gameObject.transform.position = new Vector3( playerRB.position.x, playerRB.position.y, -10);
                 Camera.main.gameObject.GetComponent<CameraBehavior>().enabled = true;
                 currentStage = 14;
+                break;
+                
+            case "healthbar":
+                healthBarArrow.SetActive(true);
+                break;
+                
+            case "expbar":
+                healthBarArrow.SetActive(false);
+                expbarArrow.SetActive(true);
+                break;
+                
+            case "talentTree":
+                talentTreeArrow.SetActive(true);
+                expbarArrow.SetActive(false);
+                break;
+                
+            case "minimap":
+                talentTreeArrow.SetActive(false);
+                minimapArrow.SetActive(true);
+                break;
+                
+            case "bigmap":
+                currentStage = 16;
+                break;
+
+            case "endTutorial":
+                currentStage = 18;
+                Camera.main.gameObject.GetComponent<CameraBehavior>().enabled = false;
+                skullIcon.SetActive(false);
+                skullArrow.SetActive(false);
+                bigmapWindow.SetActive(false);
+                playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
                 break;
         }
     }
@@ -387,6 +455,53 @@ public class TutorialSystem : MonoBehaviour
             
         }
 
+        //Stage 16
+        if(currentStage == 16 && bigmapWindow.activeSelf)
+        {
+            currentStage = 17;
+            skullIcon.SetActive(true);
+            skullArrow.SetActive(true);
+            minimapArrow.SetActive(false);
+            npcSystem.startingMessage = "Maps usually have this skull icons on them...";
+            npcSystem.dialogMessages = stage17Dialog;
+            npcSystem.StartNPCdialog();
+        }
+
+        //Stage 18
+        if(currentStage == 18){
+            Transform cameraData = Camera.main.gameObject.GetComponent<Transform>();
+            if (Vector2.Distance(cameraData.position, point2.transform.position) < 0.2f)
+            {
+                currentStage = 19;
+                
+            }else{
+                cameraData.position = Vector3.MoveTowards(cameraData.position, point2.transform.position, 0.4f);
+            }
+        }
+
+        if(currentStage == 19){
+            amountOfTime19 += Time.deltaTime;
+            if(amountOfTime19 > 1.5f)
+            {
+                Transform cameraData = Camera.main.gameObject.GetComponent<Transform>();
+                invisibleWall.SetActive(false);
+                currentStage = 20;
+            }
+        }
+
+        if (currentStage == 20)
+        {
+            Transform cameraData = Camera.main.gameObject.GetComponent<Transform>();
+            if (Vector2.Distance(cameraData.position, playerRB.position) < 0.2f)
+            {
+                currentStage = 21;
+                Camera.main.gameObject.GetComponent<CameraBehavior>().enabled = true;
+                playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
+            else{
+                cameraData.position = Vector3.MoveTowards(cameraData.position, playerRB.position, 0.4f);
+            }
+        }
     }
 
 }
