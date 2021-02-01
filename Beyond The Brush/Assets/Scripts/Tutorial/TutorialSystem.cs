@@ -32,8 +32,14 @@ public class TutorialSystem : MonoBehaviour
         private bool drawnHorizontal = false;
         private bool drawnXspell = false;
         private bool drawnShield = false;
-        private bool drawnRock = true;
-        private bool drawnCrate = true;
+        private bool drawnRock = true;  //false
+        private bool drawnCrate = true; //false
+
+        //For stage 13
+        public GameObject point1;
+        public GameObject enemiesSwarm;
+
+     
     //_______________||
 
     //Hold all the new messages||
@@ -60,7 +66,9 @@ public class TutorialSystem : MonoBehaviour
      *Stage 9 -> forces the player to do the shield
      *Stage 10 -> talks to the player about object spawning
      *Stage 11 -> forces the player to spawn a rock and a crate
-     *Stage 12 -> Ended the drawing, now the player will fight against a mob
+     *Stage 12 -> Shake the screen
+     *Stage 13 -> Spawn the enemy
+     *Stage 14 -> The player has to kill the enemies
     */
     //___________||
 
@@ -115,9 +123,13 @@ public class TutorialSystem : MonoBehaviour
 
             //Stage 12
             stage12Dialog.Add(new NPCsystem.dialogShape("cameraShake", "..."));
-            stage12Dialog.Add(new NPCsystem.dialogShape("moveCamera", "what was that?"));
-            stage12Dialog.Add(new NPCsystem.dialogShape("", "a wave of enemies!"));
+            stage12Dialog.Add(new NPCsystem.dialogShape("stopShake", "...!"));
+            stage12Dialog.Add(new NPCsystem.dialogShape("moveCameraEnemies", "what was that?"));
+            stage12Dialog.Add(new NPCsystem.dialogShape("teleportCamera", "..."));
+            stage12Dialog.Add(new NPCsystem.dialogShape("", "a swarm of enemies!"));
             stage12Dialog.Add(new NPCsystem.dialogShape("killEnemies", "this is a great opportunity for you to test your new skills!"));
+
+            //stage 15
         //_________________||
 
         //npcSystem.StartNPCdialog();
@@ -222,9 +234,65 @@ public class TutorialSystem : MonoBehaviour
                 canvasBrush.stopDrawing();       //Stop drawing on the canvas
                 tutorialCanvas.SetActive(false); //Displays the canvas
                 break;
+                
+            case "cameraShake":
+
+                StartCoroutine(cameraShake(1.4f));
+                break;
+                
+            case "stopShake":
+
+                StopAllCoroutines();
+                break;
+                
+            case "moveCameraEnemies":
+                Camera.main.gameObject.GetComponent<CameraBehavior>().enabled = false;
+                enemiesSwarm.SetActive(true);
+                currentStage = 13;
+                break;
+                
+            case "teleportCamera":
+                Camera.main.gameObject.transform.position = point1.transform.position;
+                
+                break;
+
+            case "killEnemies":
+                Camera.main.gameObject.transform.position = new Vector3( playerRB.position.x, playerRB.position.y, -10);
+                Camera.main.gameObject.GetComponent<CameraBehavior>().enabled = true;
+                currentStage = 14;
+                break;
         }
     }
 
+    private IEnumerator cameraShake(float duration){
+
+        //Settings||
+
+            Vector3 cameraStart = Camera.main.transform.position;
+            float shakingAmount = 0.25f;
+            float shakedAmount = 0f;
+            float updateGap = 0.075f;
+            bool direction = false;
+        //________||
+
+        while(shakedAmount < duration)
+        {
+
+            if (direction)
+                Camera.main.transform.position = cameraStart + new Vector3(0, shakingAmount, 0);
+            else
+                Camera.main.transform.position = cameraStart - new Vector3(0, shakingAmount, 0);
+
+            direction = !direction;
+
+            //Handle the time variables
+            shakedAmount += updateGap;
+            yield return new WaitForSeconds(updateGap);
+        }
+
+        yield return null;
+    }
+    
     private void Update()
     {
         //Handle stage 1
@@ -282,6 +350,34 @@ public class TutorialSystem : MonoBehaviour
             npcSystem.startingMessage = "Alright. That's enough drawing...";
             npcSystem.dialogMessages = stage12Dialog;
             npcSystem.StartNPCdialog();
+        }
+
+
+        //Stage 13
+        if(currentStage == 13)
+        {
+            Transform cameraData = Camera.main.gameObject.GetComponent<Transform>();
+            
+            if(Vector2.Distance(cameraData.position, point1.transform.position) > 0.2f){
+                cameraData.position = Vector3.MoveTowards(cameraData.position, point1.transform.position, 0.4f);
+            }
+        }
+
+        //Stage 14
+        if(currentStage == 14)
+        {
+            int aliveEnemies = 0;
+            foreach(Transform enemy in enemiesSwarm.transform){
+                if(enemy.GetComponent<EnemyAI>().getHealth > 0){
+                    aliveEnemies++;
+                }
+            }
+
+            if(aliveEnemies == 0){
+                Debug.Log("all enemies are dead");
+                currentStage = 15;
+            }
+            
         }
 
     }
