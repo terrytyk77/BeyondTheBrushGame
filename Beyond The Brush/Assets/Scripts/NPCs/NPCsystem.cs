@@ -98,7 +98,7 @@ public class NPCsystem : MonoBehaviour
         Transform circleElement = interectionDisplay.transform.Find("Circle");              //Get the circle element
 
         if (isInRange && Input.GetKey(interectionKey)){
-            if(currentHold + Time.deltaTime >= requiredHoldTime && !showingDialog)   //Check if the user already holded for enough time
+            if(currentHold + Time.deltaTime >= requiredHoldTime && !showingDialog && dialogBox.GetComponent<CanvasGroup>().alpha == 0)   //Check if the user already holded for enough time
             {
                 StartNPCdialog();
             }
