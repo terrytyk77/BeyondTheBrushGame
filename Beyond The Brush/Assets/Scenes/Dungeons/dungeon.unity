@@ -676,6 +676,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1417011923446744537, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
+      propertyPath: Avatar
+      value: 
+      objectReference: {fileID: 3956660340777269614}
     - target: {fileID: 1427080555543245438, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -1839,5 +1843,10 @@ GameObject:
 --- !u!1 &3956660340777269613 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 539280059, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+  m_PrefabInstance: {fileID: 3956660340777269611}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3956660340777269614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6935066488571727536, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
   m_PrefabInstance: {fileID: 3956660340777269611}
   m_PrefabAsset: {fileID: 0}

@@ -5149,6 +5149,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3956660339934354536, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
   m_PrefabInstance: {fileID: 889710275}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &889710277 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6935066488571727536, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+  m_PrefabInstance: {fileID: 889710275}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &892101700
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73051,6 +73056,10 @@ PrefabInstance:
       propertyPath: playerOverlay
       value: 
       objectReference: {fileID: 920047445}
+    - target: {fileID: 1417011923446744537, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
+      propertyPath: Avatar
+      value: 
+      objectReference: {fileID: 889710277}
     - target: {fileID: 1881675380795830168, guid: 82536e351bbe1584f9437b3e1c584dc0, type: 3}
       propertyPath: BubbleUpIconSlot
       value: 
