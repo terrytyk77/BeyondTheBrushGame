@@ -35,13 +35,14 @@ public class OnDrawEvent : MonoBehaviour
 
     //Variables||
 
-    public GameObject line;
+		public GameObject line;
 		public GameObject box;
 		public GameObject stone;
 		public GameObject player;
 		public GameObject drawingCollider;
 		public GameObject playerVertical;
 		public GameObject playerHorizontal;
+		public GameObject DamagePopUpPrefab;
 
 		private Passives playerPassives;
 	//_________||
@@ -107,7 +108,8 @@ public class OnDrawEvent : MonoBehaviour
 						playerPassives.DemandForAction(damage);
 					}
 					enemy.GetComponent<EnemyAI>().getDamaged(damage);
-                }
+					DamagePopUp.Create(DamagePopUpPrefab, enemy.transform.position, damage);
+				}
 			}
 		}
 	}

@@ -5054,6 +5054,10 @@ PrefabInstance:
       propertyPath: playerHorizontal
       value: 
       objectReference: {fileID: 79986558}
+    - target: {fileID: 5245757321838936103, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: DamagePopUpPrefab
+      value: 
+      objectReference: {fileID: 3984959051813620330, guid: 9457653845161bf428fc7ace428955a7, type: 3}
     - target: {fileID: 5535364175893767026, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5607,7 +5611,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1019089646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -107.1, y: -21.21, z: 0}
+  m_LocalPosition: {x: -108.78, y: -29.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 729190330}

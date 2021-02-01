@@ -1741,6 +1741,10 @@ PrefabInstance:
       propertyPath: playerHorizontal
       value: 
       objectReference: {fileID: 1582193210}
+    - target: {fileID: 5245757321838936103, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: DamagePopUpPrefab
+      value: 
+      objectReference: {fileID: 3984959051813620330, guid: 9457653845161bf428fc7ace428955a7, type: 3}
     - target: {fileID: 5535364175893767026, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

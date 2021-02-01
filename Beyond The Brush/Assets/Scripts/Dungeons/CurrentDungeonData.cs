@@ -15,9 +15,9 @@ public class CurrentDungeonData : MonoBehaviour
             public GameObject acceptButton;     //holds the accept button (continue the dungeon)
             public GameObject cancelButton;     //holds the cancel button (leave the dungeon)
         }
-        //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\\
+        //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
         //||||||||||||||||||||||||||||||||||||||||||||||||||| This is a class breaker|||||||||||||||||||||||||||||||||||||||||||||||||||
-        //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||//
+        //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
         [System.Serializable]
         public class uiElements                 //class holder for UI elements - holds minimap and its counters
         {
@@ -77,7 +77,7 @@ public class CurrentDungeonData : MonoBehaviour
         public Dungeon currentDungeon;      //Holds the current dungeon object
         private GameObject startingRoom;    //Holds the starting room of the dungeon prefab
         private Rigidbody2D playerRB;       //Holds the player rigid body
-        private UIsfx UIsoundEffect;          //Holds the sound effects callbacks
+        private UIsfx UIsoundEffect;        //Holds the sound effects callbacks
 
         //Data that might change during runtime
         public Vector2Int currentRoom;                                      //Holds the players current room cords
