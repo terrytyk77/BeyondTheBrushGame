@@ -22,7 +22,7 @@ using UnityEngine.UI;
                 }
 
 
-
+                public bool tutorial = false;
                 public int currentProfile;
                 public bool windowMode = true;
                 public float musicVolume = 0.3f;
@@ -186,8 +186,11 @@ public class AccountServices : MonoBehaviour
                 //Store the data locally
                 PlayerData.SetPlayerData(result2);
 
-                //Start the game
-                sceneTeleport.start(1);
+                if(result2.body.tutorial)
+                    sceneTeleport.start(1); //Move to the main city
+                else
+                    sceneTeleport.start(3); //Move to the tutorial
+
             }
             else
             {
@@ -313,7 +316,7 @@ public class AccountServices : MonoBehaviour
                 PlayerData.SetPlayerData(result2);
 
                 //Start the game
-                sceneTeleport.start(1);
+                sceneTeleport.start(3);
             }
             else
             {

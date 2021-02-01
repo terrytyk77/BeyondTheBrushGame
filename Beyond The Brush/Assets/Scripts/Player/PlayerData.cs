@@ -450,6 +450,7 @@ public class PlayerData : MonoBehaviour
         data.stats.resources = _resources;
         data.talentTree = _talentTreeData;
         data.currentProfile = _currentProfile;
+        data.tutorial = _tutorial;
 
         return data;
     }
@@ -495,6 +496,8 @@ public class PlayerData : MonoBehaviour
         if (json.body._id != null){_id = json.body._id;}
         if (json.body.name != null){ _username = json.body.name;}
         if (json.body.email != null) { _email = json.body.email; }
+        if(json.body.tutorial != null){ _tutorial = json.body.tutorial; }
+
 
         if (json.body.stats.level < 1)
         {
