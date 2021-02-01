@@ -50,6 +50,7 @@ public class TutorialSystem : MonoBehaviour
         private List<NPCsystem.dialogShape> stage8Dialog = new List<NPCsystem.dialogShape>();
         private List<NPCsystem.dialogShape> stage10Dialog = new List<NPCsystem.dialogShape>();
         private List<NPCsystem.dialogShape> stage12Dialog = new List<NPCsystem.dialogShape>();
+        private List<NPCsystem.dialogShape> stage15Dialog = new List<NPCsystem.dialogShape>();
     //_________________________||
 
     //Stages info||
@@ -69,6 +70,7 @@ public class TutorialSystem : MonoBehaviour
      *Stage 12 -> Shake the screen
      *Stage 13 -> Spawn the enemy
      *Stage 14 -> The player has to kill the enemies
+     *Stage 15 -> You just killed all the enemies, talk about the UI now 
     */
     //___________||
 
@@ -130,6 +132,9 @@ public class TutorialSystem : MonoBehaviour
             stage12Dialog.Add(new NPCsystem.dialogShape("killEnemies", "this is a great opportunity for you to test your new skills!"));
 
             //stage 15
+            stage15Dialog.Add(new NPCsystem.dialogShape("", "Thank you for your help " + PlayerData.username + "!"));
+            stage15Dialog.Add(new NPCsystem.dialogShape("", "There's just a few more things that we need to talk about. One of them is your UI!"));
+            stage15Dialog.Add(new NPCsystem.dialogShape("healthbar", "at the top left you can find your health bar, it displays your current amount of health points..."));
         //_________________||
 
         //npcSystem.StartNPCdialog();
@@ -374,7 +379,9 @@ public class TutorialSystem : MonoBehaviour
             }
 
             if(aliveEnemies == 0){
-                Debug.Log("all enemies are dead");
+                npcSystem.startingMessage = "Uff, that was close...";
+                npcSystem.dialogMessages = stage15Dialog;
+                npcSystem.StartNPCdialog();
                 currentStage = 15;
             }
             
