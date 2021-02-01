@@ -475,6 +475,7 @@ public class TutorialSystem : MonoBehaviour
                 currentStage = 19;
                 
             }else{
+                playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
                 cameraData.position = Vector3.MoveTowards(cameraData.position, point2.transform.position, 0.4f);
             }
         }
@@ -492,13 +493,14 @@ public class TutorialSystem : MonoBehaviour
         if (currentStage == 20)
         {
             Transform cameraData = Camera.main.gameObject.GetComponent<Transform>();
-            if (Vector2.Distance(cameraData.position, playerRB.position) < 2f)
+            if (Vector2.Distance(cameraData.position, playerRB.position) < .4f)
             {
                 currentStage = 21;
                 Camera.main.gameObject.GetComponent<CameraBehavior>().enabled = true;
                 playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
             else{
+                playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
                 cameraData.position = Vector3.MoveTowards(cameraData.position, playerRB.position, 0.4f);
             }
         }
