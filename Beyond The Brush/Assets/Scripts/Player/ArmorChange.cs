@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class ArmorChange : MonoBehaviour
@@ -37,6 +37,7 @@ public class ArmorChange : MonoBehaviour
         //Hold the player stands
         public GameObject horizontalPlayer;
         public GameObject verticalPlayer;
+        public GameObject Avatar;
 
         static public armorHolder currentDefault;
     //_________||
@@ -59,10 +60,12 @@ public class ArmorChange : MonoBehaviour
             case 0:
                 currentDefault = default1;
                 changeClothing(default1);
+                changeAvatar(default1);
                 break;
             case 1:
                 currentDefault = default2;
                 changeClothing(default2);
+                changeAvatar(default2);
                 break;
             default:
 
@@ -71,10 +74,12 @@ public class ArmorChange : MonoBehaviour
                     case 0:
                         currentDefault = default1;
                         changeClothing(default1);
+                        changeAvatar(default1);
                         break;
                     case 1:
                         currentDefault = default2;
                         changeClothing(default2);
+                        changeAvatar(default2);
                         break;
                 }
 
@@ -425,10 +430,18 @@ public class ArmorChange : MonoBehaviour
 
                 //front
                 if (hasDrawing != null)
+                {
                     changeDrawingVertical(bodyPart: "Head", drawingName: "FrontDrawing", imageString: currentProfile.front.Head);
+                    Avatar.transform.Find("Drawing").GetComponent<Image>().sprite = verticalPlayer.transform.Find("Head").Find("FrontDrawing").GetComponent<SpriteRenderer>().sprite;
+                    Avatar.transform.Find("Drawing").GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                }
                 else
+                {
                     changeDrawingVertical(bodyPart: "Head", drawingName: "FrontDrawing", imageString: null);
-
+                    Avatar.transform.Find("Drawing").GetComponent<Image>().sprite = null;
+                    Avatar.transform.Find("Drawing").GetComponent<Image>().color = new Color(1, 1, 1, 0);
+                }
+                    
                 //right
                 if (hasDrawing != null)
                     changeDrawingHorizontal(bodyPart: "Head", drawingName: "RightDrawing", imageString: currentProfile.right.Head);
@@ -634,7 +647,11 @@ public class ArmorChange : MonoBehaviour
 
         //_____________________||
 
+    }
 
+    private void changeAvatar(armorHolder armorSet)
+    {
+        Avatar.transform.Find("Helmet").GetComponent<Image>().sprite = armorSet.front.hat;  
     }
 
 }
