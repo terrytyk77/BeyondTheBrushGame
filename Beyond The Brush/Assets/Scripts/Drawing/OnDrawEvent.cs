@@ -45,11 +45,16 @@ public class OnDrawEvent : MonoBehaviour
 		public GameObject DamagePopUpPrefab;
 
 		private Passives playerPassives;
-	//_________||
+
+		private UIsfx soundEffect;
+		//_____||
 
 	private void Start()
-    {
+	 {
 		playerPassives = player.GetComponent<Passives>();
+
+		//Add the audio instance
+		soundEffect = gameObject.GetComponentInParent<UIsfx>();
 	}
 
     private void Update()
@@ -247,7 +252,8 @@ public class OnDrawEvent : MonoBehaviour
                             if(shapeDrawn != null)
                                 shapeDrawn(result.gesture.id);
 
-                            playerHorizontal.GetComponent<Animator>().SetTrigger("Slash");
+							soundEffect.slash();
+							playerHorizontal.GetComponent<Animator>().SetTrigger("Slash");
 							playerVertical.GetComponent<Animator>().SetTrigger("Slash");
 							HoverEnemy(location, PlayerData.slashDamage);
 						}
@@ -297,6 +303,9 @@ public class OnDrawEvent : MonoBehaviour
 						{
                             if (shapeDrawn != null)
                                 shapeDrawn(result.gesture.id);
+
+							soundEffect.xSlash();
+
                             switch (PlayerData.playerDirection)
                             {
 								case 0:
