@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class WebServices : MonoBehaviour
 {
-    static public string baseURL = "http://localhost:3000";
+    static public string baseURL = "http://52.17.173.15:3000/";
 
     public static string CookieString
     {

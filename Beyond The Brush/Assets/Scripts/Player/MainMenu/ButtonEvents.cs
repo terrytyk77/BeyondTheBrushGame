@@ -42,7 +42,7 @@ public void OpenNotification()
     public void StartOffline()
     {
         //Start the scene loading
-        sceneTeleport.start(1);
+        sceneTeleport.start(3);
     }
 
     public void ChangeCurrentWindow()
