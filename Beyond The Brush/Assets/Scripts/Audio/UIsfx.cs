@@ -8,6 +8,10 @@ public class UIsfx : MonoBehaviour
         public AudioClip typingSFX;
         public AudioClip levelUPSFX;
         public AudioClip blingSFX;
+
+        //Character Spells
+        public AudioClip slashSFX;
+        public AudioClip xSlashSFX;
     //_________||
 
 
@@ -40,4 +44,22 @@ public class UIsfx : MonoBehaviour
         UIelement.time = 0.15f;
         UIelement.Play();
     }
+
+    public void slash()
+    {
+        AudioSource UIelement = Camera.main.transform.Find("UISFX").GetComponent<AudioSource>();
+        UIelement.clip = slashSFX;
+        UIelement.time = 0f;
+        UIelement.Play();
+    }
+
+    public void xSlash()
+    {
+        AudioSource UIelement = Camera.main.transform.Find("UISFX").GetComponent<AudioSource>();
+        UIelement.clip = xSlashSFX;
+        UIelement.time = 0f;
+        UIelement.Play();
+    }
+
+
 }

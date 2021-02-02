@@ -24790,6 +24790,8 @@ MonoBehaviour:
   typingSFX: {fileID: 8300000, guid: d974383b1286f0a42b21338c1b5211b7, type: 3}
   levelUPSFX: {fileID: 8300000, guid: 2dff15a5a247bde4289a3e637dafbb60, type: 3}
   blingSFX: {fileID: 8300000, guid: 2c5dbd7398adf7d4484ae118a67498a1, type: 3}
+  slashSFX: {fileID: 0}
+  xSlashSFX: {fileID: 0}
 --- !u!114 &1381534487
 MonoBehaviour:
   m_ObjectHideFlags: 0
