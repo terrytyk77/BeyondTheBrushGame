@@ -260,7 +260,7 @@ MonoBehaviour:
         bottom: 1
   - DungeonName: FrostCave
     baseReward: 100
-    mainMusic: {fileID: 0}
+    mainMusic: {fileID: 8300000, guid: a51d13430747d4f4a9c41b01ffe85c00, type: 3}
     startingRoom: {fileID: 2396211081100954182, guid: 25b6b2e1aacfc2b4db9e9766980cdb57, type: 3}
     startingRoomSides:
       top: 1
