@@ -85,7 +85,8 @@ public class Chest : MonoBehaviour
 
         if (gameObject)
         {
-            GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().amountOfChests++;
+            GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().addChest();
+
             gameObject.tag = "Finish";
             Destroy(gameObject);
             collisionTilemap.SetTile(collisionTile, null);

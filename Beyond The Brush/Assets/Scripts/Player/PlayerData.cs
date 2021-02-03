@@ -331,7 +331,7 @@ public class PlayerData : MonoBehaviour
                 teleportPlayer(dungeonInfo.nextRoomSide);
 
             //Add do the death counters
-            dungeonInfo.amountOfDeaths += 1;
+            dungeonInfo.addDeath();
 
             //Reset his HP
             _healthPoints = _maxHealthPoints;

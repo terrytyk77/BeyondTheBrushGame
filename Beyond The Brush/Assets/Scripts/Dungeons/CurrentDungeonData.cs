@@ -63,10 +63,22 @@ public class CurrentDungeonData : MonoBehaviour
         public uiElements UIelements = new uiElements();                //Holds the UI elements (minimap + counters) class
     //______________________||
 
+    //Events||
+
+        public delegate void newChest(int amount);
+        public static event newChest onChestCollect;
+
+        public delegate void newRoomComp(int amount);
+        public static event newRoomComp onRoomComplete;
+
+        public delegate void newDeath(int amount);
+        public static event newDeath onDeath;
+    //______||
+
     //Variables||
 
-        //Data that won't change middle runtime
-        private int MilestoneRooms = 3;
+    //Data that won't change middle runtime
+    private int MilestoneRooms = 3;
         public int mainVillageID = 1;       //Holds the village scene number
         public GameObject dungeonsData;     //Holds the list of all dungeons that exist (extracted from the dungeon API)
         
@@ -91,6 +103,25 @@ public class CurrentDungeonData : MonoBehaviour
         public int amountOfDeaths = 0;                                      //Keeps track of the amount of deaths that the player has
         public int amountOfCompletedRooms = 0;                              //Keeps track of the amount of completed rooms that the player has
         //_________||
+
+        //Adding methods||
+
+            public void addChest(){ 
+                amountOfChests++; 
+                if(onChestCollect != null)
+                    onChestCollect(amountOfChests);
+            }
+            public void addDeath(){ 
+                amountOfDeaths++; 
+                if(onDeath != null)
+                    onDeath(amountOfDeaths);
+            }
+            public void addCompletedRoom(){ 
+                amountOfCompletedRooms++; 
+                if(onRoomComplete != null)
+                    onRoomComplete(amountOfCompletedRooms);
+            }
+        //______________||
 
 
 
@@ -368,6 +399,8 @@ public class CurrentDungeonData : MonoBehaviour
             return;                                                 //If this room has already been completed then stop the rest of the code from running
 
         amountOfCompletedRooms++;                                   //Augment the counter of completed rooms
+        if (onRoomComplete != null)
+            onRoomComplete(amountOfCompletedRooms);                 //Trigger the event
         RoomWeAreIn.setCompleted(true);                             //Change the current room completion status
         updateMap();                                                //Update the minimap
 
