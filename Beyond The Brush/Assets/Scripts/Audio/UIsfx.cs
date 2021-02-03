@@ -9,9 +9,12 @@ public class UIsfx : MonoBehaviour
         public AudioClip levelUPSFX;
         public AudioClip blingSFX;
 
+        public AudioClip breakWoodChest;
+
         //Character Spells
         public AudioClip slashSFX;
         public AudioClip xSlashSFX;
+        public AudioClip rock;
     //_________||
 
 
@@ -47,7 +50,7 @@ public class UIsfx : MonoBehaviour
 
     public void slash()
     {
-        AudioSource UIelement = Camera.main.transform.Find("UISFX").GetComponent<AudioSource>();
+        AudioSource UIelement = Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>();
         UIelement.clip = slashSFX;
         UIelement.time = 0f;
         UIelement.Play();
@@ -55,11 +58,21 @@ public class UIsfx : MonoBehaviour
 
     public void xSlash()
     {
-        AudioSource UIelement = Camera.main.transform.Find("UISFX").GetComponent<AudioSource>();
+        AudioSource UIelement = Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>();
         UIelement.clip = xSlashSFX;
         UIelement.time = 0f;
         UIelement.Play();
     }
 
-
+    public void rockSpawn()
+    {
+        AudioSource UIelement = Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>();
+        UIelement.clip = rock;
+        UIelement.time = 0f;
+        UIelement.Play();
+    }
+    public void breakChest(GameObject chestPosition)
+    {
+        AudioSource.PlayClipAtPoint(breakWoodChest, chestPosition.transform.position, PlayerData.sfxVolume);
+    }
 }
