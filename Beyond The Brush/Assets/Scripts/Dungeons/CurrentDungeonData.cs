@@ -749,8 +749,10 @@ public class CurrentDungeonData : MonoBehaviour
                                                 dungeon.startingRoomSides.top, 
                                                 dungeon.startingRoomSides.right, 
                                                 dungeon.startingRoomSides.left, 
-                                                dungeon.startingRoomSides.bottom));    
-                        
+                                                dungeon.startingRoomSides.bottom));
+
+                startingRoomObject.setExplored(true);                                                   //Set the room as explored
+
                     CreateNewRoom(0, 0, startingRoomObject);                                            //Creates the starting room at the minimap
 
                     //Add the room connected to the starting room
@@ -809,11 +811,11 @@ public class CurrentDungeonData : MonoBehaviour
                 playerElement.gameObject.SetActive(false);                  //If no then disable the player pointer
             
             //handle room color
-            if (minimapRoom.getCompleted())                                //If the room has already been completed
+            if (minimapRoom.getCompleted())                                                     //If the room has already been completed
                 child.GetComponent<Image>().color = UIelements.miniMap.completedRoom;
-            else if (minimapRoom.getExplored())                            //If the room has already been explored 
+            else if (minimapRoom.getExplored() || (childRoomPos.x == 0 && childRoomPos.y == 0)) //If the room has already been explored 
                 child.GetComponent<Image>().color = UIelements.miniMap.uncompletedRoom;
-            else                                                           //If the room hasn't been completed nor explored
+            else                                                                                //If the room hasn't been completed nor explored
                 child.GetComponent<Image>().color = UIelements.miniMap.unexploredRoom;
 
 
