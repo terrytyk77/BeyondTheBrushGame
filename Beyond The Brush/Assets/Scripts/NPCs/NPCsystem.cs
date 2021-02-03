@@ -97,7 +97,8 @@ public class NPCsystem : MonoBehaviour
 
         Transform circleElement = interectionDisplay.transform.Find("Circle");              //Get the circle element
 
-        if (isInRange && Input.GetKey(interectionKey)){
+        if (isInRange && Input.GetKey(interectionKey) && dialogBox.GetComponent<CanvasGroup>().alpha == 0)
+        {
             if(currentHold + Time.deltaTime >= requiredHoldTime && !showingDialog && dialogBox.GetComponent<CanvasGroup>().alpha == 0)   //Check if the user already holded for enough time
             {
                 StartNPCdialog();
@@ -172,12 +173,12 @@ public class NPCsystem : MonoBehaviour
         Image namePlate = dialogBox.transform.Find("NamePlate").GetComponent<Image>();  //Hold the name place image
 
         while (mainPlate.fillAmount < 1){                                               //Check if the fill has already complete
-            mainPlate.fillAmount += 0.02f;                                              //Add more fill into the image
+            mainPlate.fillAmount += 0.035f;                                              //Add more fill into the image
             yield return new WaitForSeconds(0.005f);                                    //Wait for x amount of time
         }
 
         while(namePlate.fillAmount < 1){                                                //Check if the fill has already complete
-            namePlate.fillAmount += 0.02f;                                              //Add more fill into the image
+            namePlate.fillAmount += 0.035f;                                              //Add more fill into the image
             yield return new WaitForSeconds(0.005f);                                    //Wait for x amount of time
         }
 
