@@ -385,6 +385,7 @@ public class UIevents : MonoBehaviour
     }
 
     public void closeVillageMap(){
+        Debug.Log("booga");
         soundEffect.playClick();
         villageMinimap.mapWindow.SetActive(!villageMinimap.mapWindow.activeSelf);
     }
@@ -403,6 +404,9 @@ public class UIevents : MonoBehaviour
             
             //minimap
             if (Input.GetKeyDown(minimap.minimapKey) && !GameObject.Find("DungeonData")){
+
+                
+
                 if (villageMinimap.mapWindow != null){ 
                     soundEffect.playClick();                                //Play click sound effect
                     if(!villageMinimap.mapWindow.activeSelf){
