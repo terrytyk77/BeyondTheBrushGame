@@ -8,8 +8,10 @@ public class UIsfx : MonoBehaviour
         public AudioClip typingSFX;
         public AudioClip levelUPSFX;
         public AudioClip blingSFX;
-
+        
         public AudioClip breakWoodChest;
+
+        public AudioClip milestoneReached;
 
         //Character Spells
         public AudioClip slashSFX;
@@ -33,10 +35,18 @@ public class UIsfx : MonoBehaviour
         UIelement.time = 0f;
         UIelement.Play();
     }
-
+    
     public void levelUP(){
-        AudioSource UIelement = Camera.main.transform.Find("UISFX").GetComponent<AudioSource>();
+        AudioSource UIelement = Camera.main.transform.Find("SFX").GetComponent<AudioSource>();
         UIelement.clip = levelUPSFX;
+        UIelement.time = 0f;
+        UIelement.Play();
+    }
+
+    public void playMilestoneReached()
+    {
+        AudioSource UIelement = Camera.main.transform.Find("SFX").GetComponent<AudioSource>();
+        UIelement.clip = milestoneReached;
         UIelement.time = 0f;
         UIelement.Play();
     }

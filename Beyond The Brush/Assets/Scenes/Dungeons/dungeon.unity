@@ -1633,6 +1633,10 @@ PrefabInstance:
       propertyPath: breakWoodChest
       value: 
       objectReference: {fileID: 8300000, guid: 0ac265cd6c25ffe49a1b8860fb373f43, type: 3}
+    - target: {fileID: 3956660340777269614, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: milestoneReached
+      value: 
+      objectReference: {fileID: 8300000, guid: 1e5d4a81abb573741861b75ca2e80fdf, type: 3}
     - target: {fileID: 3956660341335235841, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_Name
       value: MainUI
