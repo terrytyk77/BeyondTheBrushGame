@@ -221,6 +221,7 @@ public class UIevents : MonoBehaviour
         Camera.main.transform.Find("MainMusic").GetComponent<AudioSource>().volume = PlayerData.musicVolume;
         Camera.main.transform.Find("SFX").GetComponent<AudioSource>().volume = PlayerData.sfxVolume;
         Camera.main.transform.Find("UISFX").GetComponent<AudioSource>().volume = PlayerData.sfxVolume;
+        Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>().volume = PlayerData.sfxVolume;
 
         if (PlayerData.windowmode)
             options.dropdownWindow.GetComponent<DuloGames.UI.UISelectField>().SelectOption("Fullscreen");
@@ -484,6 +485,7 @@ public class UIevents : MonoBehaviour
             PlayerData.sfxVolume = options.sfxSlider.GetComponent<Slider>().value;
             Camera.main.transform.Find("SFX").GetComponent<AudioSource>().volume = PlayerData.sfxVolume;
             Camera.main.transform.Find("UISFX").GetComponent<AudioSource>().volume = PlayerData.sfxVolume;
+            Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>().volume = PlayerData.sfxVolume;
         }
 
         public void dropDownChanged(int valeu, string option)

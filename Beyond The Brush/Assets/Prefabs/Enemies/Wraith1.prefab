@@ -848,7 +848,7 @@ MonoBehaviour:
   enemyType: Ranged
   damage: 20
   level: 3
-  maxHealth: 70
+  maxHealth: 80
   experience: 15
   walkingMovementSpeed: 1.5
   fleeingMovementSpeed: 2.5

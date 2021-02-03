@@ -63,7 +63,7 @@ public class Chest : MonoBehaviour
 
         if (!spawnedObject)
         {
-            spawnedObject = gameObject.transform.parent.parent.Find("SpawnedObjects").gameObject;
+            spawnedObject = gameObject.transform.parent.Find("SpawnedObjects").gameObject;
         }
 
         if (!coinCollider)

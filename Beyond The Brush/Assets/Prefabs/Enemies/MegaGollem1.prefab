@@ -160,7 +160,7 @@ MonoBehaviour:
   enemyType: Melee
   damage: 10
   level: 3
-  maxHealth: 150
+  maxHealth: 160
   experience: 25
   walkingMovementSpeed: 2.5
   fleeingMovementSpeed: 4

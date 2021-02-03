@@ -146,6 +146,7 @@ public class OnDrawEvent : MonoBehaviour
 					}
 					else
 					{
+						soundEffect.breakChest(lightObject);
 						lightObject.GetComponent<Chest>().DestroyChest();
 					}
 				}
@@ -291,6 +292,7 @@ public class OnDrawEvent : MonoBehaviour
                                 if (shapeDrawn != null)
                                     shapeDrawn("rock");
 
+								soundEffect.rockSpawn();
                                 PlayerData.rockCooldown = PlayerData.rockSpawnCooldownDefault;
 								SpawnObject(location, stone);
 							}
