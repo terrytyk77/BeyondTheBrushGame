@@ -11,15 +11,17 @@ public class DoorTriggers : MonoBehaviour
         private bool exitDebounce = true;
     //_________||
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
 
-        //Get the side name
-        string objectName = gameObject.name;
-
         //Check if it was the player colliding
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && exitDebounce)
         {
+            exitDebounce = false;
+            //Get the side name
+            string objectName = gameObject.name;
+
+
             //Get the procedural data of the dungeon
             GameObject dungeonData = GameObject.FindGameObjectWithTag("proceduralData");
 
@@ -28,8 +30,9 @@ public class DoorTriggers : MonoBehaviour
             {
                 //Stop the player movement
                 Rigidbody2D playerRB = collision.gameObject.GetComponent<Rigidbody2D>();
-                playerRB.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+                playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
 
+                
                 //Call for a camera transition
                 Camera.main.GetComponent<PostProcessEvents>().transition(MakeTheRoomTeleport, gameObject.name);
 
@@ -66,20 +69,21 @@ public class DoorTriggers : MonoBehaviour
                         }
                     }
 
-
-                    playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-                    if (gameObject.name == "exit" && exitDebounce)
+                    if (gameObject.name == "exit" && !exitDebounce)
                     {
-                        exitDebounce = false;
-                        playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
-                        dungeonData.GetComponent<CurrentDungeonData>().changeNextRoom(objectName);
+                        
+                        DontDestroyOnLoad(dungeonData);                              //Avoid destroying this object to use as reference for the other side teleport
+                        sceneTeleport.start(1);                                     //If the door equals to exit then take him to the village
+                        //dungeonData.GetComponent<CurrentDungeonData>().changeNextRoom(objectName);
                     }
-                    else if(gameObject.name != "exit")
+                    else if(gameObject.name != "exit" && !exitDebounce)
                     {
+                        playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
                         dungeonData.GetComponent<CurrentDungeonData>().changeNextRoom(objectName);
+
                     }
-                    
+
+                    exitDebounce = true;
 
                 }
 

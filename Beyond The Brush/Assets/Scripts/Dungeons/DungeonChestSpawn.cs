@@ -75,8 +75,6 @@ public class DungeonChestSpawn : MonoBehaviour
             }
         }
 
-        Debug.Log("Chest: " + chestCounter + " Enemies: " + enemyCounter);
-
         if (enemyCounter == 0 && chestCounter == 0)
         {
             GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().CompletedRoom();

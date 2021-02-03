@@ -14,6 +14,7 @@ public class PostProcessEvents : MonoBehaviour
 
     public void transition(Action fun, string name)
     {
+        StopAllCoroutines();
         storeName = name;
         StartCoroutine("TransitionAnimation", fun);
     }
