@@ -85,7 +85,7 @@ public class NPCsystem : MonoBehaviour
 
         if(Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {    
-            if(waitingForUserInput)
+            if(waitingForUserInput && dialogBox.GetComponent<CanvasGroup>().alpha == 1)
             {
                 Image markerComponent = dialogBox.transform.Find("Marker").GetComponent<Image>();
                 markerComponent.color = new Color(255, 255, 255, 0);

@@ -63,7 +63,7 @@ public class Chest : MonoBehaviour
 
         if (!spawnedObject)
         {
-            spawnedObject = gameObject.transform.parent.Find("SpawnedObjects").gameObject;
+            spawnedObject = gameObject.transform.parent.parent.Find("SpawnedObjects").gameObject;
         }
 
         if (!coinCollider)
@@ -86,8 +86,14 @@ public class Chest : MonoBehaviour
         if (gameObject)
         {
             GameObject.FindGameObjectWithTag("proceduralData").GetComponent<CurrentDungeonData>().amountOfChests++;
+            gameObject.tag = "Finish";
             Destroy(gameObject);
             collisionTilemap.SetTile(collisionTile, null);
+            //Check if the room is complete
+            if (gameObject.transform.parent.name == "Chests")
+            {
+                gameObject.transform.parent.parent.GetComponent<DungeonChestSpawn>().checkIfRoomComplete();
+            }
         }
     }
 }

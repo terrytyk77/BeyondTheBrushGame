@@ -399,8 +399,15 @@ public class EnemyAI : MonoBehaviour
 
     private void Death()
     {
+       
         //Set New Tag, So Enemy Are Not Detected On Draw While Dead
         transform.gameObject.tag = "DeadEnemy";
+
+        //Check if the room is complete
+        if (gameObject.transform.parent.name == "Enemies")
+        {
+            gameObject.transform.parent.parent.GetComponent<DungeonChestSpawn>().checkIfRoomComplete();
+        }
 
         //State to Dead
         currentState = State.Diying;
