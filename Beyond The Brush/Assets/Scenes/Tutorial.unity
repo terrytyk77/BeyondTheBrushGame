@@ -4771,7 +4771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deadMinesMusic: {fileID: 8300000, guid: b3eed592578ea4e49ae5379a1107ef53, type: 3}
   coastMusic: {fileID: 8300000, guid: fac45ea987cef9b49a018af851ccb0d2, type: 3}
-  villageMusic: {fileID: 8300000, guid: dc5a821d69ecd6a41a46a84a260b56c1, type: 3}
+  villageMusic: {fileID: 8300000, guid: d4686515e6b03fe47b15558eaa23724e, type: 3}
   forestMusic: {fileID: 8300000, guid: bea4fe04b715ab441be3422259b5ba7f, type: 3}
   frostForestMusic: {fileID: 8300000, guid: 887897f5fe33e754b870a916e34624dc, type: 3}
   frostDungeonMusic: {fileID: 8300000, guid: c71387432e906bf49a5ffb2ab5deada7, type: 3}
@@ -5042,6 +5042,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1326486983}
     - target: {fileID: 1381534487, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381534487, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: currentArea
+      value: dmF
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381534487, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: raysOfLight
       value: 
       objectReference: {fileID: 375556877}
@@ -5161,6 +5169,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3956660340777269614, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: breakWoodChest
+      value: 
+      objectReference: {fileID: 8300000, guid: 0ac265cd6c25ffe49a1b8860fb373f43, type: 3}
     - target: {fileID: 3956660341335235841, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_Name
       value: MainUI
