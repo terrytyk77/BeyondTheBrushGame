@@ -402,8 +402,8 @@ public class UIevents : MonoBehaviour
         //Listen to the keyboard keys||
             
             //minimap
-            if (Input.GetKeyDown(minimap.minimapKey)){
-                if(villageMinimap.mapWindow != null){ 
+            if (Input.GetKeyDown(minimap.minimapKey) && !GameObject.Find("DungeonData")){
+                if (villageMinimap.mapWindow != null){ 
                     soundEffect.playClick();                                //Play click sound effect
                     if(!villageMinimap.mapWindow.activeSelf){
                         profiles.profilesWindow.SetActive(false);           //Close the profiles window
