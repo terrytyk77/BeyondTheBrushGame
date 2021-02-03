@@ -534,7 +534,7 @@ public class PlayerData : MonoBehaviour
     }
 
     private static int calculateMaxHealth(){
-        return 100 + (_level * 8);
+        return 100 + ((_level - 1) * 8);
     }
 
     static public void ResetPlayerData()
