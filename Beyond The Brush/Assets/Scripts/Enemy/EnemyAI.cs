@@ -346,24 +346,34 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public void getDamaged(float damage)
+    public int getDamaged(float damage)
     {
+        //Scale the damage depending on players level
+        damage += damage * (0.1f * PlayerData.level);
+
         if (currentHealth > damage)
         {
             currentHealth -= damage;
             healthBar.GetComponent<Image>().fillAmount -= damage / maxHealth;
+            return (int)damage;
         }
         else
         {
+            float storeHealth = currentHealth;
             if(damage == PlayerData.xslashDamage)
             {
                 player.GetComponent<Passives>().Overkill();
                 player.GetComponent<Passives>().BattleThrist();
             }
+            
             healthBar.GetComponent<Image>().fillAmount = 0;
             currentHealth = 0;
             Death();
+            return (int)storeHealth;
         }
+
+        
+
     }
 
     public void dealDamage()

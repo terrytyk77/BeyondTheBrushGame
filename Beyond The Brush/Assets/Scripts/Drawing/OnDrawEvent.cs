@@ -112,8 +112,8 @@ public class OnDrawEvent : MonoBehaviour
 						playerPassives.ToArms();
 						playerPassives.DemandForAction(damage);
 					}
-					enemy.GetComponent<EnemyAI>().getDamaged(damage);
-					DamagePopUp.Create(DamagePopUpPrefab, enemy.transform.position, damage);
+					int damageGiven = enemy.GetComponent<EnemyAI>().getDamaged(damage);
+					DamagePopUp.Create(DamagePopUpPrefab, enemy.transform.position, damageGiven);
 				}
 			}
 		}

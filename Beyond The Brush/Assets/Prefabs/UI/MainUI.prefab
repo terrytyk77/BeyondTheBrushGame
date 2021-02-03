@@ -25065,6 +25065,7 @@ MonoBehaviour:
   levelUPSFX: {fileID: 8300000, guid: 2dff15a5a247bde4289a3e637dafbb60, type: 3}
   blingSFX: {fileID: 8300000, guid: 2c5dbd7398adf7d4484ae118a67498a1, type: 3}
   breakWoodChest: {fileID: 8300000, guid: fb8abb8a5339b7441a151f80a3a3d755, type: 3}
+  milestoneReached: {fileID: 0}
   slashSFX: {fileID: 8300000, guid: a0869f60a1e6d1f43a811a3bb2d70b81, type: 3}
   xSlashSFX: {fileID: 8300000, guid: f6da63b4445e27f43af80ae81e87dbbb, type: 3}
   rock: {fileID: 8300000, guid: 4b3dd6e98a5f28a459ad0626aae756ed, type: 3}
