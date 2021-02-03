@@ -385,7 +385,6 @@ public class UIevents : MonoBehaviour
     }
 
     public void closeVillageMap(){
-        Debug.Log("booga");
         soundEffect.playClick();
         villageMinimap.mapWindow.SetActive(!villageMinimap.mapWindow.activeSelf);
     }
