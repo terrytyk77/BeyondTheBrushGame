@@ -250,16 +250,17 @@ public class PlayerData : MonoBehaviour
         //_________||
 
         //Freeze the player movement
-        playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
+        player.GetComponent<PlayerMovement>().enabled = false;
 
         //Play the death animation
 
         //Respawn the player
         void doLast()
         {
-            //Make him able to move itself again
-            
-            playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+            //Unfreeze the player
+            player.GetComponent<PlayerMovement>().enabled = true;
+            playerVertical.GetComponent<Animator>().Rebind();
+            playerHorizontal.GetComponent<Animator>().Rebind();
 
             //Reset his cooldowns
             cooldowns._shieldCooldown = 0;
