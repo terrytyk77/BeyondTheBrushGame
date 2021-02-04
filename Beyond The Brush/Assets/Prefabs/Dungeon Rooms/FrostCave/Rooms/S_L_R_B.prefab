@@ -36,9 +36,6 @@ Transform:
   - {fileID: 3654790777225891556}
   - {fileID: 5192604375253247061}
   - {fileID: 271231162479800970}
-  - {fileID: 8660016388241038212}
-  - {fileID: 6183092588155765334}
-  - {fileID: 7220456446432759580}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1279,7 +1276,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8660016388241038212}
+  - {fileID: 6183092588155765334}
+  - {fileID: 7220456446432759580}
   m_Father: {fileID: 3502939556234196263}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11366,7 +11366,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 3502939556234196263}
+    m_TransformParent: {fileID: 271231162479800970}
     m_Modifications:
     - target: {fileID: 473713247572620733, guid: d97da5593344ef94c96a45267cb9098b, type: 3}
       propertyPath: m_Name
@@ -11374,7 +11374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8114240194759515284, guid: d97da5593344ef94c96a45267cb9098b, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8114240194759515284, guid: d97da5593344ef94c96a45267cb9098b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11428,11 +11428,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 3502939556234196263}
+    m_TransformParent: {fileID: 271231162479800970}
     m_Modifications:
     - target: {fileID: 894108322864732542, guid: 1c34debb51aa75a48a5a77e526a1311a, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 894108322864732542, guid: 1c34debb51aa75a48a5a77e526a1311a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11490,11 +11490,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 3502939556234196263}
+    m_TransformParent: {fileID: 271231162479800970}
     m_Modifications:
     - target: {fileID: 894108322864732542, guid: 1c34debb51aa75a48a5a77e526a1311a, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 894108322864732542, guid: 1c34debb51aa75a48a5a77e526a1311a, type: 3}
       propertyPath: m_LocalPosition.x
