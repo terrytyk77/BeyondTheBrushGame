@@ -386,6 +386,11 @@ public class PlayerData : MonoBehaviour
 
         lastTimeHeTookDamage = storeTime;   //Store the last time he took damage
 
+        if(healthPoints > 0 && healthPoints - damage <= 0)
+        {
+            playerDied();
+        }
+
         if (healthPoints >= damage)
         {
             if (isShielded == true)
@@ -404,10 +409,6 @@ public class PlayerData : MonoBehaviour
             healthPoints = 0;
         }
 
-        if (healthPoints == 0)
-        {
-            playerDied();
-        }
     }
 
     public static void addPlayerExp(int enemyExp)
