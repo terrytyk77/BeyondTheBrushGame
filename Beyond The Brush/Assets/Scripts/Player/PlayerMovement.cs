@@ -22,6 +22,11 @@ public class PlayerMovement : MonoBehaviour
         private KeyCode? lastPressedKey = null;
         private KeyCode? startingDirection = null;
         private bool differentDirection;
+
+        //hold animation stuff
+        private bool justEndedBasicSlash = false;
+        private bool justEndedXslash = false;
+        private bool justEndedShield = false;
     //_________||
 
     //Optional variable||
@@ -110,8 +115,24 @@ public class PlayerMovement : MonoBehaviour
                 playerMovingRight();
         }
 
+        //Fix animations||
+
+            if(playerHorizontal.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("AttackSide") || playerHorizontal.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("ShieldSide"))
+        {
+                //The animation is on
+                justEndedBasicSlash = true;
+            }else{
+                //The animation is off
+                if(justEndedBasicSlash){
+                    justEndedBasicSlash = false;
+                    playerVertical.GetComponent<Animator>().Rebind();
+                }
+            }
+        //______________||
+
+
         //Handle the velocity of the player body
-        if (Input.GetKey(upKey) && lastPressedKey == upKey)
+            if (Input.GetKey(upKey) && lastPressedKey == upKey)
             newForce.y = movementMagnitude;
         else if(Input.GetKey(downKey) && lastPressedKey == downKey)
             newForce.y = -movementMagnitude;
