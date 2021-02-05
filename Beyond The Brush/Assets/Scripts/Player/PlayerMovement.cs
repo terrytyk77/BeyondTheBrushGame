@@ -46,6 +46,13 @@ public class PlayerMovement : MonoBehaviour
         //__________________________________||
     }
 
+    private void OnDisable()
+    {
+        playerHorizontal.GetComponent<Animator>().SetBool("Moving", false);
+        playerVertical.GetComponent<Animator>().SetBool("Moving", false);
+        playerBody.velocity = new Vector3(0, 0, 0);
+    }
+
     void Update()
     {
 
