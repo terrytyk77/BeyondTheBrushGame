@@ -16,7 +16,9 @@ public class UIsfx : MonoBehaviour
         //Character Spells
         public AudioClip slashSFX;
         public AudioClip xSlashSFX;
+        public AudioClip shieldSFX;
         public AudioClip rock;
+        public AudioClip box;
     //_________||
 
 
@@ -60,29 +62,47 @@ public class UIsfx : MonoBehaviour
 
     public void slash()
     {
-        AudioSource UIelement = Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>();
-        UIelement.clip = slashSFX;
-        UIelement.time = 0f;
-        UIelement.Play();
+        AudioSource spell = Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>();
+        spell.clip = slashSFX;
+        spell.time = 0f;
+        spell.Play();
     }
 
     public void xSlash()
     {
-        AudioSource UIelement = Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>();
-        UIelement.clip = xSlashSFX;
-        UIelement.time = 0f;
-        UIelement.Play();
+        AudioSource spell = Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>();
+        spell.clip = xSlashSFX;
+        spell.time = 0f;
+        spell.Play();
+    }
+
+    public void shield()
+    {
+        AudioSource spell = Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>();
+        spell.clip = shieldSFX;
+        spell.time = 0f;
+        spell.Play();
     }
 
     public void rockSpawn()
     {
-        AudioSource UIelement = Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>();
-        UIelement.clip = rock;
-        UIelement.time = 0f;
-        UIelement.Play();
+        AudioSource spell = Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>();
+        spell.clip = rock;
+        spell.time = 0f;
+        spell.Play();
     }
+
+    public void boxSpawn()
+    {
+        AudioSource spell = Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>();
+        spell.clip = box;
+        spell.time = 0f;
+        spell.Play();
+    }
+
     public void breakChest(GameObject chestPosition)
     {
         AudioSource.PlayClipAtPoint(breakWoodChest, chestPosition.transform.position, PlayerData.sfxVolume);
     }
+
 }

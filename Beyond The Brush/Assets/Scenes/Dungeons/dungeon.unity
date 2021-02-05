@@ -2470,6 +2470,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3956660340777269614, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: box
+      value: 
+      objectReference: {fileID: 8300000, guid: 7448a95a7e4a30d4fb532e9292673945, type: 3}
+    - target: {fileID: 3956660340777269614, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: shieldSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: f818886ae8d378b499975bde364067fe, type: 3}
+    - target: {fileID: 3956660340777269614, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: breakWoodChest
       value: 
       objectReference: {fileID: 8300000, guid: 0ac265cd6c25ffe49a1b8860fb373f43, type: 3}
