@@ -157,8 +157,16 @@ public class EnemyAI : MonoBehaviour
                             }
                             MoveTo();
                         }
+
                         //Check if out of range!
                         OutOfChaseRange();
+
+                        //Enemy Can't get to the Player
+                        if (currentPath == null)
+                        {
+                            currentState = State.Resetting;
+                        }
+
                     }
                     break;
                 }
@@ -350,6 +358,11 @@ public class EnemyAI : MonoBehaviour
     {
         //Scale the damage depending on players level
         damage += damage * (0.1f * (PlayerData.level - 1));
+
+        if(currentState == State.Patrolling)
+        {
+            currentState = State.Chassing;
+        }
 
         if (currentHealth > damage)
         {
