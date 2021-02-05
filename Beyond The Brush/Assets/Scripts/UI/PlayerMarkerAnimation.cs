@@ -11,16 +11,21 @@ public class PlayerMarkerAnimation : MonoBehaviour
 
         private float sizeLimit = 3.5f;
         private float speed = 0.09f;
+
+        private Rigidbody2D playerBody;
     //_________||
 
     private void Start()
     {
         startingPoint = gameObject.GetComponent<Transform>().localScale;
+        playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        gameObject.transform.position = playerBody.position;
+
         Transform markerSize = gameObject.GetComponent<Transform>();
         if (direction)
         {
