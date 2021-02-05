@@ -757,7 +757,7 @@ public class UIevents : MonoBehaviour
             talentTreeData.talentTreeWindow.SetActive(!talentTreeData.talentTreeWindow.activeSelf);
         }
 
-        private void updateTalentTree()
+        public void updateTalentTree()
         {
             //Update the resources text
             talentTreeData.displayWindow.resourcesHolder.transform.Find("Label").GetComponent<Text>().text = NumAbv.prettyValues(PlayerData.resources);

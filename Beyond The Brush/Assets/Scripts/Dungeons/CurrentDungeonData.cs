@@ -413,6 +413,7 @@ public class CurrentDungeonData : MonoBehaviour
             {
                 totalAmountOfResources = totalAmountOfResources + (int)(0.2f * ( (float)amountOfChests * 5f - (float)amountOfDeaths * 3f + (float)amountOfCompletedRooms * 5f) );
                 PlayerData.resources += totalAmountOfResources;                         //Add the amount of player resources
+                GameObject.FindGameObjectWithTag("mainUI").GetComponent<UIevents>().updateTalentTree();
                 setupCompletedReward(totalAmountOfResources, amountOfCompletedRooms);   //Handle the rewards window info
             }
         //_________________________________||
