@@ -924,11 +924,11 @@ MonoBehaviour:
   damage: 5
   level: 1
   maxHealth: 140
-  experience: 15
+  experience: 25
   walkingMovementSpeed: 2
   fleeingMovementSpeed: 4
   aggroRange: 5
-  chaseRange: 10
+  chaseRange: 15
   attackRange: 1
   minPatrolRange: 2
   maxPatrolRange: 6

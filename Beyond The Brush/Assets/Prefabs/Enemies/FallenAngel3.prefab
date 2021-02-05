@@ -984,8 +984,8 @@ MonoBehaviour:
   experience: 25
   walkingMovementSpeed: 2.5
   fleeingMovementSpeed: 4
-  aggroRange: 5
-  chaseRange: 10
+  aggroRange: 6
+  chaseRange: 15
   attackRange: 1
   minPatrolRange: 2
   maxPatrolRange: 6

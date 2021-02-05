@@ -161,11 +161,11 @@ MonoBehaviour:
   damage: 10
   level: 3
   maxHealth: 160
-  experience: 25
+  experience: 30
   walkingMovementSpeed: 2.5
   fleeingMovementSpeed: 4
-  aggroRange: 5
-  chaseRange: 10
+  aggroRange: 6
+  chaseRange: 15
   attackRange: 1
   minPatrolRange: 2
   maxPatrolRange: 6
