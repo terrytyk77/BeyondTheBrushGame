@@ -346,10 +346,10 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public int getDamaged(float damage)
+    public int getDamaged(float damage, string shape)
     {
         //Scale the damage depending on players level
-        damage += damage * (0.1f * PlayerData.level);
+        damage += damage * (0.1f * (PlayerData.level - 1));
 
         if (currentHealth > damage)
         {
@@ -360,7 +360,7 @@ public class EnemyAI : MonoBehaviour
         else
         {
             float storeHealth = currentHealth;
-            if(damage == PlayerData.xslashDamage)
+            if(shape == "Xspell")
             {
                 player.GetComponent<Passives>().Overkill();
                 player.GetComponent<Passives>().BattleThrist();
@@ -369,11 +369,8 @@ public class EnemyAI : MonoBehaviour
             healthBar.GetComponent<Image>().fillAmount = 0;
             currentHealth = 0;
             Death();
-            return (int)storeHealth;
+            return (int)Mathf.Ceil(storeHealth);
         }
-
-        
-
     }
 
     public void dealDamage()

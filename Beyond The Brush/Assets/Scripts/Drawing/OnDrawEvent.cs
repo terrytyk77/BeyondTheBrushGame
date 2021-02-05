@@ -80,7 +80,7 @@ public class OnDrawEvent : MonoBehaviour
 
 	}
 
-	public void HoverEnemy(DrawingLocation location, int damage)
+	public void HoverEnemy(DrawingLocation location, int damage, string shape)
     {
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 		Vector2 worldSmallPoint = Camera.main.ScreenToWorldPoint(new Vector2(location.sX, location.sY));
@@ -106,13 +106,13 @@ public class OnDrawEvent : MonoBehaviour
 
 				if (drawingZone.Overlaps(enemyHitZone))
 				{
-					if(damage == PlayerData.slashDamage)
+					if(shape == "Horizontal")
                     {
 						playerPassives.FlashStrike();
 						playerPassives.ToArms();
 						playerPassives.DemandForAction(damage);
 					}
-					int damageGiven = enemy.GetComponent<EnemyAI>().getDamaged(damage);
+					int damageGiven = enemy.GetComponent<EnemyAI>().getDamaged(damage, shape);
 					DamagePopUp.Create(DamagePopUpPrefab, enemy.transform.position, damageGiven);
 				}
 			}
@@ -256,7 +256,7 @@ public class OnDrawEvent : MonoBehaviour
 							soundEffect.slash();
 							playerHorizontal.GetComponent<Animator>().SetTrigger("Slash");
 							playerVertical.GetComponent<Animator>().SetTrigger("Slash");
-							HoverEnemy(location, PlayerData.slashDamage);
+							HoverEnemy(location, PlayerData.slashDamage, result.gesture.id);
 						}
 	
 						break;
@@ -332,7 +332,7 @@ public class OnDrawEvent : MonoBehaviour
                                     }
                             }
 	
-							HoverEnemy(location, PlayerData.xslashDamage);
+							HoverEnemy(location, PlayerData.xslashDamage, result.gesture.id);
 							HoverObject(location);
 						}
 
