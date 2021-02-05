@@ -160,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
         //Handle the player perspective
         playerVerticalPerspective();
         PlayerData.playerDirection = 0;
+        transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
         GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(true, ArmorChange.currentDefault);
         HorVerSide = false;
 
@@ -176,6 +177,7 @@ public class PlayerMovement : MonoBehaviour
         //Handle the player perspective
         playerVerticalPerspective();
         PlayerData.playerDirection = 1;
+        transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
         GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(false, ArmorChange.currentDefault);
         HorVerSide = false;
 

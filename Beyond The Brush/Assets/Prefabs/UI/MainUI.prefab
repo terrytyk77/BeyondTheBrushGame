@@ -25068,7 +25068,9 @@ MonoBehaviour:
   milestoneReached: {fileID: 0}
   slashSFX: {fileID: 8300000, guid: a0869f60a1e6d1f43a811a3bb2d70b81, type: 3}
   xSlashSFX: {fileID: 8300000, guid: f6da63b4445e27f43af80ae81e87dbbb, type: 3}
+  shieldSFX: {fileID: 0}
   rock: {fileID: 8300000, guid: 4b3dd6e98a5f28a459ad0626aae756ed, type: 3}
+  box: {fileID: 0}
 --- !u!114 &1381534487
 MonoBehaviour:
   m_ObjectHideFlags: 0

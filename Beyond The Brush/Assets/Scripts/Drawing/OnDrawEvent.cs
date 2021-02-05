@@ -283,6 +283,7 @@ public class OnDrawEvent : MonoBehaviour
 									PlayerData.shieldTimer = PlayerData.shieldTimerDefault;
 									PlayerData.shieldCurrentStack--;
 								}
+								soundEffect.shield();
 							}
 						}
                         else 
@@ -346,7 +347,8 @@ public class OnDrawEvent : MonoBehaviour
                                 shapeDrawn(result.gesture.id);
                             PlayerData.boxCooldown = PlayerData.boxSpawnCooldownDefault;
 							SpawnObject(location, box);
-                        }
+							soundEffect.boxSpawn();
+						}
 
 						break;
 					}
