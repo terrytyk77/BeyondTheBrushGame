@@ -156,8 +156,8 @@ public class NPCsystem : MonoBehaviour
 
     private void openDialog(){
         GameObject.FindGameObjectWithTag("Player")
-                  .GetComponent<Rigidbody2D>()
-                  .constraints = RigidbodyConstraints2D.FreezeAll;                  //Freeze the player as he speaks to the NPC
+                  .GetComponent<PlayerMovement>()
+                  .enabled = false;                  //Freeze the player as he speaks to the NPC
 
         dialogBox.transform.Find("NamePlate").GetComponent<Image>().fillAmount = 0; //Reset the name plate fill
         dialogBox.transform.Find("MainFrame").GetComponent<Image>().fillAmount = 0; //Reset the main frame fill
@@ -225,9 +225,9 @@ public class NPCsystem : MonoBehaviour
         showingDialog = false;                      //Tell the code that the dialog is no longer being shown
         waitingForUserInput = false;                //No longer listening to user input
         currentMessage = -1;                        //Reset the current message index
-        GameObject.FindGameObjectWithTag("Player")  //Unfreeze the player
-          .GetComponent<Rigidbody2D>()
-          .constraints = RigidbodyConstraints2D.FreezeRotation;
+        GameObject.FindGameObjectWithTag("Player")
+                  .GetComponent<PlayerMovement>()
+                  .enabled = true;                  //Freeze the player as he speaks to the NPC
         StartCoroutine(dialogFadeAway());           //Make the dialog go away
     }
 

@@ -6,26 +6,47 @@ public class PlayerMovement : MonoBehaviour
 {
 
     //Variables||
+
+        //Hold player elements
         public GameObject playerVertical;
         public GameObject playerHorizontal;
         public GameObject playerOverlay;
         Rigidbody2D playerBody;
+
         bool HorVerSide = false;
         public static bool verticalDirection = false; //False down, True up
 
         public GameObject joystick; 
+
+        //Store direction stuff
+        private KeyCode? lastPressedKey = null;
+        private KeyCode? startingDirection = null;
+        private bool differentDirection;
+
+        //hold animation stuff
+        private bool justEndedBasicSlash = false;
+        private bool justEndedXslash = false;
+        private bool justEndedShield = false;
     //_________||
 
+    //Optional variable||
 
+        private const KeyCode upKey = KeyCode.W;
+        private const KeyCode downKey = KeyCode.S;
+        private const KeyCode rightKey = KeyCode.D;
+        private const KeyCode leftKey = KeyCode.A;
+    //_________________||
 
-    // Start is called before the first frame update
     void Start()
-    {
-        playerVerticalPerspective();
+    {   
+        //Set the basic stuff for the player||
+
+            playerVerticalPerspective();
+            playerBody = gameObject.GetComponent<Rigidbody2D>();
+        //__________________________________||
     }
 
-    // Fixed update is called 50 times per frame
-    void FixedUpdate()
+    void Update()
     {
 
         //Joystick direction||
@@ -36,116 +57,173 @@ public class PlayerMovement : MonoBehaviour
             bool goingLeft = false;
         //__________________||
 
-        if (joystick)
-        {
-            DuloGames.UI.UIJoystick joystickComp = joystick.GetComponent<DuloGames.UI.UIJoystick>();
+        //Variables for the movement||
 
-            Vector2 axis = joystickComp.JoystickAxis;
-            float angle = Mathf.Atan2(axis.y, axis.x);
-            angle = Mathf.Rad2Deg * angle;
-            //-0.8X   0.5Y >
+            differentDirection = false;                         //check if the player changed his direction
+            float movementMagnitude = PlayerData.movementSpeed; //Get the player current movement speed
+            Vector2 newForce = new Vector2(0, 0);               //Hold the amount of player movement towards a direction
+        //__________________________||
 
-            //Going up
-            if (angle > 45 && angle < 135)
-                goingUp = true;
+        //Changes the looks of the player depending on direction||
 
-            //Going down
-            if (angle > -135 && angle < -45)
-                goingDown = true;
+            if (Input.GetKeyDown(upKey))
+                playerMovingUp();
+            else if (Input.GetKeyDown(downKey))
+                playerMovingDown();
+            else if (Input.GetKeyDown(rightKey))
+                playerMovingRight();
+            else if (Input.GetKeyDown(leftKey))
+                playerMovingLeft();
+        //______________________________________________________||
 
-            //Going left
-            if ((angle > 135 && angle < 180) || (angle > -180 && angle < -135) )
-                goingLeft = true;
+        if ((Input.GetKeyUp(upKey) && lastPressedKey == upKey) 
+            || (Input.GetKeyUp(downKey) && lastPressedKey == downKey) 
+            || (Input.GetKeyUp(rightKey) && lastPressedKey == rightKey) 
+            || (Input.GetKeyUp(leftKey) && lastPressedKey == leftKey))
+            lastPressedKey = null;
 
-            //Going right
-            if (angle < 45 && angle > -45)
-                goingRight = true;
+        if ((Input.GetKeyUp(upKey) && startingDirection == upKey)
+            || (Input.GetKeyUp(downKey) && startingDirection == downKey)
+            || (Input.GetKeyUp(rightKey) && startingDirection == rightKey)
+            || (Input.GetKeyUp(leftKey) && startingDirection == leftKey))
+            startingDirection = null;
 
-            if(axis.x == 0 && axis.y == 0){
-                goingUp = false;
-                goingDown = false;
-                goingRight = false;
-                goingLeft = false;
+        if(startingDirection != null && lastPressedKey == null){
+            switch(startingDirection){
+                case upKey:
+                    playerMovingUp();
+                    break;
+                case downKey:
+                    playerMovingDown();
+                    break;
+
+                case leftKey:
+                    playerMovingLeft();
+                    break;
+                case rightKey:
+                    playerMovingRight();
+                    break;
             }
-
+        }else if(startingDirection == null && lastPressedKey == null){
+            if (Input.GetKey(upKey))
+                playerMovingUp();
+            else if(Input.GetKey(downKey))
+                playerMovingDown();
+            else if (Input.GetKey(leftKey))
+                playerMovingLeft();
+            else if (Input.GetKey(rightKey))
+                playerMovingRight();
         }
 
-        //Get the player rigid body component
-        playerBody = gameObject.GetComponent<Rigidbody2D>();
+        //Fix animations||
 
-        //Player movement magnitude
-        float movementMagnitude = PlayerData.movementSpeed;
-
-        //New force
-        Vector2 newForce = new Vector2(0, 0);
-
-        if ((Input.GetKey("w") && !Input.GetKey("s")) || goingUp)
+            if(playerHorizontal.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("AttackSide") || playerHorizontal.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("ShieldSide"))
         {
-            PlayerData.playerDirection = 0;
+                //The animation is on
+                justEndedBasicSlash = true;
+            }else{
+                //The animation is off
+                if(justEndedBasicSlash){
+                    justEndedBasicSlash = false;
+                    playerVertical.GetComponent<Animator>().Rebind();
+                }
+            }
+        //______________||
 
-            playerVerticalPerspective();
+
+        //Handle the velocity of the player body
+            if (Input.GetKey(upKey) && lastPressedKey == upKey)
             newForce.y = movementMagnitude;
-            HorVerSide = false;
-            verticalDirection = true;
-            transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(verticalDirection, ArmorChange.currentDefault);
-
-        }
-        else if ((Input.GetKey("s") && !Input.GetKey("w")) || goingDown)
-        {
-            PlayerData.playerDirection = 1;
-
-            playerVerticalPerspective();
+        else if(Input.GetKey(downKey) && lastPressedKey == downKey)
             newForce.y = -movementMagnitude;
-            HorVerSide = false;
-            verticalDirection = false;
-            transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(verticalDirection, ArmorChange.currentDefault);
-        }
-        else if ((Input.GetKey("a") && !Input.GetKey("d")) || goingLeft)
-        {
-            PlayerData.playerDirection = 2;
-
-            playerHorizontalPerspective();
-            newForce.x = -movementMagnitude;
-            HorVerSide = true;
-            //Change the image side
-            transform.localScale = new Vector3(-transform.localScale.y, transform.localScale.y, transform.localScale.z);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeHorizontalDirection(true);
-        }
-        else if ((Input.GetKey("d") && !Input.GetKey("a")) || goingRight)
-        {
-            PlayerData.playerDirection = 3;
-
-            playerHorizontalPerspective();
+        else if (Input.GetKey(rightKey) && lastPressedKey == rightKey)
             newForce.x = movementMagnitude;
-            HorVerSide = true;
-            //Change the image side
-            transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changeHorizontalDirection(false);
-        }
-        else
+        else if (Input.GetKey(leftKey) && lastPressedKey == leftKey)
+            newForce.x = -movementMagnitude;
+        else if(!Input.GetKey(upKey) && !Input.GetKey(downKey) && !Input.GetKey(rightKey) && !Input.GetKey(leftKey))
         {
-                playerHorizontal.GetComponent<Animator>().SetBool("Moving", false);
-                playerVertical.GetComponent<Animator>().SetBool("Moving", false);
+            playerHorizontal.GetComponent<Animator>().SetBool("Moving", false);
+            playerVertical.GetComponent<Animator>().SetBool("Moving", false);
+        }else{
+            playerVertical.GetComponent<Animator>().SetBool("Moving", true);
+            playerHorizontal.GetComponent<Animator>().SetBool("Moving", true);
         }
 
-        if(playerOverlay)
-        {
-            playerOverlay.transform.localPosition = new Vector2(playerBody.position.x, playerBody.position.y);
-        }
-
-        //Apply the force on the player's body
+        //Add the velocity to the player body and set the animation direction
         playerBody.velocity = newForce;
         playerVertical.GetComponent<Animator>().SetInteger("Direction", PlayerData.playerDirection);
+
     }
+
+    private void playerMovingUp()
+    {
+        //Handle the player perspective
+        playerVerticalPerspective();
+        PlayerData.playerDirection = 0;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(true, ArmorChange.currentDefault);
+        HorVerSide = false;
+
+        //Handle the hotkeys
+        if (startingDirection == null)
+            startingDirection = upKey;
+
+        differentDirection = true;
+        lastPressedKey = upKey;
+    }
+
+    private void playerMovingDown()
+    {
+        //Handle the player perspective
+        playerVerticalPerspective();
+        PlayerData.playerDirection = 1;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<ArmorChange>().changedVerticalDirection(false, ArmorChange.currentDefault);
+        HorVerSide = false;
+
+        //Handle the hotkeys
+        if (startingDirection == null)
+            startingDirection = downKey;
+
+        differentDirection = true;
+        lastPressedKey = downKey;
+    }
+
+    private void playerMovingRight()
+    {
+        //Handle the player perspective
+        playerHorizontalPerspective();
+        PlayerData.playerDirection = 3;
+        transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
+        HorVerSide = true;
+
+        //Handle the hotkeys
+        if (startingDirection == null)
+            startingDirection = rightKey;
+
+        differentDirection = true;
+        lastPressedKey = rightKey;
+    }
+
+    private void playerMovingLeft()
+    {
+        //Handle the player perspective
+        playerHorizontalPerspective();
+        PlayerData.playerDirection = 2;
+        transform.localScale = new Vector3(-transform.localScale.y, transform.localScale.y, transform.localScale.z);
+        HorVerSide = true;
+
+        //Handle the hotkeys
+        if (startingDirection == null)
+            startingDirection = leftKey;
+
+        differentDirection = true;
+        lastPressedKey = leftKey;
+    }
+
 
     private void playerVerticalPerspective()
     {
         playerVertical.transform.localScale = new Vector3(1, 1, 0);
         playerHorizontal.transform.localScale = new Vector3(0, 0, 0);
-        //playerVertical.SetActive(true);
-        //playerHorizontal.SetActive(false);
         playerVertical.GetComponent<Animator>().SetBool("Moving", true);
     }
 
@@ -153,9 +231,6 @@ public class PlayerMovement : MonoBehaviour
     {
         playerVertical.transform.localScale = new Vector3(0, 0, 0);
         playerHorizontal.transform.localScale = new Vector3(1, 1, 0);
-
-        //playerHorizontal.SetActive(true);
-        //playerVertical.SetActive(false);
         playerHorizontal.GetComponent<Animator>().SetBool("Moving", true);
     }
 }
