@@ -80,7 +80,7 @@ public class UIsfx : MonoBehaviour
     {
         AudioSource spell = Camera.main.transform.Find("PlayerSFX").GetComponent<AudioSource>();
         spell.clip = shieldSFX;
-        spell.time = 0f;
+        spell.time = 0.4f;
         spell.Play();
     }
 

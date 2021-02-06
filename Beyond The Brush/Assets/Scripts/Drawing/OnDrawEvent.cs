@@ -265,7 +265,7 @@ public class OnDrawEvent : MonoBehaviour
                     {
 						if (HoverPlayer(location))
                         {
-                            if (result.score.score >= 0.7f && PlayerData.shieldCurrentStack > 0)
+                            if (result.score.score >= 0.8f && PlayerData.shieldCurrentStack > 0)
                             {
                                 if (shapeDrawn != null)
                                     shapeDrawn("shield");
