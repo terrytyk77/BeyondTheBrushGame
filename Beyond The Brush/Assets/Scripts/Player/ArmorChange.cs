@@ -429,9 +429,10 @@ public class ArmorChange : MonoBehaviour
                     changeDrawingVertical(bodyPart: "Head", drawingName: "BackDrawing", imageString: null);
 
                 //front
-                if (hasDrawing != null)
+                if (hasDrawing != null && !String.IsNullOrEmpty(currentProfile.front.Head))
                 {
                     changeDrawingVertical(bodyPart: "Head", drawingName: "FrontDrawing", imageString: currentProfile.front.Head);
+                    Debug.Log(currentProfile.front.Head);
                     Avatar.transform.Find("Drawing").GetComponent<Image>().sprite = verticalPlayer.transform.Find("Head").Find("FrontDrawing").GetComponent<SpriteRenderer>().sprite;
                     Avatar.transform.Find("Drawing").GetComponent<Image>().color = new Color(1, 1, 1, 1);
                 }
