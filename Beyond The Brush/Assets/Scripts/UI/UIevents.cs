@@ -164,7 +164,8 @@ public class UIevents : MonoBehaviour
         //Loading a network instance window
         public GameObject loadingNetworkPrefab;
 
-
+        [Header("Leave dungeon")]
+        public GameObject confirmationWindowDungeon;
     //_________||
 
     //Sound||
@@ -1186,5 +1187,20 @@ public class UIevents : MonoBehaviour
         villageMinimap.mapWindow.SetActive(false);          //Close the map
         profiles.profilesWindow.SetActive(!profiles.profilesWindow.activeSelf);
     }
+
+    //Handle leave dungeon functions||
+
+        public void acceptLeave(){
+            soundEffect.playClick();    //Clicking sound effect
+            confirmationWindowDungeon.SetActive(false);
+            sceneTeleport.start(1);
+        }
+
+        public void openConfirmation(){
+            soundEffect.playClick();    //Clicking sound effect
+            if(confirmationWindowDungeon)
+                confirmationWindowDungeon.SetActive(!confirmationWindowDungeon.activeSelf);
+        }
+    //______________________________||
 
 }
