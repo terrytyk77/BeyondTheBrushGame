@@ -74,16 +74,18 @@ public class DoorTriggers : MonoBehaviour
                         
                         DontDestroyOnLoad(dungeonData);                              //Avoid destroying this object to use as reference for the other side teleport
                         sceneTeleport.start(1);                                     //If the door equals to exit then take him to the village
+                        
                         //dungeonData.GetComponent<CurrentDungeonData>().changeNextRoom(objectName);
                     }
                     else if(gameObject.name != "exit" && !exitDebounce)
                     {
                         playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
                         dungeonData.GetComponent<CurrentDungeonData>().changeNextRoom(objectName);
+                        exitDebounce = true;
 
                     }
 
-                    exitDebounce = true;
+                    
 
                 }
 
