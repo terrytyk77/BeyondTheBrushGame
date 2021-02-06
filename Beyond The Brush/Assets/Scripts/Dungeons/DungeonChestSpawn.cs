@@ -62,7 +62,7 @@ public class DungeonChestSpawn : MonoBehaviour
         //Loop the chests
         foreach (Transform child in gameObject.transform.Find("Chests"))
         {
-            if(!child.CompareTag("Finish")){
+            if(!child.CompareTag("Finish") && child.CompareTag("LightObject")){
                 chestCounter++;
             }
         }
