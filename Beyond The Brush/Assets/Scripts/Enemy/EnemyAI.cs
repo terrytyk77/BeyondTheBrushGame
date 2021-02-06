@@ -58,6 +58,7 @@ public class EnemyAI : MonoBehaviour
     private Pathfinding pathfinding;
     private List<Vector3Int> currentPath = null;
     private int pathIndex = 0;
+    private int failedFind = 0;
     //--------------||
 
     //Timer---------||
@@ -114,6 +115,7 @@ public class EnemyAI : MonoBehaviour
             default:
             case State.Patrolling:
                 {
+                    failedFind = 0;
                     if (currentPath == null)
                     {
                         getPath(GetPatrollingPosition());
@@ -147,31 +149,53 @@ public class EnemyAI : MonoBehaviour
                         // Move to Player If Not in Range for Attack
                         if (currentPath == null)
                         {
+                            failedFind++;
                             getPath(player.transform.position - new Vector3(0, player.GetComponent<BoxCollider2D>().size.y/2 * player.transform.localScale.y, 0));
                         }
                         else
                         {
-                            if(pathIndex >= 2)
+                            failedFind = 0;
+                            if (pathIndex >= 2)
                             {
                                 getPath(player.transform.position - new Vector3(0, player.GetComponent<BoxCollider2D>().size.y / 2 * player.transform.localScale.y, 0));
                             }
-                            MoveTo();
+                            else
+                            {
+                                MoveTo();
+                            }
                         }
 
                         //Check if out of range!
                         OutOfChaseRange();
 
+                        Debug.Log(failedFind);
                         //Enemy Can't get to the Player
-                        if (currentPath == null)
+                        if (failedFind >= 2)
                         {
-                            currentState = State.Resetting;
+                            if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
+                            {
+                                currentPath = null;
+                                if (enemyType == "Ranged")
+                                {
+                                    attackRange = aggroRange;
+                                    currentState = State.Castting;
+                                }
+                                else
+                                {
+                                    currentState = State.Attacking;
+                                }
+                            }
+                            else
+                            {
+                                currentState = State.Resetting;
+                            }
                         }
-
                     }
                     break;
                 }
             case State.Castting:
                 {
+                    failedFind = 0;
                     TargetDead();
 
                     Animator.SetBool("Walking", false);
@@ -181,6 +205,7 @@ public class EnemyAI : MonoBehaviour
                 }
             case State.Attacking:
                 {
+                    failedFind = 0;
                     TargetDead();
 
                     Animator.SetBool("Walking", false);
@@ -210,6 +235,7 @@ public class EnemyAI : MonoBehaviour
                 }
             case State.Resetting:
                 {
+                    failedFind = 0;
                     if (currentPath == null)
                     {
                         getPath(startingPosition);
@@ -261,6 +287,10 @@ public class EnemyAI : MonoBehaviour
             {
                 pathIndex = 0;
                 currentDestination = collisionTilemap.CellToWorld(currentPath[pathIndex]);
+            }
+            else
+            {
+                currentPath = null;
             }
         }
     }
