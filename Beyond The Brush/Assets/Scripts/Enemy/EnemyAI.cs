@@ -172,23 +172,7 @@ public class EnemyAI : MonoBehaviour
                         //Enemy Can't get to the Player
                         if (failedFind >= 2)
                         {
-                            if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
-                            {
-                                currentPath = null;
-                                if (enemyType == "Ranged")
-                                {
-                                    attackRange = aggroRange;
-                                    currentState = State.Castting;
-                                }
-                                else
-                                {
-                                    currentState = State.Attacking;
-                                }
-                            }
-                            else
-                            {
-                                currentState = State.Resetting;
-                            }
+                            currentState = State.Resetting;
                         }
                     }
                     break;
