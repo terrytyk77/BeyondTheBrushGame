@@ -16393,6 +16393,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wraith1
       objectReference: {fileID: 0}
+    - target: {fileID: 7755540974074922531, guid: bef00045b2181864db63005e6cfb6e88, type: 3}
+      propertyPath: aggroRange
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7755540974074922531, guid: bef00045b2181864db63005e6cfb6e88, type: 3}
+      propertyPath: attackRange
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bef00045b2181864db63005e6cfb6e88, type: 3}
 --- !u!4 &6852962529500713227 stripped

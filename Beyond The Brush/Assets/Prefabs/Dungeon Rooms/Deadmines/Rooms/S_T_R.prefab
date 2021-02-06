@@ -15120,6 +15120,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2774145579693851418, guid: 5cbc6539187a2c64fbd0859f8a33fa1e, type: 3}
+      propertyPath: attackRange
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2774145579693851419, guid: 5cbc6539187a2c64fbd0859f8a33fa1e, type: 3}
       propertyPath: m_Name
       value: Wraith3 (1)
@@ -15181,6 +15185,10 @@ PrefabInstance:
     - target: {fileID: 2774145579693850854, guid: 5cbc6539187a2c64fbd0859f8a33fa1e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774145579693851418, guid: 5cbc6539187a2c64fbd0859f8a33fa1e, type: 3}
+      propertyPath: attackRange
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2774145579693851419, guid: 5cbc6539187a2c64fbd0859f8a33fa1e, type: 3}
       propertyPath: m_Name
