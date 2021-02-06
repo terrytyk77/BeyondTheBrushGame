@@ -9,6 +9,8 @@ public class UIevents : MonoBehaviour
     //Variables||
 
         //room
+        public Sprite DeadMinesRoomSprite;
+        public Sprite FrostCaveRoomSprite;
         public GameObject roomPrefab;
         private Vector2Int currentRoom;
 
@@ -92,7 +94,6 @@ public class UIevents : MonoBehaviour
                 public GameObject camera;
                 public GameObject slider;
                 public GameObject mapWindow;
-                
             }
 
             public villageMinimapClass villageMinimap = new villageMinimapClass();
@@ -172,6 +173,22 @@ public class UIevents : MonoBehaviour
 
         UIsfx soundEffect;
     //_____||
+    private void Awake()
+    {
+        switch (sceneTeleport.dungeonName)
+        {
+            case "DeadMines":
+                {
+                    roomPrefab.GetComponent<Image>().sprite = DeadMinesRoomSprite;
+                    break;
+                }
+            case "FrostCave":
+                {
+                    roomPrefab.GetComponent<Image>().sprite = FrostCaveRoomSprite;
+                    break;
+                }
+        }
+    }
 
     private void Start()
     {

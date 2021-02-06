@@ -26811,6 +26811,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372ca6c81312fe54dbbba87f449c6018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeadMinesRoomSprite: {fileID: 0}
+  FrostCaveRoomSprite: {fileID: 0}
   roomPrefab: {fileID: 8476358736472857115, guid: 9d370335703470f4ca325489c6af898f, type: 3}
   usernameDisplay: {fileID: 3956660340151053817}
   mainMenu:

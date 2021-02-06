@@ -168,7 +168,6 @@ public class EnemyAI : MonoBehaviour
                         //Check if out of range!
                         OutOfChaseRange();
 
-                        Debug.Log(failedFind);
                         //Enemy Can't get to the Player
                         if (failedFind >= 2)
                         {
