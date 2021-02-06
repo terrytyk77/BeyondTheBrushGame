@@ -26874,6 +26874,7 @@ MonoBehaviour:
       resourcesHolder: {fileID: 496458885}
     confirmationWindow: {fileID: 1464809711}
   loadingNetworkPrefab: {fileID: 8106798866056110242, guid: e13012d4892d3f344a34c19416a908e2, type: 3}
+  confirmationWindowDungeon: {fileID: 0}
 --- !u!114 &1531342935
 MonoBehaviour:
   m_ObjectHideFlags: 0
