@@ -78,7 +78,7 @@ public class CurrentDungeonData : MonoBehaviour
     //Variables||
 
     //Data that won't change middle runtime
-    private int MilestoneRooms = 3;
+        private int MilestoneRooms = 3;
         public int mainVillageID = 1;       //Holds the village scene number
         public GameObject dungeonsData;     //Holds the list of all dungeons that exist (extracted from the dungeon API)
         

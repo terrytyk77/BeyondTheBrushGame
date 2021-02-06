@@ -1208,6 +1208,8 @@ public class UIevents : MonoBehaviour
     //Handle leave dungeon functions||
 
         public void acceptLeave(){
+            GameObject dungeonData = GameObject.FindGameObjectWithTag("proceduralData");
+            DontDestroyOnLoad(dungeonData); 
             soundEffect.playClick();    //Clicking sound effect
             confirmationWindowDungeon.SetActive(false);
             sceneTeleport.start(1);

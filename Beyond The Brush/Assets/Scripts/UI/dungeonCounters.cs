@@ -33,8 +33,11 @@ public class dungeonCounters : MonoBehaviour
         private IEnumerator deathsCoroutine;
     //__________||
 
-    private void Start()
+    private void OnEnable()
     {
+
+        
+
         //Add listeners to the add events
         CurrentDungeonData.onChestCollect += addedChestAnim;
         CurrentDungeonData.onRoomComplete += addedRoomAnim;
@@ -54,11 +57,28 @@ public class dungeonCounters : MonoBehaviour
         chestsPos = chestLabel.transform.position;
         roomsPos = roomLabel.transform.position;
         deathsPos = deathLabel.transform.position;
+
+        chestsCoroutine = null;
+        roomsCoroutine = null;
+        deathsCoroutine = null;
+
+        
+    }
+
+    private void OnDestroy()
+    {
+        //Remove listeners to the add events
+        CurrentDungeonData.onChestCollect -= addedChestAnim;
+        CurrentDungeonData.onRoomComplete -= addedRoomAnim;
+        CurrentDungeonData.onDeath -= addedDeathAnim;
     }
 
     private void addedChestAnim(int amount){
         if (chestsCoroutine != null)
             StopCoroutine(chestsCoroutine);
+
+        if (chestLabel == null)
+            chestLabel = gameObject.transform.Find("ChestsHolder").Find("AmountLabel").gameObject;
 
         chestLabel.transform.position = chestsPos;
         chestsCoroutine = addAnimation(chestLabel, chestsPos, amount.ToString());
@@ -69,14 +89,22 @@ public class dungeonCounters : MonoBehaviour
         if (deathsCoroutine != null)
             StopCoroutine(deathsCoroutine);
 
+        if (deathLabel == null)
+            deathLabel = gameObject.transform.Find("DeathsHolder").Find("AmountLabel").gameObject;
+
         deathLabel.transform.position = deathsPos;
         deathsCoroutine = addAnimation(deathLabel, deathsPos, amount.ToString());
         StartCoroutine(deathsCoroutine);
     }
 
     private void addedRoomAnim(int amount){
+
+
         if (roomsCoroutine != null)
             StopCoroutine(roomsCoroutine);
+
+        if(roomLabel == null)
+            roomLabel = gameObject.transform.Find("RoomsHolder").Find("AmountLabel").gameObject;
 
         roomLabel.transform.position = roomsPos;
         roomsCoroutine = addAnimation(roomLabel, roomsPos, amount.ToString());
