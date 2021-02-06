@@ -12,7 +12,7 @@ public class CameraBehavior : MonoBehaviour
         private Vector3 cameraGoal;
 
         //player
-        private float cameraPercentageLimit = 0.2f;
+        private float cameraPercentageLimit = 0.15f;
         private float cameraSpeed = 3.4f;
 
     //_________||
