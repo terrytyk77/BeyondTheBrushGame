@@ -26107,7 +26107,7 @@ MonoBehaviour:
   m_FillSizing: 0
   m_MinWidth: 0
   m_MaxWidth: 100
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_Steps: 0
   onChange:
     m_PersistentCalls:
@@ -26892,6 +26892,7 @@ MonoBehaviour:
   background: {fileID: 3956660339333757018}
   loadingScreen: {fileID: 3956660340091669202}
   loadingBar: {fileID: 3956660340333278364}
+  loadingBarFill: {fileID: 3956660339661751004}
 --- !u!114 &1772465093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26924,7 +26925,7 @@ MonoBehaviour:
   milestoneReached: {fileID: 8300000, guid: 1e5d4a81abb573741861b75ca2e80fdf, type: 3}
   slashSFX: {fileID: 8300000, guid: a0869f60a1e6d1f43a811a3bb2d70b81, type: 3}
   xSlashSFX: {fileID: 8300000, guid: f6da63b4445e27f43af80ae81e87dbbb, type: 3}
-  shieldSFX: {fileID: 8300000, guid: f818886ae8d378b499975bde364067fe, type: 3}
+  shieldSFX: {fileID: 8300000, guid: 75da962af45c3dc40be856b25c09144b, type: 3}
   rock: {fileID: 8300000, guid: 4b3dd6e98a5f28a459ad0626aae756ed, type: 3}
   box: {fileID: 8300000, guid: 7448a95a7e4a30d4fb532e9292673945, type: 3}
 --- !u!114 &1381534487

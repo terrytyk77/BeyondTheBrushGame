@@ -37,6 +37,11 @@ public class PlayerMovement : MonoBehaviour
         private const KeyCode leftKey = KeyCode.A;
     //_________________||
 
+    private void Awake()
+    {
+        Time.timeScale = 1;
+    }
+
     void Start()
     {   
         //Set the basic stuff for the player||

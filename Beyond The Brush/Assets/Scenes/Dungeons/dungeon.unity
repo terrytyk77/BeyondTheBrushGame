@@ -1808,6 +1808,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3956660340091669202, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3956660340270726277, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1828,10 +1832,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3956660340777269614, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
-      propertyPath: shieldSFX
-      value: 
-      objectReference: {fileID: 8300000, guid: 75da962af45c3dc40be856b25c09144b, type: 3}
+    - target: {fileID: 3956660340333278352, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3956660341335235841, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_Name
       value: MainUI

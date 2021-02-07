@@ -478,6 +478,7 @@ MonoBehaviour:
   background: {fileID: 1983214122}
   loadingScreen: {fileID: 1525757424}
   loadingBar: {fileID: 395326836}
+  loadingBarFill: {fileID: 273771042}
 --- !u!1 &88774302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,7 +1179,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -9099,7 +9100,7 @@ MonoBehaviour:
   m_FillSizing: 0
   m_MinWidth: 0
   m_MaxWidth: 100
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_Steps: 0
   onChange:
     m_PersistentCalls:
