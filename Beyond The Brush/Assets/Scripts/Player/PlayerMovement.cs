@@ -130,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
         //Fix animations||
 
             if(playerHorizontal.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("AttackSide") || playerHorizontal.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("ShieldSide"))
-        {
+            {
                 //The animation is on
                 justEndedBasicSlash = true;
             }else{
@@ -138,6 +138,8 @@ public class PlayerMovement : MonoBehaviour
                 if(justEndedBasicSlash){
                     justEndedBasicSlash = false;
                     playerVertical.GetComponent<Animator>().Rebind();
+                    playerVertical.GetComponent<Animator>().SetBool("Moving", true);
+                    playerHorizontal.GetComponent<Animator>().SetBool("Moving", true);
                 }
             }
         //______________||

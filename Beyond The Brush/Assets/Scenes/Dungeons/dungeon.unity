@@ -1812,6 +1812,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3956660340091669202, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_TagString
+      value: LoadingScreen
+      objectReference: {fileID: 0}
     - target: {fileID: 3956660340270726277, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1833,8 +1837,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3956660340333278352, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3956660340333278352, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_FillAmount
-      value: 1
+      value: 0.983
       objectReference: {fileID: 0}
     - target: {fileID: 3956660341335235841, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
       propertyPath: m_Name
@@ -2016,7 +2024,9 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UIevents, Assembly-CSharp
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3956660339661750994, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
+    - {fileID: 3956660340333278352, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 64cebca90458e7e45b7271cd14b3d565, type: 3}
 --- !u!1 &3956660340777269612 stripped
 GameObject:
